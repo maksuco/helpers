@@ -5,6 +5,7 @@ This package helps manage analytics and counts.
 
 ## Installation
 
+This packages requires Spatie/Analytics
 You can install the package via composer:
 ``` bash
 $ composer require maksuco/getanalitycs
