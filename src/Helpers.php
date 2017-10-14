@@ -128,7 +128,7 @@ class Helpers
 	function reports($biz_id,$table,$date,$sum) {
 	
 		$results = [];
-		$resultsDB = DB::table($table)->where('biz_id', $biz_id);
+		$resultsDB = \DB::table($table)->where('biz_id', $biz_id);
 
 		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
 			$resultsDB->where('client_id', $_GET['client_id']);
