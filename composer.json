@@ -1,10 +1,10 @@
 {
-    "name": "maksuco/getanalitycs",
+    "name": "maksuco/helpers",
     "description": "Get visits, pageviews etc",
     "keywords": [
         "maksuco",
         "avatar",
-        "laravel-getanalitycs"
+        "laravel-helpers"
     ],
     "type": "laravel",
     "license": "MIT",
@@ -19,16 +19,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Maksuco\\GetAnalitycs\\": "src"
+            "Maksuco\\helpers\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Maksuco\\GetAnalitycs\\GetAnalitycsServiceProvider"
+                "Maksuco\\Helpers\\HelpersServiceProvider"
             ],
             "aliases": {
-                "GetAnalitycs": "Maksuco\\GetAnalitycs\\Facades\\GetAnalitycs"
+                "Helpers": "Maksuco\\Helpers\\Facades\\Helpers"
             }
         }
     }
