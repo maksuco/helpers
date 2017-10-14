@@ -17,7 +17,7 @@ This Package works with autodiscovery in Laravel +5.5, but is compatible with ol
 ## Usage
 
 
-Get the dates from today minus....
+Analytics:Get the dates from today minus....
 $period = 'month','day','year','all'
 $period2 = 1,2,3, etc..
 
@@ -28,7 +28,7 @@ $period2 = 1,2,3, etc..
 ```
 
 
-Get the visits and pageviews
+Analytics:Get the visits and pageviews
 $path = /someurl/blogname
 
 ```php
@@ -38,7 +38,7 @@ $path = /someurl/blogname
 ```
 
 
-Get the visits and pageviews for Charts
+Analytics:Get the visits and pageviews for Charts
 $path = /someurl/blogname
 return [$visitors,$pageviews,$labels];
 
@@ -49,7 +49,7 @@ return [$visitors,$pageviews,$labels];
 ```
 
 
-Get the visits and pageviews for Charts
+Analytics:Get the visits and pageviews for Charts
 
 ```php
 
@@ -63,6 +63,14 @@ Get the $count and $sum of 2 fields per table, the date field is the one to be u
 ```php
 
   \Helpers::reports($biz_id,$table,$date,$sum);
+  
+```
+
+Get data for a chartxxxx
+
+```php
+
+  \Helpers::xxxxx($biz_id,$table,$date,$sum);
   
 ```
 
