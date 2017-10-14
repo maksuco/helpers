@@ -1,10 +1,10 @@
 <?php
 
-namespace Maksuco\helpers\Facades;
+namespace Maksuco\Helpers\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class helpers extends Facade
+class Helpers extends Facade
 {
     protected static function getFacadeAccessor()
     {
