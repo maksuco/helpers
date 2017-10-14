@@ -58,6 +58,15 @@ Get the visits and pageviews for Charts
 ```
 
 
+Get the $count and $sum of 2 fields per table
+
+```php
+
+  \Helpers::reports($biz_id,$table,$count,$sum);
+  
+```
+
+
 ## Security
 
 If you discover any security related issues, please report it.
