@@ -5,12 +5,12 @@ This package helps manage analytics and counts.
 
 ## Installation
 
-This packages requires Spatie/Analytics
+This packages requires Spatie/Analytics for the charts
 You can install the package via composer:
 ``` bash
-$ composer require maksuco/getanalitycs
+$ composer require maksuco/Helpers
 OR
-$ composer require maksuco/getanalitycs:dev-master
+$ composer require maksuco/Helpers:dev-master
 ```
 This Package works with autodiscovery in Laravel +5.5, but is compatible with older versions
 
@@ -23,7 +23,7 @@ $period2 = 1,2,3, etc..
 
 ```php
 
-  \GetAnalitycs::period($period,$period2);
+  \Helpers::period($period,$period2);
 
 ```
 
@@ -33,7 +33,7 @@ $path = /someurl/blogname
 
 ```php
 
-  \GetAnalitycs::counter($period,$period2,$path);
+  \Helpers::counter($period,$period2,$path);
 
 ```
 
@@ -44,7 +44,7 @@ return [$visitors,$pageviews,$labels];
 
 ```php
 
-  \GetAnalitycs::chart($period,$period2,$path);
+  \Helpers::chart($period,$period2,$path);
   
 ```
 
@@ -53,7 +53,7 @@ Get the visits and pageviews for Charts
 
 ```php
 
-  \GetAnalitycs::charts($data1);
+  \Helpers::charts($data1);
   
 ```
 
