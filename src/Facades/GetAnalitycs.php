@@ -1,13 +1,13 @@
 <?php
 
-namespace Maksuco\GetAnalitycs\Facades;
+namespace Maksuco\helpers\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class GetAnalitycs extends Facade
+class helpers extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return ('maksuco-getanalitycs');
+        return ('maksuco-helpers');
     }
 }
