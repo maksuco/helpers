@@ -123,4 +123,48 @@ class GetAnalitycs
 		$lastyear = $data->filter(function($data1){ return $data1->created_at->format('y') == Carbon::now()->subYear()->format('y'); });
 	
 	}
+	
+	
+	function reports($biz_id,$table,$date,$value) {
+	
+		$results = [];
+		$resultsDB = DB::table($table)->where('biz_id', $biz_id);
+
+		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
+			$resultsDB->where('client_id', $_GET['client_id']);
+		}
+
+		$month = clone $resultsDB;
+		$lastmonth = clone $resultsDB;
+		$lastyear = clone $resultsDB;
+		$year = clone $resultsDB;
+		$dates_filtered = clone $resultsDB;
+
+		if(isset($_GET['date_from'])) {
+			$dates_filtered->whereDate($date, '>', $_GET['date_from']);
+		}
+		if(isset($_GET['date_to'])) {
+			$dates_filtered->whereDate($date, '<', $_GET['date_to']);
+		}
+		$results['results'] = $dates_filtered->count();
+		$results['results_sum'] = $dates_filtered->sum($value);
+
+		$month = $month->whereMonth($date, \Carbon::now()->format('m'));
+		$lastmonth = $lastmonth->whereMonth($date, \Carbon::now()->firstOfMonth()->subMonth()->format('m'));
+		$year = $year->whereYear($date, \Carbon::now()->format('Y'));
+		$lastyear = $lastyear->whereYear($date, \Carbon::now()->subYear()->format('Y'));
+
+		$results['month'] = $month->count();
+		$results['month_sum'] = $month->sum($value);
+		$results['lastmonth'] = $lastmonth->count();
+		$results['lastmonth_sum'] = $lastmonth->sum($value);
+		$results['year'] = $year->count();
+		$results['year_sum'] = $year->sum($value);
+		$results['lastyear'] = $lastyear->count();
+		$results['lastyear_sum'] = $lastyear->sum($value);
+		$results['total'] = $resultsDB->count();
+		$results['total_sum'] = $resultsDB->sum($value);
+		
+    	return $results;
+	}
 }
