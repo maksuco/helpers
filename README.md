@@ -58,11 +58,11 @@ Get the visits and pageviews for Charts
 ```
 
 
-Get the $count and $sum of 2 fields per table
+Get the $count and $sum of 2 fields per table, the date field is the one to be used, example: created_at
 
 ```php
 
-  \Helpers::reports($biz_id,$table,$count,$sum);
+  \Helpers::reports($biz_id,$table,$date,$sum);
   
 ```
 
