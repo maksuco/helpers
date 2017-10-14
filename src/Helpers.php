@@ -125,7 +125,7 @@ class Helpers
 	}
 	
 	
-	function reports($biz_id,$table,$date,$value) {
+	function reports($biz_id,$table,$date,$sum) {
 	
 		$results = [];
 		$resultsDB = DB::table($table)->where('biz_id', $biz_id);
@@ -147,7 +147,7 @@ class Helpers
 			$dates_filtered->whereDate($date, '<', $_GET['date_to']);
 		}
 		$results['results'] = $dates_filtered->count();
-		$results['results_sum'] = $dates_filtered->sum($value);
+		$results['results_sum'] = $dates_filtered->sum($sum);
 
 		$month = $month->whereMonth($date, \Carbon::now()->format('m'));
 		$lastmonth = $lastmonth->whereMonth($date, \Carbon::now()->firstOfMonth()->subMonth()->format('m'));
@@ -155,15 +155,15 @@ class Helpers
 		$lastyear = $lastyear->whereYear($date, \Carbon::now()->subYear()->format('Y'));
 
 		$results['month'] = $month->count();
-		$results['month_sum'] = $month->sum($value);
+		$results['month_sum'] = $month->sum($sum);
 		$results['lastmonth'] = $lastmonth->count();
-		$results['lastmonth_sum'] = $lastmonth->sum($value);
+		$results['lastmonth_sum'] = $lastmonth->sum($sum);
 		$results['year'] = $year->count();
-		$results['year_sum'] = $year->sum($value);
+		$results['year_sum'] = $year->sum($sum);
 		$results['lastyear'] = $lastyear->count();
-		$results['lastyear_sum'] = $lastyear->sum($value);
+		$results['lastyear_sum'] = $lastyear->sum($sum);
 		$results['total'] = $resultsDB->count();
-		$results['total_sum'] = $resultsDB->sum($value);
+		$results['total_sum'] = $resultsDB->sum($sum);
 		
     	return $results;
 	}
