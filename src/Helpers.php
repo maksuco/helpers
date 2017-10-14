@@ -1,8 +1,8 @@
 <?php
 
-namespace Maksuco\GetAnalitycs;
+namespace Maksuco\Helpers;
 
-class GetAnalitycs
+class Helpers
 {
   //GetAvatar
   
