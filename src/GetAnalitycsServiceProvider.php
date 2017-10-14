@@ -1,10 +1,10 @@
 <?php
 
-namespace Maksuco\GetAnalitycs;
+namespace Maksuco\Helpers;
 
 use Illuminate\Support\ServiceProvider;
 
-class GetAnalitycsServiceProvider extends ServiceProvider
+class HelpersServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -23,8 +23,8 @@ class GetAnalitycsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('maksuco-getanalitycs', function () {
-          return new GetAnalitycs();
+        $this->app->bind('maksuco-helpers', function () {
+          return new Helpers();
         });
     }
 }
