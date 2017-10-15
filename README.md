@@ -1,4 +1,4 @@
-# Analytics Helpers
+# Helpers
 
 This package helps manage analytics and counts.
 
@@ -16,6 +16,7 @@ This Package works with autodiscovery in Laravel +5.5, but is compatible with ol
 
 ## Usage
 
+# Analytics Helpers
 
 Analytics:Get the dates from today minus....
 $period = 'month','day','year','all'
@@ -58,6 +59,8 @@ Analytics:Get the visits and pageviews for Charts
 ```
 
 
+# Reports
+
 Get the $count and $sum of 2 fields per table, the date field is the one to be used, example: created_at
 
 ```php
@@ -71,6 +74,17 @@ Get data for a chartxxxx
 ```php
 
   \Helpers::xxxxx($biz_id,$table,$date,$sum);
+  
+```
+
+
+# Device check
+
+Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile
+
+```php
+
+  \Helpers::agent($mobile,$table,$desktop);
   
 ```
 
