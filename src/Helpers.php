@@ -184,9 +184,11 @@ class Helpers
 		}
 
 		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$field.') as total'), \DB::raw('count(id) as count'))->groupBy(\DB::raw('date'))->get();
-		$results['dates'] = $data->pluck('date');
-		$results['totals'] = $data->pluck('total');
-		$results['counts'] = $data->pluck('count');
+		$results['total_sum'] = $data->sum('total');
+		$results['total_count'] = $data->sum('count');
+		$results['date'] = $data->pluck('date');
+		$results['sum'] = $data->pluck('total');
+		$results['count'] = $data->pluck('count');
 		return $results;
 	}
 
