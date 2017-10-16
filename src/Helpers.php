@@ -4,7 +4,7 @@ namespace Maksuco\Helpers;
 
 class Helpers
 {
-  //GetAvatar
+  //analytics
   
 	function period($period,$period2) {
 	    if($period == 'month') {
@@ -167,7 +167,31 @@ class Helpers
 		
     	return $results;
 	}
+
+	function reports_chart($biz_id,$table,$date,$field) {
+		
+		$results = [];
+		$resultsDB = \DB::table($table);
+
+		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
+			$resultsDB->where('client_id', $_GET['client_id']);
+		}
+		if(isset($_GET['date_from'])) {
+			$resultsDB->whereDate($date, '>', $_GET['date_from']);
+		}
+		if(isset($_GET['date_to'])) {
+			$resultsDB->whereDate($date, '<', $_GET['date_to']);
+		}
+
+		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$field.') as total'), \DB::raw('count(id) as count'))->groupBy(\DB::raw('date'))->get();
+		$results['dates'] = $data->pluck('date');
+		$results['totals'] = $data->pluck('total');
+		$results['counts'] = $data->pluck('count');
+		return $results;
+	}
+
 	
+	//OTHER HELPERS
 	function agent($mobile,$tablet,$desktop) {
 	    $agent = $_SERVER["HTTP_USER_AGENT"];
 	    if(preg_match("/(ipad|tablet)/i", $agent)) {
