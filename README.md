@@ -73,8 +73,8 @@ Get data for a chart Report, same as before, but this returns 'dates','totals' a
 
 ```php
 
-  \Helpers::reports_chart($biz_id,$table,$date,$field);
-  
+  $chart = \Helpers::reports_chart($biz_id,$table,$date,$field);
+  {!! $chart['totals'] !!}
   
 ```
 
@@ -85,8 +85,8 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
 
 ```php
 
-  $chart = \Helpers::agent($mobile,$table,$desktop);
-  {!! $chart['totals'] !!}
+  \Helpers::agent($mobile,$table,$desktop);
+  
   
 ```
 
