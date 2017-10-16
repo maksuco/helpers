@@ -69,12 +69,12 @@ Get the $count and $sum of 2 fields per table, the date field is the one to be u
   
 ```
 
-Get data for a chart Report, same as before, but this returns 'dates','totals' and 'counts' so you can use it in charts datasets
+Get data for a chart Report, same as before, but this returns 'total_sum', 'total_count', 'date', 'sum' and 'count' so you can use it in charts datasets
 
 ```php
 
   $chart = \Helpers::reports_chart($biz_id,$table,$date,$field);
-  {!! $chart['totals'] !!}
+  {!! $chart['sum'] !!}
   
 ```
 
