@@ -176,14 +176,14 @@ class Helpers
 		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
 			$resultsDB->where('client_id', $_GET['client_id']);
 		}
-		if(isset($_GET['date_from'])) {
+		if(isset($_GET['date_from']) AND !empty($_GET['date_from'])) {
 			$resultsDB->whereDate($date, '>', $_GET['date_from']);
 		}
-		if(isset($_GET['date_to'])) {
+		if(isset($_GET['date_to']) AND !empty($_GET['date_from'])) {
 			$resultsDB->whereDate($date, '<', $_GET['date_to']);
 		}
 
-		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$field.') as total'), \DB::raw('count(id) as count'))->groupBy(\DB::raw('date'))->get();
+		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$field.') as total'), \DB::raw('count(id) as count'))->groupBy(\DB::raw($date))->get();
 		$results['total_sum'] = $data->sum('total');
 		$results['total_count'] = $data->sum('count');
 		$results['date'] = $data->pluck('date');
