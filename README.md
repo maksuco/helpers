@@ -69,11 +69,12 @@ Get the $count and $sum of 2 fields per table, the date field is the one to be u
   
 ```
 
-Get data for a chartxxxx
+Get data for a chart Report, same as before, but this returns 'dates','totals' and 'counts' so you can use it in charts datasets
 
 ```php
 
-  \Helpers::xxxxx($biz_id,$table,$date,$sum);
+  \Helpers::reports_chart($biz_id,$table,$date,$field);
+  
   
 ```
 
@@ -84,7 +85,8 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
 
 ```php
 
-  \Helpers::agent($mobile,$table,$desktop);
+  $chart = \Helpers::agent($mobile,$table,$desktop);
+  {!! $chart['totals'] !!}
   
 ```
 
