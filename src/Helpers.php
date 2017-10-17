@@ -124,7 +124,7 @@ class Helpers
 	
 	}
 	
-	
+	//I think is better to cretae a reports_total and divide this and also implement in invoices.blade
 	function reports($biz_id,$table,$date,$sum) {
 	
 		$results = [];
@@ -140,10 +140,10 @@ class Helpers
 		$year = clone $resultsDB;
 		$dates_filtered = clone $resultsDB;
 
-		if(isset($_GET['date_from'])) {
+		if(!empty($_GET['date_from'])) {
 			$dates_filtered->whereDate($date, '>', $_GET['date_from']);
 		}
-		if(isset($_GET['date_to'])) {
+		if(!empty($_GET['date_to'])) {
 			$dates_filtered->whereDate($date, '<', $_GET['date_to']);
 		}
 		$results['results'] = $dates_filtered->count();
@@ -168,26 +168,15 @@ class Helpers
     	return $results;
 	}
 
-	function reports_chart($biz_id,$table,$date,$field) {
+	function reports_chart($resultsDB,$date,$sum,$sum2) {
 		
 		$results = [];
-		$resultsDB = \DB::table($table);
-
-		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
-			$resultsDB->where('client_id', $_GET['client_id']);
-		}
-		if(isset($_GET['date_from']) AND !empty($_GET['date_from'])) {
-			$resultsDB->whereDate($date, '>', $_GET['date_from']);
-		}
-		if(isset($_GET['date_to']) AND !empty($_GET['date_from'])) {
-			$resultsDB->whereDate($date, '<', $_GET['date_to']);
-		}
-
-		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$field.') as total'), \DB::raw('count(id) as count'))->groupBy(\DB::raw($date))->get();
+		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$sum.') as total'), \DB::raw('sum('.$sum2.') as sum2'), \DB::raw('count(id) as count'))->groupBy(\DB::raw($date))->get();
 		$results['total_sum'] = $data->sum('total');
 		$results['total_count'] = $data->sum('count');
 		$results['date'] = $data->pluck('date');
 		$results['sum'] = $data->pluck('total');
+		$results['sum2'] = $data->pluck('sum2');
 		$results['count'] = $data->pluck('count');
 		return $results;
 	}
