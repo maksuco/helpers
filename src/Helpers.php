@@ -161,7 +161,7 @@ class Helpers
 		$results['lastmonth'] = $lastmonth->count();
 		$results['lastmonth_sum'] = $lastmonth->sum($sum);
 		$results['lastmonth2'] = $lastmonth2->count();
-		$results['lastmonth_sum2'] = $lastmonth2->sum($sum);
+		$results['lastmonth2_sum'] = $lastmonth2->sum($sum);
 		$results['year'] = $year->count();
 		$results['year_sum'] = $year->sum($sum);
 		$results['lastyear'] = $lastyear->count();
