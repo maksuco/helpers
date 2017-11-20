@@ -136,6 +136,7 @@ class Helpers
 
 		$month = clone $resultsDB;
 		$lastmonth = clone $resultsDB;
+		$lastmonth2 = clone $resultsDB;
 		$lastyear = clone $resultsDB;
 		$year = clone $resultsDB;
 		$dates_filtered = clone $resultsDB;
@@ -151,6 +152,7 @@ class Helpers
 
 		$month = $month->whereMonth($date, \Carbon::now()->format('m'));
 		$lastmonth = $lastmonth->whereMonth($date, \Carbon::now()->firstOfMonth()->subMonth()->format('m'));
+		$lastmonth2 = $lastmonth2->whereMonth($date, \Carbon::now()->firstOfMonth()->subMonth(2)->format('m'));
 		$year = $year->whereYear($date, \Carbon::now()->format('Y'));
 		$lastyear = $lastyear->whereYear($date, \Carbon::now()->subYear()->format('Y'));
 
@@ -158,6 +160,8 @@ class Helpers
 		$results['month_sum'] = $month->sum($sum);
 		$results['lastmonth'] = $lastmonth->count();
 		$results['lastmonth_sum'] = $lastmonth->sum($sum);
+		$results['lastmonth2'] = $lastmonth2->count();
+		$results['lastmonth_sum2'] = $lastmonth2->sum($sum);
 		$results['year'] = $year->count();
 		$results['year_sum'] = $year->sum($sum);
 		$results['lastyear'] = $lastyear->count();
