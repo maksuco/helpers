@@ -133,6 +133,10 @@ class Helpers
 		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
 			$resultsDB->where('client_id', $_GET['client_id']);
 		}
+		
+		if(isset($_GET['currency'])) {
+			$resultsDB->where('currency', $_GET['currency']);
+		}
 
 		$month = clone $resultsDB;
 		$lastmonth = clone $resultsDB;
