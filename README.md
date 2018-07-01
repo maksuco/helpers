@@ -90,7 +90,7 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
   
 ```
 
-# AVATAR
+# Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.
 
@@ -105,7 +105,7 @@ In your env file specify "SHOWAVATAR_PATH"
 ```
 
 
-# CRYPTO
+# Crypto
 
 Here's an example of how to implement crypto to transform strings to hashed keys, using 2 security keys (one set in the .env and another inside the controller, example the $user->id):
 
@@ -118,7 +118,7 @@ Here's an example of how to implement crypto to transform strings to hashed keys
 
 ```
 
-# SLUGS
+# Slugs
 
 Here's an example of how to implement the slug function to transform names to slugs:
 
