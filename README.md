@@ -16,69 +16,6 @@ This Package works with autodiscovery in Laravel +5.5, but is compatible with ol
 
 ## Usage
 
-# Analytics Helpers
-
-Analytics:Get the dates from today minus....
-$period = 'month','day','year','all'
-$period2 = 1,2,3, etc..
-
-```php
-
-  \Helpers::period($period,$period2);
-
-```
-
-
-Analytics:Get the visits and pageviews
-$path = /someurl/blogname
-
-```php
-
-  \Helpers::counter($period,$period2,$path);
-
-```
-
-
-Analytics:Get the visits and pageviews for Charts
-$path = /someurl/blogname
-return [$visitors,$pageviews,$labels];
-
-```php
-
-  \Helpers::chart($period,$period2,$path);
-  
-```
-
-
-Analytics:Get the visits and pageviews for Charts
-
-```php
-
-  \Helpers::charts($data1);
-  
-```
-
-
-# Reports
-
-Get the $count and $sum of 2 fields per table, the date field is the one to be used, example: created_at
-
-```php
-
-  \Helpers::reports($biz_id,$table,$date,$sum);
-  
-```
-
-Get data for a chart Report, same as before, but this returns 'total_sum', 'total_count', 'date', 'sum' and 'count' so you can use it in charts datasets
-
-```php
-
-  $chart = \Helpers::reports_chart($biz_id,$table,$date,$field);
-  {!! $chart['sum'] !!}
-  
-```
-
-
 # Device check: Mobile, Tables, Desktop
 
 Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile
@@ -169,6 +106,71 @@ Here's an example of how to implement the random function, Adds random at the en
   //SomeFile-hv8
 
 ```
+
+
+# Analytics Helpers
+
+Analytics:Get the dates from today minus....
+$period = 'month','day','year','all'
+$period2 = 1,2,3, etc..
+
+```php
+
+  \Helpers::period($period,$period2);
+
+```
+
+
+Analytics:Get the visits and pageviews
+$path = /someurl/blogname
+
+```php
+
+  \Helpers::counter($period,$period2,$path);
+
+```
+
+
+Analytics:Get the visits and pageviews for Charts
+$path = /someurl/blogname
+return [$visitors,$pageviews,$labels];
+
+```php
+
+  \Helpers::chart($period,$period2,$path);
+  
+```
+
+
+Analytics:Get the visits and pageviews for Charts
+
+```php
+
+  \Helpers::charts($data1);
+  
+```
+
+
+# Reports
+
+Get the $count and $sum of 2 fields per table, the date field is the one to be used, example: created_at
+
+```php
+
+  \Helpers::reports($biz_id,$table,$date,$sum);
+  
+```
+
+Get data for a chart Report, same as before, but this returns 'total_sum', 'total_count', 'date', 'sum' and 'count' so you can use it in charts datasets
+
+```php
+
+  $chart = \Helpers::reports_chart($biz_id,$table,$date,$field);
+  {!! $chart['sum'] !!}
+  
+```
+
+
 
 
 ## Security
