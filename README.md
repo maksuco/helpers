@@ -79,7 +79,7 @@ Get data for a chart Report, same as before, but this returns 'total_sum', 'tota
 ```
 
 
-# Device check
+# Device check: Mobile, Tables, Desktop
 
 Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile
 
@@ -88,6 +88,101 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
   \Helpers::agent($mobile,$table,$desktop);
   
   
+```
+
+# AVATAR
+
+This function helps you show the user avatar or the gravatar, just send the user array or email.
+
+In your env file specify "SHOWAVATAR_PATH"
+
+```php
+
+  $slug = \Helpers::avatar($user);
+  OR
+  $slug = \Helpers::avatar($user->email);
+
+```
+
+
+# CRYPTO
+
+Here's an example of how to implement crypto to transform strings to hashed keys, using 2 security keys (one set in the .env and another inside the controller, example the $user->id):
+
+```php
+
+  BEFORE
+  $security = Helpers::encrypt($string,$key);
+  AFTER
+  $string = Helpers::decrypt($security,$key);
+
+```
+
+# SLUGS
+
+Here's an example of how to implement the slug function to transform names to slugs:
+
+```php
+
+  $slug = \Helpers::slug('Hi how are you? Muy@#$%^&*good');
+  //hi-how-are-you-muy-good
+  OR
+  $slug = \Helpers::slug($name);
+
+```
+
+Here's an example of how to implement the file function to transform file names, the second argument specifies a random addon at the end
+
+```php
+
+  $slug = \Helpers::slug_file('Hi how are you? Muy@#$%^&*good.jpg',0);
+  //hi-how-are-you-muy-good.jpg
+  OR
+  $slug = \Helpers::slug_file($file->getClientOriginalName(),5);
+  //hi-how-are-you-muy-good-hj567.jpg
+  OR
+  $slug = \Helpers::slug_file($filename,'great-doc');
+  //hi-how-are-you-muy-good-great-doc.pdf
+
+```
+
+Here's an example of how to implement the filename function, in this function you can specify the new filename and use the same extension
+
+```php
+
+  $slug = \Helpers::slug_filename('SomeFile@#$%^&*good.png','main-image',0);
+  //main-image.ext
+  OR
+  $slug = \Helpers::slug_filename($file->getorriginalname(),'main-image',2);
+  //main-image-9i.ext
+  OR
+  $slug = \Helpers::slug_filename($file,'one','great-images');
+  //one-great-images.png
+
+```
+
+Here's an example of how to implement the random function, in this function you can specify the new filename and use the same extension
+
+```php
+
+  $slug = \Helpers::slug_filename('SomeFile@#$%^&*good.png','main-image',0);
+  //main-image.ext
+  OR
+  $slug = \Helpers::slug_filename($file->getorriginalname(),'main-image',2);
+  //main-image-9i.ext
+  OR
+  $slug = \Helpers::slug_filename($file,'one','great-images');
+  //one-great-images.png
+
+```
+
+
+Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
+```php
+
+  $slug = \Helpers::slug_random('SomeFile');
+  //SomeFile-hv8
+
 ```
 
 
