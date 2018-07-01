@@ -161,21 +161,6 @@ Here's an example of how to implement the filename function, in this function yo
 
 ```
 
-Here's an example of how to implement the random function, in this function you can specify the new filename and use the same extension
-
-```php
-
-  $slug = \Helpers::slug_filename('SomeFile@#$%^&*good.png','main-image',0);
-  //main-image.ext
-  OR
-  $slug = \Helpers::slug_filename($file->getorriginalname(),'main-image',2);
-  //main-image-9i.ext
-  OR
-  $slug = \Helpers::slug_filename($file,'one','great-images');
-  //one-great-images.png
-
-```
-
 
 Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
 ```php
