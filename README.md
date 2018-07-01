@@ -18,7 +18,7 @@ This Package works with autodiscovery in Laravel +5.5, but is compatible with ol
 
 # Device check: Mobile, Tables, Desktop
 
-Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile
+Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile OR ('mobile','mobile','desktop')
 
 ```php
 
