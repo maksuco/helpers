@@ -83,12 +83,12 @@ Here's an example of how to implement the file function to transform file names,
 
 ```
 
-Here's an example of how to implement the filename function, in this function you can specify the new filename and use the same extension
+Here's an example of how to implement the filename function, in this function you can specify a new filename (REPLACE)   (REPLACE) and use the same extension
 
 ```php
 
-  $slug = \Helpers::slug_filename('SomeFile@#$%^&*good.png','main-image',0);
-  //main-image.ext
+  $slug = \Helpers::slug_filename('SomeFile.jpg','new-image',0);
+  //new-image.jpg
   OR
   $slug = \Helpers::slug_filename($file->getorriginalname(),'main-image',2);
   //main-image-9i.ext
