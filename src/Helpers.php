@@ -29,7 +29,7 @@ class Helpers
       $gravatar = md5(strtolower(trim($avatar)));
       $fallback = env('SHOWAVATAR_PATH').'avatar.png';
       return "https://s.gravatar.com/avatar/$gravatar?d=".$fallback;
-    }
+    } else { return env('SHOWAVATAR_PATH').'avatar.png'; }
    }
 	
 	//CRYPTO
