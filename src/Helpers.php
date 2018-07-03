@@ -18,6 +18,7 @@ class Helpers
 	
   //GetAvatar
   function avatar($user) {
+   if(!empty($user) OR $user != null) {
     if(!is_string($user)) {
       if(!empty($user->avatar) OR $user->avatar != NULL) {
         return env('SHOWAVATAR_PATH').$user->avatar;
@@ -28,7 +29,8 @@ class Helpers
       $gravatar = md5(strtolower(trim($avatar)));
       $fallback = env('SHOWAVATAR_PATH').'avatar.png';
       return "https://s.gravatar.com/avatar/$gravatar?d=".$fallback;
-  }
+    }
+   }
 	
 	//CRYPTO
 	function encrypt($string,$key) {
