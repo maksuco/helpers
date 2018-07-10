@@ -107,6 +107,27 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
+# Location
+
+Get the county, language and other data from the IP:
+
+```php
+
+  $slug = \Helpers::location($ip);]
+
+```
+
+# Link
+
+Check if a domain doesnt have the http and add's it:
+
+```php
+
+  $slug = \Helpers::link($account->domain);
+  //http://somedomain.com
+
+```
+
 
 # Analytics Helpers
 
