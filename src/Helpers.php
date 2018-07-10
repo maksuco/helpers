@@ -89,13 +89,13 @@ function location($ip) {
   //returns new filename
   function slug_file($filename,$random) {
     $data = explode('.', $filename);
-    $result = $this->slug($data[0]).$this->random($random).'.'.$data[1];
+    $result = $this->slug($data[0]).$this->slug_random($random).'.'.$data[1];
     return strtolower($result);
   }
   //returns filename with a nmae you specify
   function slug_filename($filename,$name,$random) {
     $data = explode('.', $filename);
-    $result = $this->slug($name).$this->random($random).'.'.$data[1];
+    $result = $this->slug($name).$this->slug_random($random).'.'.$data[1];
     return strtolower($result);
   }
   //Adds random at the end of the file name, and checks if its numeric or string
