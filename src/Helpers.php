@@ -109,7 +109,14 @@ function location($ip) {
     }
     return '-'.$characters;
   }
-	
+
+//CHECK if url has http
+function link($url) {
+    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+        $url = "http://" . $url;
+    }
+    return $url;
+}
   
   //analytics
   
