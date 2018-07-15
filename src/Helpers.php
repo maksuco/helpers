@@ -160,8 +160,7 @@ function domain_from_email($email) {
 	])) {
 		return false;
 	}
-	$url = "http://" . $website;
-	return $url;
+	return $website;
 }
   
   //analytics
