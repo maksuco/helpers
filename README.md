@@ -117,14 +117,21 @@ Get the county, language and other data from the IP:
 
 ```
 
-# Link
+# Links
 
-Check if a domain doesnt have the http and add's it:
+Check if a domain doesn't have the http and add it, and other links, domains helpers
 
 ```php
 
   $slug = \Helpers::link($account->domain);
   //http://somedomain.com
+
+```
+
+```php
+
+  $slug = \Helpers::domain_from_email($email);
+  //get the domain from an email if it's not a free service like gmail.com, else it returns false
 
 ```
 
@@ -182,7 +189,7 @@ Get the $count and $sum of 2 fields per table, the date field is the one to be u
   
 ```
 
-Get data for a chart Report, same as before, but this returns 'total_sum', 'total_count', 'date', 'sum' and 'count' so you can use it in charts datasets
+Get data for a chart Report, same as before, but this returns 'total_sum', 'total_count', 'date', 'sum' and 'count' so you can use it in charts data sets
 
 ```php
 
