@@ -113,7 +113,7 @@ Get the county, language and other data from the IP:
 
 ```php
 
-  $slug = \Helpers::location($ip);]
+  $slug = \Helpers::location($ip);
 
 ```
 
