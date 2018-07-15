@@ -37,7 +37,7 @@ function location($ip) {
     } else {
       $lang = "en";
     }
-    $data = ['city' => $query['city'], 'country' => $query['countryCode'], 'timezone' => $query['timezone'], 'continent' => $COUNTRY_CONTINENTS[$query['countryCode']], 'lang' => $lang, 'isp' => $query['isp']];
+    $data = ['ip' => $ip, 'city' => $query['city'], 'country' => $query['countryCode'], 'timezone' => $query['timezone'], 'continent' => $COUNTRY_CONTINENTS[$query['countryCode']], 'lang' => $lang, 'isp' => $query['isp']];
     return $data;
   } else {
     return false;
