@@ -132,9 +132,9 @@ function link($url) {
 function domain_check($value) {
 	$domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
 	if($domain) {
-	    //$handle = dns_get_record($url);
-    	$check = checkdnsrr($url, "MX");
-	    return (!empty($check))? true : false;
+	//$handle = dns_get_record($url);
+    	$check = checkdnsrr($domain, "MX");
+	return (!empty($check))? true : false;
 	}
 }
 
