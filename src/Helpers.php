@@ -128,6 +128,15 @@ function link($url) {
 	return $url;
 }
 
+//CHECK if domain or email domain exist.
+function domain_check($value) {
+	$url = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
+	if($url) {
+	    $handle = dns_get_record($url);
+	    return (!empty($handle))? true : false;
+	}
+}
+
 function domain_from_email($email) {
   $website = explode('@', $email);
   $website = end($website);
