@@ -16,6 +16,16 @@ class Helpers
 	    return $desktop;
 	}
 	
+function active($page) {
+	if(isset($active)) {
+		return ($active == $page)? "active" : "";
+	} elseif(request()->route()->getName()) {
+		return (request()->route()->getName() == $page)? "active" : "";
+	} else {
+		return (request()->segments()[0] == $page)? "active" : "";
+	}
+};
+	
 
 //GET GEO CITY AND COUNTRY
 function location($ip) {
