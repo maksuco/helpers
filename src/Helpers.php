@@ -130,10 +130,11 @@ function link($url) {
 
 //CHECK if domain or email domain exist.
 function domain_check($value) {
-	$url = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
-	if($url) {
-	    $handle = dns_get_record($url);
-	    return (!empty($handle))? true : false;
+	$domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
+	if($domain) {
+	    //$handle = dns_get_record($url);
+    	$check = checkdnsrr($url, "MX");
+	    return (!empty($check))? true : false;
 	}
 }
 
