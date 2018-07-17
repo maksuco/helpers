@@ -24,7 +24,7 @@ function active($page) {
 	} else {
 		return (request()->segments()[0] == $page)? "active" : "";
 	}
-};
+}
 	
 
 //GET GEO CITY AND COUNTRY
