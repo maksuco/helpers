@@ -35,9 +35,9 @@ In your env file specify "SHOWAVATAR_PATH"
 
 ```php
 
-  $slug = \Helpers::avatar($user);
+  $img = \Helpers::avatar($user);
   OR
-  $slug = \Helpers::avatar($user->email);
+  {{\Helpers::avatar($user->email)}}
 
 ```
 
@@ -107,13 +107,24 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
-# Location
+# Active Navigation Page
 
-Get the county, language and other data from the IP:
+Send the current page name, example 'about' or 'contactenos', it checks if theres a variable named $active (send from the controller) then checks if the route has a name and then checks the first segment of the page, example: about/history
 
 ```php
 
-  $slug = \Helpers::location($ip);
+  {{\Helpers::active($page)}}
+  //echo 'active'
+
+```
+
+# Location
+
+Get the country, language and other data from the IP:
+
+```php
+
+  $location_data = \Helpers::location($ip);
 
 ```
 
@@ -123,14 +134,14 @@ Check if a domain doesn't have the http and add it, and other links, domains hel
 
 ```php
 
-  $slug = \Helpers::link($account->domain);
+  {{\Helpers::link($account->domain)}}
   //http://somedomain.com
 
 ```
 
 ```php
 
-  $slug = \Helpers::domain_from_email($email);
+  $domain = \Helpers::domain_from_email($email);
   //get the domain from an email if it's not a free service like gmail.com, else it returns false
 
 ```
