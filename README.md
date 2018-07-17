@@ -146,6 +146,16 @@ Check if a domain doesn't have the http and add it, and other links, domains hel
 
 ```
 
+```php
+
+  if(\Helpers::domain_check($email)) {}
+  //gets the domain from the email and checks if it exist
+  OR
+  if(\Helpers::domain_check('maksuco.com')) {}
+  //Checks if the domain exist
+
+```
+
 
 # Analytics Helpers
 
