@@ -113,8 +113,20 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```php
 
-  {{\Helpers::active($page)}}
+  {{\Helpers::nav_active($page)}}
   //echo 'active'
+
+```
+
+# Text parser
+
+ Convert plain text to include real html links
+
+```php
+
+  {{\Helpers::text_parse($text)}}
+  //SEND: Welcome to http:://apple.com
+  //GET: Welcome to <a href="http:://apple.com">http:://apple.com</a>
 
 ```
 
