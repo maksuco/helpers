@@ -16,7 +16,7 @@ class Helpers
 	    return $desktop;
 	}
 	
-function active($page) {
+function nav_active($page) {
 	if(isset($active)) {
 		return ($active == $page)? "active" : "";
 	} elseif(request()->route()->getName()) {
@@ -27,9 +27,9 @@ function active($page) {
 }
 
 
-function message_parse($message) {
+function text_parse($message) {
 	$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-	$message = preg_replace($pattern, "<a href='\\0' rel='nofollow noopener noreferrer' target='_blank'>\\0</a>", $message);
+	$message = preg_replace($link_pattern, "<a href='\\0' rel='nofollow noopener noreferrer' target='_blank'>\\0</a>", $message);
 	return nl2br($message);
 }
 	
