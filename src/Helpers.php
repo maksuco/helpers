@@ -25,6 +25,13 @@ function active($page) {
 		return (request()->segments()[0] == $page)? "active" : "";
 	}
 }
+
+
+function message_parse($message) {
+	$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+	$message = preg_replace($pattern, "<a href='\\0' rel='nofollow noopener noreferrer' target='_blank'>\\0</a>", $message);
+	return nl2br($message);
+}
 	
 
 //GET GEO CITY AND COUNTRY
