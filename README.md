@@ -1,6 +1,6 @@
 # Helpers
 
-This package helps manage analytics and counts.
+This package has a few php helpers, for everyday tasks
 
 
 ## Installation
@@ -23,7 +23,6 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
 ```php
 
   \Helpers::agent($mobile,$table,$desktop);
-  
   
 ```
 
