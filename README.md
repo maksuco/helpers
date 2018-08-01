@@ -18,7 +18,7 @@ This Package works with autodiscovery in Laravel +5.5, but is compatible with ol
 
 # Device check: Mobile, Tables, Desktop
 
-Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile OR ('mobile','mobile','desktop')
+Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile OR 200 if it's desktop. ('mobile','table','desktop')
 
 ```php
 
@@ -30,7 +30,6 @@ Reponse with the correct device, example: (300,'table',200), the response is 300
 # Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.
-
 In your env file specify "SHOWAVATAR_PATH"
 
 ```php
@@ -48,9 +47,9 @@ Here's an example of how to implement crypto to transform strings to hashed keys
 
 ```php
 
-  BEFORE
+  //SEND
   $security = Helpers::encrypt($string,$key);
-  AFTER
+  //AFTER
   $string = Helpers::decrypt($security,$key);
 
 ```
@@ -62,7 +61,7 @@ Here's an example of how to implement the slug function to transform names to sl
 ```php
 
   $slug = \Helpers::slug('Hi how are you? Muy@#$%^&*good');
-  //hi-how-are-you-muy-good
+  //GET: hi-how-are-you-muy-good
   OR
   $slug = \Helpers::slug($name);
 
@@ -83,15 +82,15 @@ Here's an example of how to implement the file function to transform file names,
 
 ```
 
-Here's an example of how to implement the filename function, in this function you can specify a new filename (REPLACE)   (REPLACE) and use the same extension
+Here's an example of how to implement the filename function, in this function you can specify a new filename (REPLACE) and use the same extension
 
 ```php
 
   $slug = \Helpers::slug_filename('SomeFile.jpg','new-image',0);
   //new-image.jpg
   OR
-  $slug = \Helpers::slug_filename($file->getorriginalname(),'main-image',2);
-  //main-image-9i.ext
+  $slug = \Helpers::slug_filename($file->getorriginalname(),'new-image',2);
+  //new-image-9i.ext
   OR
   $slug = \Helpers::slug_filename($file,'one','great-images');
   //one-great-images.png
@@ -102,8 +101,8 @@ Here's an example of how to implement the filename function, in this function yo
 Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
 ```php
 
-  $slug = \Helpers::slug_random('SomeFile');
-  //SomeFile-hv8
+  $slug = \Helpers::slug_random('new-image');
+  //new-image-hv8
 
 ```
 
@@ -114,7 +113,8 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 ```php
 
   {{\Helpers::nav_active($page)}}
-  //echo 'active'
+  //SEND: nav_active('about')
+  //GET: 'active'
 
 ```
 
@@ -147,7 +147,8 @@ Check if a domain doesn't have the http and add it, and other links, domains hel
 ```php
 
   {{\Helpers::link($account->domain)}}
-  //http://somedomain.com
+  //SEND: somedomain.com
+  //GET: http://somedomain.com
 
 ```
 
