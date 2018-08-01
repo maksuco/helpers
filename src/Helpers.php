@@ -30,7 +30,7 @@ function nav_active($page) {
 function text_parse($text) {
 	$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 	$text = preg_replace($link_pattern, "<a href='\\0' rel='nofollow noopener noreferrer' target='_blank'>\\0</a>", $text);
-	return nl2br($text);
+	return $text;
 }
 	
 
