@@ -49,7 +49,7 @@ Here's an example of how to implement crypto to transform strings to hashed keys
   //SEND
   $security = Helpers::encrypt($string,$key);
   //AFTER
-  $string = Helpers::decrypt($security,$key);
+  $string = Helpers::decrypt($string,$key);
 
 ```
 
