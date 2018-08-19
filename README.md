@@ -12,13 +12,13 @@ $ composer require maksuco/Helpers
 OR
 $ composer require maksuco/Helpers:dev-master
 ```
-This Package works with autodiscovery in Laravel +5.5, but is compatible with older versions
+This Package works with auto discovery in Laravel +5.5, but is compatible with older versions
 
 ## Usage
 
 # Device check: Mobile, Tables, Desktop
 
-Reponse with the correct device, example: (300,'table',200), the response is 300 when is mobile OR 200 if it's desktop. ('mobile','table','desktop')
+Response with the correct device, example: (300,'table',200), the response is 300 when is mobile OR 200 if it's desktop. ('mobile','table','desktop')
 
 ```php
 
