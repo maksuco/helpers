@@ -113,7 +113,7 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
   {{\Helpers::nav_active($page)}}
   //SEND: nav_active('about')
-  //GET: 'active'
+  //RETURNS: 'active'
 
 ```
 
@@ -125,7 +125,7 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
   {{\Helpers::text_parse($text)}}
   //SEND: Welcome to http:://apple.com
-  //GET: Welcome to <a href="http:://apple.com">http:://apple.com</a>
+  //RETURNS: Welcome to <a href="http:://apple.com">http:://apple.com</a>
 
 ```
 
@@ -147,7 +147,7 @@ Check if a domain doesn't have the http and add it, and other links, domains hel
 
   {{\Helpers::link($account->domain)}}
   //SEND: somedomain.com
-  //GET: http://somedomain.com
+  //RETURNS: http://somedomain.com
 
 ```
 
