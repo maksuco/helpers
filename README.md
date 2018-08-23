@@ -60,7 +60,7 @@ Here's an example of how to implement the slug function to transform names to sl
 ```php
 
   $slug = \Helpers::slug('Hi how are you? Muy@#$%^&*good');
-  //GET: hi-how-are-you-muy-good
+  //RETURNS: hi-how-are-you-muy-good
   OR
   $slug = \Helpers::slug($name);
 
@@ -141,7 +141,7 @@ Get the country, language and other data from the IP:
 
 # Links
 
-Check if a domain doesn't have the http and add it, and other links, domains helpers
+Check if a domain doesn't have the http and adds it, and other links, domains helpers
 
 ```php
 
@@ -154,14 +154,14 @@ Check if a domain doesn't have the http and add it, and other links, domains hel
 ```php
 
   $domain = \Helpers::domain_from_email($email);
-  //get the domain from an email if it's not a free service like gmail.com, else it returns false
+  //returns the domain from an email if it's not a free service like gmail.com, else it returns false
 
 ```
 
 ```php
 
   if(\Helpers::domain_check($email)) {}
-  //gets the domain from the email and checks if it exist
+  //returns the domain from the email and checks if it exist
   OR
   if(\Helpers::domain_check('maksuco.com')) {}
   //Checks if the domain exist
