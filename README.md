@@ -15,6 +15,12 @@ $ composer require maksuco/Helpers:dev-master
 This Package works with auto discovery in Laravel +5.5, but is compatible with older versions
 
 ## Usage
+```php
+<?php
+
+use Illuminate\Support\Facades\Crypto;
+
+```
 
 # Device check: Mobile, Tables, Desktop
 
