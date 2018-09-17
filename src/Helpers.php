@@ -36,7 +36,7 @@ function text_parse($text) {
 }
 
 //returns first name
-function firstName($fullname) {
+function firstname($fullname) {
 	$fullname = ltrim($fullname," ");
 	$nameParts = explode(' ', $fullname);
 	if(strlen($nameParts[0]) < 3 AND isset($nameParts[1])) {
