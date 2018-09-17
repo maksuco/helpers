@@ -45,6 +45,18 @@ In your env file specify "SHOWAVATAR_PATH"
 
 ```
 
+# First Name
+
+Helps you show the user first name, from a full name, max lenth of the returned name is 11
+
+```php
+
+  {{\Helpers::firstname($fullname)}}
+  //Gina Gutierrez returns Gina
+  //Gi Gutierrez returns Gi Gutierrez
+
+```
+
 
 # Crypto
 
