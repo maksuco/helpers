@@ -34,6 +34,16 @@ function text_parse($text) {
 	$text = preg_replace($url_pattern, '<a href="http$2://$4" rel="nofollow noopener noreferrer" target="_blank" title="$0">$0</a>', $text);
 	return $text;
 }
+
+//returns first name
+function firstName($fullname) {
+	$fullname = ltrim($fullname," ");
+	$nameParts = explode(' ', $fullname);
+	if(strlen($nameParts[0]) < 3 AND isset($nameParts[1])) {
+		return substr($nameParts[0].' '.$nameParts[1],0,11);
+	}
+	return substr($nameParts[0],0,11);
+}
 	
 
 //GET GEO CITY AND COUNTRY
