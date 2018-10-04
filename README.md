@@ -84,7 +84,7 @@ Here's an example of how to implement the slug function to transform names to sl
 
 ```
 
-Here's an example of how to implement the file function to transform file names, the second argument specifies a random addon at the end
+Transform file names, the second argument specifies a random addon at the end, can be text or INT
 
 ```php
 
@@ -99,12 +99,11 @@ Here's an example of how to implement the file function to transform file names,
 
 ```
 
-Here's an example of how to implement the filename function, in this function you can specify a new filename (REPLACE) and use the same extension
-
+In this function you can specify a new filename (REPLACE) and use the same extension
 ```php
 
-  $slug = \Helpers::slug_filename('SomeFile.jpg','new-image',0);
-  //new-image.jpg
+  $slug = \Helpers::slug_filename('SomeFile.jpg','new-name',0);
+  //new-name.jpg
   OR
   $slug = \Helpers::slug_filename($file->getorriginalname(),'new-image',2);
   //new-image-9i.ext
