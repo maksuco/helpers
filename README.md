@@ -18,7 +18,7 @@ This Package works with auto discovery in Laravel +5.5, but is compatible with o
 ```php
 <?php
 
-use Illuminate\Support\Facades\Crypto;
+use Illuminate\Support\Facades\Helpers;
 
 ```
 
