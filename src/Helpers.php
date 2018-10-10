@@ -78,6 +78,10 @@ function location($ip) {
    if(!empty($user) OR $user != null) {
     if(!is_string($user)) {
       if(!empty($user->avatar) OR $user->avatar != NULL) {
+	//if avatar is facebook or google
+	if (strpos($user->avatar, 'http') === 0) {
+        	return $user->avatar;
+	}
         return env('SHOWAVATAR_PATH').$user->avatar;
       } else {
         $avatar = $user->email;
