@@ -71,57 +71,6 @@ Here's an example of how to implement crypto to transform strings to hashed keys
 
 ```
 
-# Slugs
-
-Here's an example of how to implement the slug function to transform names to slugs:
-
-```php
-
-  $slug = \Helpers::slug('Hi how are you? Muy@#$%^&*good');
-  //RETURNS: hi-how-are-you-muy-good
-  OR
-  $slug = \Helpers::slug($name);
-
-```
-
-Transform file names, the second argument specifies a random addon at the end, can be text or INT
-
-```php
-
-  $slug = \Helpers::slug_file('Hi how are you? Muy@#$%^&*good.jpg',0);
-  //hi-how-are-you-muy-good.jpg
-  OR
-  $slug = \Helpers::slug_file($file->getClientOriginalName(),5);
-  //hi-how-are-you-muy-good-hj567.jpg
-  OR
-  $slug = \Helpers::slug_file($filename,'great-doc');
-  //hi-how-are-you-muy-good-great-doc.pdf
-
-```
-
-In this function you can specify a new filename (REPLACE) and use the same extension
-```php
-
-  $slug = \Helpers::slug_filename('SomeFile.jpg','new-name',0);
-  //new-name.jpg
-  OR
-  $slug = \Helpers::slug_filename($file->getorriginalname(),'new-image',2);
-  //new-image-9i.ext
-  OR
-  $slug = \Helpers::slug_filename($file,'one','great-images');
-  //one-great-images.png
-
-```
-
-
-Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
-```php
-
-  $slug = \Helpers::slug_random('new-image');
-  //new-image-hv8
-
-```
-
 # Active Navigation Page
 
 Send the current page name, example 'about' or 'contactenos', it checks if theres a variable named $active (send from the controller) then checks if the route has a name and then checks the first segment of the page, example: about/history
@@ -182,6 +131,57 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
   OR
   if(\Helpers::domain_check('maksuco.com')) {}
   //Checks if the domain exist
+
+```
+
+# Slugs
+
+Here's an example of how to implement the slug function to transform names to slugs:
+
+```php
+
+  $slug = \Helpers::slug('Hi how are you? Muy@#$%^&*good');
+  //RETURNS: hi-how-are-you-muy-good
+  OR
+  $slug = \Helpers::slug($name);
+
+```
+
+Transform file names, the second argument specifies a random addon at the end, can be text or INT
+
+```php
+
+  $slug = \Helpers::slug_file('Hi how are you? Muy@#$%^&*good.jpg',0);
+  //hi-how-are-you-muy-good.jpg
+  OR
+  $slug = \Helpers::slug_file($file->getClientOriginalName(),5);
+  //hi-how-are-you-muy-good-hj567.jpg
+  OR
+  $slug = \Helpers::slug_file($filename,'great-doc');
+  //hi-how-are-you-muy-good-great-doc.pdf
+
+```
+
+In this function you can specify a new filename (REPLACE) and use the same extension
+```php
+
+  $slug = \Helpers::slug_filename('SomeFile.jpg','new-name',0);
+  //new-name.jpg
+  OR
+  $slug = \Helpers::slug_filename($file->getorriginalname(),'new-image',2);
+  //new-image-9i.ext
+  OR
+  $slug = \Helpers::slug_filename($file,'one','great-images');
+  //one-great-images.png
+
+```
+
+
+Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
+```php
+
+  $slug = \Helpers::slug_random('new-image');
+  //new-image-hv8
 
 ```
 
