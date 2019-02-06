@@ -62,9 +62,10 @@ function initials(string $fullname) : string {
 }
 
 
-function geoip($ip) {
+function geoip($ip,$optional='city') {
 	include("Extras/geoip2.php");
-	return geoip2($ip);
+	dd(geoip2($ip,$optional));
+	return geoip2($ip,$optional);
 }
 
 

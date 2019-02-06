@@ -107,15 +107,20 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
-# Location
+# Location GEOIP
 
-Get the country, language and other data from the IP:
+Get the city, country, language and other data from the IP:
+This product includes GeoLite2 data created by MaxMind, available from
+<a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+https://github.com/maxmind/GeoIP2-php
 
 ```php
 
-  $location_data = \Helpers::location($ip);
+  $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,$method);
 
 ```
+$method is optional, methods are: city (default)
+
 
 # Links
 
