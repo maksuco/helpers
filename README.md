@@ -51,9 +51,21 @@ Helps you show the user first name, from a full name, max lenth of the returned 
 
 ```php
 
-  {{\Helpers::firstname($fullname)}}
+  {{\Helpers::initials($fullname)}}
   //Gina Gutierrez returns Gina
   //Gi Gutierrez returns Gi Gutierrez
+
+```
+
+# Name Initials
+
+Helps you show the user first name, from a full name, max lenth of the returned name is 11
+
+```php
+
+  {{\Helpers::firstname($fullname)}}
+  //SEND Sofia Loren
+  //GET SL
 
 ```
 

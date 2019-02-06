@@ -44,46 +44,29 @@ function firstname($fullname) {
 	}
 	return substr($nameParts[0],0,11);
 }
-	
 
-//GET GEO COUNTRY
-function location($ip) {
 
-	include("Extras/country_continent.php");
-	$countryCode = getCountryFromIP($ip);
-	if(!empty($countryCode)) { 
-		$data = country_continent($countryCode);
-    $data = ['ip' => $ip, 'country' => $countryCode, 'continent' => $data['continent'], 'lang' => $data['lang'], 'timezone_range' => $data['timezone_range']];
-    return $data;
-	} else {
-    return false;
-  }
-
-	//OLD CODE USING IP
-  $query = unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
-	//$type = (ip2long($ip)); ip
-	//$type = (strlen($ip) == 2); country code
-	if($query AND $query['status'] == 'success') {
-    //continent
-	$COUNTRY_CONTINENTS = ["AF"=>"AS","AX"=>"EU","AL"=>"EU","DZ"=>"AF","AS"=>"OC","AD"=>"EU","AO"=>"AF","AI"=>"NA","AQ"=>"AN","AG"=>"NA","AR"=>"SA","AM"=>"AS","AW"=>"NA","AU"=>"OC","AT"=>"EU","AZ"=>"AS","BS"=>"NA","BH"=>"AS","BD"=>"AS","BB"=>"NA","BY"=>"EU","BE"=>"EU","BZ"=>"NA","BJ"=>"AF","BM"=>"NA","BT"=>"AS","BO"=>"SA","BA"=>"EU","BW"=>"AF","BV"=>"AN","BR"=>"SA","IO"=>"AS","BN"=>"AS","BG"=>"EU","BF"=>"AF","BI"=>"AF","KH"=>"AS","CM"=>"AF","CA"=>"NA","CV"=>"AF","KY"=>"NA","CF"=>"AF","TD"=>"AF","CL"=>"SA","CN"=>"AS","CX"=>"AS","CC"=>"AS","CO"=>"SA","KM"=>"AF","CD"=>"AF","CG"=>"AF","CK"=>"OC","CR"=>"NA","CI"=>"AF","HR"=>"EU","CU"=>"NA","CY"=>"AS","CZ"=>"EU","DK"=>"EU","DJ"=>"AF","DM"=>"NA","DO"=>"NA","EC"=>"SA","EG"=>"AF","SV"=>"NA","GQ"=>"AF","ER"=>"AF","EE"=>"EU","ET"=>"AF","FO"=>"EU","FK"=>"SA","FJ"=>"OC","FI"=>"EU","FR"=>"EU","GF"=>"SA","PF"=>"OC","TF"=>"AN","GA"=>"AF","GM"=>"AF","GE"=>"AS","DE"=>"EU","GH"=>"AF","GI"=>"EU","GR"=>"EU","GL"=>"NA","GD"=>"NA","GP"=>"NA","GU"=>"OC","GT"=>"NA","GG"=>"EU","GN"=>"AF","GW"=>"AF","GY"=>"SA","HT"=>"NA","HM"=>"AN","VA"=>"EU","HN"=>"NA","HK"=>"AS","HU"=>"EU","IS"=>"EU","IN"=>"AS","ID"=>"AS","IR"=>"AS","IQ"=>"AS","IE"=>"EU","IM"=>"EU","IL"=>"AS","IT"=>"EU","JM"=>"NA","JP"=>"AS","JE"=>"EU","JO"=>"AS","KZ"=>"AS","KE"=>"AF","KI"=>"OC","KP"=>"AS","KR"=>"AS","KW"=>"AS","KG"=>"AS","LA"=>"AS","LV"=>"EU","LB"=>"AS","LS"=>"AF","LR"=>"AF","LY"=>"AF","LI"=>"EU","LT"=>"EU","LU"=>"EU","MO"=>"AS","MK"=>"EU","MG"=>"AF","MW"=>"AF","MY"=>"AS","MV"=>"AS","ML"=>"AF","MT"=>"EU","MH"=>"OC","MQ"=>"NA","MR"=>"AF","MU"=>"AF","YT"=>"AF","MX"=>"NA","FM"=>"OC","MD"=>"EU","MC"=>"EU","MN"=>"AS","ME"=>"EU","MS"=>"NA","MA"=>"AF","MZ"=>"AF","MM"=>"AS","NA"=>"AF","NR"=>"OC","NP"=>"AS","AN"=>"NA","NL"=>"EU","NC"=>"OC","NZ"=>"OC","NI"=>"NA","NE"=>"AF","NG"=>"AF","NU"=>"OC","NF"=>"OC","MP"=>"OC","NO"=>"EU","OM"=>"AS","PK"=>"AS","PW"=>"OC","PS"=>"AS","PA"=>"NA","PG"=>"OC","PY"=>"SA","PE"=>"SA","PH"=>"AS","PN"=>"OC","PL"=>"EU","PT"=>"EU","PR"=>"NA","QA"=>"AS","RE"=>"AF","RO"=>"EU","RU"=>"EU","RW"=>"AF","SH"=>"AF","KN"=>"NA","LC"=>"NA","PM"=>"NA","VC"=>"NA","WS"=>"OC","SM"=>"EU","ST"=>"AF","SA"=>"AS","SN"=>"AF","RS"=>"EU","SC"=>"AF","SL"=>"AF","SG"=>"AS","SK"=>"EU","SI"=>"EU","SB"=>"OC","SO"=>"AF","ZA"=>"AF","GS"=>"AN","ES"=>"EU","LK"=>"AS","SD"=>"AF","SR"=>"SA","SJ"=>"EU","SZ"=>"AF","SE"=>"EU","CH"=>"EU","SY"=>"AS","TW"=>"AS","TJ"=>"AS","TZ"=>"AF","TH"=>"AS","TL"=>"AS","TG"=>"AF","TK"=>"OC","TO"=>"OC","TT"=>"NA","TN"=>"AF","TR"=>"AS","TM"=>"AS","TC"=>"NA","TV"=>"OC","UG"=>"AF","UA"=>"EU","AE"=>"AS","GB"=>"EU","UM"=>"OC","US"=>"NA","UY"=>"SA","UZ"=>"AS","VU"=>"OC","VE"=>"SA","VN"=>"AS","VG"=>"NA","VI"=>"NA","WF"=>"OC","EH"=>"AF","YE"=>"AS","ZM"=>"AF","ZW"=>"AF"];
-    //lang
-    if(in_array($query['countryCode'], ["AR","BO","CL","CO","CR","CU","CW","DO","EC","ES","HN","GQ","GT","MX","NI","PR","PA","UY","SV","VE"])) {
-      $lang = "es";
-    } elseif(in_array($query['countryCode'], ["AG","AU","BS","BB","BZ","CA","DO","EN","IE","JM","GD","GY","LC","NZ","TT","UK","US","VC"])) {
-      $lang = "en";
-    } elseif(in_array($query['countryCode'], ["PT","BR","MZ","AO"])) {
-      $lang = "pt";
-    } elseif(in_array($query['countryCode'], ["FR","SN"])) {
-      $lang = "fr";
-    } else {
-      $lang = "en";
-    }
-    $data = ['ip' => $ip, 'city' => $query['city'], 'country' => $query['countryCode'], 'timezone' => $query['timezone'], 'continent' => $COUNTRY_CONTINENTS[$query['countryCode']], 'lang' => $lang, 'isp' => $query['isp']];
-    return $data;
-  } else {
-    return false;
-  }
+//returns name initials MM
+//https://chrisblackwell.me/generate-perfect-initials-using-php/
+function initials(string $fullname) : string {
+	$fullname = ltrim($fullname," ");
+	$nameParts = explode(' ', $fullname);
+	if (count($nameParts) >= 2) {
+			return strtoupper(substr($nameParts[0], 0, 1) . substr(end($nameParts), 0, 1));
+	}
+	preg_match_all('#([A-Z]+)#', $nameParts, $capitals);
+	if (count($capitals[1]) >= 2) {
+			return substr(implode('', $capitals[1]), 0, 2);
+	}
+	return strtoupper(substr($nameParts, 0, 2));
 }
+
+
+function geoip($ip) {
+	include("Extras/geoip2.php");
+	return geoip2($ip);
+}
+
 
 //should this be in another file? and return continent, language and timezone_range (for emails and console commands)??
 function COUNTRY_CONTINENTS($countryCode) {
