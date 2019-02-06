@@ -1,10 +1,9 @@
 <?php
 
-  use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional) {
     if($optional=='city'){
-      $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
+      $geo = new GeoIp2\Database\Reader(__DIR__.'/GeoLite2-City.mmdb');
       $geo = $geo->$optional($ip);
       $country = $geo->country->isoCode;
       $continent = $geo->continent->code;
@@ -19,7 +18,7 @@
       ];
       $geo->prefix = $phone_codes[$country];
     } else {
-      $geo = new Reader(__DIR__.'/GeoLite2-ASN.mmdb');
+      $geo = new GeoIp2\Database\Reader(__DIR__.'/GeoLite2-ASN.mmdb');
       $geo = $geo->$optional($ip);
       $continent = 'xxx';
     }
