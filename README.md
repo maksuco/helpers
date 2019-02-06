@@ -116,10 +116,10 @@ https://github.com/maxmind/GeoIP2-php
 
 ```php
 
-  $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,$method);
+  $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,'isp');
 
 ```
-$method is optional, methods are: city (default) and isp
+if you also want the isp info, just include the second call.
 
 
 # Links
