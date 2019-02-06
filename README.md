@@ -119,7 +119,7 @@ https://github.com/maxmind/GeoIP2-php
   $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,$method);
 
 ```
-$method is optional, methods are: city (default)
+$method is optional, methods are: city (default) and isp
 
 
 # Links
