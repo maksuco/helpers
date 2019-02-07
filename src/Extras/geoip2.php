@@ -5,11 +5,13 @@
   function geoip2($ip,$optional) {
 
     $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
-    $geo = $geo->$optional($ip);
+    $geo = $geo->city($ip);
     $country = $geo->country->isoCode;
     $continent = $geo->continent->code;
+    $geo->timezone = $geo->location->timeZone;
     $espanol = ["ES", "AR", "BO", "CL", "CO", "CR", "CU", "CW", "DO", "EC", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "VE", "UY", "GT", "SV"];
-    $geo->lang = (in_array($country, $espanol))? 'es' : $geo->locales[0];
+    $lang = (in_array($country, $espanol))? 'es' : $geo->locales[0];
+    $geo->lang = (!empty($lang))? $lang : 'en';
     $phone_codes = [
       "AI"=>"+1 264", "AR"=>"+54", "AW"=>"+297", "BS"=>"+1", "BB"=>"+1", "BZ"=>"+501", "BM"=>"+1", "BO"=>"+591", "BR"=>"+55", "VG"=>"+1 284", "CA"=>"+1", "KY"=>"+1-345", "CL"=>"+56", "CO"=>"+57", "CR"=>"+506", "CU"=>"+53", "CW"=>"+599", "DM"=>"+1", "DO"=>"+1", "EC"=>"+593", "SV"=>"+503", "FK"=>"+500", "GL"=>"+299", "GP"=>"+590", "GT"=>"+502", "GY"=>"+592", "HT"=>"+509", "HN"=>"+504", "JM"=>"+1", "MX"=>"+52", "MS"=>"+1 664", "NI"=>"+505", "PA"=>"+507", "PY"=>"+595", "PE"=>"+51", "PR"=>"+1", "BL"=>"+590", "KN"=>"+1", "LC"=>"+1", "MF"=>"+1 599", "PM"=>"+508", "VC"=>"+1", "SR"=>"+597", "TT"=>"+1", "US"=>"+1", "UY"=>"+598", "VE"=>"+58", //America
       "DZ"=>"+213", "AO"=>"+244", "BJ"=>"+229", "BW"=>"+267", "BF"=>"+226", "BI"=>"+257", "CM"=>"+237", "CV"=>"+238", "CF"=>"+236", "KM"=>"+269", "CD"=>"+243", "DJ"=>"+253", "EG"=>"+20", "GQ"=>"+240", "ER"=>"+291", "ET"=>"+251", "GA"=>"+241", "GM"=>"+220", "GH"=>"+233", "GN"=>"+224", "GW"=>"+245", "CI"=>"+225", "KE"=>"+254", "LS"=>"+266", "LR"=>"+231", "LY"=>"+218", "MG"=>"+261", "MW"=>"+265", "ML"=>"+223", "MR"=>"+222", "MU"=>"+230", "MA"=>"+212", "MZ"=>"+258", "NA"=>"+264", "NE"=>"+227", "NG"=>"+234", "CG"=>"+242", "RE"=>"+262", "RW"=>"+250", "SH"=>"+290", "ST"=>"+239", "SN"=>"+221", "SC"=>"+248", "SL"=>"+232", "SO"=>"+252", "ZA"=>"+27", "SS"=>"+211", "SD"=>"+249", "SZ"=>"+268", "TZ"=>"+255", "TG"=>"+228", "TN"=>"+216", "UG"=>"+256", "EH"=>"+212", "ZM"=>"+260", "ZW"=>"+263", //Africa
@@ -18,8 +20,8 @@
       "AS"=>"+1 684", "AU"=>"+61", "CK"=>"+682", "TL"=>"+670", "FJ"=>"+679", "PF"=>"+689", "GU"=>"+1 671", "KI"=>"+686", "MH"=>"+692", "FM"=>"+691", "NR"=>"+674", "NC"=>"+687", "NZ"=>"+64", "NU"=>"+683", "NF"=>"+672", "MP"=>"+1 670", "PW"=>"+680", "PG"=>"+675", "PN"=>"+870", "WS"=>"+685", "SB"=>"+677", "TK"=>"+690", "TV"=>"+688", "VU"=>"+678" //Oceania
     ];
     $geo->prefix = $phone_codes[$country];
-    
-    if($optional=='city'){
+
+    if($optional!='city'){
       $isp = new Reader(__DIR__.'/GeoLite2-ASN.mmdb');
       $isp = $isp->asn($ip);
       $geo->isp = $isp->autonomousSystemOrganization;
