@@ -37,7 +37,7 @@
     } elseif($continent == "AF") {
       $geo->timezone_range = "europe";
     } elseif(in_array($continent, ["AU","OC"])) {
-      $geo->timezone_range = "aceania";
+      $geo->timezone_range = "oceania";
     } else {
       $geo->timezone_range = "america";
     }

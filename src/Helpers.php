@@ -68,6 +68,37 @@ function geoip($ip,$optional='city') {
 	return geoip2($ip,$optional);
 }
 
+function timezone($ip,$date) {
+	$geo = \Helpers::geoip($ip);
+	$timezone = (isset($geo->location->timeZone))? $geo->location->timeZone : 'America/New_York';
+	return \Carbon::parse($date)->timezone($timezone);
+}
+
+function collection_relation($principal,$second,$second_relation_column,$values,$principal_relation_column='id') {
+	
+	foreach($principal as $row) {
+		//dd($principal);
+		foreach($second as $row2) {
+				if($row->id == $row2->$second_relation_column) {
+					foreach($values as $key => $value) {
+						$row->$key = $row2->$value;
+					}
+				}
+		}
+	}
+	return $principal;
+}
+
+function column_check($data,$value) {
+	include_once("Extras/column.php");
+	return column_check($data,$value);
+}
+
+function column_process($data,$table,$column,$value) {
+	include_once("Extras/column.php");
+	return column_process($data,$table,$column,$value);
+}
+
 
 //should this be in another file? and return continent, language and timezone_range (for emails and console commands)??
 function COUNTRY_CONTINENTS($countryCode) {

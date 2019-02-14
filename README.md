@@ -122,6 +122,42 @@ https://github.com/maxmind/GeoIP2-php
 if you also want the isp info, just include the second call.
 
 
+## Date in IP TimeZone
+
+```php
+
+  \Helpers::timezone($ip,Carbon::now());
+
+```
+
+
+# Collection Relations Append
+
+Include in a collection the columns from another table with just one extra query
+$principal_relation_column = the principal reference INT, typically id (This is optional)
+### Examples: ($user,$post,'user_id',['post_name'=>'name'])
+
+```php
+  \Helpers::collection_relation($principal_collection,$second_collection,$second_relation_column,['new_column'=>'second_column_name'],$principal_relation_column)
+```
+
+
+# Column: Array and Json check
+
+Check if a value is in a column (Works with json, array and string explode) //only 1 level
+RETURNS: true or false
+
+```php
+  {{(\Helpers::column_check($data,$value))? 'YES!':'NO!'}} //($user->favorites,124)
+```
+
+## Column Process (if is in column, it will delete it, if not it will add it)
+
+```php
+  \Helpers::column_process($data,$table,$column,$value) //($user,'users','favorites',124)
+```
+
+
 # Links
 
 Check if a domain doesn't have the http and adds it, and other links, domains helpers
