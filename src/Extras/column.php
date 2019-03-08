@@ -8,7 +8,7 @@
     $type = $new_data[1];
     $new_data = $new_data[0];
 
-    dd($check,$new_data,$type);
+    //dd($check,$new_data,$type);
     if($check) {
       //REMOVE
       //unset($new_data[$value]);

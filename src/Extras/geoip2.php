@@ -3,9 +3,12 @@
   use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional) {
-
-    $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
-    $geo = $geo->city($ip);
+    try {
+      $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
+      $geo = $geo->city($ip);
+    } catch (AddressNotFoundException $e) {
+        return null;
+    }
     $country = $geo->country->isoCode;
     $continent = $geo->continent->code;
     $geo->timezone = $geo->location->timeZone;

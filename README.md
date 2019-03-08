@@ -142,6 +142,7 @@ $principal_relation_column = the principal reference INT, typically id (This is 
 ```
 
 
+
 # Column: Array and Json check
 
 Check if a value is in a column (Works with json, array and string explode) //only 1 level
@@ -151,11 +152,12 @@ RETURNS: true or false
   {{(\Helpers::column_check($data,$value))? 'YES!':'NO!'}} //($user->favorites,124)
 ```
 
-## Column Process (if is in column, it will delete it, if not it will add it)
+# Column Process (if is in column, it will delete it, if not it will add it)
 
 ```php
   \Helpers::column_process($data,$table,$column,$value) //($user,'users','favorites',124)
 ```
+
 
 
 # Links
