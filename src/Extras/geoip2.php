@@ -3,7 +3,8 @@
   use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional) {
-    if($ip == '127.0.0.1'){
+    //check if private or local ip
+    if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE)) {
       $geo = new stdClass();
       $geo->location = new stdClass();
       $geo->timezone = $geo->location->timeZone = config('app.timezone');
