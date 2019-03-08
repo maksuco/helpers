@@ -3,11 +3,22 @@
   use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional) {
+    if($ip == '127.0.0.1'){
+      $geo = new stdClass();
+      $geo->location = new stdClass();
+      $geo->timezone = $geo->location->timeZone = config('app.timezone');
+      $geo->timezone_range = "america";
+      $geo->lang = 'en';
+      $geo->isp = 'Server';
+      return $geo;
+    }
     try {
       $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
       $geo = $geo->city($ip);
     } catch (AddressNotFoundException $e) {
         return null;
+    } catch (Exception $e) {
+      return null;
     }
     $country = $geo->country->isoCode;
     $continent = $geo->continent->code;
