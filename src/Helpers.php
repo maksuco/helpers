@@ -250,6 +250,35 @@ function domain_from_email($email) {
 	}
 	return $website;
 }
+
+//VEE-VALIDATE HONEYPOT
+function VeeValidateHoneypot() {
+	$random = rand();
+return <<<HTML
+<div class="d-none" style="display: none;">
+	<label>name</label>
+	<input type="text" class="form-control" placeholder="name_{$random}" name="name_{$random}" v-validate="'max:0'">
+	<input type="text" autcomplete="false" placeholder="city_country_{$random}" name="city_country_{$random}" v-validate="'max:0'" style="opacity: 0;">
+	<input type="email" autcomplete="false" placeholder="email_{$random}" name="email_{$random}" v-validate="'max:0'" style="height: 0px; width: 0px; border:none; opacity: 0;">
+</div>
+HTML;
+}
+
+function VeeValidateHoneypotCSS() {
+	$random = rand();
+return <<<HTML
+<style>
+	.form-control-invalid {
+		//border-color: #dc3545;
+		padding-right: calc(1.5em + .75rem);
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center right calc(.375em + .1875rem);
+		background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+	}
+</style>
+HTML;
+}
   
   //analytics
   

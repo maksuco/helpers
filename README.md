@@ -240,3 +240,49 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
+# VeeValidate Honeypot
+
+### Renders a vee validate html and css honeypot:
+```php
+  {!!\Helpers::VeeValidateHoneypot()!!}
+  {!!\Helpers::VeeValidateHoneypotCSS()!!}
+```
+
+### Form input example with css error (cross)
+```html
+<div class="form-group">
+  <label for="email">Email address</label>
+  <input type="email" class="form-control" id="email" placeholder="Enter email" v-validate="'required|email'" name="email" :class="{'form-control-invalid': errors.has('email')}">
+  <small class="form-text text-danger">@{{errors.first('email')}}</small>
+</div>
+```
+
+### Vue code example
+```js
+<script>
+Vue.use(VeeValidate); // good to go.
+new Vue({
+  el: '#formVee',
+  data: {
+    submit_text: "{{__('Submit')}}",
+    time: 0
+  },
+  created () {
+    setInterval(() => { this.time++;}, 1000);
+  },
+  methods: {
+    validateBeforeSubmit: function(e){
+      this.$validator.validateAll().then((result) => {
+        if(result) {
+          if(this.time < 3) { alert('bot!!!');location.reload(); }
+          this.submit_text = "<i class='far fa-circle-notch fa-spin'></i>";
+          e.target.classList.add('disabled');
+          setTimeout(function(){ document.querySelector('#formVee').submit(); }, 500);
+        }
+      });
+    }
+  }
+})
+</script>
+```
+
