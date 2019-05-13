@@ -107,6 +107,17 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Get all countries
+
+ A list of countries to show in a select
+
+```php
+
+  {{\Helpers::countries($lang)}}
+  //RETURNS: Array
+
+```
+
 # Location GEOIP
 
 Get the city, country, language and other data from the IP:
@@ -127,6 +138,26 @@ if you also want the isp info, just include the second call.
 ```php
 
   \Helpers::timezone($ip,Carbon::now());
+
+```
+
+
+## Append to json (only works with first level)
+Send new data to append to a json data or subcategory (subcategory is optional)
+
+```php
+
+  \Helpers::appendtojson($json,$new,$subcategory)
+
+```
+
+
+## Modify csv string action=add,remove,check
+Send id's to add, remove or check if exist in csv string
+
+```php
+
+  \Helpers::csvstring($action,$data,$new)
 
 ```
 

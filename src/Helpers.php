@@ -2,6 +2,8 @@
 
 namespace Maksuco\Helpers;
 
+use function GuzzleHttp\json_decode;
+
 class Helpers
 {
 	
@@ -74,8 +76,43 @@ function timezone($ip,$date) {
 	return \Carbon::parse($date)->timezone($timezone);
 }
 
+
+//APPEND TO JSON (only works with first level)
+function appendtojson($json,$new,$subcategory=false) {
+	$data = json_decode($json,true);
+	$new = json_decode($new,true);
+	dd($data);
+	if($subcategory == false){
+		array_unshift($data, $new);
+		dd(json_encode($data),$new);
+		//$data[] = $new;
+	} else {
+		//$data = json_decode($data[$subcategory],true);
+		array_push($data[$subcategory], $new);
+		//$data[$subcategory][] = $new;
+	}
+	return json_encode($data);
+}
+
+
+//MODIFY CSV STRING ACTION=ADD,REMOVE,CHECK
+function csvstring($action,$data,$new) {
+	$data = explode(",",$data);
+	$exist = false;
+	foreach($data as $value) {
+		if($value == $new){ $exist = true; break; }
+	}
+	if($action == 'add'){
+		if($exist) { return true; }
+		array_unshift($data, $new);
+	} elseif($action == 'remove'){
+		if($exist){unset($data[$new]);}
+	} else { return $exist; }
+	return implode(",",$data);
+}
+
+
 function collection_relation($principal,$second,$second_relation_column,$values,$principal_relation_column='id') {
-	
 	foreach($principal as $row) {
 		//dd($principal);
 		foreach($second as $row2) {
@@ -97,6 +134,16 @@ function column_check($data,$value) {
 function column_process($data,$table,$column,$value) {
 	include_once("Extras/column.php");
 	return column_process($data,$table,$column,$value);
+}
+
+
+function countries($lang='en') {
+	if($lang == 'es'){
+		$data = file_get_contents('Extras/countries_es.json');
+	} else {
+		$data = file_get_contents('Extras/countries_en.json');
+	}
+	return json_decode($data);
 }
 
 
