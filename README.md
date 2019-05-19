@@ -72,7 +72,7 @@ Helps you show the user first name, from a full name, max lenth of the returned 
 
 # Crypto
 
-Here's an example of how to implement crypto to transform strings to hashed keys, using 2 security keys (one set in the .env and another inside the controller, example the $user->id):
+Here's an example of how to implement crypto to transform strings to hashed keys, using 2 security keys: one set in the .env (CRYPTO_STRING) and another inside the controller, example the $user->id:
 
 ```php
 

@@ -6,6 +6,8 @@
     //check if private or local ip
     if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE)) {
       $geo = new stdClass();
+      $geo->country = new stdClass();
+      $geo->country->isoCode = 'US';
       $geo->location = new stdClass();
       $geo->timezone = $geo->location->timeZone = config('app.timezone');
       $geo->timezone_range = "america";

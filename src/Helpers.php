@@ -139,9 +139,9 @@ function column_process($data,$table,$column,$value) {
 
 function countries($lang='en') {
 	if($lang == 'es'){
-		$data = file_get_contents('Extras/countries_es.json');
+		$data = file_get_contents(__DIR__ ."/Extras/countries_es.json");
 	} else {
-		$data = file_get_contents('Extras/countries_en.json');
+		$data = file_get_contents(__DIR__ ."/Extras/countries_en.json");
 	}
 	return json_decode($data);
 }
@@ -189,12 +189,14 @@ function COUNTRY_CONTINENTS($countryCode) {
 	function encrypt($string,$key) {
 		$iv = substr(hash('sha256', env('CRYPTO_STRING')), 0, 16);
 		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
-	    return $encrypted;
+		$encrypted = strtr( $encrypted, "+/", "-_");
+	  return $encrypted;
 	}
 	function decrypt($string,$key) {
+		$string = strtr( $string, "-_", "+/");
 		$iv = substr(hash('sha256', env('CRYPTO_STRING')), 0, 16);
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
-	    return $decrypted;
+	  return $decrypted;
 	}
 	
 	
