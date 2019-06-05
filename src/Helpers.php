@@ -79,12 +79,16 @@ function timezone($ip,$date) {
 
 //APPEND TO JSON (only works with first level)
 function appendtojson($json,$new,$subcategory=false) {
-	$data = json_decode($json,true);
-	$new = json_decode($new,true);
-	dd($data);
+	if(!empty($json) OR $json != null){
+		$data = json_decode($json,true);
+	} else {
+		$data = [];
+	}
+	if(!is_array($new)){
+		$new = json_decode($new,true);
+	}
 	if($subcategory == false){
 		array_unshift($data, $new);
-		dd(json_encode($data),$new);
 		//$data[] = $new;
 	} else {
 		//$data = json_decode($data[$subcategory],true);
