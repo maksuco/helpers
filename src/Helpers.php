@@ -150,6 +150,15 @@ function countries($lang='en') {
 	return json_decode($data);
 }
 
+function languages($lang='all') {
+	include_once("/Extras/languages.php");
+	if($lang == 'all'){
+		return $languages;
+	} else {
+		return $languages[$lang];
+	}
+}
+
 
 //should this be in another file? and return continent, language and timezone_range (for emails and console commands)??
 function COUNTRY_CONTINENTS($countryCode) {

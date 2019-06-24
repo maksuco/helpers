@@ -113,8 +113,19 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```php
 
-  {{\Helpers::countries($lang)}}
+  {{\Helpers::countries('en')}}
   //RETURNS: Array
+
+```
+
+# Get all languages or lang code name
+
+```php
+
+  {{\Helpers::languages()}}
+  //RETURNS: Array
+  {{\Helpers::languages('en')}}
+  //RETURNS: 'english'
 
 ```
 
@@ -142,8 +153,9 @@ if you also want the isp info, just include the second call.
 ```
 
 
-## Append to json (only works with first level)
-Send new data to append to a json data or subcategory (subcategory is optional)
+## Append to json (only works with first level for now)
+Send new data to append to a json data or subcategory (subcategory is optional).
+
 You send the DB column as $json, the new object or array as $new.
 
 ```php
