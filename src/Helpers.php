@@ -151,7 +151,7 @@ function countries($lang='en') {
 }
 
 function languages($lang='all') {
-	include_once("/Extras/languages.php");
+	include_once(__DIR__ ."/Extras/languages.php");
 	if($lang == 'all'){
 		return $languages;
 	} else {
