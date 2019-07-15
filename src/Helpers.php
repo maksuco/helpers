@@ -195,7 +195,15 @@ function COUNTRY_CONTINENTS($countryCode) {
       $gravatar = md5(strtolower(trim($avatar)));
       $fallback = env('SHOWAVATAR_PATH').'avatar.png';
       return "https://s.gravatar.com/avatar/$gravatar?d=".$fallback;
-    } else { return env('SHOWAVATAR_PATH').'avatar.png'; }
+    } elseif(isset($user->sex)){
+			if($user->sex == 'm'){
+				return env('SHOWAVATAR_PATH').'avatar-m.png';
+			} elseif($user->sex == 'f'){
+				return env('SHOWAVATAR_PATH').'avatar-f.png';
+			}
+		} else {
+			return env('SHOWAVATAR_PATH').'avatar.png';
+		}
    }
 	
 	//CRYPTO
