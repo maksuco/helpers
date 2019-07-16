@@ -220,6 +220,15 @@ function COUNTRY_CONTINENTS($countryCode) {
 	  return $decrypted;
 	}
 	
+	//FILE SIZES CALCULATOR TO BYTES
+	function sizetobytes($size) {
+    $unit = strtolower($size);
+    $unit = preg_replace('/[^a-z]/', '', $unit);
+    $value = intval(preg_replace('/[^0-9]/', '', $size));
+    $units = array('b'=>0, 'kb'=>1, 'mb'=>2, 'gb'=>3, 'tb'=>4);
+		$exponent = isset($units[$unit]) ? $units[$unit] : 0;
+    return ($value * pow(1024, $exponent));            
+	}
 	
   //Slug helper
   public function slug($data)

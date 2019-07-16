@@ -233,6 +233,15 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
 ```
 
+
+## File size to bytes calculator
+Send '1 mb' and get the result in bytes, send measurements in: b, kb, mb, gb, tb
+
+```php
+  \Helpers::sizetobytes('1 mb');
+  //returns xxxx bytes
+```
+
 # Slugs
 
 Here's an example of how to implement the slug function to transform names to slugs:
