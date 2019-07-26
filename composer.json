@@ -1,6 +1,6 @@
 {
     "name": "maksuco/helpers",
-    "description": "Get visits, pageviews etc",
+    "description": "A bunch of functions that can help",
     "keywords": [
         "maksuco",
         "laravel-helpers"
@@ -15,6 +15,7 @@
     "minimum-stability": "dev",
 	"prefer-stable" : true,
     "require": {
+        "guzzlehttp/guzzle": "^6.3",
         "geoip2/geoip2": "^2.0"
     },
     "autoload": {
