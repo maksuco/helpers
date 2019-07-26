@@ -47,11 +47,11 @@ In your env file specify "SHOWAVATAR_PATH"
 
 # First Name
 
-Helps you show the user first name, from a full name, max lenth of the returned name is 11
+Helps you show the user first name, from a full name, max length of the returned name is 11
 
 ```php
 
-  {{\Helpers::initials($fullname)}}
+  {{\Helpers::firstname($fullname)}}
   //Gina Gutierrez returns Gina
   //Gi Gutierrez returns Gi Gutierrez
 
@@ -59,11 +59,9 @@ Helps you show the user first name, from a full name, max lenth of the returned 
 
 # Name Initials
 
-Helps you show the user first name, from a full name, max lenth of the returned name is 11
-
 ```php
 
-  {{\Helpers::firstname($fullname)}}
+  {{\Helpers::initials($fullname)}}
   //SEND Sofia Loren
   //GET SL
 
