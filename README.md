@@ -240,6 +240,16 @@ Send '1 mb' and get the result in bytes, send measurements in: b, kb, mb, gb, tb
   //returns xxxx bytes
 ```
 
+
+## Generate random string
+Send the length of the random
+//in a future version specified if numeric only
+
+```php
+  \Helpers::random(4);
+  //returns xxxx
+```
+
 # Slugs
 
 Here's an example of how to implement the slug function to transform names to slugs:

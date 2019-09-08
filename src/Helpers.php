@@ -260,7 +260,7 @@ function COUNTRY_CONTINENTS($countryCode) {
   function slug_random($characters) {
     if (is_numeric($characters)) {
       if($characters) {
-        return '-'.$this->string_random($characters);
+        return '-'.$this->random($characters);
       } else {
         return '';
       }
@@ -269,7 +269,7 @@ function COUNTRY_CONTINENTS($countryCode) {
 	}
 	
 	//Because str_random doesn't work anymore
-  function string_random($characters = 1) {
+  function random($characters = 1) {
 		$chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$count = strlen($chars);
 		$bytes = random_bytes($characters);
