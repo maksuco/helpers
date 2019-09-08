@@ -254,18 +254,32 @@ function COUNTRY_CONTINENTS($countryCode) {
     $data = explode('.', $filename);
     $result = $this->slug($name).$this->slug_random($random).'.'.$data[1];
     return strtolower($result);
-  }
+	}
+	
   //Adds random at the end of the file name, and checks if its numeric or string
   function slug_random($characters) {
     if (is_numeric($characters)) {
       if($characters) {
-        return '-'.str_random($characters);
+        return '-'.$this->random($characters);
       } else {
         return '';
       }
     }
     return '-'.$characters;
-  }
+	}
+	
+	//Because str_random doesn't work anymore
+  function random($characters = 1) {
+		$chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		$count = strlen($chars);
+		$bytes = random_bytes($characters);
+		$random = '';
+		foreach (str_split($bytes) as $byte) {
+				$random .= $chars[ord($byte) % $count];
+		}
+		return $random;
+	}
+
 
 //CHECK if url has http
 function link($url) {
