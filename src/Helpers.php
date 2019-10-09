@@ -229,6 +229,20 @@ function COUNTRY_CONTINENTS($countryCode) {
 		$exponent = isset($units[$unit]) ? $units[$unit] : 0;
     return ($value * pow(1024, $exponent));            
 	}
+
+	//GET FILENAME FROM STRING/URL
+  public function filename($string,$parse=false)
+  {
+		$string = parse_url($string, PHP_URL_PATH);
+		if($parse){
+			$path_info = pathinfo($string);
+			$data['basename'] = $path_info['basename'];
+			$data['extension'] = $path_info['extension'];
+			$data['filename'] = $path_info['filename'];
+			return (object) $data;
+		}
+		return basename($string);
+	}
 	
   //Slug helper
   public function slug($data)

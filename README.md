@@ -250,6 +250,21 @@ Send the length of the random
   //returns xxxx
 ```
 
+# Filename Parsing
+
+Get a filename name from a string or url, you can also parse it and get basename, extension and filename 
+
+```php
+
+  $filename = \Helpers::filename('http://xxx.com/this_is_the_name.png?v=xxx');
+  //RETURNS: this_is_the_name.png
+  OR
+  $filename = \Helpers::filename('http://xxx.com/this_is_the_name.png?v=xxx',true);
+  //RETURNS ARRAY: basename: this_is_the_name.png, extension: png, filename: this_is_the_name
+  //USE: $filename->basename
+
+```
+
 # Slugs
 
 Here's an example of how to implement the slug function to transform names to slugs:
