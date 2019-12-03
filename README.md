@@ -135,9 +135,9 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
   {{\Helpers::currencies()}}
   //RETURNS: Array of names
-  {{\Helpers::currency('usd')}}
+  {{\Helpers::currencies('usd')}}
   //RETURNS: all data of currency
-  {{\Helpers::currency_format('10000.00','usd',array)}}
+  {{\Helpers::currency_format('10000.00','usd',false)}}
   //'10000.00','usd' RETURNS: $10,000 usd
   //'100.30','usd' RETURNS: $100.30 usd
   //'10000.30','eur' RETURNS: 10.000,30 €
