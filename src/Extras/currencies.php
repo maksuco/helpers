@@ -10,7 +10,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'afn' => [
@@ -22,7 +22,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'all' => [
@@ -34,7 +34,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'amd' => [
@@ -46,7 +46,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ang' => [
@@ -58,7 +58,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x0192;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'aoa' => [
@@ -70,7 +70,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ars' => [
@@ -82,7 +82,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'aud' => [
@@ -94,7 +94,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'awg' => [
@@ -106,7 +106,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x0192;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'azn' => [
@@ -118,7 +118,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bam' => [
@@ -130,7 +130,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bbd' => [
@@ -142,7 +142,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bdt' => [
@@ -154,7 +154,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bgn' => [
@@ -166,7 +166,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bhd' => [
@@ -178,7 +178,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bif' => [
@@ -190,7 +190,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bmd' => [
@@ -202,7 +202,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bnd' => [
@@ -214,7 +214,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bob' => [
@@ -226,7 +226,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'brl' => [
@@ -238,7 +238,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'R$',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'bsd' => [
@@ -250,7 +250,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'btn' => [
@@ -262,7 +262,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bwp' => [
@@ -274,7 +274,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'byr' => [
@@ -286,7 +286,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'bzd' => [
@@ -298,7 +298,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'cad' => [
@@ -310,7 +310,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'cdf' => [
@@ -322,7 +322,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'chf' => [
@@ -334,7 +334,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'clp' => [
@@ -346,7 +346,7 @@ $currencies = [
         'subunitToUnit' => 1,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'cny' => [
@@ -358,7 +358,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x5713;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'cop' => [
@@ -370,7 +370,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'crc' => [
@@ -382,7 +382,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A1;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'cuc' => [
@@ -394,7 +394,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'cup' => [
@@ -406,7 +406,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'cve' => [
@@ -418,7 +418,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'czk' => [
@@ -430,7 +430,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'djf' => [
@@ -442,7 +442,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'dkk' => [
@@ -454,7 +454,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'kr&nbsp;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'dop' => [
@@ -466,7 +466,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'dzd' => [
@@ -478,7 +478,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'eek' => [
@@ -490,7 +490,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'egp' => [
@@ -502,7 +502,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ern' => [
@@ -514,7 +514,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'etb' => [
@@ -526,7 +526,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'eur' => [
@@ -538,7 +538,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20AC;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'fjd' => [
@@ -550,7 +550,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'fkp' => [
@@ -562,7 +562,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gbp' => [
@@ -574,7 +574,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gel' => [
@@ -586,7 +586,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ghs' => [
@@ -598,7 +598,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B5;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gip' => [
@@ -610,7 +610,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gmd' => [
@@ -622,7 +622,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gnf' => [
@@ -634,7 +634,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gtq' => [
@@ -646,7 +646,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'gyd' => [
@@ -658,7 +658,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'hkd' => [
@@ -670,7 +670,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'HK$&nbsp;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'hnl' => [
@@ -682,7 +682,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'hrk' => [
@@ -694,7 +694,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'htg' => [
@@ -706,7 +706,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'huf' => [
@@ -718,7 +718,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'idr' => [
@@ -730,7 +730,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'ils' => [
@@ -742,7 +742,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20AA;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'inr' => [
@@ -754,7 +754,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A8;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'iqd' => [
@@ -766,7 +766,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'irr' => [
@@ -778,7 +778,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#xFDFC;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'isk' => [
@@ -790,7 +790,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'jmd' => [
@@ -802,7 +802,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'jod' => [
@@ -814,7 +814,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'jpy' => [
@@ -826,7 +826,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x00A5;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kes' => [
@@ -838,7 +838,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kgs' => [
@@ -850,7 +850,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'khr' => [
@@ -862,7 +862,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x17DB;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kmf' => [
@@ -874,7 +874,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kpw' => [
@@ -886,7 +886,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20A9;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'krw' => [
@@ -898,7 +898,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A9;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kwd' => [
@@ -910,7 +910,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kyd' => [
@@ -922,7 +922,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'kzt' => [
@@ -934,7 +934,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lak' => [
@@ -946,7 +946,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20AD;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lbp' => [
@@ -958,7 +958,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lkr' => [
@@ -970,7 +970,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x0BF9;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lrd' => [
@@ -982,7 +982,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lsl' => [
@@ -994,7 +994,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ltl' => [
@@ -1006,7 +1006,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lvl' => [
@@ -1018,7 +1018,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'lyd' => [
@@ -1030,7 +1030,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mad' => [
@@ -1042,7 +1042,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mdl' => [
@@ -1054,7 +1054,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mga' => [
@@ -1066,7 +1066,7 @@ $currencies = [
         'subunitToUnit' => 5,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mkd' => [
@@ -1078,7 +1078,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mmk' => [
@@ -1090,7 +1090,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mnt' => [
@@ -1102,7 +1102,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20AE;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mop' => [
@@ -1114,7 +1114,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mro' => [
@@ -1126,7 +1126,7 @@ $currencies = [
         'subunitToUnit' => 5,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mur' => [
@@ -1138,7 +1138,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A8;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mvr' => [
@@ -1150,7 +1150,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mwk' => [
@@ -1162,7 +1162,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mxn' => [
@@ -1174,7 +1174,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'M$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'myr' => [
@@ -1186,7 +1186,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'mzn' => [
@@ -1198,7 +1198,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'nad' => [
@@ -1210,7 +1210,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ngn' => [
@@ -1222,7 +1222,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20A6;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'nio' => [
@@ -1234,7 +1234,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'nok' => [
@@ -1246,7 +1246,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'kr&nbsp;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'npr' => [
@@ -1258,7 +1258,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A8;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'nzd' => [
@@ -1270,7 +1270,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'omr' => [
@@ -1282,7 +1282,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => true,
         'htmlEntity' => '&#xFDFC;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pab' => [
@@ -1294,7 +1294,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pen' => [
@@ -1306,7 +1306,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => 'S/.',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pgk' => [
@@ -1318,7 +1318,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'php' => [
@@ -1330,7 +1330,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pkr' => [
@@ -1342,7 +1342,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A8;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pln' => [
@@ -1354,7 +1354,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'pyg' => [
@@ -1366,7 +1366,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B2;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'qar' => [
@@ -1378,7 +1378,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#xFDFC;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ron' => [
@@ -1390,7 +1390,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'rsd' => [
@@ -1402,7 +1402,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'rub' => [
@@ -1414,7 +1414,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x0440;&#x0443;&#x0431;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'rwf' => [
@@ -1426,7 +1426,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sar' => [
@@ -1438,7 +1438,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#xFDFC;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sbd' => [
@@ -1450,7 +1450,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'scr' => [
@@ -1462,7 +1462,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20A8;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sdg' => [
@@ -1474,7 +1474,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sek' => [
@@ -1486,7 +1486,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sgd' => [
@@ -1498,7 +1498,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'shp' => [
@@ -1510,7 +1510,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'skk' => [
@@ -1522,7 +1522,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sll' => [
@@ -1534,7 +1534,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'sos' => [
@@ -1546,7 +1546,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'srd' => [
@@ -1558,7 +1558,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'std' => [
@@ -1570,7 +1570,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'svc' => [
@@ -1582,7 +1582,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20A1;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'syp' => [
@@ -1594,7 +1594,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x00A3;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'szl' => [
@@ -1606,7 +1606,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'thb' => [
@@ -1618,7 +1618,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x0E3F;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'tjs' => [
@@ -1630,7 +1630,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'tmm' => [
@@ -1642,7 +1642,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'tnd' => [
@@ -1654,7 +1654,7 @@ $currencies = [
         'subunitToUnit' => 1000,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'top' => [
@@ -1666,7 +1666,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'try' => [
@@ -1678,7 +1678,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ttd' => [
@@ -1690,7 +1690,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'twd' => [
@@ -1702,7 +1702,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'tzs' => [
@@ -1714,7 +1714,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'uah' => [
@@ -1726,7 +1726,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#x20B4',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'ugx' => [
@@ -1738,7 +1738,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'usd' => [
@@ -1750,7 +1750,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'uyu' => [
@@ -1762,7 +1762,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20B1;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'uzs' => [
@@ -1774,7 +1774,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'vef' => [
@@ -1786,7 +1786,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'vnd' => [
@@ -1798,7 +1798,7 @@ $currencies = [
         'subunitToUnit' => 10,
         'symbolFirst' => true,
         'htmlEntity' => '&#x20AB;',
-        'decimalMark' => ',',
+        'decimalSeparator' => ',',
         'thousandsSeparator' => '.'
     ],
     'vuv' => [
@@ -1810,7 +1810,7 @@ $currencies = [
         'subunitToUnit' => 1,
         'symbolFirst' => true,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'wst' => [
@@ -1822,7 +1822,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'xaf' => [
@@ -1834,7 +1834,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'xcd' => [
@@ -1846,7 +1846,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'xof' => [
@@ -1858,7 +1858,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'xpf' => [
@@ -1870,7 +1870,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'yer' => [
@@ -1882,7 +1882,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '&#xFDFC;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'zar' => [
@@ -1894,7 +1894,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '&#x0052;',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'zmk' => [
@@ -1906,7 +1906,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => false,
         'htmlEntity' => '',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ],
     'zwd' => [
@@ -1918,7 +1918,7 @@ $currencies = [
         'subunitToUnit' => 100,
         'symbolFirst' => true,
         'htmlEntity' => '$',
-        'decimalMark' => '.',
+        'decimalSeparator' => '.',
         'thousandsSeparator' => ','
     ]
 ];
