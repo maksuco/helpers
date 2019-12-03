@@ -163,32 +163,47 @@ function languages($lang='all') {
 function currencies($isoCode='all') {
 	include(__DIR__ ."/Extras/currencies.php");
 	if($isoCode == 'all'){
-		return array_keys($currencies);
+			return array_keys($currencies);
 	}
-  return $currencies[$isoCode];
+return $currencies[$isoCode];
 }
+
 
 function currency_format($amount, $isoCode, $array = false) {
 	include(__DIR__ ."/Extras/currencies.php");
 	$currency = $currencies[strtolower($isoCode)];
 	//FORMAT AMOUNT
 	if (fmod($amount, 1) !== 0.0) {
-		//TRUE has decimals
-		$decimals = 2;
+			//TRUE has decimals
+			$decimals = 2;
 	} else {
-		$amount = $amount + 0; //remove decimals
-		$decimals = 0;
+			$amount = $amount + 0; //remove decimals
+			$decimals = 0;
 	}
 	$amount = number_format($amount, $decimals, $currency['decimalMark'], $currency['thousandsSeparator']);
 
+	//FORMAT SYMBOL
 	if ($currency['symbolFirst']) {
-		$result = $currency['symbol'] . $amount;
-		$isoCode = ' '.$isoCode;
+			$result = $currency['symbol'] . $amount;
+			$isoCode = ' '.$isoCode;
 	} else {
-		$result = $amount . $currency['symbol'];
-		$isoCode = '';
+			$result = $amount . $currency['symbol'];
+			$isoCode = '';
 	}
 
+	//RESULTS
+	if($array) {
+			$return['result'] = $result;
+			$return['symbol'] = $currency['symbol'];
+			$return['htmlEntity'] = $currency['htmlEntity'];
+			$return['amount'] = $amount;
+			$return['isoCode'] = $currency['isoCode'];
+			$return['symbolFirst'] = $currency['symbolFirst'];
+	} else {
+			$return = $result.$isoCode;
+	}
+	return $return;
+}
 
 
 
