@@ -159,6 +159,50 @@ function languages($lang='all') {
 	}
 }
 
+function currencies() {
+	include_once(__DIR__ ."/Extras/currencies.php");
+  return array_keys($currencies);
+}
+
+function currency($isoCode) {
+	include_once(__DIR__ ."/Extras/currencies.php");
+  return $currencies[$isoCode];
+}
+
+
+function currency_format($amount, $isoCode, $array = false) {
+	include_once(__DIR__ ."/Extras/currencies.php");
+	$currency = $currencies[$isoCode];
+	//FORMAT AMOUNT
+	if (fmod($amount, 1) !== 0.0) {
+		//TRUE has decimals
+		$decimals = 2;
+	} else {
+		$amount += 0; //remove decimals
+		$decimals = 0;
+	}
+	$amount = number_format($amount, $decimals, $currency['thousandsSeparator'], $currency['decimalMark']);
+
+	if ($currency['symbolFirst']) {
+		$result = $currency['symbol'] . $amount;
+	} else {
+		$result = $amount . $currency['symbol'];
+	}
+
+	//RESULTS
+	if($array) {
+		$result['result'] = $result;
+		$result['symbol'] = $currency['htmlEntity'];
+		$result['amount'] = $amount;
+		$result['isoCode'] = $isoCode;
+	} else {
+		$result = $result.' '.$isoCode;
+	}
+	return;
+}
+
+
+
 
 //should this be in another file? and return continent, language and timezone_range (for emails and console commands)??
 function COUNTRY_CONTINENTS($countryCode) {

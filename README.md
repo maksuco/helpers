@@ -127,6 +127,24 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Get all currencies or currency details for echo
+
+ A list of countries to show in a select or currency details like symbol, decimals, name, etc..
+
+```php
+
+  {{\Helpers::currencies()}}
+  //RETURNS: Array of names
+  {{\Helpers::currency('usd')}}
+  //RETURNS: all data of currency
+  {{\Helpers::currency_format('10000.00','usd',array)}}
+  //'10000.00','usd' RETURNS: $10,000 usd
+  //'100.30','usd' RETURNS: $100.30 usd
+  //'10000.30','eur' RETURNS: 10.000,30 €
+  //'10000','cop',true RETURNS: Array ['$','10.000,30','cop']
+
+```
+
 # Location GEOIP
 
 Get the city, country, language and other data from the IP:
@@ -250,7 +268,7 @@ Send the length of the random
   //returns xxxx
 ```
 
-# Filename Parsing
+## Filename Parsing
 
 Get a filename name from a string or url, you can also parse it and get basename, extension and filename 
 
@@ -259,7 +277,7 @@ Get a filename name from a string or url, you can also parse it and get basename
   $filename = \Helpers::filename('http://xxx.com/this_is_the_name.png?v=xxx');
   //RETURNS: this_is_the_name.png
   OR
-  $filename = \Helpers::filename('http://xxx.com/this_is_the_name.png?v=xxx',true);
+  $filename = \Helpers::filename('http://yyyy.com/this_is_the_name.png',true);
   //RETURNS ARRAY: basename: this_is_the_name.png, extension: png, filename: this_is_the_name
   //USE: $filename->basename
 
