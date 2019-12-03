@@ -141,7 +141,7 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
   //'10000.00','usd' RETURNS: $10,000 usd
   //'100.30','usd' RETURNS: $100.30 usd
   //'10000.30','eur' RETURNS: 10.000,30 €
-  //'10000','cop',true RETURNS: Array ["result" => "$10.000""symbol" => "$""htmlEntity" => "&#x20B1;""amount" => "10.000""isoCode" => "COP""symbolFirst" => true]
+  //'10000.00','cop',true RETURNS: Array ["result" => "$10.000""symbol" => "$""htmlEntity" => "&#x20B1;""amount" => "10.000""isoCode" => "COP""symbolFirst" => true]
 
 ```
 
