@@ -27,15 +27,14 @@ use Illuminate\Support\Facades\Helpers;
 Response with the correct device, example: (300,'table',200), the response is 300 when is mobile OR 200 if it's desktop. ('mobile','table','desktop')
 
 ```php
-
   \Helpers::agent($mobile,$table,$desktop);
-  
 ```
 
 # Check if device is Mobile
 
 ```php
   \Helpers::mobile();
+  //Returns true or false
 ```
 
 # Avatar
