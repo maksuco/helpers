@@ -15,7 +15,19 @@ class Helpers
 	    } elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
 			return $mobile; 
 		}
-	    return $desktop;
+	  return $desktop;
+	}
+
+	
+	//GET DEVICE AGENT
+	function mobile() {
+		$agent = $_SERVER["HTTP_USER_AGENT"];
+		if(preg_match("/(ipad|tablet)/i", $agent)) {
+			return false;  
+		} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
+			return true; 
+		}
+		return false;
 	}
 	
 function nav_active($page) {

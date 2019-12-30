@@ -32,6 +32,12 @@ Response with the correct device, example: (300,'table',200), the response is 30
   
 ```
 
+# Check if device is Mobile
+
+```php
+  \Helpers::mobile();
+```
+
 # Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.
