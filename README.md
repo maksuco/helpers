@@ -196,6 +196,28 @@ Send id's to add, remove or check if exist in csv string
 ```
 
 
+## Modify array with action=add,remove,check
+Send new data to add, remove or check if exist in array
+Works with Simple and Associative arrays
+```php
+
+  \Helpers::array_process($action,$array,$new)
+
+	//$array = ['michael','gina'];
+  //array_process('add',$array,'bob') returns ['michael','gina','bob']
+
+  //array_process('remove',$array,'michael') returns ['gina']
+  
+  //Associative
+	//$array = ['michael'=>'m'];
+	//$new = ['donald'=>'duck','bob'=>'m'];
+  //array_process('add',$array2,$new2) returns ['michael'=>'m','donald'=>'duck','bob'=>'m']
+  
+	//array_process('check',$array,'gina') returns TRUE
+
+```
+
+
 # Collection Relations Append
 
 Include in a collection the columns from another table with just one extra query

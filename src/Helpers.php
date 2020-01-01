@@ -127,6 +127,50 @@ function csvstring($action,$data,$new) {
 	return implode(",",$data);
 }
 
+//MODIFY AN ARRAY WITH ACTION=ADD,REMOVE,CHECK
+//SHOULD WORK WITH Associative ALSO
+function array_process($action,$array,$new) {
+	//return $array[$new];
+	$exist = false;
+	//IF ASSOCIATIVE
+	if(count(array_filter(array_keys($array), 'is_string')) > 0){
+		//ACTION
+		if($action == 'add'){
+			$array = array_merge($array, $new);
+		} elseif($action == 'remove'){
+			foreach($new as $kew => $value) {
+				unset($array[$kew]);
+			}
+		} else {
+			if(array_key_exists($new,$array)){
+				$exist = true;
+			}
+			return $exist;
+		}
+
+	} else {
+		//CHECK DUPLICATE
+		foreach($array as $value) {
+			if($value == $new){ $exist = true; break; }
+		}
+		//ACTION
+		if($action == 'add'){
+			if($exist) { return $array; }
+			array_unshift($array, $new);
+		} elseif($action == 'remove'){
+			if($exist){
+				foreach (array_keys($array, $new, true) as $key) {
+					unset($array[$key]);
+				}
+			}
+		} else {
+			return $exist;
+		}
+	}
+	return $array;
+}
+
+
 
 function collection_relation($principal,$second,$second_relation_column,$values,$principal_relation_column='id') {
 	foreach($principal as $row) {
