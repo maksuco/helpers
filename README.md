@@ -270,6 +270,7 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
   if(\Helpers::email_check($email)) {}
   //returns if the email is valid: true or false
+  //Also checks if the domain exist
   OR
 
   if(\Helpers::domain_check($email)) {}
