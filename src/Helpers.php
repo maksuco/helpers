@@ -409,6 +409,18 @@ function link($url) {
 }
 
 //CHECK if domain or email domain exist.
+function email_check($email) {
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		return false; 
+	}
+	$domain = explode("@",$email);
+	if (!checkdnsrr($domain[1], 'MX')) {
+		return false; 
+	}
+	return true;
+}
+
+//CHECK if domain or email domain exist.
 function domain_check($value) {
 	$domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
 	if($domain) {
