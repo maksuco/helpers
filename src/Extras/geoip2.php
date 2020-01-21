@@ -9,8 +9,13 @@
 
     //check if private or local ip
     if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE)) {
-      $geo->country->isoCode = 'US';
-      $geo->timezone = $geo->location->timeZone = config('app.timezone');
+      $geo->country_code = $geo->country->isoCode = 'US';
+      $geo->country_name = "United States";
+      $geo->city_name = null;
+      $geo->state_name = null;
+      $geo->state_code = null;
+      $geo->timezone_range = "america";
+      $geo->timezone = $geo->location->timeZone = "America/New_York";
       $geo->timezone_range = "america";
       $geo->lang = 'en';
       $geo->isp = 'Server';
@@ -24,14 +29,21 @@
     } catch (Exception $e) {
       return null;
     }
+
+    $continent = $geo->continent_code = $geo_data->continent->code;
+    $geo->continent_name = $geo_data->continent->name;
+    $geo->continent_names = $geo_data->continent->names;
     
     $country = $geo->country_code = $geo->country->isoCode = $geo_data->country->isoCode;
     $geo->country_name = $geo->country->name = $geo_data->country->name;
+    $geo->country_names = $geo_data->country->names;
+    
     $geo->city_name = $geo->location->city_name = $geo_data->city->name;
+    $geo->city_names = $geo_data->city->names;
+    $geo->city_geoname_id = $geo_data->city->geoname_id;
     $geo->state_name = $geo->location->state_name = $geo_data->mostSpecificSubdivision->name;
     $geo->state_code = $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
 
-    $continent = $geo->continent_code = $geo_data->continent->code;
     $geo->timezone = $geo_data->location->timeZone;
     $espanol = ["ES", "AR", "BO", "CL", "CO", "CR", "CU", "CW", "DO", "EC", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "VE", "UY", "GT", "SV"];
     $lang = (in_array($country, $espanol))? 'es' : $geo_data->locales[0];
