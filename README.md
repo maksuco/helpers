@@ -197,8 +197,9 @@ Send id's to add, remove or check if exist in csv string
 
 
 ## Modify array with action=add,remove,check
-Send new data to add, remove or check if exist in array
+Send new data to add, remove, check if exist in array or invert
 Works with Sequential and Associative arrays
+Invert adds the new if doesn't exist, or removes it if exist and returns the action "added" or "removed"
 ```php
 
   \Helpers::array_process($action,$array,$new)
@@ -207,6 +208,8 @@ Works with Sequential and Associative arrays
   //array_process('add',$array,'bob') returns ['michael','gina','bob']
 
   //array_process('remove',$array,'michael') returns ['gina']
+
+  //array_process('invert',$array,'michael') returns "removed" MALLLLLLl
   
   //Associative
 	//$array = ['michael'=>'m'];
@@ -265,6 +268,10 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
   //returns the domain from an email if it's not a free service like gmail.com, else it returns false
 
 ```
+
+
+
+# Email and Domain Check
 
 ```php
 

@@ -127,7 +127,7 @@ function csvstring($action,$data,$new) {
 	return implode(",",$data);
 }
 
-//MODIFY AN ARRAY WITH ACTION=ADD,REMOVE,CHECK
+//MODIFY AN ARRAY WITH ACTION=ADD,REMOVE,CHECK, INVERT
 //SHOULD WORK WITH Associative ALSO
 function array_process($action,$array,$new) {
 	//return $array[$new];
@@ -141,6 +141,19 @@ function array_process($action,$array,$new) {
 			foreach($new as $kew => $value) {
 				unset($array[$kew]);
 			}
+		//INVERT
+		} elseif($action == 'invert'){
+			//check first
+			if(array_key_exists($new,$array)){
+				foreach($new as $kew => $value) {
+					unset($array[$kew]);
+				}
+				return "removed";
+			} else {
+				$array = array_merge($array, $new);
+				return "added";
+			}
+		//CHECK
 		} else {
 			if(array_key_exists($new,$array)){
 				$exist = true;
@@ -162,6 +175,16 @@ function array_process($action,$array,$new) {
 				foreach (array_keys($array, $new, true) as $key) {
 					unset($array[$key]);
 				}
+			}
+		} elseif($action == 'invert'){
+			if($exist){
+				foreach (array_keys($array, $new, true) as $key) {
+					unset($array[$key]);
+				}
+				return "removed";
+			} else {
+				array_unshift($array, $new);
+				return "added";
 			}
 		} else {
 			return $exist;

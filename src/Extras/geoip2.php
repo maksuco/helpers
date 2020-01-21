@@ -3,12 +3,13 @@
   use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional) {
+    $geo = new stdClass();
+    $geo->country = new stdClass();
+    $geo->location = new stdClass();
+
     //check if private or local ip
     if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE)) {
-      $geo = new stdClass();
-      $geo->country = new stdClass();
       $geo->country->isoCode = 'US';
-      $geo->location = new stdClass();
       $geo->timezone = $geo->location->timeZone = config('app.timezone');
       $geo->timezone_range = "america";
       $geo->lang = 'en';
@@ -16,18 +17,24 @@
       return $geo;
     }
     try {
-      $geo = new Reader(__DIR__.'/GeoLite2-City.mmdb');
-      $geo = $geo->city($ip);
+      $geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
+      $geo_data = $geo_data->city($ip);
     } catch (AddressNotFoundException $e) {
         return null;
     } catch (Exception $e) {
       return null;
     }
-    $country = $geo->country->isoCode;
-    $continent = $geo->continent->code;
-    $geo->timezone = $geo->location->timeZone;
+    
+    $country = $geo->country->isoCode = $geo_data->country->isoCode;
+    $geo->country->name = $geo_data->country->name;
+    $geo->location->city_name = $geo_data->city->name;
+    $geo->location->state_name = $geo_data->mostSpecificSubdivision->name;
+    $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
+
+    $continent = $geo_data->continent->code;
+    $geo->timezone = $geo_data->location->timeZone;
     $espanol = ["ES", "AR", "BO", "CL", "CO", "CR", "CU", "CW", "DO", "EC", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "VE", "UY", "GT", "SV"];
-    $lang = (in_array($country, $espanol))? 'es' : $geo->locales[0];
+    $lang = (in_array($country, $espanol))? 'es' : $geo_data->locales[0];
     $geo->lang = (!empty($lang))? $lang : 'en';
     $phone_codes = [
       "AI"=>"+1 264", "AR"=>"+54", "AW"=>"+297", "BS"=>"+1", "BB"=>"+1", "BZ"=>"+501", "BM"=>"+1", "BO"=>"+591", "BR"=>"+55", "VG"=>"+1 284", "CA"=>"+1", "KY"=>"+1-345", "CL"=>"+56", "CO"=>"+57", "CR"=>"+506", "CU"=>"+53", "CW"=>"+599", "DM"=>"+1", "DO"=>"+1", "EC"=>"+593", "SV"=>"+503", "FK"=>"+500", "GL"=>"+299", "GP"=>"+590", "GT"=>"+502", "GY"=>"+592", "HT"=>"+509", "HN"=>"+504", "JM"=>"+1", "MX"=>"+52", "MS"=>"+1 664", "NI"=>"+505", "PA"=>"+507", "PY"=>"+595", "PE"=>"+51", "PR"=>"+1", "BL"=>"+590", "KN"=>"+1", "LC"=>"+1", "MF"=>"+1 599", "PM"=>"+508", "VC"=>"+1", "SR"=>"+597", "TT"=>"+1", "US"=>"+1", "UY"=>"+598", "VE"=>"+58", //America
