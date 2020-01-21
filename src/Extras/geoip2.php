@@ -30,8 +30,6 @@
       return null;
     }
 
-    return $geo_data;
-
     $continent = $geo->continent_code = $geo_data->continent->code;
     $geo->continent_name = $geo_data->continent->name;
     $geo->continent_names = $geo_data->continent->names;
@@ -42,7 +40,7 @@
     
     $geo->city_name = $geo->location->city_name = $geo_data->city->name;
     $geo->city_names = $geo_data->city->names;
-    $geo->city_geoname_id = $geo_data->city->geoname_id;
+    $geo->city_geonameid = $geo_data->city->geonameId;
     $geo->state_name = $geo->location->state_name = $geo_data->mostSpecificSubdivision->name;
     $geo->state_code = $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
 
