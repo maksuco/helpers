@@ -30,6 +30,8 @@
       return null;
     }
 
+    return $geo_data;
+
     $continent = $geo->continent_code = $geo_data->continent->code;
     $geo->continent_name = $geo_data->continent->name;
     $geo->continent_names = $geo_data->continent->names;
