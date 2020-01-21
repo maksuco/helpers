@@ -25,13 +25,13 @@
       return null;
     }
     
-    $country = $geo->country->isoCode = $geo_data->country->isoCode;
-    $geo->country->name = $geo_data->country->name;
-    $geo->location->city_name = $geo_data->city->name;
-    $geo->location->state_name = $geo_data->mostSpecificSubdivision->name;
-    $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
+    $country = $geo->country_code = $geo->country->isoCode = $geo_data->country->isoCode;
+    $geo->country_name = $geo->country->name = $geo_data->country->name;
+    $geo->city_name = $geo->location->city_name = $geo_data->city->name;
+    $geo->state_name = $geo->location->state_name = $geo_data->mostSpecificSubdivision->name;
+    $geo->state_code = $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
 
-    $continent = $geo_data->continent->code;
+    $continent = $geo->continent_code = $geo_data->continent->code;
     $geo->timezone = $geo_data->location->timeZone;
     $espanol = ["ES", "AR", "BO", "CL", "CO", "CR", "CU", "CW", "DO", "EC", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "VE", "UY", "GT", "SV"];
     $lang = (in_array($country, $espanol))? 'es' : $geo_data->locales[0];
