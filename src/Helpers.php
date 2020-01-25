@@ -88,6 +88,23 @@ function timezone($ip,$date) {
 	return \Carbon::parse($date)->timezone($timezone);
 }
 
+//FIND DISTANCE BETWEEN 2 POINTS
+	function distance($lat1, $lon1, $lat2, $lon2, $unit = "M") {
+
+		$theta = $lon1 - $lon2;
+		$dist = acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)));
+		$dist = rad2deg($dist);
+		$dist = $dist * 60 * 1.1515;
+		$unit = strtoupper($unit);
+	
+		if ($unit == "K") {
+			$dist = $dist * 1.609344;
+		} else if ($unit == "N") {
+			$dist = $dist * 0.8684;
+		}
+		return round($dist,1);
+	}
+
 
 //APPEND TO JSON (only works with first level)
 function appendtojson($json,$new,$subcategory=false) {

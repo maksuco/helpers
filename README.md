@@ -173,6 +173,14 @@ if you also want the isp info, just include the second call.
 
 ```
 
+# Location distance between 2 points
+
+The units is optional, default is "miles"
+
+```php
+  $distance = \Helpers::distance($lat1, $lon1, $lat2, $lon2, $unit = "K");
+```
+
 
 ## Append to json (only works with first level for now)
 Send new data to append to a json data or subcategory (subcategory is optional).
