@@ -308,11 +308,12 @@ Send '1 mb' and get the result in bytes, send measurements in: b, kb, mb, gb, tb
 
 ## Generate random string
 Send the length of the random
-//in a future version specified if numeric only
 
 ```php
   \Helpers::random(4);
   //returns xxxx
+  \Helpers::random(4,true);
+  //if you want only numbers
 ```
 
 ## Filename Parsing

@@ -428,8 +428,8 @@ function COUNTRY_CONTINENTS($countryCode) {
 	}
 	
 	//Because str_random doesn't work anymore
-  function random($characters = 1) {
-		$chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  function random($characters = 1,$numbers = false) {
+		$chars = ($numbers)? '0123456789' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$count = strlen($chars);
 		$bytes = random_bytes($characters);
 		$random = '';
