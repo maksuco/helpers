@@ -383,6 +383,7 @@ Here's an example of how to implement the random function, Adds random at the en
 ```
 
 # Social Sharing
+$url can be null to automatically get the current url page
 
 ### Facebook Share
 $app_id is optional
@@ -409,9 +410,17 @@ $image is optional
 ```
 
 ### ADD POPUP INSTEAD OF target="_blank"
-Just add to the link the class .share-popup
+Just add to the link onclick="return popup(this);"
 ```php
-  {!!\Helpers::sharemodal()!!}
+  {!!\Helpers::popup()!!}
+```
+```js
+  onclick="return popup(this);"
+```
+
+### GET CURRENT PAGE URL
+```php
+  {!!\Helpers::currenturl()!!}
 ```
 
 

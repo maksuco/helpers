@@ -600,42 +600,45 @@ HTML;
 	//SOCIAL SHARING
 	
 	function facebookshare($url,$title,$app_id=null) {
-		$return = 'www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).'&app_id='.$app_id;
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$return = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).'&app_id='.$app_id;
 		return $return;
 	}
 	function twittershare($url,$title,$username=null) {
-		$return = 'http://www.twitter.com/intent/tweet?url='.$url.'&text='.rawurlencode($title).'&via='.$username;
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$return = 'https://www.twitter.com/intent/tweet?url='.$url.'&text='.rawurlencode($title).'&via='.$username;
 		return $return;
 	}
 	function linkedinshare($url,$title,$username=null) {
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$return = 'https://www.linkedin.com/shareArticle?url='.$url.'&title='.rawurlencode($title).'&source='.$username;
 		return $return;
 	}
 	function pinterestshare($url,$title,$image=null) {
-		$return = 'http://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$return = 'https://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
 		return $return;
 	}
-	function sharemodal() {
-		$return = `
-			$(".share-popup").click(function(){
-				var window_size = "width=585,height=511";
-				var url = this.href;
-				var domain = url.split("/")[2];
-				switch(domain) {
-					case "www.facebook.com":
-						window_size = "width=585,height=368";
-						break;
-					case "www.twitter.com":
-						window_size = "width=585,height=261";
-						break;
-					default:
-						window_size = "width=517,height=511";
+	function popup() {
+		//onclick="return popup(this);"
+		//top=100,left=100
+		return '
+			function popup(obj) {
+				let url = obj.getAttribute("href");
+				let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=400,height=500";
+				var popup_window = open(url, "Share", params);
+				try {
+					popup_window.focus();   
+				} catch (e) {
+					window.open(url, "_blank");
 				}
-				window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,' + window_size);
 				return false;
-			});
-		`;
-		return $return;
+			}
+		';
+	}
+
+	function currenturl() {
+		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	}
 	
 	//RETURNS DATA FILTERED BY USER
