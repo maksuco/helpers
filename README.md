@@ -382,6 +382,40 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
+# Social Sharing
+
+### Facebook Share
+$app_id is optional
+```php
+  {{\Helpers::facebookshare($url,$title,$app_id)}}
+```
+
+### Twitter Share
+$username is optional
+```php
+  {{\Helpers::twittershare($url,$title,$username)}}
+```
+
+### LinkedIn Share
+$username is optional
+```php
+  {{\Helpers::linkedinshare($url,$title,$username)}}
+```
+
+### Pinterest Share
+$image is optional
+```php
+  {{\Helpers::pinterestshare($url,$title,$image)}}
+```
+
+### ADD POPUP INSTEAD OF target="_blank"
+Just add to the link the class .share-popup
+```php
+  {!!\Helpers::sharemodal()!!}
+```
+
+
+
 # VeeValidate Honeypot
 
 ### Renders a vee validate html and css honeypot:

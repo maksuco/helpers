@@ -85,7 +85,7 @@ function geoip($ip,$optional='city') {
 function timezone($ip,$date) {
 	$geo = \Helpers::geoip($ip);
 	$timezone = (isset($geo->location->timeZone))? $geo->location->timeZone : 'America/New_York';
-	return \Carbon::parse($date)->timezone($timezone);
+	return \Carbon::parse($date)->timezone($timezone)->format("Y-m-d H:m:s");
 }
 
 //FIND DISTANCE BETWEEN 2 POINTS
@@ -595,6 +595,47 @@ HTML;
 			}
 			
 	    return [$visitors,$pageviews];
+	}
+
+	//SOCIAL SHARING
+	
+	function facebookshare($url,$title,$app_id=null) {
+		$return = 'www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).'&app_id='.$app_id;
+		return $return;
+	}
+	function twittershare($url,$title,$username=null) {
+		$return = 'http://www.twitter.com/intent/tweet?url='.$url.'&text='.rawurlencode($title).'&via='.$username;
+		return $return;
+	}
+	function linkedinshare($url,$title,$username=null) {
+		$return = 'https://www.linkedin.com/shareArticle?url='.$url.'&title='.rawurlencode($title).'&source='.$username;
+		return $return;
+	}
+	function pinterestshare($url,$title,$image=null) {
+		$return = 'http://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
+		return $return;
+	}
+	function sharemodal() {
+		$return = `
+			$(".share-popup").click(function(){
+				var window_size = "width=585,height=511";
+				var url = this.href;
+				var domain = url.split("/")[2];
+				switch(domain) {
+					case "www.facebook.com":
+						window_size = "width=585,height=368";
+						break;
+					case "www.twitter.com":
+						window_size = "width=585,height=261";
+						break;
+					default:
+						window_size = "width=517,height=511";
+				}
+				window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,' + window_size);
+				return false;
+			});
+		`;
+		return $return;
 	}
 	
 	//RETURNS DATA FILTERED BY USER
