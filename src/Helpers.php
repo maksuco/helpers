@@ -42,9 +42,10 @@ class Helpers
 			
 		//OS
 		if (strpos($user_agent, 'Macintosh')) { $data['os'] = 'Macintosh'; }
-		elseif (strpos($user_agent, 'iPhone')) { $data['os'] = 'iPhone'; }
+		elseif (strpos($user_agent, 'iPhone') || strpos($user_agent, 'iOS')) { $data['os'] = 'ios'; }
 		elseif (strpos($user_agent, 'CrOS')) { $data['os'] = 'ChromeOS'; }
 		elseif (strpos($user_agent, 'Android')) { $data['os'] = 'Android'; }
+		elseif (strpos($user_agent, 'Ubuntu')) { $data['os'] = 'Ubuntu'; }
 		elseif (strpos($user_agent, 'Linux')) { $data['os'] = 'Linux'; }
 		elseif (strpos($user_agent, 'Windows Phone')) { $data['os'] = 'WindowsPhone'; }
 		elseif (strpos($user_agent, 'Windows')) { $data['os'] = 'Windows'; }
