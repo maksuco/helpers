@@ -18,6 +18,41 @@ class Helpers
 	  return $desktop;
 	}
 
+	//BROWSER, OS
+	function user_agent() {
+		$user_agent = $_SERVER["HTTP_USER_AGENT"];
+		$data = [];
+		$data['tablet'] = $data['mobile'] = $data['desktop'] = false;
+	
+		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
+			$data['tablet'] = true; $data['device'] = 'tablet';
+		} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $user_agent)) {
+			$data['mobile'] = true; $data['device'] = 'mobile';
+		} else {
+			$data['desktop'] = true; $data['device'] = 'desktop';
+		}
+		//Browser
+		if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) { $data['browser'] = 'Opera'; }
+		elseif (strpos($user_agent, 'Edge')) { $data['browser'] = 'Edge'; }
+		elseif (strpos($user_agent, 'Chrome')) { $data['browser'] = 'Chrome'; }
+		elseif (strpos($user_agent, 'Safari')) { $data['browser'] = 'Safari'; }
+		elseif (strpos($user_agent, 'Firefox')) { $data['browser'] = 'Firefox'; }
+		elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) { $data['browser'] = 'Internet Explorer'; }
+		else { $data['browser'] = 'Other'; }
+			
+		//OS
+		if (strpos($user_agent, 'Macintosh')) { $data['os'] = 'Macintosh'; }
+		elseif (strpos($user_agent, 'iPhone')) { $data['os'] = 'iPhone'; }
+		elseif (strpos($user_agent, 'CrOS')) { $data['os'] = 'ChromeOS'; }
+		elseif (strpos($user_agent, 'Android')) { $data['os'] = 'Android'; }
+		elseif (strpos($user_agent, 'Linux')) { $data['os'] = 'Linux'; }
+		elseif (strpos($user_agent, 'Windows Phone')) { $data['os'] = 'WindowsPhone'; }
+		elseif (strpos($user_agent, 'Windows')) { $data['os'] = 'Windows'; }
+		else { $data['os'] = 'Other'; }
+	
+		$data['result'] = $data['os'].' '.$data['browser'];
+		return $data;
+	}
 	
 	//GET DEVICE AGENT
 	function mobile() {

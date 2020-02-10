@@ -37,6 +37,13 @@ Response with the correct device, example: (300,'table',200), the response is 30
   //Returns true or false
 ```
 
+# Check if device is Mobile, Operating System and Browser
+
+```php
+  \Helpers::user_agent();
+  //Returns Array ( [desktop] => 1 [mobile] => [tablet] =>  [device] => desktop [browser] => Chrome [os] => Macintosh [result] => Macintosh Chrome )
+```
+
 # Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.
