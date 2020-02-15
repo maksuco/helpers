@@ -33,10 +33,11 @@ class Helpers
 		}
 		//Browser
 		if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) { $data['browser'] = 'Opera'; }
+		elseif (strpos($user_agent, 'Googlebot')) { $data['browser'] = 'Googlebot'; }
+		elseif (strpos($user_agent, 'Firefox')) { $data['browser'] = 'Firefox'; }
 		elseif (strpos($user_agent, 'Edge')) { $data['browser'] = 'Edge'; }
 		elseif (strpos($user_agent, 'Chrome')) { $data['browser'] = 'Chrome'; }
 		elseif (strpos($user_agent, 'Safari')) { $data['browser'] = 'Safari'; }
-		elseif (strpos($user_agent, 'Firefox')) { $data['browser'] = 'Firefox'; }
 		elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) { $data['browser'] = 'Internet Explorer'; }
 		else { $data['browser'] = 'Other'; }
 			
