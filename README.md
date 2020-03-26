@@ -169,6 +169,7 @@ https://github.com/maxmind/GeoIP2-php
   $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,'isp');
 
 ```
+if you need the function to provide the ip, just put null in the $ip.
 if you also want the isp info, just include the second call.
 
 
