@@ -147,7 +147,7 @@ function timezone($ip,$date) {
 
 
 //APPEND TO JSON (only works with first level)
-function appendtojson($json,$new,$subcategory=false) {
+function appendtojson($json,$new,$subcategory=false,$limit=false) {
 	if(!empty($json) OR $json != null){
 		$data = json_decode($json,true);
 	} else {
@@ -163,6 +163,9 @@ function appendtojson($json,$new,$subcategory=false) {
 		//$data = json_decode($data[$subcategory],true);
 		array_push($data[$subcategory], $new);
 		//$data[$subcategory][] = $new;
+	}
+	if($limit){
+		$data = array_slice($data, 0, $limit);
 	}
 	return json_encode($data);
 }
@@ -479,6 +482,11 @@ function COUNTRY_CONTINENTS($countryCode) {
 		return $random;
 	}
 
+
+//CHECK if url has http
+function telto($phone) {
+	return str_replace(['+', '(', ')', '-', ' '], '', $phone);
+}
 
 //CHECK if url has http
 function link($url) {

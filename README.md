@@ -191,15 +191,16 @@ The units is optional, default is "miles"
 
 
 ## Append to json (only works with first level for now)
-Send new data to append to a json data or subcategory (subcategory is optional).
+Send new data to append to a json data or subcategory (subcategory and limit are optional).
 
 You send the DB column as $json, the new object or array as $new.
 
 ```php
 
-  \Helpers::appendtojson($json,$new,$subcategory)
+  \Helpers::appendtojson($json,$new,$subcategory,$limit)
 
 ```
+LImit, sets a limit for the amounts of records
 
 
 ## Modify csv string action=add,remove,check
@@ -282,6 +283,18 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
   $domain = \Helpers::domain_from_email($email);
   //returns the domain from an email if it's not a free service like gmail.com, else it returns false
+
+```
+
+
+
+# Transform number to telto number
+
+```php
+
+  {{\Helpers::telto($phone)}}
+  //SEND: +1 (305) 890 8989
+  //RETURNS: 13058908989
 
 ```
 
