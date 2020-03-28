@@ -165,7 +165,7 @@ function appendtojson($json,$new,$subcategory=false,$limit=false) {
 		//$data[$subcategory][] = $new;
 	}
 	if($limit){
-		$data = array_slice($data, 0, $limit);
+		$data = array_slice($data, 0, ($limit -1));
 	}
 	return json_encode($data);
 }
