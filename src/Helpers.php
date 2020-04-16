@@ -89,12 +89,12 @@ function text_parse($text) {
 
 
 function moneyFormat($value,$currency) {
+	$value = str_replace('.00', '',$value);
 	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
 		$value = number_format($value, 2, '.', ',');
 	} else {
 		$value = number_format($value, 2, ',', '.');
 	}
-	$value = str_replace('.00', '',$value);
 	if($currency=='EUR'){
 		return '€'.$value;
 	} elseif($currency=='BRL') {
