@@ -157,6 +157,16 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Money Format
+
+```php
+
+  {{\Helpers::moneyFormat($value,$currency)}}
+  //SEND: 1234.56,'EUR'
+  //RETURNS: €1,234.56
+
+```
+
 # Location GEOIP
 
 Get the city, country, language and other data from the IP:

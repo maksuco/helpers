@@ -86,6 +86,57 @@ function text_parse($text) {
 	return $text;
 }
 
+
+
+function moneyFormat($value,$currency) {
+	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
+		$value = number_format($value, 2, '.', ',');
+	} else {
+		$value = number_format($value, 2, ',', '.');
+	}
+	if($currency=='EUR'){
+		return '€'.$value;
+	} elseif($currency=='BRL') {
+		return 'R$'.$value;
+	} elseif($currency=='CNY') {
+		return '¥'.$value;
+	} elseif($currency=='HKD') {
+		return 'HK$'.$value;
+	} elseif($currency=='INR') {
+		return '₹'.$value;
+	} elseif($currency=='ILS') {
+		return '₪'.$value;
+	} elseif($currency=='JPY') {
+		return '¥'.$value;
+	} elseif($currency=='KRW') {
+		return '₩'.$value;
+	} elseif($currency=='MYR') {
+		return 'RM'.$value;
+	} elseif($currency=='MAD') {
+		return $value.'.د.م.';
+	} elseif($currency=='PHP') {
+		return '₱'.$value;
+	} elseif($currency=='RUB') {
+		return $value.'p.';
+	} elseif($currency=='SAR') {
+		return $value.'﷼';
+	} elseif($currency=='ZAR') {
+		return 'R'.$value;
+	} elseif($currency=='TWD') {
+		return '元'.$value;
+	} elseif($currency=='THB') {
+		return $value.'฿';
+	} elseif($currency=='TRY') {
+		return $value.'₺';
+	} elseif($currency=='GBP') {
+		return '£'.$value;
+	} elseif($currency=='VND') {
+		return $value.'₫';
+	} else {
+		return '$'.$value;
+	}
+}
+
 //returns first name
 function firstname($fullname) {
 	$fullname = ltrim($fullname," ");
