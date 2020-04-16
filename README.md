@@ -162,8 +162,8 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 ```php
 
   {{\Helpers::moneyFormat($value,$currency)}}
-  //SEND: 1234.56,'EUR'
-  //RETURNS: €1,234.56
+  //SEND: 1234.56,'EUR' RETURNS: €1,234.56
+  //SEND: 1234.00,'USD' RETURNS: $1,234
 
 ```
 

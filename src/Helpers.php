@@ -90,9 +90,9 @@ function text_parse($text) {
 
 function moneyFormat($value,$currency) {
 	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
-		$value = number_format($value, 2, '.', ',');
+		$value = number_format($value, 2, '.', ',') + 0;
 	} else {
-		$value = number_format($value, 2, ',', '.');
+		$value = number_format($value, 2, ',', '.') + 0;
 	}
 	if($currency=='EUR'){
 		return '€'.$value;
