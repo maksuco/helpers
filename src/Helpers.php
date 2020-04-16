@@ -94,7 +94,7 @@ function moneyFormat($value,$currency) {
 	} else {
 		$value = number_format($value, 2, ',', '.');
 	}
-	$value = $value + 0;
+	$value = (int)$value + 0;
 	if($currency=='EUR'){
 		return '€'.$value;
 	} elseif($currency=='BRL') {
