@@ -90,10 +90,11 @@ function text_parse($text) {
 
 function moneyFormat($value,$currency) {
 	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
-		$value = number_format($value, 2, '.', ',') + 0;
+		$value = number_format($value, 2, '.', ',');
 	} else {
-		$value = number_format($value, 2, ',', '.') + 0;
+		$value = number_format($value, 2, ',', '.');
 	}
+	$value = $value + 0;
 	if($currency=='EUR'){
 		return '€'.$value;
 	} elseif($currency=='BRL') {
