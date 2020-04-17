@@ -89,52 +89,61 @@ function text_parse($text) {
 
 
 function moneyFormat($value,$currency) {
-	$value = str_replace('.00', '', $value);
-	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
-		$value = number_format($value, 2, '.', ',');
+		
+	$string = sprintf("%.2f", $value);
+	
+	if(strpos($string,'.00') !== false){
+		$decimals = 0;
 	} else {
-		$value = number_format($value, 2, ',', '.');
+		$decimals = 2;
 	}
-	if($currency=='EUR'){
-		return '€'.$value;
-	} elseif($currency=='BRL') {
-		return 'R$'.$value;
-	} elseif($currency=='CNY') {
-		return '¥'.$value;
-	} elseif($currency=='HKD') {
-		return 'HK$'.$value;
-	} elseif($currency=='INR') {
-		return '₹'.$value;
-	} elseif($currency=='ILS') {
-		return '₪'.$value;
-	} elseif($currency=='JPY') {
-		return '¥'.$value;
-	} elseif($currency=='KRW') {
-		return '₩'.$value;
-	} elseif($currency=='MYR') {
-		return 'RM'.$value;
-	} elseif($currency=='MAD') {
-		return $value.'.د.م.';
-	} elseif($currency=='PHP') {
-		return '₱'.$value;
-	} elseif($currency=='RUB') {
-		return $value.'p.';
-	} elseif($currency=='SAR') {
-		return $value.'﷼';
-	} elseif($currency=='ZAR') {
-		return 'R'.$value;
-	} elseif($currency=='TWD') {
-		return '元'.$value;
-	} elseif($currency=='THB') {
-		return $value.'฿';
-	} elseif($currency=='TRY') {
-		return $value.'₺';
-	} elseif($currency=='GBP') {
-		return '£'.$value;
-	} elseif($currency=='VND') {
-		return $value.'₫';
+	
+	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
+		$value = number_format($value, $decimals, '.', ',');
 	} else {
-		return '$'.$value;
+		$value = number_format($value, $decimals, ',', '.');
+	}
+	
+	if($currency=='EUR'){
+		return '€ '.$value;
+	} elseif($currency=='BRL') {
+		return 'R$ '.$value;
+	} elseif($currency=='CNY') {
+		return '¥ '.$value;
+	} elseif($currency=='HKD') {
+		return 'HK$ '.$value;
+	} elseif($currency=='INR') {
+		return '₹ '.$value;
+	} elseif($currency=='ILS') {
+		return '₪ '.$value;
+	} elseif($currency=='JPY') {
+		return '¥ '.$value;
+	} elseif($currency=='KRW') {
+		return '₩ '.$value;
+	} elseif($currency=='MYR') {
+		return 'RM '.$value;
+	} elseif($currency=='MAD') {
+		return $value.' .د.م.';
+	} elseif($currency=='PHP') {
+		return '₱ '.$value;
+	} elseif($currency=='RUB') {
+		return $value.' p.';
+	} elseif($currency=='SAR') {
+		return $value.' ﷼';
+	} elseif($currency=='ZAR') {
+		return 'R '.$value;
+	} elseif($currency=='TWD') {
+		return '元 '.$value;
+	} elseif($currency=='THB') {
+		return $value.' ฿';
+	} elseif($currency=='TRY') {
+		return $value.' ₺';
+	} elseif($currency=='GBP') {
+		return '£ '.$value;
+	} elseif($currency=='VND') {
+		return $value.' ₫';
+	} else {
+		return '$ '.$value;
 	}
 }
 
