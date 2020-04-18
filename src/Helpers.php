@@ -404,40 +404,49 @@ function COUNTRY_CONTINENTS($countryCode) {
 	
   //GetAvatar
   function avatar($user) {
-   if(!empty($user) OR $user != null) {
-    if(!is_string($user)) {
-      if(!empty($user->avatar) OR $user->avatar != NULL) {
-				//if avatar is facebook or google
-				if (strpos($user->avatar, 'http') === 0) {
-								return $user->avatar;
-				}
-        return env('SHOWAVATAR_PATH').$user->avatar;
-      } else {
-        $avatar = $user->email;
-      }
-    } else { $avatar = $user; }
-			$gravatar = md5(strtolower(trim($avatar)));
+
+		//IF EMPTY
+    if(empty($user) OR $user == null) {
+			$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+			return "data:image/png;base64,".base64_encode($imagedata);
+		}
+
+		//IF USER AVATAR
+		if(isset($user->avatar) AND !empty($user->avatar) AND $user->avatar != NULL) {
+			//if avatar is facebook or google
+			if (strpos($user->avatar, 'http') === 0) {
+				return $user->avatar;
+			}
+			return env('SHOWAVATAR_PATH').$user->avatar;
+		}
+
+		//IF GRAVATAR
+		if(isset($user->email) AND !empty($user->email) AND $user->email != NULL) {
+			$gravatar = md5(strtolower(trim($user->email)));
 			$gravatar = @file_get_contents("https://s.gravatar.com/avatar/$gravatar?d=404");
 			if(!$gravatar){
 				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
 				return "data:image/png;base64,".base64_encode($imagedata);
 			} else {
-				return "https://s.gravatar.com/avatar/$gravatar";
+				return "data:image/png;base64,".base64_encode($gravatar);
+				//return "https://s.gravatar.com/avatar/$gravatar";
 			}
-      //$fallback = env('SHOWAVATAR_PATH').'avatar.png';
-      //return "https://s.gravatar.com/avatar/$gravatar?d=".$fallback;
-    } elseif(isset($user->sex)){
-			if($user->sex == 'm'){
-				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar-m.png");
-				return "data:image/png;base64,".base64_encode($imagedata);
-			} elseif($user->sex == 'f'){
+		}
+
+		//IF SEX
+		if(isset($user->sex)) {
+			if($user->sex == 'f'){
 				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar-f.png");
 				return "data:image/png;base64,".base64_encode($imagedata);
+			} else {
+				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar-m.png");
+				return "data:image/png;base64,".base64_encode($imagedata);
 			}
-		} else {
-			$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
-			return "data:image/png;base64,".base64_encode($imagedata);
 		}
+		
+		//ALL OTHERS
+		$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+		return "data:image/png;base64,".base64_encode($imagedata);
   }
 	
 	//CRYPTO

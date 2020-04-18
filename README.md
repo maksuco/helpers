@@ -47,7 +47,7 @@ Response with the correct device, example: (300,'table',200), the response is 30
 # Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.
-In your env file specify "SHOWAVATAR_PATH"
+It returns the image path or base64
 
 ```php
 
