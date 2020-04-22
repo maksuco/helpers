@@ -147,6 +147,8 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
   {{\Helpers::currencies()}}
   //RETURNS: Array of names
+  {{\Helpers::currencies('all')}}
+  //RETURNS: Array of all currencies with: name, isoCode, symbol and other data
   {{\Helpers::currencies('usd')}}
   //RETURNS: all data of currency
   {{\Helpers::currency_format('10000.00','usd',false)}}

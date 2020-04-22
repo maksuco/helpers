@@ -335,10 +335,12 @@ function languages($lang='all') {
 }
 
 
-function currencies($isoCode='all') {
+function currencies($isoCode=null) {
 	include(__DIR__ ."/Extras/currencies.php");
-	if($isoCode == 'all'){
-			return array_keys($currencies);
+	if($isoCode == 'all') {
+		return $currencies;
+	} elseif($isoCode != null){
+		return array_keys($currencies);
 	}
 	return $currencies[$isoCode];
 }
