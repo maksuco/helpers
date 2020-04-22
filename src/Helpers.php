@@ -340,9 +340,9 @@ function currencies($isoCode=null) {
 	if($isoCode == 'all') {
 		return $currencies;
 	} elseif($isoCode != null){
-		return array_keys($currencies);
+		return $currencies[$isoCode];
 	}
-	return $currencies[$isoCode];
+	return array_keys($currencies);
 }
 
 
