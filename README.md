@@ -146,11 +146,11 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 ```php
 
   {{\Helpers::currencies()}}
-  //RETURNS: Array of names
-  {{\Helpers::currencies('all')}}
+  //RETURNS: Array of isoCodes
+  {{\Helpers::currencies('complete')}}
   //RETURNS: Array of all currencies with: name, isoCode, symbol and other data
   {{\Helpers::currencies('usd')}}
-  //RETURNS: all data of currency
+  //RETURNS: All data of currency
   {{\Helpers::currency_format('10000.00','usd',false)}}
   //'10000.00','usd' RETURNS: $10,000 usd
   //'100.30','usd' RETURNS: $100.30 usd

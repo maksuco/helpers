@@ -337,7 +337,7 @@ function languages($lang='all') {
 
 function currencies($isoCode=null) {
 	include(__DIR__ ."/Extras/currencies.php");
-	if($isoCode == 'all') {
+	if($isoCode == 'complete') {
 		return $currencies;
 	} elseif($isoCode != null){
 		return $currencies[$isoCode];
