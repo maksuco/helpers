@@ -504,14 +504,14 @@ function COUNTRY_CONTINENTS($countryCode) {
   }
   //returns new filename
   function slug_file($filename,$random) {
-    $data = explode('.', $filename);
-    $result = $this->slug($data[0]).$this->slug_random($random).'.'.$data[1];
+    $data = pathinfo($filename); //explode('.', $filename);
+    $result = $this->slug($data['filename']).$this->slug_random($random).'.'.$data['extension'];
     return strtolower($result);
   }
-  //returns filename with a nmae you specify
+  //returns filename with a name you specify
   function slug_filename($filename,$name,$random) {
-    $data = explode('.', $filename);
-    $result = $this->slug($name).$this->slug_random($random).'.'.$data[1];
+    $data = pathinfo($filename);
+    $result = $this->slug($name).$this->slug_random($random).'.'.$data['extension'];
     return strtolower($result);
 	}
 	
