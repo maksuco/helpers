@@ -178,6 +178,17 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Decimal Format
+
+Useful for saving numbers on mysql decimal columns
+```php
+
+  {{\Helpers::decimalFormat($number)}}
+  //SEND: 1,234.56 RETURNS: 1234.56
+  //SEND: 1,234 RETURNS: 1234.00
+
+```
+
 # Location GEOIP
 
 Get the city, country, language and other data from the IP:
