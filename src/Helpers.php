@@ -126,7 +126,7 @@ function moneyFormat($value,$currency) {
 function decimalsFormat($number) {
 	$number_parts = explode('.', $number);
 	if(isset($number_parts[1])){
-		return str_replace (',', '', $number_parts[0]).'.'.$number_parts[1];
+		return str_replace (',', '', $number_parts[0]).'.'.substr($number_parts[1], 0, 2);
 	} else {
 		return str_replace (',', '', $number).'.00';   
 	}
