@@ -88,7 +88,7 @@ function text_parse($text) {
 
 
 
-function moneyFormat($value,$currency) {
+function moneyFormat($value,$currency='USD') {
 		
 	$string = sprintf("%.2f", $value);
 	$decimals = (strpos($string,'.00') !== false)? 0 : 2;
