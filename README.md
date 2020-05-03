@@ -128,6 +128,15 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Get all timezones
+
+ A list of timezones to show in a select
+
+```php
+  {{\Helpers::timezones()}}
+  //RETURNS: Array
+```
+
 # Get all languages or lang code name
 
 ```php

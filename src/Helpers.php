@@ -325,6 +325,11 @@ function countries($lang='en') {
 	return json_decode($data);
 }
 
+function timezones() {
+	include_once("Extras/timezones.php");
+	return $timezones;
+}
+
 function languages($lang='all') {
 	include_once(__DIR__ ."/Extras/languages.php");
 	if($lang == 'all'){
