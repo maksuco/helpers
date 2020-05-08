@@ -125,6 +125,8 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
   {{\Helpers::countries('en')}}
   //RETURNS: Array
+  {{\Helpers::country('US')}}
+  //RETURNS: "id": 241,"code": "US","name_en": "United States","name_es": "Estados Unidos","status": null,"tel": 1,"lang": "en","currency": "USD","currency_symbol": "$","timezone_group": null
 
 ```
 

@@ -335,6 +335,17 @@ function countries($lang='en') {
 	return json_decode($data);
 }
 
+function country($isoCode="US") {
+	$data = json_decode(file_get_contents(__DIR__ ."/Extras/countries_en.json"));
+	$isoCode = strtoupper($isoCode);
+	foreach($data as $country){
+		if($country->code == $isoCode){
+			return $country;
+		}
+	}
+	return false;
+}
+
 function timezones() {
 	include_once("Extras/timezones.php");
 	return $timezones;
@@ -355,7 +366,7 @@ function currencies($isoCode=null) {
 	if($isoCode == 'complete') {
 		return $currencies;
 	} elseif($isoCode != null){
-		return $currencies[$isoCode];
+		return $currencies[strtolower($isoCode)];
 	}
 	return array_keys($currencies);
 }
