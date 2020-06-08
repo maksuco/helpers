@@ -87,6 +87,13 @@ function text_parse($text) {
 }
 
 
+function getTextBetween($text, $start="", $end="") {
+	$matches = [];
+	preg_match_all("/$start([a-zA-Z0-9_]*)$end/", $text, $matches);
+	return $matches;
+}
+
+
 
 function moneyFormat($value,$currency='USD') {
 		

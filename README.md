@@ -117,6 +117,15 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# Find text between 2 strings
+
+
+```php
+
+  {{\Helpers::getTextBetween($text,$start,$end)}}
+
+```
+
 # Get all countries
 
  A list of countries to show in a select
