@@ -118,7 +118,7 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 ```
 
 # Find text between 2 strings
-
+Returns an array with all results
 
 ```php
 
