@@ -760,6 +760,16 @@ HTML;
 		$return = 'https://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
 		return $return;
 	}
+	function whatsappshare($url,$text) {
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$return = 'whatsapp://send?text='.rawurlencode($text.' ').$url;
+		return $return;
+	}
+	function whatsappchat($phone,$url,$text) {
+		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text.' ').$url;
+		return $return;
+	}
 	function popup() {
 		//onclick="return popup(this);"
 		//top=100,left=100

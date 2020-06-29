@@ -473,6 +473,17 @@ $image is optional
   {{\Helpers::pinterestshare($url,$title,$image)}}
 ```
 
+### Whatsapp Share
+```php
+  {{\Helpers::whatsappshare($url,$text)}}
+```
+
+### Whatsapp Chat
+```php
+  {{\Helpers::whatsappchat($phone,$url,$text)}}
+  //\Helpers::whatsappchat('15551234xxx',null,'Im interested in your service')
+```
+
 ### ADD POPUP INSTEAD OF target="_blank"
 Just add to the link onclick="return popup(this);"
 ```php
