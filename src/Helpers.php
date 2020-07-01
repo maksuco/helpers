@@ -128,7 +128,7 @@ function moneyFormat($value,$currency='USD') {
 	} elseif($currency=='TRY') { return $value.' ₺';
 	} elseif($currency=='GBP') { return '£ '.$value;
 	} elseif($currency=='VND') { return $value.' ₫';
-	} else { return '$ '.$value;
+	} else { return '$'.$value;
 	}
 }
 
