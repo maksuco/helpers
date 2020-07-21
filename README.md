@@ -500,7 +500,7 @@ Just add to the link onclick="return popup(this);"
 
 
 ### PROCESS INSTAGRAM SCRAPER
-Requires https://github.com/postaddictme/instagram-php-scraper
+Requires https://github.com/postaddictme/instagram-php-scraper composer require raiym/instagram-php-scraper
 ```php
   $media = \Helpers::instagram_process($instagram,'username');
 ```
