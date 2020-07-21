@@ -19,6 +19,7 @@
       $geo->timezone_range = "america";
       $geo->lang = 'en';
       $geo->isp = 'Server';
+      $geo->prefix = '+1';
       return $geo;
     }
     try {
