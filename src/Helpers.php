@@ -766,7 +766,7 @@ HTML;
 		return $return;
 	}
 	function whatsappchat($phone,$url,$text) {
-		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$url = ($url AND !empty($url))? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text.' ').$url;
 		return $return;
 	}
@@ -922,6 +922,47 @@ HTML;
 		$results['sum2'] = $data->pluck('sum2');
 		$results['count'] = $data->pluck('count');
 		return $results;
+	}
+
+
+
+	//PROCESS INSTAGRAM SCRAPER
+	function instagram_process($instagram,$username) {
+		
+		$media = $instagram->getMedias($username,40);
+		$object = [];
+		foreach ($media as $key => $photo) {
+				$object[$key]['id'] = $photo['id'];
+				$object[$key]['type'] = $photo['type'];
+				$object[$key]['imageThumbnailUrl'] = $photo['imageThumbnailUrl'];
+				$object[$key]['imageHighResolutionUrl'] = $photo['imageHighResolutionUrl'];
+				$object[$key]['caption'] = $photo['caption'];
+				$object[$key]['link'] = $photo['link'];
+				$object[$key]['createdTime'] = $photo['createdTime'];
+				$object[$key]['likesCount'] = $photo['likesCount'];
+				$object[$key]['commentsCount'] = $photo['commentsCount'];
+				if ($photo['type'] == "video") {
+						$link = $photo->getLink();
+						$json_media_by_url = $instagram->getMediaByUrl($link);
+						$object[$key]['video_url'] =
+								$json_media_by_url['videoStandardResolutionUrl'];
+				} elseif ($photo['type'] == "sidecar") {
+						$link = $photo->getLink();
+						$json_media_by_url = $instagram->getMediaByUrl($link);
+						foreach ($json_media_by_url['sidecarMedias'] as $key2 => $photo2) {
+								$object[$key]['sidecarMedias'][$key2]['id'] =
+										$photo2['imageLowResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['imageLowResolutionUrl'] =
+										$photo2['imageLowResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['imageHighResolutionUrl'] =
+										$photo2['imageHighResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['link'] = $photo2['link'];
+								$object[$key]['sidecarMedias'][$key2]['caption'] =
+										$photo2['caption'];
+						}
+				}
+		}
+		return $object;
 	}
 
 	
