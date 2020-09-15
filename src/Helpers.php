@@ -766,6 +766,7 @@ HTML;
 		return $return;
 	}
 	function whatsappchat($phone,$url,$text) {
+		$phone = str_replace([' ','-','(',')'], '', $phone);
 		$url = ($url AND !empty($url))? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text.' ').$url;
 		return $return;
