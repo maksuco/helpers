@@ -2,8 +2,6 @@
 
 namespace Maksuco\Helpers;
 
-//use function GuzzleHttp\json_decode;
-
 class Helpers
 {
 	
@@ -605,10 +603,11 @@ function email_check($email) {
 function domain_check($value) {
 	$domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
 	if($domain) {
-	//$handle = dns_get_record($url);
-    	$check = checkdnsrr($domain, "MX");
-	return (!empty($check))? true : false;
+		//$handle = dns_get_record($url);
+    $check = checkdnsrr($domain, "MX");
+		return (!empty($check))? true : false;
 	}
+	return false;
 }
 
 function domain_from_email($email) {

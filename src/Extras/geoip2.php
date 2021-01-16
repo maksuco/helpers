@@ -4,6 +4,7 @@
 
   function geoip2($ip,$optional) {
     $geo = new stdClass();
+    $geo->ip = $ip;
     $geo->country = new stdClass();
     $geo->location = new stdClass();
 
