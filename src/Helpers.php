@@ -487,14 +487,16 @@ function COUNTRY_CONTINENTS($countryCode) {
 	
 	//CRYPTO
 	function encrypt($string,$key) {
-		$iv = substr(hash('sha256', env('CRYPTO_STRING')), 0, 16);
+		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? $this->random('123456789ZYX');
+		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
 		$encrypted = strtr( $encrypted, "+/", "-_");
 	  return $encrypted;
 	}
 	function decrypt($string,$key) {
+		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? $this->random('123456789ZYX');
 		$string = strtr( $string, "-_", "+/");
-		$iv = substr(hash('sha256', env('CRYPTO_STRING')), 0, 16);
+		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
 	  return $decrypted;
 	}
