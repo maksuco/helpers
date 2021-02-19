@@ -574,6 +574,59 @@ function COUNTRY_CONTINENTS($countryCode) {
 		}
 		return $random;
 	}
+	
+	//Because str_random doesn't work anymore
+  function random_name($type=null) {
+		$names = ['Allison','Arthur','Ana','Alex','Alberto','Barry','Bertha','Bill','Bonnie','Charley','Cindy','Chris','Dean','Dolly','Danny','Danielle','Dennis','Debby','Erin','Eduard','Erika','Earl','Emily','Ernesto','Felix','Fay','Fabian','Frances','Franklin','Florence','Gustav','Grace','Gaston','Gert','Gordon','Humberto','Hanna','Henri','Hermine','Harvey','Helene','Iris','Isidore','Isabel','Ivan','Irene','Isaac','Jerry','Josephine','Juan','Jeanne','Jose','Joyce','Karen','Kyle','Kate','Karl','Katrina','Kirk','Lorenzo','Lili','Larry','Lisa','Lee','Leslie','Michelle','Marco','Mindy','Maria','Michael','Noel','Nana','Nicholas','Nicole','Nate','Nadine','Olga','Omar','Odette','Otto','Ophelia','Oscar','Pablo','Paloma','Peter','Paula','Philippe','Patty','Rebekah','Rene','Rose','Richard','Rita','Rafael','Sally','Sam','Stan','Sandy','Tanya','Teddy','Teresa','Tomas','Tammy','Tony','Van','Vicky','Victor','Vince','Valerie','Wendy','Wilfred','Wanda','Walter','Wilma','William','Vision'];
+		$lastnames = ['Acosta','Macdonald','McSwain','Rojas','Smith','Stanley','Stark'];
+		shuffle($names);
+		if($type == 'name') {
+			return $names[0];
+		}
+		shuffle($lastnames);
+		if($type == 'lastname') {
+			return $lastnames[0];
+		}
+		return $names[0].' '.$lastnames[0];
+	}
+	
+	//Because str_random doesn't work anymore
+  function greetings_by_time($timezone=false) {
+		if($timezone){
+			date_default_timezone_set($timezone);
+		}
+    $hour = date("H");
+    if ($hour < "12") {
+			return "Good morning";
+    } elseif ($hour >= "12" && $hour < "17") {
+			return "Good afternoon";
+    } elseif ($hour >= "17" && $hour < "19") {
+			return "Good evening";
+    }
+		return "Good night";
+	}
+
+	
+
+	function generateGreetings(){
+
+		var currentHour = moment().format("HH");
+	
+		if (currentHour >= 3 && currentHour < 12){
+				return "Good Morning";
+		} else if (currentHour >= 12 && currentHour < 15){
+				return "Good Afternoon";
+		}   else if (currentHour >= 15 && currentHour < 20){
+				return "Good Evening";
+		} else if (currentHour >= 20 && currentHour < 3){
+				return "Good Night";
+		} else {
+				return "Hello"
+		}
+	
+	}
+
+
 
 
 //CHECK if url has http

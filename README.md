@@ -89,7 +89,7 @@ Here's an example of how to implement crypto to transform strings to hashed keys
   //SEND
   $security = Helpers::encrypt($string,$key);
   //AFTER
-  $string = Helpers::decrypt($string,$key);
+  $string = Helpers::decrypt($security,$key);
 
 ```
 
@@ -378,6 +378,26 @@ Send the length of the random
   //returns xxxx
   \Helpers::random(4,true);
   //if you want only numbers
+```
+
+
+
+## Generate random name
+Names for testing, send 'name', 'lastname' or 'fullname' or leave empty for fullname
+
+```php
+  \Helpers::random_name($type);
+  //returns John
+```
+
+
+## Greetings by time of day
+Returns good afternoon, good morning etc..
+
+```php
+  \Helpers::greetings_by_time($timezone);
+  //timezone is optional
+  //Returns: "Good morning", "Good afternoon", "Good evening" or "Good night"
 ```
 
 ## Filename Parsing
