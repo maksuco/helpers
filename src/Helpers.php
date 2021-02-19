@@ -578,16 +578,16 @@ function COUNTRY_CONTINENTS($countryCode) {
 	//Because str_random doesn't work anymore
   function random_name($type=null) {
 		$names = ['Allison','Arthur','Ana','Alex','Alberto','Barry','Bertha','Bill','Bonnie','Charley','Cindy','Chris','Dean','Dolly','Danny','Danielle','Dennis','Debby','Erin','Eduard','Erika','Earl','Emily','Ernesto','Felix','Fay','Fabian','Frances','Franklin','Florence','Gustav','Grace','Gaston','Gert','Gordon','Humberto','Hanna','Henri','Hermine','Harvey','Helene','Iris','Isidore','Isabel','Ivan','Irene','Isaac','Jerry','Josephine','Juan','Jeanne','Jose','Joyce','Karen','Kyle','Kate','Karl','Katrina','Kirk','Lorenzo','Lili','Larry','Lisa','Lee','Leslie','Michelle','Marco','Mindy','Maria','Michael','Noel','Nana','Nicholas','Nicole','Nate','Nadine','Olga','Omar','Odette','Otto','Ophelia','Oscar','Pablo','Paloma','Peter','Paula','Philippe','Patty','Rebekah','Rene','Rose','Richard','Rita','Rafael','Sally','Sam','Stan','Sandy','Tanya','Teddy','Teresa','Tomas','Tammy','Tony','Van','Vicky','Victor','Vince','Valerie','Wendy','Wilfred','Wanda','Walter','Wilma','William','Vision'];
-		$lastnames = ['Acosta','Macdonald','McSwain','Rojas','Smith','Stanley','Stark'];
 		shuffle($names);
 		if($type == 'name') {
 			return $names[0];
 		}
-		shuffle($lastnames);
+		$lastNames = ['Abbott','Acosta','Armstrong','Bates','Buchanan','Campbell','Cash','Chan','Conrad','Cook','Copeland','Davidson','Dickson','Farmer','Fischer','Ford','Garcia','Gates','Hamilton','Hoover','Jobs','Knight','Koch','Lancaster','Macdonald','McSwain','Norris','Oneal','Osborn','Payne','Preston','Rojas','Smith','Stanley','Stark','Turner','Walton','Wozniak','Zimmerman'];
+		shuffle($lastNames);
 		if($type == 'lastname') {
-			return $lastnames[0];
+			return $lastNames[0];
 		}
-		return $names[0].' '.$lastnames[0];
+		return $names[0].' '.$lastNames[0];
 	}
 	
 	//Because str_random doesn't work anymore
@@ -606,6 +606,9 @@ function COUNTRY_CONTINENTS($countryCode) {
 		return "Good night";
 	}
 
+	//returns today, tomorrow, yesterday
+	function date_day($date) {
+	}
 
 
 
