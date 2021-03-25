@@ -419,6 +419,20 @@ function currency_format($amount, $isoCode, $array = false) {
 }
 
 
+function currency_exchange($amount, $from, $to='usd', $round=false) {
+	if(!isset($_SESSION['xe_'.$from.'_'.$to])) {
+		session_start();
+		$rate = json_decode(file_get_contents('https://v6.exchangerate-api.com/v6/dbbe793672781ae3bea9001a/pair/'.$from.'/'.$to.''), true);
+		$_SESSION['xe_'.$from.'_'.$to] = $rate['conversion_rate'];
+	}
+	$return = $amount * $_SESSION['xe_'.$from.'_'.$to];
+	if($round) {
+		$return = round($return, 0);
+	}
+	return $return;
+}
+
+
 
 //should this be in another file? and return continent, language and timezone_range (for emails and console commands)??
 function COUNTRY_CONTINENTS($countryCode) {

@@ -189,6 +189,16 @@ Returns an array with all results
 
 ```
 
+# Currency Money Exchange
+
+```php
+
+  {{\Helpers::currency_exchange($amount, $from, $to, $round)}}
+  //SEND: 1,'EUR','USD' RETURNS: 1,99 (SAMPLE)
+  //SEND: 1,'EUR','USD',true RETURNS: 2 (SAMPLE)
+
+```
+
 # Decimal Format
 
 Useful for saving numbers on mysql decimal columns
