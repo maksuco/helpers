@@ -10,7 +10,7 @@
     "authors": [{
         "name": "Michael McSwain",
         "email": "mm@maksuco.com",
-        "homepage": "http://maksuco.com"
+        "homepage": "https://maksuco.com"
     }],
     "minimum-stability": "dev",
 	"prefer-stable" : true,
