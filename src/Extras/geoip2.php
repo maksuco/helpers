@@ -24,7 +24,7 @@
       return $geo;
     }
     try {
-      $geo_data = new Reader('Maksuco/Helpers-GEO/GeoLite2-City.mmdb');
+      $geo_data = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
       //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
       $geo_data = $geo_data->city($ip);
     } catch (AddressNotFoundException $e) {
@@ -61,7 +61,7 @@
     $geo->prefix = $phone_codes[$geo->country_code];
 
     if($optional!='city'){
-      $isp = new Reader('Maksuco/Helpers-GEO/GeoLite2-ASN.mmdb');
+      $isp = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-ASN.mmdb');
       //$isp = new Reader(__DIR__.'/GeoLite2-ASN.mmdb');
       $isp = $isp->asn($ip);
       $geo->isp = $isp->autonomousSystemOrganization;
