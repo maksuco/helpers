@@ -214,7 +214,7 @@ Useful for saving numbers on mysql decimal columns
 
 Get the city, country, language and other data from the IP:
 This product includes GeoLite2 data created by MaxMind, available from
-<a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+<a href="https://www.maxmind.com">https://www.maxmind.com</a> also requires composer require maksuco/helpers-geo.
 https://github.com/maxmind/GeoIP2-php
 
 ```php
