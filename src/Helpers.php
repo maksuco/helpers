@@ -634,15 +634,15 @@ function COUNTRY_CONTINENTS($countryCode) {
 			return ($lang=='en')? "tomorrow" : "mañana";
 		} elseif($date_or_day < 0) {
 			if($lang=='en') {
-				return $date_or_day." days ago";
+				return abs($date_or_day)." days ago";
 			} else {
-				return "hace ".$date_or_day." dias";
+				return "hace ".abs($date_or_day)." días";
 			}
 		} else {
 			if($lang=='en') {
 				return "in ".$date_or_day." days";
 			} else {
-				return "en ".$date_or_day." dias";
+				return "en ".$date_or_day." días";
 			}
 		}
 	}
