@@ -622,7 +622,29 @@ function COUNTRY_CONTINENTS($countryCode) {
 	}
 
 	//returns today, tomorrow, yesterday
-	function date_day($date) {
+	function date_day($date_or_day,$lang='en') {
+		if(!is_string($date_or_day) OR !is_numeric($date_or_day)) {
+			//convert date to days difference
+		}
+		if($date_or_day == 0) {
+			return ($lang=='en')? "today" : "hoy";
+		} elseif($date_or_day == -1) {
+			return ($lang=='en')? "yesterday" : "ayer";
+		} elseif($date_or_day == 1) {
+			return ($lang=='en')? "tomorrow" : "mañana";
+		} elseif($date_or_day < 0) {
+			if($lang=='en') {
+				return $date_or_day." days ago";
+			} else {
+				return "hace ".$date_or_day." dias";
+			}
+		} else {
+			if($lang=='en') {
+				return "in ".$date_or_day." days";
+			} else {
+				return "en ".$date_or_day." dias";
+			}
+		}
 	}
 
 

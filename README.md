@@ -402,12 +402,19 @@ Names for testing, send 'name', 'lastname' or 'fullname' or leave empty for full
 
 
 ## Greetings by time of day
-Returns good afternoon, good morning etc..
+Returns good afternoon, good morning etc.. (timezone is optional)
 
 ```php
   \Helpers::greetings_by_time($timezone);
-  //timezone is optional
   //Returns: "Good morning", "Good afternoon", "Good evening" or "Good night"
+
+
+## Day name by day difference
+Returns today, tomorrow, 10 days a go, etc...
+
+```php
+  \Helpers::date_day($days_difference,$lang);
+  //lang is optional
 ```
 
 ## Filename Parsing

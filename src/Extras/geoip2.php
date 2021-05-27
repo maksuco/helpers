@@ -24,6 +24,7 @@
       return $geo;
     }
     try {
+      //moved DB to his own repository
       $geo_data = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
       //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
       $geo_data = $geo_data->city($ip);
