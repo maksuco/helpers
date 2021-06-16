@@ -10,18 +10,7 @@
 
     //check if private or local ip
     if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE)) {
-      $geo->country_code = $geo->country->isoCode = 'US';
-      $geo->country_name = "United States";
-      $geo->city_name = null;
-      $geo->state_name = null;
-      $geo->state_code = null;
-      $geo->timezone_range = "america";
-      $geo->timezone = $geo->location->timeZone = "America/New_York";
-      $geo->timezone_range = "america";
-      $geo->lang = 'en';
-      $geo->isp = 'Server';
-      $geo->prefix = '+1';
-      return $geo;
+      return geoip2NotFound($geo);
     }
     try {
       //moved DB to his own repository
@@ -29,9 +18,9 @@
       //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
       $geo_data = $geo_data->city($ip);
     } catch (AddressNotFoundException $e) {
-        return null;
+      return geoip2NotFound($geo); //null;
     } catch (Exception $e) {
-      return null;
+      return geoip2NotFound($geo); //null;
     }
 
     $continent = $geo->continent_code = $geo_data->continent->code;
@@ -83,5 +72,20 @@
       $geo->timezone_range = "america";
     }
 
+    return $geo;
+  }
+
+  function geoip2NotFound($geo) {
+    $geo->country_code = $geo->country->isoCode = 'US';
+    $geo->country_name = "United States";
+    $geo->city_name = null;
+    $geo->state_name = null;
+    $geo->state_code = null;
+    $geo->timezone_range = "america";
+    $geo->timezone = $geo->location->timeZone = "America/New_York";
+    $geo->timezone_range = "america";
+    $geo->lang = 'en';
+    $geo->isp = 'Server';
+    $geo->prefix = '+1';
     return $geo;
   }
