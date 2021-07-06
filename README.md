@@ -216,10 +216,11 @@ Get the city, country, language and other data from the IP:
 This product includes GeoLite2 data created by MaxMind, available from
 <a href="https://www.maxmind.com">https://www.maxmind.com</a> also requires composer require maksuco/helpers-geo.
 https://github.com/maxmind/GeoIP2-php
+Even better you can use 'ip-api' or 'ipstack' (ipstack requires a third argument for the ipstack key or IPSTACK_KEY=xxx on .env file - laravel)
 
 ```php
 
-  $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,'isp');
+  $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,'option'); OR \Helpers::geoip($ip,'ipstack','my_ipstack_key');
 
 ```
 if you need the function to provide the ip, just put null in the $ip.
