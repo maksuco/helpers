@@ -7,6 +7,9 @@ class Helpers
 	
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
+		if(!isset($_SERVER["HTTP_USER_AGENT"])) {
+			return $desktop;
+		}
 	    $agent = $_SERVER["HTTP_USER_AGENT"];
 	    if(preg_match("/(ipad|tablet)/i", $agent)) {
 			return $tablet;  
@@ -18,9 +21,15 @@ class Helpers
 
 	//BROWSER, OS
 	function user_agent() {
-		$user_agent = $_SERVER["HTTP_USER_AGENT"];
 		$data = [];
 		$data['tablet'] = $data['mobile'] = $data['desktop'] = false;
+		if(!isset($_SERVER["HTTP_USER_AGENT"])) {
+			$data['browser'] = 'Chrome';
+			$data['os'] = 'Windows';
+			$data['result'] = $data['os'].' '.$data['browser'];
+			return $data;
+		}
+		$user_agent = $_SERVER["HTTP_USER_AGENT"];
 	
 		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
 			$data['tablet'] = true; $data['device'] = 'tablet';
@@ -56,13 +65,25 @@ class Helpers
 	
 	//GET DEVICE AGENT
 	function mobile() {
-		$agent = $_SERVER["HTTP_USER_AGENT"];
-		if(preg_match("/(ipad|tablet)/i", $agent)) {
-			return false;  
-		} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
-			return true; 
+		if(isset($_SERVER["HTTP_USER_AGENT"])) {
+			$agent = $_SERVER["HTTP_USER_AGENT"];
+			if(preg_match("/(ipad|tablet)/i", $agent)) {
+				return false;  
+			} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
+				return true; 
+			}
 		}
 		return false;
+	}
+
+
+	//BROWSER LOCALE
+	function browserLocale($languages) {
+		$browserLang = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : $languages[0];
+		if(!in_array($browserLang, $languages)) {
+			return $languages[0];  
+		}
+		return $browserLang;
 	}
 	
 function nav_active($page) {

@@ -37,6 +37,12 @@ Response with the correct device, example: (300,'table',200), the response is 30
   //Returns true or false
 ```
 
+# Check browser locale
+Returns the browser locale, for example 'en', you send the available languages of  your site, the first one is the base
+```php
+  \Helpers::browserLocale(['en','es']);
+```
+
 # Check if device is Mobile, Operating System and Browser
 
 ```php
