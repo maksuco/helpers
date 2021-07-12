@@ -13,7 +13,9 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      //
+      // $this->publishes([
+      //   __DIR__ . '/config/helpers.php' => config_path('helpers.php')
+      // ]);
     }
 
     /**

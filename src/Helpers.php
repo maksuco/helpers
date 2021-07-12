@@ -489,7 +489,7 @@ function COUNTRY_CONTINENTS($countryCode) {
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			return env('SHOWAVATAR_PATH').$user->avatar;
+			return env('CLOUD_URL').env('SHOWAVATAR_PATH').$user->avatar;
 		}
 
 		//IF GRAVATAR
@@ -526,7 +526,7 @@ function COUNTRY_CONTINENTS($countryCode) {
 		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? '123456789ZYX';
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
-		$encrypted = strtr( $encrypted, "+/", "-_");
+		$encrypted = strtr($encrypted, "+/", "-_");
 	  return $encrypted;
 	}
 	function decrypt($string,$key) {
