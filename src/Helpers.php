@@ -523,14 +523,14 @@ function COUNTRY_CONTINENTS($countryCode) {
 	
 	//CRYPTO
 	function encrypt($string,$key) {
-		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? $this->random(32,'123456789ZYX');
+		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? '123456789ZYX';
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
 		$encrypted = strtr( $encrypted, "+/", "-_");
 	  return $encrypted;
 	}
 	function decrypt($string,$key) {
-		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? $this->random(32,'123456789ZYX');
+		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? '123456789ZYX';
 		$string = strtr( $string, "-_", "+/");
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
@@ -603,7 +603,7 @@ function COUNTRY_CONTINENTS($countryCode) {
   function random($characters = 1,$numbers = false) {
 		$chars = ($numbers)? '0123456789' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$count = strlen($chars);
-		$bytes = random_bytes($characters);
+		$bytes = random_bytes((int) $characters);
 		$random = '';
 		foreach (str_split($bytes) as $byte) {
 				$random .= $chars[ord($byte) % $count];
