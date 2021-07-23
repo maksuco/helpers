@@ -32,13 +32,16 @@ function inputFileChange(element_id, event) {
 	alert('updated' + ' - ' + fileName);
 	document.getElementById(element_id).innerHTML = fileName.name;
 }
-function str_limit(value, size = 30) {
-	if (!value) return '';
-	value = value.toString();
-	if (value.length <= size) {
-		return value;
+function str_limit(string, size = 30) {
+	if (!string) return '';
+	string = string.toString();
+	if (string.length <= size) {
+		return string;
 	}
-	return value.substr(0, size) + '...';
+	return string.substr(0, size) + '...';
+}
+function initials(string) {
+	return string.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
 }
 
 
@@ -156,9 +159,6 @@ document.addEventListener('alpine:init', () => {
 			},
 			['@mouseleave']() {
 				this.nav_services_dropdown = false;
-			},
-			['@click.outside']() {
-				this.nav_services_dropdown = false;
 			}
 		},
 		helpTrigger: {
@@ -167,23 +167,13 @@ document.addEventListener('alpine:init', () => {
 			},
 			['@mouseleave']() {
 				this.nav_help_dropdown = false;
-			},
-			['@click.outside']() {
-				this.nav_help_dropdown = false;
 			}
 		},
 		userTrigger: {
-			['@click']() {
-                alert('user click');
-				this.nav_user_dropdown = !this.nav_user_dropdown;
-			},
 			['@mouseover']() {
 				this.nav_user_dropdown = true;
 			},
 			['@mouseleave']() {
-				this.nav_user_dropdown = false;
-			},
-			['@click.outside']() {
 				this.nav_user_dropdown = false;
 			}
 		}
