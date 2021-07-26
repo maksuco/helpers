@@ -45,6 +45,22 @@ function initials(string) {
 }
 
 
+function suggest_language_change(current_lang,browser_lang) {
+	if("preferences" in localStorage) { return; }
+	localStorage.setItem("preferences",true);
+    var alternate = document.querySelector("link[rel='alternate']").getAttribute("href");
+    if(browser_lang == 'es' && current_lang == 'en') {
+      Toast.fire({
+        html: 'Hay una <b class="color-primary">versión en Español</b><br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Cambiar</a>'
+      });
+    } else if(browser_lang == 'en' && current_lang == 'es') {
+      Toast.fire({
+        html: 'We have a <b class="color-primary">English version</b><br> you might prefer<br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Change</a>'
+      });
+    }
+}
+
+
 
 //ALPINE 3
 document.addEventListener('alpine:init', () => {
@@ -170,6 +186,9 @@ document.addEventListener('alpine:init', () => {
 			}
 		},
 		userTrigger: {
+			['@click']() {
+				this.nav_user_dropdown = !this.nav_user_dropdown;
+			},
 			['@mouseover']() {
 				this.nav_user_dropdown = true;
 			},
