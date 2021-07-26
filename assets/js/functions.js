@@ -45,18 +45,21 @@ function initials(string) {
 }
 
 
-function suggest_language_change(current_lang,browser_lang) {
+function suggest_language_change(page_lang) {
 	if("preferences" in localStorage) { return; }
 	localStorage.setItem("preferences",true);
-    var alternate = document.querySelector("link[rel='alternate']").getAttribute("href");
-    if(browser_lang == 'es' && current_lang == 'en') {
-      Toast.fire({
-        html: 'Hay una <b class="color-primary">versión en Español</b><br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Cambiar</a>'
-      });
-    } else if(browser_lang == 'en' && current_lang == 'es') {
-      Toast.fire({
-        html: 'We have a <b class="color-primary">English version</b><br> you might prefer<br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Change</a>'
-      });
+	var browser_lang = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage || 'en';
+	var browser_lang = browser_lang.substr(0,2);
+    if(browser_lang == 'es' && page_lang == 'en') {
+		var alternate = document.querySelector("link[rel='alternate']").getAttribute("href");
+		Toast.fire({
+			html: 'Hay una <b class="color-primary">versión en Español</b><br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Cambiar</a>'
+		});
+    } else if(browser_lang == 'en' && page_lang == 'es') {
+		var alternate = document.querySelector("link[rel='alternate']").getAttribute("href");
+		Toast.fire({
+			html: 'We have a <b class="color-primary">English version</b><br> you might prefer<br>' + '<a href="'+alternate+'" class="btn btn-primary btn-sm mt-3">Change</a>'
+		});
     }
 }
 
