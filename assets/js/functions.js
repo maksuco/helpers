@@ -47,9 +47,9 @@ function initials(string) {
 
 function suggest_language_change(page_lang) {
 	if("preferences" in localStorage) { return; }
-	localStorage.setItem("preferences",true);
 	var browser_lang = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage || 'en';
 	var browser_lang = browser_lang.substr(0,2);
+	localStorage.setItem("preferences",browser_lang);
     if(browser_lang == 'es' && page_lang == 'en') {
 		var alternate = document.querySelector("link[rel='alternate']").getAttribute("href");
 		Toast.fire({
