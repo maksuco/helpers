@@ -707,10 +707,14 @@ function domain_check($value) {
 }
 
 function domain_from_url($url) {
-	$parseUrl = parse_url(trim($url)); 
-	$parseUrl = trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2))); 
-	$parseUrl = array_reverse(explode('.', $parseUrl));
-	return $parseUrl[1].'.'.$parseUrl[0];
+	$parseUrl = parse_url(trim($url));
+	if(isset($parseUrl['host'])) {
+	  $trimUrl = $parseUrl['host'];
+	} else {
+	  $trimUrl = explode('/', $parseUrl['path'])[0];
+	}
+	$trimUrl = array_reverse(explode('.', $trimUrl));
+	return $trimUrl[1].'.'.$trimUrl[0];
 }
 
 function domain_from_email($email) {
