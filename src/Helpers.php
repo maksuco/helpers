@@ -706,10 +706,11 @@ function domain_check($value) {
 	return false;
 }
 
-function domain_from_url($domain) {
-	$parsed = parse_url($url, PHP_URL_HOST);
-	$domain = array_reverse(explode('.', $parsed));
-	return $domain[1].'.'.$domain[0];
+function domain_from_url($url) {
+	$parseUrl = parse_url(trim($url)); 
+	$parseUrl = trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2))); 
+	$parseUrl = array_reverse(explode('.', $parseUrl));
+	return $parseUrl[1].'.'.$parseUrl[0];
 }
 
 function domain_from_email($email) {
