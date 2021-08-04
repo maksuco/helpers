@@ -706,6 +706,12 @@ function domain_check($value) {
 	return false;
 }
 
+function domain_from_url($domain) {
+	$parsed = parse_url($url, PHP_URL_HOST);
+	$domain = array_reverse(explode('.', $parsed));
+	return $domain[1].'.'.$domain[0];
+}
+
 function domain_from_email($email) {
   $website = explode('@', $email);
   $website = end($website);

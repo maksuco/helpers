@@ -339,12 +339,21 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
 ```
 
+# Get Domain from email
+
 ```php
 
   $domain = \Helpers::domain_from_email($email);
   //returns the domain from an email if it's not a free service like gmail.com, else it returns false
 
 ```
+
+# Get Domain from url
+
+```php
+
+  $domain = \Helpers::domain_from_url($url);
+  //returns the domain.com from http://www.domain.com/something
 
 
 
