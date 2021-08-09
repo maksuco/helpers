@@ -552,6 +552,13 @@ Just add to the link onclick="return popup(this);"
 ```
 
 
+### MINIFY HTML
+```php
+  $html = \Helpers::minify_html($html);
+```
+
+
+
 ### PROCESS INSTAGRAM SCRAPER
 Requires https://github.com/postaddictme/instagram-php-scraper composer require raiym/instagram-php-scraper
 ```php
