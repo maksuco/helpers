@@ -1033,7 +1033,7 @@ HTML;
 	}
 
 	function minify_html($html) {
-		$search = array(
+		$search = [
 			'/(\n|^)(\x20+|\t)/',
 			'/(\n|^)\/\/(.*?)(\n|$)/',
 			'/\n/',
@@ -1041,9 +1041,10 @@ HTML;
 			'/(\x20+|\t)/', # Delete multispace (Without \n)
 			'/\>\s+\</', # strip whitespaces between tags
 			'/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
-			'/=\s+(\"|\')/'); # strip whitespaces between = "'
+			'/=\s+(\"|\')/' # strip whitespaces between = "'
+		];
 
-		$replace = array(
+		$replace = [
 			"\n",
 			"\n",
 			" ",
@@ -1051,7 +1052,8 @@ HTML;
 			" ",
 			"><",
 			"$1>",
-			"=$1");
+			"=$1"
+		];
 
 		$html = preg_replace($search,$replace,$html);
 		return $html;
