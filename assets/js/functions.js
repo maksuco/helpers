@@ -44,6 +44,21 @@ function initials(string) {
 	return string.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
 }
 
+function fileIcon(imageURL,cloudURL) {
+  var fileExt = imageURL.split('.').pop().split(/\#|\?/)[0];
+  if(fileExt==='jpeg' || fileExt==='jpg' || fileExt==='png' || fileExt==='gif' || fileExt==='webp') {
+	return imageURL;
+  } else if(fileExt==='pdf') {
+	return '/assets/img/icons/file-pdf.svg';
+  } else if(fileExt==='excel') {
+	return '/assets/img/icons/file-excel.svg';
+  } else if(fileExt==='doc' || fileExt==='docx') {
+	return '/assets/img/icons/file-word.svg';
+  } else {
+	return '/assets/img/icons/file-text.svg';
+  }
+}
+
 
 function suggest_language_change(page_lang) {
 	if("preferences" in sessionStorage) { return; }

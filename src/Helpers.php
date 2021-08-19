@@ -376,7 +376,7 @@ function country($isoCode="US") {
 }
 
 function timezones() {
-	include_once("Extras/timezones.php");
+	include_once(__DIR__ ."/Extras/timezones.php");
 	return $timezones;
 }
 
