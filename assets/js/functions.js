@@ -44,6 +44,13 @@ function initials(string) {
 	return string.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
 }
 
+function button_link_click(element) {
+	//var element = document.getElementById(element_id);
+	element.classList.add("disabled");
+	element.innerHTML += " <i class='far fa-circle-notch fa-spin'></i>";
+	setTimeout(function() { location.href = element.getAttribute("href"); }, 500);
+}
+
 function fileIcon(imageURL,cloudURL) {
   var fileExt = imageURL.split('.').pop().split(/\#|\?/)[0];
   if(fileExt==='jpeg' || fileExt==='jpg' || fileExt==='png' || fileExt==='gif' || fileExt==='webp') {
