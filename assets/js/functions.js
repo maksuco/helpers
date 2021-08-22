@@ -44,11 +44,58 @@ function initials(string) {
 	return string.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
 }
 
-function button_link_click(element) {
-	//var element = document.getElementById(element_id);
+function click_spinner(element_id) {
+	var element = document.getElementById(element_id);
 	element.classList.add("disabled");
-	element.innerHTML += " <i class='far fa-circle-notch fa-spin'></i>";
+	element.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+}
+
+function button_link_click(element_id) {
+	var element = document.getElementById(element_id);
+	element.classList.add("disabled");
+	element.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
 	setTimeout(function() { location.href = element.getAttribute("href"); }, 500);
+}
+
+function button_submit_form(target_element) {
+	var buttons = document.querySelectorAll('.'+target_element);
+	buttons.forEach(function(button) {
+	  button.classList.add("disabled");
+	  button.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+	});
+	setTimeout(function() { document.getElementById(target_element).submit(); }, 500);
+}
+
+function confirm_link_click(element_id, message='Are you sure?') {
+  Swal.fire({
+	title: message,
+	icon: 'warning',
+	showCancelButton: true,
+	confirmButtonText: 'Yes'
+  }).then((result) => {
+	if (result.isConfirmed) {
+		var element = document.getElementById(element_id);
+		setTimeout(function() { location.href = element.getAttribute("href"); }, 500);
+	}
+  })
+}
+
+function confirm_submit_form(target_element, message='Are you sure?') {
+  Swal.fire({
+	title: message,
+	icon: 'warning',
+	showCancelButton: true,
+	confirmButtonText: 'Yes'
+  }).then((result) => {
+	if (result.isConfirmed) {
+		var buttons = document.querySelectorAll('.'+target_element);
+		buttons.forEach(function(button) {
+		  button.classList.add("disabled");
+		  button.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+		});
+		setTimeout(function() { document.getElementById(target_element).submit(); }, 500);
+	}
+  })
 }
 
 function fileIcon(imageURL,cloudURL) {
