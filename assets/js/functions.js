@@ -59,8 +59,13 @@ function initials(string) {
 
 function click_spinner(element_id) {
 	var element = document.getElementById(element_id);
+	var original_string = element.innerHTML;
 	element.classList.add("disabled");
 	element.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+	setTimeout(function() {
+		element.innerHTML = original_string;
+		element.classList.remove("disabled");
+	}, 3500);
 }
 
 function button_link_click(element_id) {
