@@ -676,6 +676,22 @@ function telto($phone) {
 	return str_replace(['+', '(', ')', '-', ' '], '', $phone);
 }
 
+
+
+//CHECK video ID from string
+function getVideoID($provider,$string) {
+	if(!str_contains($string, 'http:')) {
+		return $string;
+	}
+	if($provider == 'youtube') {
+		preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $string, $matches);
+		return $matches[1];
+	} elseif($provider == 'vimeo') {
+		return (int) substr(parse_url($string, PHP_URL_PATH), 1);
+	}
+	return $string;
+}
+
 //CHECK if url has http
 function link($url) {
 	if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
