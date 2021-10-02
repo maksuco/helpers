@@ -139,7 +139,7 @@ function moneyFormat($value,$currency='USD') {
 	} elseif($currency=='MYR') { return 'RM '.$value;
 	} elseif($currency=='MAD') { return $value.' .د.م.';
 	} elseif($currency=='PHP') { return '₱ '.$value;
-	} elseif($currency=='RUB') { return $value.' p.';
+	} elseif($currency=='RUB') { return $value.'₽ ';
 	} elseif($currency=='SAR') { return $value.' ﷼';
 	} elseif($currency=='ZAR') { return 'R '.$value;
 	} elseif($currency=='TWD') { return '元 '.$value;
