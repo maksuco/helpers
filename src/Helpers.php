@@ -680,7 +680,7 @@ function telto($phone) {
 
 //CHECK video ID from string
 function getVideoID($provider,$string) {
-	if(strpos($string, 'http:') !== false) {
+	if($provider == 'link' OR strpos($string, 'http:') !== false) {
 		return $string;
 	}
 	if($provider == 'youtube') {
