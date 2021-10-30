@@ -61,7 +61,7 @@ function click_spinner(element_id) {
 	var element = document.getElementById(element_id);
 	var original_string = element.innerHTML;
 	element.classList.add("disabled");
-	element.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+	element.innerHTML += " <i class='fal fa-circle-notch fa-spin ml-1'></i>";
 	setTimeout(function() {
 		element.innerHTML = original_string;
 		element.classList.remove("disabled");
@@ -71,7 +71,7 @@ function click_spinner(element_id) {
 function button_link_click(element_id) {
 	var element = document.getElementById(element_id);
 	element.classList.add("disabled");
-	element.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+	element.innerHTML += " <i class='fal fa-circle-notch fa-spin ml-1'></i>";
 	setTimeout(function() { location.href = element.getAttribute("href"); }, 500);
 }
 
@@ -79,7 +79,7 @@ function button_submit_form(target_element) {
 	var buttons = document.querySelectorAll('.'+target_element);
 	buttons.forEach(function(button) {
 	  button.classList.add("disabled");
-	  button.innerHTML += " <i class='fal fa-circle-notch fa-spin'></i>";
+	  button.innerHTML += " <i class='fal fa-circle-notch fa-spin ml-1'></i>";
 	});
 	setTimeout(function() { document.getElementById(target_element).submit(); }, 500);
 }
