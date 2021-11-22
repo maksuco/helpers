@@ -208,7 +208,7 @@ document.addEventListener('alpine:init', () => {
 
 	//x-stringLimit:60
 	Alpine.directive('stringLimit', (el, {value}) => {
-		length = value ?? 30;
+		length = typeof y != "undefined" ? value : 30;
 		string = el.textContent.toString();
 		if (string.length <= length) { return; }
 		el.textContent = string.substr(0, length) + '...';
