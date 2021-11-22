@@ -12,7 +12,7 @@ const Toast = Swal.mixin({
 })
 
 //GENERAL
-var lang = lang ?? 'en';
+var lang = typeof lang != "undefined" ? lang : 'en';
 moment.locale(lang);
 
 
@@ -149,7 +149,6 @@ function suggest_language_change(page_lang) {
 		});
     }
 }
-
 
 
 //ALPINE 3

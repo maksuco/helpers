@@ -193,7 +193,6 @@ function geoip($ip,$optional='city',$key=null) {
 		$ip = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]))? $_SERVER["HTTP_CF_CONNECTING_IP"] : $_SERVER["REMOTE_ADDR"];
 	}
 	include_once("Extras/geoip2.php");
-	//dd($optional);
 	return geoip2($ip,$optional,$key);
 }
 
@@ -916,6 +915,7 @@ HTML;
 	function currenturl() {
 		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	}
+
 	
 	//RETURNS DATA FILTERED BY USER
 	function dashboard($data) {
