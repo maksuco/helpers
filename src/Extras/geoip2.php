@@ -19,7 +19,8 @@
 
     //check if private or local ip
     // | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE
-    if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR in_array($ip, ['localhost','127.0.0.1'])) {
+    //!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR 
+    if(in_array($ip, ['localhost','127.0.0.1'])) {
       return geoip2NotFound($geo);
     }
     if($optional=='ip-api') {
