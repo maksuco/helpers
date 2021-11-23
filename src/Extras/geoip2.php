@@ -109,6 +109,7 @@
       }
 
     }
+    ray('llega 2?',$geo);
 
 
     //timezone_range check
