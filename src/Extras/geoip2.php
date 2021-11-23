@@ -20,6 +20,7 @@
     //check if private or local ip
     // | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE
     //!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR 
+    ray('geoip2',$ip);
     if(in_array($ip, ['localhost','127.0.0.1'])) {
       return geoip2NotFound($geo);
     }
@@ -68,6 +69,7 @@
 
     } else {
       //MAXMIND
+      ray('MAXMIND',$ip);
       try {
         //moved DB to his own repository
         $geo_data = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
@@ -78,6 +80,7 @@
       } catch (Exception $e) {
         return geoip2NotFound($geo); //null;
       }
+      ray('llega 1?');
 
       $continent = $geo->continent_code = $geo_data->continent->code;
       $geo->continent_name = $geo_data->continent->name;
