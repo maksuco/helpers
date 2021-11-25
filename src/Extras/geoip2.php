@@ -71,7 +71,7 @@
       try {
         //moved DB to his own repository
         if($base_path){
-          $geo_data = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
+          $reader = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
         } else {
           $reader = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
         }
