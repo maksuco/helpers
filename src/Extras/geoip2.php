@@ -69,11 +69,10 @@
     } else {
       //MAXMIND
       try {
-        //moved DB to his own repository
         if($base_path){
-          $reader = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
-        } else {
           $reader = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
+        } else {
+          $reader = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
         }
         //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
         $geo_data = $reader->city($ip);
