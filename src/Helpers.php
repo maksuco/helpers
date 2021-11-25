@@ -188,12 +188,12 @@ function initials(string $fullname) : string {
 }
 
 
-function geoip($ip,$optional='city',$key=null) {
+function geoip($ip,$optional='city',$key=null,$base_path=false) {
 	if($ip == null){
 		$ip = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]))? $_SERVER["HTTP_CF_CONNECTING_IP"] : $_SERVER["REMOTE_ADDR"];
 	}
 	include_once("Extras/geoip2.php");
-	return geoip2($ip,$optional,$key);
+	return geoip2($ip,$optional,$key,$base_path=false);
 }
 
 function timezone($ip,$date) {
