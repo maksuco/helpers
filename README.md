@@ -227,6 +227,7 @@ Even better you can use 'ip-api' or 'ipstack' (ipstack requires a third argument
 ```php
 
   $location_data = \Helpers::geoip($ip); //\Helpers::geoip($ip,'option'); OR \Helpers::geoip($ip,'ipstack','my_ipstack_key');
+  $location_data = \Helpers::geoipLaravel($ip); //\Helpers::geoip($ip,'option'); OR \Helpers::geoip($ip,'ipstack','my_ipstack_key');
 
 ```
 if you need the function to provide the ip, just put null in the $ip.
