@@ -76,7 +76,7 @@
           $reader = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
         }
         //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
-        $geo_data = $geo_data->city($ip);
+        $geo_data = $reader->city($ip);
       } catch (AddressNotFoundException $e) {
         return geoip2NotFound($geo); //null;
       } catch (Exception $e) {
