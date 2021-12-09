@@ -2,12 +2,22 @@
 
   use GeoIp2\Database\Reader;
 
-  function geoip2($ip,$optional,$key,$base_path=false) {
+  function geoip2($ip,$optional,$key='') {
+    
     $geo = new stdClass();
     $geo->ip = $ip;
     $geo->country = new stdClass();
     $geo->location = new stdClass();
     //DATA
+    $espanol = ["ES", "AR", "BO", "CL", "CO", "CR", "CU", "CW", "DO", "EC", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "VE", "UY", "GT", "SV"];
+    $phone_codes = [
+      "AI"=>"+1 264", "AR"=>"+54", "AW"=>"+297", "BS"=>"+1", "BB"=>"+1", "BZ"=>"+501", "BM"=>"+1", "BO"=>"+591", "BR"=>"+55", "VG"=>"+1 284", "CA"=>"+1", "KY"=>"+1-345", "CL"=>"+56", "CO"=>"+57", "CR"=>"+506", "CU"=>"+53", "CW"=>"+599", "DM"=>"+1", "DO"=>"+1", "EC"=>"+593", "SV"=>"+503", "FK"=>"+500", "GL"=>"+299", "GP"=>"+590", "GT"=>"+502", "GY"=>"+592", "HT"=>"+509", "HN"=>"+504", "JM"=>"+1", "MX"=>"+52", "MS"=>"+1 664", "NI"=>"+505", "PA"=>"+507", "PY"=>"+595", "PE"=>"+51", "PR"=>"+1", "BL"=>"+590", "KN"=>"+1", "LC"=>"+1", "MF"=>"+1 599", "PM"=>"+508", "VC"=>"+1", "SR"=>"+597", "TT"=>"+1", "US"=>"+1", "UY"=>"+598", "VE"=>"+58", //America
+      "DZ"=>"+213", "AO"=>"+244", "BJ"=>"+229", "BW"=>"+267", "BF"=>"+226", "BI"=>"+257", "CM"=>"+237", "CV"=>"+238", "CF"=>"+236", "KM"=>"+269", "CD"=>"+243", "DJ"=>"+253", "EG"=>"+20", "GQ"=>"+240", "ER"=>"+291", "ET"=>"+251", "GA"=>"+241", "GM"=>"+220", "GH"=>"+233", "GN"=>"+224", "GW"=>"+245", "CI"=>"+225", "KE"=>"+254", "LS"=>"+266", "LR"=>"+231", "LY"=>"+218", "MG"=>"+261", "MW"=>"+265", "ML"=>"+223", "MR"=>"+222", "MU"=>"+230", "MA"=>"+212", "MZ"=>"+258", "NA"=>"+264", "NE"=>"+227", "NG"=>"+234", "CG"=>"+242", "RE"=>"+262", "RW"=>"+250", "SH"=>"+290", "ST"=>"+239", "SN"=>"+221", "SC"=>"+248", "SL"=>"+232", "SO"=>"+252", "ZA"=>"+27", "SS"=>"+211", "SD"=>"+249", "SZ"=>"+268", "TZ"=>"+255", "TG"=>"+228", "TN"=>"+216", "UG"=>"+256", "EH"=>"+212", "ZM"=>"+260", "ZW"=>"+263", //Africa
+      "AF"=>"+93", "AM"=>"+374", "AZ"=>"+994", "BH"=>"+973", "BD"=>"+880", "BT"=>"+975", "BN"=>"+673", "KH"=>"+855", "CN"=>"+86", "GE"=>"+995", "HK"=>"+852", "IN"=>"+91", "ID"=>"+62", "IR"=>"+98", "IQ"=>"+964", "IL"=>"+972", "JP"=>"+81", "JO"=>"+962", "KZ"=>"+7", "KW"=>"+965", "KG"=>"+996", "LA"=>"+856", "LB"=>"+961", "MO"=>"+853", "MY"=>"+60", "MV"=>"+960", "MN"=>"+976", "MM"=>"+95", "NP"=>"+977", "KP"=>"+850", "OM"=>"+968", "PK"=>"+92", "PH"=>"+63", "QA"=>"+974", "SA"=>"+966", "SG"=>"+65", "KR"=>"+82", "LK"=>"+94", "SY"=>"+963", "TW"=>"+886", "TJ"=>"+992", "TH"=>"+66", "TR"=>"+90", "TM"=>"+993", "AE"=>"+971", "UZ"=>"+998", "VN"=>"+84", "YE"=>"+967", //Asia
+      "AL"=>"+355", "AD"=>"+376", "AT"=>"+43", "BY"=>"+375", "BE"=>"+32", "BA"=>"+387", "BG"=>"+359", "HR"=>"+385", "CY"=>"+357", "CZ"=>"+420", "DK"=>"+45", "EE"=>"+372", "FO"=>"+298", "FI"=>"+358", "FR"=>"+33", "DE"=>"+49", "GI"=>"+350", "GR"=>"+30", "HU"=>"+36", "IS"=>"+354", "IE"=>"+353", "IM"=>"+44", "IT"=>"+39", "XK"=>"+381", "LV"=>"+371", "LI"=>"+423", "LT"=>"+370", "LU"=>"+352", "MK"=>"+389", "MT"=>"+356", "MD"=>"+373", "MC"=>"+377", "ME"=>"+382", "NL"=>"+31", "NO"=>"+47", "PL"=>"+48", "PT"=>"+351", "RO"=>"+40", "RU"=>"+7", "SM"=>"+378", "RS"=>"+381", "SK"=>"+421", "SI"=>"+386", "ES"=>"+34", "SE"=>"+46", "CH"=>"+41", "UA"=>"+380", "GB"=>"+44", "VA"=>"+39", //Europe
+      "AS"=>"+1 684", "AU"=>"+61", "CK"=>"+682", "TL"=>"+670", "FJ"=>"+679", "PF"=>"+689", "GU"=>"+1 671", "KI"=>"+686", "MH"=>"+692", "FM"=>"+691", "NR"=>"+674", "NC"=>"+687", "NZ"=>"+64", "NU"=>"+683", "NF"=>"+672", "MP"=>"+1 670", "PW"=>"+680", "PG"=>"+675", "PN"=>"+870", "WS"=>"+685", "SB"=>"+677", "TK"=>"+690", "TV"=>"+688", "VU"=>"+678" //Oceania
+    ];
+
     //check if private or local ip
     // | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE
     //!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR 
@@ -29,8 +39,10 @@
       $geo->state_code = $geo->location->state_isoCode = $geo_data->region;
 
       $geo->timezone = $geo_data->timezone;
-      //$geo->lang = null;
-      //$geo->currency = $geo_data->currency;
+      $lang = (in_array($country, $espanol))? 'es' : null;
+      $geo->lang = (!empty($lang))? $lang : 'en';
+      $geo->prefix = $phone_codes[$geo->country_code];
+      $geo->currency = $geo_data->currency;
 
 
     } elseif($optional=='ipstack') {
@@ -49,20 +61,19 @@
       $geo->state_code = $geo->location->state_isoCode = $geo_data->region_code;
 
       $geo->timezone = $geo_data->time_zone->id;
-      //$geo->lang = $geo_data->location->languages->code ?? null;
-      //$geo->currency = $geo_data->currency->code;
+      $lang = (in_array($country, $espanol))? 'es' : $geo_data->location->languages->code;
+      $geo->lang = (!empty($lang))? $lang : 'en';
+      $geo->prefix = $phone_codes[$geo->country_code];
+      $geo->currency = $geo_data->currency->code;
 
 
     } else {
       //MAXMIND
       try {
-        if($base_path){
-          $reader = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
-        } else {
-          $reader = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
-        }
+        //moved DB to his own repository
+        $geo_data = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
         //$geo_data = new Reader(__DIR__.'/GeoLite2-City.mmdb');
-        $geo_data = $reader->city($ip);
+        $geo_data = $geo_data->city($ip);
       } catch (AddressNotFoundException $e) {
         return geoip2NotFound($geo); //null;
       } catch (Exception $e) {
@@ -84,7 +95,9 @@
       $geo->state_code = $geo->location->state_isoCode = $geo_data->mostSpecificSubdivision->isoCode;
 
       $geo->timezone = $geo_data->location->timeZone;
-      //$geo->lang = $geo_data->locales[0] ?? null;
+      $lang = (in_array($country, $espanol))? 'es' : $geo_data->locales[0];
+      $geo->lang = (!empty($lang))? $lang : 'en';
+      $geo->prefix = $phone_codes[$geo->country_code];
 
       if($optional!='city'){
         $isp = new Reader('vendor/maksuco/helpers-geo/src/GeoLite2-ASN.mmdb');
@@ -95,11 +108,6 @@
 
     }
 
-    $extra = getCountryData($geo->country_code);
-    $geo->prefix = $extra['phone'];
-    $geo->lang = $extra['lang'];
-    $geo->langs = json_decode(json_encode($extra['langs']));
-    $geo->currency =  $extra['currency'];
     //timezone_range check
     if(in_array($continent, ["SA", "NA"])) {
       $geo->timezone_range = "america";
@@ -118,6 +126,77 @@
     return $geo;
   }
 
+
+
+  //ONLY FOr LARAVEL
+  function geoip2Laravel($ip,$optional) {
+    $geo = [];
+    $geo['ip'] = $ip;
+    //DATA
+    if(in_array($ip, ['localhost','127.0.0.1'])) {
+      return geoip2NotFoundArray($geo);
+    }
+    //MAXMIND
+    try {
+      $reader = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-City.mmdb');
+      $geo_data = $reader->city($ip);
+    } catch (AddressNotFoundException $e) {
+      return geoip2NotFoundArray($geo); //null;
+    } catch (Exception $e) {
+      return geoip2NotFoundArray($geo); //null;
+    }
+
+    $geo['continent_code'] = $geo_data->continent->code;
+    $geo['continent_name'] = $geo_data->continent->name;
+    $geo['continent_names'] = $geo_data->continent->names;
+    
+    $country = $geo['country_code'] = $geo['country']['isoCode'] = $geo_data->country->isoCode;
+    $geo['country_name'] = $geo['country']['name'] = $geo_data->country->name;
+    $geo['country_names'] = $geo_data->country->names;
+
+    $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
+    $geo['city_names'] = $geo_data->city->names;
+    $geo['city_geonameid'] = $geo_data->city->geonameId;
+    $geo['state_name'] = $geo['location']['state_name'] = $geo_data->mostSpecificSubdivision->name;
+    $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
+
+    $geo['timezone'] = $geo_data->location->timeZone;
+    //$geo->lang = $geo_data->locales[0] ?? null;
+
+    if($optional!='city'){
+      $isp = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-ASN.mmdb');
+      $isp = $isp->asn($ip);
+      $geo['isp'] = $isp->autonomousSystemOrganization;
+    }
+
+    $extra = getCountryData($geo['country_code']);
+    $geo['prefix'] = $extra['phone'];
+    $geo['lang'] = $extra['lang'];
+    $geo['langs'] = json_decode(json_encode($extra['langs']));
+    $geo['currency'] =  $extra['currency'];
+    $geo = getTimezone_range($geo);
+
+    return json_decode(json_encode($geo));
+  }
+
+  function getTimezone_range($geo) {
+    if(in_array($geo['continent_code'], ["SA", "NA"])) {
+      $geo['timezone_range'] = "america";
+    } elseif($geo['continent_code'] == "EU") {
+      $geo['timezone_range'] = "europe";
+    } elseif($geo['continent_code'] == "AS") {
+      $geo['timezone_range'] = "asia";
+    } elseif($geo['continent_code'] == "AF") {
+      $geo['timezone_range'] = "europe";
+    } elseif(in_array($geo['continent_code'], ["AU","OC"])) {
+      $geo['timezone_range'] = "oceania";
+    } else {
+      $geo['timezone_range'] = "america";
+    }
+    return $geo;
+  }
+
+
   function geoip2NotFound($geo) {
     $geo->country_code = $geo->country->isoCode = 'US';
     $geo->country_name = "United States";
@@ -128,9 +207,25 @@
     $geo->timezone = $geo->location->timeZone = "America/New_York";
     $geo->timezone_range = "america";
     $geo->lang = 'en';
-    $geo->currency = 'USD';
     $geo->isp = 'Server';
     $geo->prefix = '+1';
+    return $geo;
+  }
+
+  function geoip2NotFoundArray($geo) {
+    $geo['country_code'] = $geo['country']['isoCode'] = 'US';
+    $geo['country_name'] = "United States";
+    $geo['city_name'] = null;
+    $geo['state_name'] = null;
+    $geo['state_code'] = null;
+    $geo['timezone_range'] = "america";
+    $geo['timezone'] = $geo['location']['timeZone'] = "America/New_York";
+    $geo['timezone_range'] = "america";
+    $geo['lang'] = 'en';
+    $geo['langs'] = json_decode(json_encode(['langs' => ['en' => 'English','es' => 'Ingles']]));
+    $geo['currency'] = 'USD';
+    $geo['isp'] = 'Server';
+    $geo['prefix'] = '+1';
     return $geo;
   }
 
@@ -146,12 +241,9 @@
         'currency' => 'AFN',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'AX' => [
         'name' => 'Aland Islands',
@@ -162,10 +254,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AL' => [
@@ -177,10 +266,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'DZ' => [
@@ -191,12 +277,9 @@
         'currency' => 'DZD',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'AS' => [
         'name' => 'American Samoa',
@@ -207,10 +290,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AD' => [
@@ -222,10 +302,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AO' => [
@@ -236,12 +313,9 @@
         'currency' => 'AOA',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Portuguese',
+        'langs' => ['en' => 'Portuguese','es' => 'Portugues'],
+        'lang_code' => 'pt',
       ],
       'AI' => [
         'name' => 'Anguilla',
@@ -252,10 +326,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AQ' => [
@@ -267,10 +338,7 @@
         'continent' => 'Antarctica',
         'continent_code' => 'AN',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AG' => [
@@ -282,10 +350,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AR' => [
@@ -297,10 +362,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'AM' => [
@@ -312,10 +374,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AW' => [
@@ -326,12 +385,9 @@
         'currency' => 'AWG',
         'continent' => 'North America',
         'continent_code' => 'NA',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Spanish',
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
+        'lang_code' => 'es',
       ],
       'AU' => [
         'name' => 'Australia',
@@ -342,10 +398,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'AT' => [
@@ -356,12 +409,12 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'German',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'German',
+          'es' => 'Aleman',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'de',
       ],
       'AZ' => [
         'name' => 'Azerbaijan',
@@ -372,10 +425,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BS' => [
@@ -387,10 +437,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BH' => [
@@ -401,12 +448,9 @@
         'currency' => 'BHD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'BD' => [
         'name' => 'Bangladesh',
@@ -416,12 +460,9 @@
         'currency' => 'BDT',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Bengali',
+        'langs' => ['en' => 'Bengali','es' => 'Bengali'],
+        'lang_code' => 'bn',
       ],
       'BB' => [
         'name' => 'Barbados',
@@ -432,10 +473,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BY' => [
@@ -447,10 +485,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BE' => [
@@ -461,12 +496,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'BZ' => [
         'name' => 'Belize',
@@ -477,10 +509,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BJ' => [
@@ -492,10 +521,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BM' => [
@@ -507,10 +533,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BT' => [
@@ -522,10 +545,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BO' => [
@@ -537,10 +557,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'BQ' => [
@@ -552,10 +569,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BA' => [
@@ -567,10 +581,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BW' => [
@@ -582,10 +593,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BV' => [
@@ -597,10 +605,7 @@
         'continent' => 'Antarctica',
         'continent_code' => 'AN',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BR' => [
@@ -612,10 +617,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Portuguese',
-        'langs' => [
-          'en' => 'Portuguese',
-          'es' => 'Portugues',
-        ],
+        'langs' => ['en' => 'Portuguese','es' => 'Portugues'],
         'lang_code' => 'pt',
       ],
       'IO' => [
@@ -627,10 +629,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BN' => [
@@ -642,10 +641,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BG' => [
@@ -657,10 +653,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BF' => [
@@ -672,10 +665,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BI' => [
@@ -687,10 +677,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KH' => [
@@ -702,10 +689,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CM' => [
@@ -716,12 +700,9 @@
         'currency' => 'XAF',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'CA' => [
         'name' => 'Canada',
@@ -732,10 +713,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CV' => [
@@ -747,10 +725,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KY' => [
@@ -762,10 +737,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CF' => [
@@ -777,10 +749,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TD' => [
@@ -792,10 +761,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CL' => [
@@ -807,10 +773,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'CN' => [
@@ -821,12 +784,9 @@
         'currency' => 'CNY',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Chinese',
+        'langs' => ['en' => 'Chinese','es' => 'Chino'],
+        'lang_code' => 'ch',
       ],
       'CX' => [
         'name' => 'Christmas Island',
@@ -837,10 +797,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CC' => [
@@ -852,10 +809,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CO' => [
@@ -867,10 +821,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'KM' => [
@@ -882,10 +833,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CG' => [
@@ -896,12 +844,9 @@
         'currency' => 'XAF',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'CD' => [
         'name' => 'Congo, Democratic Republic of the Congo',
@@ -911,12 +856,9 @@
         'currency' => 'CDF',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'CK' => [
         'name' => 'Cook Islands',
@@ -927,10 +869,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CR' => [
@@ -942,10 +881,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'CI' => [
@@ -957,10 +893,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'HR' => [
@@ -971,12 +904,9 @@
         'currency' => 'HRK',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Croatian',
+        'langs' => ['en' => 'Croatian','es' => 'Croata'],
+        'lang_code' => 'hr',
       ],
       'CU' => [
         'name' => 'Cuba',
@@ -987,10 +917,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'CW' => [
@@ -1002,10 +929,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'CY' => [
@@ -1017,10 +941,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CZ' => [
@@ -1031,12 +952,9 @@
         'currency' => 'CZK',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Czech',
+        'langs' => ['en' => 'Czech','es' => 'Checo'],
+        'lang_code' => 'cs',
       ],
       'DK' => [
         'name' => 'Denmark',
@@ -1047,10 +965,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'Danish',
-        'langs' => [
-          'en' => 'Danish',
-          'es' => 'Danes',
-        ],
+        'langs' => ['en' => 'Danish','es' => 'Danes'],
         'lang_code' => 'da',
       ],
       'DJ' => [
@@ -1062,10 +977,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'DM' => [
@@ -1077,10 +989,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'DO' => [
@@ -1092,10 +1001,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'EC' => [
@@ -1107,10 +1013,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'EG' => [
@@ -1121,12 +1024,9 @@
         'currency' => 'EGP',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'SV' => [
         'name' => 'El Salvador',
@@ -1137,10 +1037,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'GQ' => [
@@ -1152,10 +1049,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ER' => [
@@ -1167,10 +1061,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'EE' => [
@@ -1182,10 +1073,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ET' => [
@@ -1197,10 +1085,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'FK' => [
@@ -1212,10 +1097,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'FO' => [
@@ -1227,10 +1109,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'FJ' => [
@@ -1242,10 +1121,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'FI' => [
@@ -1256,12 +1132,12 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Finnish',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Finnish',
+          'es' => 'Finlandes',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'fi',
       ],
       'FR' => [
         'name' => 'France',
@@ -1271,11 +1147,8 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'French',
-          'es' => 'frances',
-        ],
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
         'lang_code' => 'fr',
       ],
       'GF' => [
@@ -1286,12 +1159,9 @@
         'currency' => 'EUR',
         'continent' => 'South America',
         'continent_code' => 'SA',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'PF' => [
         'name' => 'French Polynesia',
@@ -1301,12 +1171,9 @@
         'currency' => 'XPF',
         'continent' => 'Oceania',
         'continent_code' => 'OC',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'TF' => [
         'name' => 'French Southern Territories',
@@ -1316,12 +1183,9 @@
         'currency' => 'EUR',
         'continent' => 'Antarctica',
         'continent_code' => 'AN',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'GA' => [
         'name' => 'Gabon',
@@ -1332,10 +1196,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GM' => [
@@ -1347,10 +1208,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GE' => [
@@ -1362,10 +1220,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'DE' => [
@@ -1376,11 +1231,8 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'German',
-          'es' => 'Aleman',
-        ],
+        'lang' => 'German',
+        'langs' => ['en' => 'German','es' => 'Aleman'],
         'lang_code' => 'de',
       ],
       'GH' => [
@@ -1392,10 +1244,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GI' => [
@@ -1407,10 +1256,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GR' => [
@@ -1421,12 +1267,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Greek',
+        'langs' => ['en' => 'Greek','es' => 'Griego'],
+        'lang_code' => 'el',
       ],
       'GL' => [
         'name' => 'Greenland',
@@ -1436,12 +1279,9 @@
         'currency' => 'DKK',
         'continent' => 'North America',
         'continent_code' => 'NA',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Greenlandic',
+        'langs' => ['en' => 'Greenlandic','es' => 'Groenlandés'],
+        'lang_code' => 'kl',
       ],
       'GD' => [
         'name' => 'Grenada',
@@ -1452,10 +1292,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GP' => [
@@ -1467,10 +1304,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GU' => [
@@ -1482,10 +1316,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GT' => [
@@ -1497,10 +1328,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'GG' => [
@@ -1512,10 +1340,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GN' => [
@@ -1527,10 +1352,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GW' => [
@@ -1542,10 +1364,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GY' => [
@@ -1557,10 +1376,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'HT' => [
@@ -1571,12 +1387,9 @@
         'currency' => 'HTG',
         'continent' => 'North America',
         'continent_code' => 'NA',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'HM' => [
         'name' => 'Heard Island and Mcdonald Islands',
@@ -1587,10 +1400,7 @@
         'continent' => 'Antarctica',
         'continent_code' => 'AN',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'VA' => [
@@ -1601,12 +1411,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Italian',
+        'langs' => ['en' => 'Italian','es' => 'Italiano'],
+        'lang_code' => 'it',
       ],
       'HN' => [
         'name' => 'Honduras',
@@ -1617,10 +1424,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'HK' => [
@@ -1631,12 +1435,9 @@
         'currency' => 'HKD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Chinese',
+        'langs' => ['en' => 'Chinese','es' => 'Chino'],
+        'lang_code' => 'ch',
       ],
       'HU' => [
         'name' => 'Hungary',
@@ -1647,10 +1448,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'IS' => [
@@ -1661,12 +1459,12 @@
         'currency' => 'ISK',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Icelandic',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Icelandic',
+          'es' => 'Islandés',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'is',
       ],
       'IN' => [
         'name' => 'India',
@@ -1676,12 +1474,12 @@
         'currency' => 'INR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
+        'lang' => 'Hindi',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Hindi',
+          'es' => 'Hindi',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'hi',
       ],
       'ID' => [
         'name' => 'Indonesia',
@@ -1692,10 +1490,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'IR' => [
@@ -1706,12 +1501,9 @@
         'currency' => 'IRR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'IQ' => [
         'name' => 'Iraq',
@@ -1721,12 +1513,9 @@
         'currency' => 'IQD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'IE' => [
         'name' => 'Ireland',
@@ -1737,10 +1526,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'IM' => [
@@ -1752,10 +1538,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'IL' => [
@@ -1766,12 +1549,12 @@
         'currency' => 'ILS',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
+        'lang' => 'Hebrew',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Hebrew',
+          'es' => 'Hebreo',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'he',
       ],
       'IT' => [
         'name' => 'Italy',
@@ -1782,10 +1565,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'Italian',
-        'langs' => [
-          'en' => 'Italian',
-          'es' => 'Italiano',
-        ],
+        'langs' => ['en' => 'Italian','es' => 'Italiano'],
         'lang_code' => 'it',
       ],
       'JM' => [
@@ -1797,10 +1577,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'JP' => [
@@ -1812,10 +1589,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'Japanese',
-        'langs' => [
-          'en' => 'Japanese',
-          'es' => 'Japones',
-        ],
+        'langs' => ['en' => 'Japanese','es' => 'Japones'],
         'lang_code' => 'ja',
       ],
       'JE' => [
@@ -1827,10 +1601,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'JO' => [
@@ -1841,12 +1612,9 @@
         'currency' => 'JOD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'KZ' => [
         'name' => 'Kazakhstan',
@@ -1857,10 +1625,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KE' => [
@@ -1872,10 +1637,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KI' => [
@@ -1887,10 +1649,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KP' => [
@@ -1901,12 +1660,12 @@
         'currency' => 'KPW',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
+        'lang' => 'Korean',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Korean',
+          'es' => 'Koreano',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'kr',
       ],
       'KR' => [
         'name' => 'Korea, Republic of',
@@ -1916,12 +1675,12 @@
         'currency' => 'KRW',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
+        'lang' => 'Korean',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Korean',
+          'es' => 'Koreano',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'kr',
       ],
       'XK' => [
         'name' => 'Kosovo',
@@ -1932,10 +1691,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KW' => [
@@ -1946,12 +1702,9 @@
         'currency' => 'KWD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'KG' => [
         'name' => 'Kyrgyzstan',
@@ -1962,10 +1715,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LA' => [
@@ -1977,10 +1727,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LV' => [
@@ -1992,10 +1739,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LB' => [
@@ -2006,12 +1750,9 @@
         'currency' => 'LBP',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'LS' => [
         'name' => 'Lesotho',
@@ -2022,10 +1763,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LR' => [
@@ -2037,10 +1775,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LY' => [
@@ -2051,12 +1786,9 @@
         'currency' => 'LYD',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'LI' => [
         'name' => 'Liechtenstein',
@@ -2066,12 +1798,12 @@
         'currency' => 'CHF',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'German',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'German',
+          'es' => 'Aleman',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'de',
       ],
       'LT' => [
         'name' => 'Lithuania',
@@ -2082,10 +1814,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LU' => [
@@ -2096,12 +1825,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'MO' => [
         'name' => 'Macao',
@@ -2111,12 +1837,9 @@
         'currency' => 'MOP',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Chinese',
+        'langs' => ['en' => 'Chinese','es' => 'Chino'],
+        'lang_code' => 'ch',
       ],
       'MK' => [
         'name' => 'Macedonia, the Former Yugoslav Republic of',
@@ -2126,12 +1849,9 @@
         'currency' => 'MKD',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Macedonian',
+        'langs' => ['en' => 'Macedonian','es' => 'Macedonian'],
+        'lang_code' => 'mk',
       ],
       'MG' => [
         'name' => 'Madagascar',
@@ -2141,12 +1861,9 @@
         'currency' => 'MGA',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Malagasy',
+        'langs' => ['en' => 'Malagasy','es' => 'Malagasy'],
+        'lang_code' => 'mg',
       ],
       'MW' => [
         'name' => 'Malawi',
@@ -2157,10 +1874,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MY' => [
@@ -2172,10 +1886,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MV' => [
@@ -2187,10 +1898,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ML' => [
@@ -2202,10 +1910,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MT' => [
@@ -2216,12 +1921,12 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Maltese',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Maltese',
+          'es' => 'Maltese',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'mt',
       ],
       'MH' => [
         'name' => 'Marshall Islands',
@@ -2232,10 +1937,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MQ' => [
@@ -2247,10 +1949,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MR' => [
@@ -2262,10 +1961,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MU' => [
@@ -2277,10 +1973,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'YT' => [
@@ -2292,10 +1985,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MX' => [
@@ -2307,10 +1997,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'FM' => [
@@ -2322,10 +2009,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MD' => [
@@ -2337,10 +2021,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MC' => [
@@ -2351,12 +2032,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'MN' => [
         'name' => 'Mongolia',
@@ -2367,10 +2045,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ME' => [
@@ -2382,10 +2057,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MS' => [
@@ -2397,10 +2069,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MA' => [
@@ -2411,12 +2080,9 @@
         'currency' => 'MAD',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'MZ' => [
         'name' => 'Mozambique',
@@ -2426,12 +2092,9 @@
         'currency' => 'MZN',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Portuguese',
+        'langs' => ['en' => 'Portuguese','es' => 'Portugues'],
+        'lang_code' => 'pt',
       ],
       'MM' => [
         'name' => 'Myanmar',
@@ -2442,10 +2105,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NA' => [
@@ -2457,10 +2117,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NR' => [
@@ -2472,10 +2129,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NP' => [
@@ -2487,10 +2141,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NL' => [
@@ -2501,12 +2152,9 @@
         'currency' => 'EUR',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Dutch',
+        'langs' => ['en' => 'Dutch','es' => 'Holandés'],
+        'lang_code' => 'nl',
       ],
       'AN' => [
         'name' => 'Netherlands Antilles',
@@ -2517,10 +2165,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NC' => [
@@ -2532,10 +2177,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NZ' => [
@@ -2547,10 +2189,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NI' => [
@@ -2562,10 +2201,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'NE' => [
@@ -2576,12 +2212,9 @@
         'currency' => 'XOF',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'NG' => [
         'name' => 'Nigeria',
@@ -2592,10 +2225,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NU' => [
@@ -2607,10 +2237,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NF' => [
@@ -2622,10 +2249,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MP' => [
@@ -2637,10 +2261,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'NO' => [
@@ -2651,12 +2272,12 @@
         'currency' => 'NOK',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Norwegian',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Norwegian',
+          'es' => 'Noruego',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'nn',
       ],
       'OM' => [
         'name' => 'Oman',
@@ -2666,12 +2287,9 @@
         'currency' => 'OMR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'PK' => [
         'name' => 'Pakistan',
@@ -2682,10 +2300,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PW' => [
@@ -2697,10 +2312,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PS' => [
@@ -2711,12 +2323,9 @@
         'currency' => 'ILS',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'PA' => [
         'name' => 'Panama',
@@ -2727,10 +2336,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'PG' => [
@@ -2742,10 +2348,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PY' => [
@@ -2757,10 +2360,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'PE' => [
@@ -2772,10 +2372,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'PH' => [
@@ -2787,10 +2384,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PN' => [
@@ -2802,10 +2396,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PL' => [
@@ -2832,10 +2423,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'Portuguese',
-        'langs' => [
-          'en' => 'Portuguese',
-          'es' => 'Portugues',
-        ],
+        'langs' => ['en' => 'Portuguese','es' => 'Portugues'],
         'lang_code' => 'pt',
       ],
       'PR' => [
@@ -2847,10 +2435,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'QA' => [
@@ -2861,12 +2446,9 @@
         'currency' => 'QAR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'RE' => [
         'name' => 'Reunion',
@@ -2877,10 +2459,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'RO' => [
@@ -2892,10 +2471,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'RU' => [
@@ -2906,10 +2482,10 @@
         'currency' => 'RUB',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
+        'lang' => 'Russian',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Russian',
+          'es' => 'Ruso',
         ],
         'lang_code' => 'en',
       ],
@@ -2922,10 +2498,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'BL' => [
@@ -2937,10 +2510,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SH' => [
@@ -2952,10 +2522,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'KN' => [
@@ -2967,10 +2534,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'LC' => [
@@ -2982,10 +2546,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'MF' => [
@@ -2997,10 +2558,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'PM' => [
@@ -3012,10 +2570,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'VC' => [
@@ -3027,10 +2582,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'WS' => [
@@ -3042,10 +2594,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SM' => [
@@ -3057,10 +2606,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ST' => [
@@ -3072,10 +2618,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SA' => [
@@ -3086,12 +2629,9 @@
         'currency' => 'SAR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'SN' => [
         'name' => 'Senegal',
@@ -3102,10 +2642,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'RS' => [
@@ -3117,10 +2654,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'CS' => [
@@ -3132,10 +2666,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SC' => [
@@ -3147,10 +2678,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SL' => [
@@ -3162,10 +2690,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SG' => [
@@ -3176,12 +2701,9 @@
         'currency' => 'SGD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Chinese',
+        'langs' => ['en' => 'Chinese','es' => 'Chino'],
+        'lang_code' => 'ch',
       ],
       'SX' => [
         'name' => 'Sint Maarten',
@@ -3192,10 +2714,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SK' => [
@@ -3207,10 +2726,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SI' => [
@@ -3222,10 +2738,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SB' => [
@@ -3237,10 +2750,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SO' => [
@@ -3252,10 +2762,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ZA' => [
@@ -3267,10 +2774,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'GS' => [
@@ -3282,10 +2786,7 @@
         'continent' => 'Antarctica',
         'continent_code' => 'AN',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SS' => [
@@ -3297,10 +2798,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ES' => [
@@ -3312,10 +2810,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'LK' => [
@@ -3326,12 +2821,9 @@
         'currency' => 'LKR',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Sinhalav',
+        'langs' => ['en' => 'Sinhala','es' => 'Sinhala'],
+        'lang_code' => 'si',
       ],
       'SD' => [
         'name' => 'Sudan',
@@ -3342,10 +2834,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SR' => [
@@ -3357,10 +2846,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SJ' => [
@@ -3372,10 +2858,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SZ' => [
@@ -3387,10 +2870,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'SE' => [
@@ -3401,12 +2881,12 @@
         'currency' => 'SEK',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Swedish',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Swedish',
+          'es' => 'Sueco',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'sv',
       ],
       'CH' => [
         'name' => 'Switzerland',
@@ -3416,12 +2896,9 @@
         'currency' => 'CHF',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'French',
+        'langs' => ['en' => 'French','es' => 'Frances'],
+        'lang_code' => 'fr',
       ],
       'SY' => [
         'name' => 'Syrian Arab Republic',
@@ -3431,27 +2908,21 @@
         'currency' => 'SYP',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'TW' => [
-        'name' => 'Taiwan, Province of China',
+        'name' => 'Taiwan',
         'phone' => '886',
         'symbol' => '$',
         'capital' => 'Taipei',
         'currency' => 'TWD',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Chinese',
+        'langs' => ['en' => 'Chinese','es' => 'Chino'],
+        'lang_code' => 'ch',
       ],
       'TJ' => [
         'name' => 'Tajikistan',
@@ -3462,10 +2933,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TZ' => [
@@ -3477,10 +2945,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TH' => [
@@ -3492,10 +2957,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TL' => [
@@ -3507,10 +2969,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TG' => [
@@ -3522,10 +2981,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TK' => [
@@ -3537,10 +2993,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TO' => [
@@ -3552,10 +3005,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TT' => [
@@ -3567,10 +3017,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TN' => [
@@ -3582,10 +3029,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TR' => [
@@ -3596,12 +3040,9 @@
         'currency' => 'TRY',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Turkish',
+        'langs' => ['en' => 'Turkish','es' => 'Turco'],
+        'lang_code' => 'tr',
       ],
       'TM' => [
         'name' => 'Turkmenistan',
@@ -3612,10 +3053,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TC' => [
@@ -3627,10 +3065,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'TV' => [
@@ -3642,10 +3077,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'UG' => [
@@ -3657,10 +3089,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'UA' => [
@@ -3671,12 +3100,12 @@
         'currency' => 'UAH',
         'continent' => 'Europe',
         'continent_code' => 'EU',
-        'lang' => 'English',
+        'lang' => 'Ukrainian',
         'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
+          'en' => 'Ukrainian',
+          'es' => 'Ucraniano',
         ],
-        'lang_code' => 'en',
+        'lang_code' => 'uk',
       ],
       'AE' => [
         'name' => 'United Arab Emirates',
@@ -3686,12 +3115,9 @@
         'currency' => 'AED',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'GB' => [
         'name' => 'United Kingdom',
@@ -3702,10 +3128,7 @@
         'continent' => 'Europe',
         'continent_code' => 'EU',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'US' => [
@@ -3717,10 +3140,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'UM' => [
@@ -3732,10 +3152,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'UY' => [
@@ -3747,10 +3164,7 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'UZ' => [
@@ -3762,10 +3176,7 @@
         'continent' => 'Asia',
         'continent_code' => 'AS',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'VU' => [
@@ -3777,10 +3188,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'VE' => [
@@ -3792,26 +3200,20 @@
         'continent' => 'South America',
         'continent_code' => 'SA',
         'lang' => 'Spanish',
-        'langs' => [
-          'en' => 'Spanish',
-          'es' => 'Español',
-        ],
+        'langs' => ['en' => 'Spanish','es' => 'Español'],
         'lang_code' => 'es',
       ],
       'VN' => [
-        'name' => 'Viet Nam',
+        'name' => 'Vietnam',
         'phone' => '84',
         'symbol' => '₫',
         'capital' => 'Hanoi',
         'currency' => 'VND',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Vietnamese',
+        'langs' => ['en' => 'Vietnamese','es' => 'Vietnamita'],
+        'lang_code' => 'vi',
       ],
       'VG' => [
         'name' => 'Virgin Islands, British',
@@ -3822,14 +3224,11 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'VI' => [
-        'name' => 'Virgin Islands, U.s.',
+        'name' => 'Virgin Islands, U.S.',
         'phone' => '1340',
         'symbol' => '$',
         'capital' => 'Charlotte Amalie',
@@ -3837,10 +3236,7 @@
         'continent' => 'North America',
         'continent_code' => 'NA',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'WF' => [
@@ -3852,10 +3248,7 @@
         'continent' => 'Oceania',
         'continent_code' => 'OC',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'EH' => [
@@ -3867,10 +3260,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'YE' => [
@@ -3881,12 +3271,9 @@
         'currency' => 'YER',
         'continent' => 'Asia',
         'continent_code' => 'AS',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Arabic',
+        'langs' => ['en' => 'Arabic','es' => 'Arabe'],
+        'lang_code' => 'ar',
       ],
       'ZM' => [
         'name' => 'Zambia',
@@ -3897,10 +3284,7 @@
         'continent' => 'Africa',
         'continent_code' => 'AF',
         'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
+        'langs' => ['en' => 'English','es' => 'Ingles'],
         'lang_code' => 'en',
       ],
       'ZW' => [
@@ -3911,12 +3295,9 @@
         'currency' => 'ZWL',
         'continent' => 'Africa',
         'continent_code' => 'AF',
-        'lang' => 'English',
-        'langs' => [
-          'en' => 'English',
-          'es' => 'Ingles',
-        ],
-        'lang_code' => 'en',
+        'lang' => 'Shona',
+        'langs' => ['en' => 'Shona','es' => 'Shona'],
+        'lang_code' => 'sn',
       ],
     ];
     

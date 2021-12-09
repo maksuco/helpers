@@ -193,14 +193,14 @@ function geoip($ip,$optional='city',$key=null) {
 		$ip = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]))? $_SERVER["HTTP_CF_CONNECTING_IP"] : $_SERVER["REMOTE_ADDR"];
 	}
 	include_once("Extras/geoip2.php");
-	return geoip2($ip,$optional,$key,$base_path=false);
+	return geoip2($ip,$optional,$key);
 }
-function geoipLaravel($ip,$optional='city',$key=null) {
+function geoipLaravel($ip,$optional='city') {
 	if($ip == null){
 		$ip = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]))? $_SERVER["HTTP_CF_CONNECTING_IP"] : $_SERVER["REMOTE_ADDR"];
 	}
 	include_once("Extras/geoip2.php");
-	return geoip2($ip,$optional,$key,true);
+	return geoip2Laravel($ip,$optional);
 }
 
 function timezone($ip,$date) {
@@ -381,7 +381,7 @@ function country($isoCode="US") {
 	return false;
 }
 
-function timezones() {
+function timezones($laravel=false) {
 	include_once(__DIR__ ."/Extras/timezones.php");
 	return $timezones;
 }
@@ -545,13 +545,32 @@ function COUNTRY_CONTINENTS($countryCode) {
 	}
 	
 	//FILE SIZES CALCULATOR TO BYTES
-	function sizetobytes($size) {
-    $unit = strtolower($size);
-    $unit = preg_replace('/[^a-z]/', '', $unit);
-    $value = intval(preg_replace('/[^0-9]/', '', $size));
-    $units = array('b'=>0, 'kb'=>1, 'mb'=>2, 'gb'=>3, 'tb'=>4);
-		$exponent = isset($units[$unit]) ? $units[$unit] : 0;
-    return ($value * pow(1024, $exponent));            
+	function sizetobytes($size,$reverse=false) {
+		//UNITS TO BYTES
+		if(!$reverse) {
+			$unit = strtolower($size);
+			$unit = preg_replace('/[^a-z]/', '', $unit);
+			$value = intval(preg_replace('/[^0-9]/', '', $size));
+			$units = array('b'=>0, 'kb'=>1, 'mb'=>2, 'gb'=>3, 'tb'=>4);
+			$exponent = isset($units[$unit]) ? $units[$unit] : 0;
+			return ($value * pow(1024, $exponent));    
+		}       
+		//BYTES TO UNITS
+        if ($size >= 1073741824) {
+            $size = number_format($size / 1073741824, 2).' gb';
+        } elseif ($size >= 1048576) {
+            $size = number_format($size / 1048576, 2).' mb';
+        } elseif ($size >= 1024) {
+            $size = number_format($size / 1024, 2).' kb';
+        } elseif ($size > 1) {
+            $size = $size.' bytes';
+        } elseif ($size == 1) {
+            $size = $size.' byte';
+        } else {
+            $size = '0 bytes';
+        }
+
+        return $size;
 	}
 
 	//GET FILENAME FROM STRING/URL

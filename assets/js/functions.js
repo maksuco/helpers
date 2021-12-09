@@ -57,15 +57,17 @@ function initials(string) {
 	return string.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
 }
 
-function click_spinner(element_id) {
+function click_spinner(element_id,time=3500,block=false) {
 	var element = document.getElementById(element_id);
 	var original_string = element.innerHTML;
 	element.classList.add("disabled");
 	element.innerHTML += " <i class='fal fa-circle-notch fa-spin ml-1'></i>";
 	setTimeout(function() {
 		element.innerHTML = original_string;
-		element.classList.remove("disabled");
-	}, 3500);
+		if(block == false) {
+			element.classList.remove("disabled");
+		}
+	}, time);
 }
 
 function button_link_click(element_id) {
