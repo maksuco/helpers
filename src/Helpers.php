@@ -391,7 +391,7 @@ function timezones($laravel=false) {
 	ray($sPath);
 	ray(__DIR__ . '/Extras/timezones.php');
 	include_once(__DIR__ ."/Extras/timezones.php");
-	return [];
+	return $sPath;
 	return $timezones;
 }
 
