@@ -383,15 +383,10 @@ function country($isoCode="US") {
 
 function timezones($laravel=false) {
 	if($laravel){
-		include_once("vendor/maksuco/helpers/src/Extras/timezones.php");
+		include_once(base_path().'/vendor/maksuco/helpers/src/Extras/timezones.php');
 	} else {
 		include_once(__DIR__ ."/Extras/timezones.php");
 	}
-	// $sPath = realpath( __DIR__ . '/Extras/timezones.php');
-	// ray($sPath);
-	// ray(__DIR__ . '/Extras/timezones.php');
-	// include_once(__DIR__ ."/Extras/timezones.php");
-	// return $sPath;
 	return $timezones;
 }
 
