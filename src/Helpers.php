@@ -655,6 +655,12 @@ function COUNTRY_CONTINENTS($countryCode) {
 		}
 		return $names[0].' '.$lastNames[0];
 	}
+
+	function random_quote() {
+		$quotes = json_decode(file_get_contents('Extras/quotes.json'),true);
+		shuffle($quotes);
+		return $quotes[0];
+	}
 	
 	//Because str_random doesn't work anymore
   function greetings_by_time($timezone=false) {
