@@ -488,7 +488,7 @@ function COUNTRY_CONTINENTS($countryCode) {
   function avatar($user) {
 
 		//IF EMPTY
-    if(empty($user) OR $user == null) {
+		if(empty($user) OR $user == null) {
 			$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
 			return "data:image/png;base64,".base64_encode($imagedata);
 		}

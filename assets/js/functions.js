@@ -285,6 +285,9 @@ document.addEventListener('alpine:init', () => {
 			},
 			['@mouseleave']() {
 				this.nav_user_dropdown = false;
+			},
+			['@click.outside']() {
+				this.nav_user_dropdown = false;
 			}
 		}
 	}));
