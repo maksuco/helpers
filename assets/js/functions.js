@@ -40,6 +40,13 @@ function scrollFix(action = null, element = 'body') {
 function goToUrl(url) {
 	window.location.href = url;
 }
+function checkInsideIframe() {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+		window.top.location.href = window.self;
+    }
+}
 function inputFileChange(element_id, event) {
 	var fileName = event.target.files[0];
 	alert('updated' + ' - ' + fileName);
