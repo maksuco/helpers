@@ -15,6 +15,20 @@ const Toast = Swal.mixin({
 var lang = typeof lang != "undefined" ? lang : 'en';
 moment.locale(lang);
 
+//SHARE
+function nativeShare() {
+	if (navigator.share) {
+		navigator
+			.share({
+				title: share["title"] ?? "web.dev",
+				text: share["text"] ?? "Check out web.dev.",
+				url: share["url"] ?? "https://web.dev/",
+			})
+			.then()
+			.catch((error) => console.log("Error sharing", error));
+	}
+}
+
 
 //JS VANILLA
 function mobile() {
