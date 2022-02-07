@@ -16,13 +16,13 @@ var lang = typeof lang != "undefined" ? lang : 'en';
 moment.locale(lang);
 
 //SHARE
-function nativeShare() {
+function nativeShare(share) {
 	if (navigator.share) {
 		navigator
 			.share({
-				title: share["title"] ?? "web.dev",
-				text: share["text"] ?? "Check out web.dev.",
-				url: share["url"] ?? "https://web.dev/",
+				title: share["title"],
+				text: share["text"],
+				url: share["url"],
 			})
 			.then()
 			.catch((error) => console.log("Error sharing", error));
