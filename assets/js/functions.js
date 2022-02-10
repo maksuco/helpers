@@ -49,6 +49,13 @@ function scrollFix(action = null, element = 'body') {
 function goToUrl(url) {
 	window.location.href = url;
 }
+//TEST
+function isset(element) {
+	if (typeof element !== "undefined") {
+		return true;
+	}
+	return false;
+}
 function checkInsideIframe() {
     if (window.top !== window.self) window.top.location.replace(window.self.location.href);
 }
