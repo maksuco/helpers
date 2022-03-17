@@ -257,6 +257,45 @@ document.addEventListener('alpine:init', () => {
 		}
 	}));
 
+	Alpine.data('modal', (el) => ({
+		openModal: false,
+		players: null,
+		init() {
+			this.players = Plyr.setup('.player');
+		},
+		activateTrigger(action=true) {
+			if(action) {
+				this.openModal = true;
+				document.querySelector('body').classList.add("body-fix");
+			} else {
+				this.openModal = false;
+				document.querySelector('body').classList.remove("body-fix");
+				//const players = Plyr.setup('.player');
+				this.players.forEach(function(player) {
+					player.pause();
+				});
+			}
+		},
+		trigger: {
+			['@click']() {
+				this.openModal = !this.openModal;
+				this.activateTrigger(this.openModal);
+			}
+		},
+		modal: {
+			['x-show']() { return this.openModal },
+			['x-transition.duration.500ms']() {},
+		},
+		modalDialog: {
+			['x-on:click.outside.prevent']() {
+				this.activateTrigger(false);
+			},
+            ["@keydown.window.prevent.esc"]() {
+				this.activateTrigger(false);
+			}
+		},
+	}));
+
 
 	Alpine.data('navigator', () => ({
 		nav_main: false,
