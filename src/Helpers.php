@@ -391,8 +391,8 @@ function timezones($laravel=false) {
 }
 
 function languages($lang='all') {
-	//include_once(__DIR__ ."/Extras/languages.php");
-	include_once(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
+	include("Extras/languages.php");
+	//include_once(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
 	if($lang == 'all'){
 		return $languages;
 	} else {
