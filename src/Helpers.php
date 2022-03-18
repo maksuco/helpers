@@ -392,9 +392,9 @@ function timezones($laravel=false) {
 
 function languages($lang='all',$laravel=false) {
 	if($laravel){
-		include_once(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
+		include(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
 	} else {
-		include_once(__DIR__ ."/Extras/languages.php");
+		include(__DIR__ ."/Extras/languages.php");
 	}
 	if($lang == 'all'){
 		return $languages;
