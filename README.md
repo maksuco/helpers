@@ -432,6 +432,23 @@ Names for testing, send 'name', 'lastname' or 'fullname' or leave empty for full
   //returns John
 ```
 
+## Generate random quote
+```php
+  \Helpers::random_quote();
+  //returns Something special
+```
+
+## Hide part of the string like an api_key
+```php
+  \Helpers::hide_string($string);
+  //returns 3234****9099
+  \Helpers::hide_string($string, $middle = 'xx');
+  //returns 3234xx9099
+  \Helpers::hide_string('455667867897', $middle = 'xxddd','start');
+  //returns with 'start' 4556xxddd
+  //returns with 'end' xxddd7897
+```
+
 
 ## Greetings by time of day
 Returns good afternoon, good morning etc.. (timezone is optional)

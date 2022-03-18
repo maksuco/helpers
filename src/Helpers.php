@@ -390,9 +390,12 @@ function timezones($laravel=false) {
 	return $timezones;
 }
 
-function languages($lang='all') {
-	include("Extras/languages.php");
-	//include_once(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
+function languages($lang='all',$laravel=false) {
+	if($laravel){
+		include_once(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
+	} else {
+		include_once(__DIR__ ."/Extras/languages.php");
+	}
 	if($lang == 'all'){
 		return $languages;
 	} else {
@@ -657,7 +660,12 @@ function COUNTRY_CONTINENTS($countryCode) {
 		return $names[0].' '.$lastNames[0];
 	}
 
-	function short_string($string, $middle = '****') {
+	function hide_string($string, $middle = '****',$position=false) {
+		if($position == 'start') {
+			return substr($string, 0, 4).$middle;
+		} elseif($position == 'end') {
+			return $middle.substr($string, -4);
+		}
 		return substr($string, 0, 4).$middle.substr($string, -4);
 	}
 
