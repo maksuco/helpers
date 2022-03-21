@@ -532,6 +532,18 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
+# Code
+
+Help with pre and code content
+
+```php
+
+  $slug = \Helpers::prepareCode($codeVariable);
+  //SEND: <script>xxxx</script>
+  //RETURNS: &lt;script>xxxx&lt;/script>
+
+```
+
 # Social Sharing
 $url can be null to automatically get the current url page
 
