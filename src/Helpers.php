@@ -407,7 +407,7 @@ function languages($lang='all',$laravel=false) {
 function prepareCode($code) {
 	$string = str_replace(["<code","</code"], ["xcxoxdxex","-cxoxdxex"], $code);
 	$string = str_replace("<", "&lt;", $string);
-	return str_replace(["-cxoxdxex","xcxoxdxex"], ["</code","<code"], $string);
+	return str_replace(["xcxoxdxex","-cxoxdxex"], ["<code","</code"], $string);
 }
 
 
