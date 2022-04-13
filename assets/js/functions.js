@@ -15,6 +15,11 @@ const Toast = Swal.mixin({
 var lang = typeof lang != "undefined" ? lang : 'en';
 moment.locale(lang);
 
+//SLEEP
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 //SHARE
 function nativeShare(share) {
 	if (navigator.share) {
