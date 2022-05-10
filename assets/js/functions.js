@@ -45,8 +45,9 @@ function mobile() {
 function getFileType(file) {
 	if (typeof file === 'string' || file instanceof String) {
 		var ext = file.split('.').pop();
-		if(['m4v','avi','mp4','mov'].includes(ext)) return 'video';
 		if(['jpg','jpeg','png','gif','webp'].includes(ext)) return 'image';
+		if(['m4v','avi','mp4','mov'].includes(ext)) return 'video';
+		if(['mp3'].includes(ext)) return 'audio';
 		return 'raw';
 	}
 	if(file.type.match('image.*')) return 'image';
