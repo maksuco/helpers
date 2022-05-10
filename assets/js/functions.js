@@ -43,6 +43,7 @@ function mobile() {
 };
 
 function getFileType(file) {
+	if(file==null) return null;
 	if (typeof file === 'string' || file instanceof String) {
 		var ext = file.split('.').pop();
 		if(['jpg','jpeg','png','gif','webp'].includes(ext)) return 'image';
