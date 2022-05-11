@@ -558,6 +558,22 @@ function country_continents($countryCode) {
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
 	  return $decrypted;
 	}
+
+	//GET FILE TYPE
+	function getFileType($filename) {
+        if ($filename == null) {
+            return null;
+        }
+		$ext = explode(".",$filename)[1];
+		if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+            return 'image';
+        } elseif (in_array($ext, ['m4v','avi','mp4','mov'])) {
+            return 'video';
+        } elseif (in_array($ext, ['mp3'])) {
+            return 'audio';
+        }
+        return 'raw';
+	}
 	
 	//FILE SIZES CALCULATOR TO BYTES
 	function sizetobytes($size,$reverse=false) {
@@ -1134,7 +1150,7 @@ HTML;
 
 
 
-	//PROCESS INSTAGRAM SCRAPER
+	//PROCESS INSTAGRAM SCRAPER - OLD VERSION SEE WEBCMS
 	function instagram_process($instagram,$username) {
 		
 		$media = $instagram->getMedias($username,40);

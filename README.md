@@ -403,6 +403,13 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 ```
 
 
+## Get file type
+```php
+  \Helpers::getFileType('xxx.mov');
+  //returns video
+```
+
+
 ## File size to bytes calculator
 Send '1 mb' and get the result in bytes, send measurements in: b, kb, mb, gb, tb
 
@@ -456,6 +463,7 @@ Returns good afternoon, good morning etc.. (timezone is optional)
 ```php
   \Helpers::greetings_by_time($timezone);
   //Returns: "Good morning", "Good afternoon", "Good evening" or "Good night"
+```
 
 
 ## Day name by day difference
