@@ -35,6 +35,29 @@ function nativeShare(share) {
 }
 
 
+//PAGE LOADING
+const loading = document.getElementById("loading");
+document.addEventListener("DOMContentLoaded", function(event) {
+  loadingEnter();
+});
+window.onpageshow = function(event) {
+  if (event.persisted) {
+    loadingEnter();
+  }
+};
+function loadingGoToUrl(url) {
+  gsap.to(loading, {display:"flex", opacity: 1});
+  setTimeout(function(){
+    window.location.href = url;
+  }, 500);
+}
+function loadingEnter(){
+  setTimeout(function(){
+    gsap.to(loading, {opacity: 0, display:"none"});
+  }, 500);
+}
+
+
 //JS VANILLA
 function mobile() {
 	let check = false;
