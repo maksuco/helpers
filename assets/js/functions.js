@@ -22,20 +22,19 @@ function sleep(ms=300) {
 
 //SHARE
 function nativeShare(share=null) {
-	alert('null');
 	if (navigator.share) {
 		if(share!=null){
 			share["title"] = document.title;
-			share["text"] = '';
 			share["url"] = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : document.location.href;
 		}
 		navigator.share({
 				title: share["title"],
-				text: share["text"],
 				url: share["url"],
 			})
 			.then()
 			.catch((error) => console.log("Error sharing", error));
+	} else {
+		alert("Mobile doesn't support Sharing");
 	}
 }
 
