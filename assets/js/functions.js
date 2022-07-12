@@ -57,9 +57,9 @@ function loadingGoToUrl(url) {
   }, 500);
 }
 function loadingEnter(){
-  setTimeout(function(){
-    gsap.to(loading, {opacity: 0, display:"none"});
-  }, 500);
+//   setTimeout(function(){
+//     gsap.to(loading, {opacity: 0, display:"none"});
+//   }, 500);
 }
 
 
