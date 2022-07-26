@@ -1,4 +1,4 @@
-# Helpers remove git
+# Helpers
 
 This package has a few php helpers, for everyday tasks
 
