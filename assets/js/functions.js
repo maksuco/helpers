@@ -357,7 +357,7 @@ document.addEventListener('alpine:init', () => {
 	}));
 
 
-	Alpine.data('navigator', () => ({
+	Alpine.data('navigatorX', () => ({
 		nav_main: false,
 		nav_services_dropdown: false,
 		nav_help_dropdown: false,
