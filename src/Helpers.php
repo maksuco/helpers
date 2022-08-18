@@ -510,7 +510,7 @@ function country_continents($countryCode) {
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			return env('CLOUD_URL').env('SHOWAVATAR_PATH').$user->avatar;
+			return config('app.cloud_url').config('app.avatar_path').$user->avatar;
 		}
 
 		//IF GRAVATAR
@@ -545,14 +545,14 @@ function country_continents($countryCode) {
 	
 	//CRYPTO
 	function encrypt($string,$key) {
-		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? '123456789ZYX';
+		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYX';
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
 		$encrypted = strtr($encrypted, "+/", "-_");
 	  return $encrypted;
 	}
 	function decrypt($string,$key) {
-		$CRYPTO_STRING = env('CRYPTO_STRING') ?? env('APP_KEY') ?? '123456789ZYX';
+		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYX';
 		$string = strtr( $string, "-_", "+/");
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);

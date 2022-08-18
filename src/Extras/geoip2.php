@@ -46,7 +46,7 @@
 
 
     } elseif($optional=='ipstack') {
-      $key = $key ?? env('IPSTACK_KEY');
+      $key = $key ?? config('ipstack_key');
       $geo_data = json_decode(file_get_contents("https://api.ipstack.com/".$ip."?access_key=".$key));
       //DATA
       $continent = $geo->continent_code = $geo_data->continent_code;
