@@ -355,6 +355,8 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
   $domain = \Helpers::domain_from_url($url);
   //returns the domain.com from http://www.domain.com/something
+  \Helpers::domain_from_url($url,true); //subdomain true
+  //returns the account.domain.com from http://account.domain.com/something
 ```
 
 

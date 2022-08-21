@@ -795,13 +795,14 @@ function domain_check($value) {
 	return false;
 }
 
-function domain_from_url($url) {
+function domain_from_url($url,$subdomain=false) {
 	$parseUrl = parse_url(trim($url));
 	if(isset($parseUrl['host'])) {
 	  $trimUrl = $parseUrl['host'];
 	} else {
 	  $trimUrl = explode('/', $parseUrl['path'])[0];
 	}
+	if($subdomain) { return $trimUrl; }
 	$trimUrl = array_reverse(explode('.', $trimUrl));
 	return $trimUrl[1].'.'.$trimUrl[0];
 }
