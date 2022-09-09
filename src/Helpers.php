@@ -4,6 +4,7 @@ namespace Maksuco\Helpers;
 
 class Helpers
 {
+  use Traits\Colors;
 	
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
@@ -113,6 +114,12 @@ function getTextBetween($text, $start="", $end="") {
 		return null;
 	}
 	return $matches[1];
+}
+
+
+function replaceTextBetween($text, $start="", $end="", $replace=false) {
+	$search = '#('.$start.').*?('.$end.')#';
+	return preg_replace($search,$replace,$text);
 }
 
 
@@ -1175,20 +1182,24 @@ HTML;
 						$link = $photo->getLink();
 						$json_media_by_url = $instagram->getMediaByUrl($link);
 						foreach ($json_media_by_url['sidecarMedias'] as $key2 => $photo2) {
-								$object[$key]['sidecarMedias'][$key2]['id'] =
-										$photo2['imageLowResolutionUrl'];
-								$object[$key]['sidecarMedias'][$key2]['imageLowResolutionUrl'] =
-										$photo2['imageLowResolutionUrl'];
-								$object[$key]['sidecarMedias'][$key2]['imageHighResolutionUrl'] =
-										$photo2['imageHighResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['id'] = $photo2['imageLowResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['imageLowResolutionUrl'] = $photo2['imageLowResolutionUrl'];
+								$object[$key]['sidecarMedias'][$key2]['imageHighResolutionUrl'] = $photo2['imageHighResolutionUrl'];
 								$object[$key]['sidecarMedias'][$key2]['link'] = $photo2['link'];
-								$object[$key]['sidecarMedias'][$key2]['caption'] =
-										$photo2['caption'];
+								$object[$key]['sidecarMedias'][$key2]['caption'] = $photo2['caption'];
 						}
 				}
 		}
 		return $object;
 	}
 
+	function getTikTok($username,$type='profile') {
+		if($type == 'profile') {
+			$data = json_decode(file_get_contents('https://www.tiktok.com/oembed?url=https://www.tiktok.com/@'.$username));
+		} else {
+			$data = json_decode(file_get_contents('https://www.tiktok.com/oembed?url=https://www.tiktok.com/@'.$username.'/video/'.$action));
+		}
+		return $data;
+	}
 	
 }

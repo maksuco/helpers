@@ -123,12 +123,14 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
-# Find text between 2 strings
+# Find text between 2 strings or replace
 Returns an array with all results
 
 ```php
 
   {{\Helpers::getTextBetween($text,$start,$end)}}
+  If you want to replace the text between two strings use
+  {{\Helpers::replaceTextBetween($text,$start,$end,$replace)}}
 
 ```
 
