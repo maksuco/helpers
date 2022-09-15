@@ -98,11 +98,12 @@ function nav_active($page) {
 }
 
 //https://stackoverflow.com/questions/1960461/convert-plain-text-urls-into-html-hyperlinks-in-php
-function text_parse($text) {
+function text_parse($text,$blank=true) {
 	//$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 	//$text = preg_replace($link_pattern, "<a href='\\0' rel='nofollow noopener noreferrer' target='_blank'>\\0</a>", $text);
 	$url_pattern = '@(http(s)?)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-	$text = preg_replace($url_pattern, '<a href="http$2://$4" rel="nofollow noopener noreferrer" target="_blank" title="$0">$0</a>', $text);
+	$blank = ($blank)? 'target="_blank"' : ''; //new
+	$text = preg_replace($url_pattern, '<a href="http$2://$4" rel="nofollow noopener noreferrer" '.$blank.' title="$0">$0</a>', $text);
 	return $text;
 }
 

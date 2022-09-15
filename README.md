@@ -113,11 +113,11 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 # Text parser
 
- Convert plain text to include real html links
+ Convert plain text to include real html links (blank is optional, default is true)
 
 ```php
 
-  {{\Helpers::text_parse($text)}}
+  {{\Helpers::text_parse($text,$blank)}}
   //SEND: Welcome to http:://apple.com
   //RETURNS: Welcome to <a href="http:://apple.com">http:://apple.com</a>
 
