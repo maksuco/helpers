@@ -10,7 +10,7 @@ trait Colors {
         $firstColor = $this->checkHEX($firstColor); 
         if($firstColor==false){ return false; };
         if($secondColor==false){
-            $secondColor = $this->spinColor($firstColor,30,$amount)->fadeOut($opacity);
+            $secondColor = $this->spinColor($firstColor,15,$amount)->fadeOut($opacity);
         }
         return 'linear-gradient('.$angle.'deg, '.$firstColor.' '.$percentage.'%, '.$secondColor.' 100%)';
     }
