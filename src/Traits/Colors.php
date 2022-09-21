@@ -55,13 +55,56 @@ trait Colors {
     }
 
     public function alphaColor($color,$opacity=0) {
-        $color = $this->checkHEX($color); 
+        $color = $this->newColor($color); 
         if($color==false){ return false; };
-        $color = new Hex($color);
         return $color->fadeIn($opacity);
     }
 
+    public function color($color,$function='fade',$amount=0) {
+        $color = $this->newColor($color);
+        return $color->$function($amount);
+    }
+
     public function checkHEX($color) {
+        $color = str_replace("#", "", $color);
+        if($color=='transparent') {
+            $color = 'FFFFFF00';
+        }
+        if(ctype_xdigit($color) && strlen($color)>5){
+            return str_starts_with($color, '#')? $color : '#'.$color;
+        }
+        return false;
+    }
+    public function newColor($color) {
+        $color = str_replace("#", "", $color);
+        if($color=='transparent') {
+            $color = 'FFFFFF00';
+        }
+        if(ctype_xdigit($color) && strlen($color)>5){
+            $color = str_starts_with($color, '#')? $color : '#'.$color;
+        }
+        if(strlen($color)>7){
+            return new Hexa($color);
+        } else {
+            return new Hex($color);
+        }
+        return false;
+    }
+
+    public function bgBlur($color,$blur=10,$gradient=false) {
+        $color = $this->color($color,'fade',20);
+        // $color = new Hex($color);
+        // $color = $color->fade(20);
+        $blur = $blur.'px';
+        $colorCSS = ($gradient)? 'background-image:'.$this->gradientCSS($color) : 'background-color:'.$color;
+        return <<<HTML
+            $colorCSS !important;
+            -webkit-backdrop-filter: blur($blur);
+            backdrop-filter: blur($blur);
+        HTML;
+    }
+
+    public function bgBlend($color,$opacity,$gradient=false) {
         $color = str_replace("#", "", $color);
         if(ctype_xdigit($color) && strlen($color)>5){
             return str_starts_with($color, '#')? $color : '#'.$color;
