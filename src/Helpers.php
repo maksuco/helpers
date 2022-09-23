@@ -665,7 +665,14 @@ function country_continents($countryCode) {
 	}
 	
 	//Because str_random doesn't work anymore
-  function random($characters = 1,$numbers = false) {
+  function random($characters = 1,$numbers = null) {
+		if($numbers == null) {
+			$chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		} elseif($numbers){
+			$chars = '0123456789';
+		} else {
+			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		}
 		$chars = ($numbers)? '0123456789' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$count = strlen($chars);
 		$bytes = random_bytes((int) $characters);

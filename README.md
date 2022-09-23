@@ -428,9 +428,11 @@ Send the length of the random
 
 ```php
   \Helpers::random(4);
-  //returns xxxx
+  //returns 4 letters mix with numbers
   \Helpers::random(4,true);
   //if you want only numbers
+  \Helpers::random(4,false);
+  //if you want only letters
 ```
 
 
