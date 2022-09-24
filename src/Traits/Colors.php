@@ -75,6 +75,7 @@ trait Colors {
         }
         return false;
     }
+    
     public function newColor($color) {
         $color = str_replace("#", "", $color);
         if($color=='transparent') {
