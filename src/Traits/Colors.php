@@ -78,12 +78,15 @@ trait Colors {
     
     public function newColor($color) {
         $color = str_replace("#", "", $color);
-        if($color=='transparent') {
+        if($color=='transparent' || empty($color)) {
             $color = 'FFFFFF00';
         }
         if(ctype_xdigit($color) && strlen($color)>5){
             $color = str_starts_with($color, '#')? $color : '#'.$color;
         }
+        // ray()->clearAll();
+        // ray('color hex',$color);
+        // ray()->pause();
         if(strlen($color)>7){
             return new Hexa($color);
         } else {
@@ -102,6 +105,8 @@ trait Colors {
             $colorCSS !important;
             -webkit-backdrop-filter: blur($blur);
             backdrop-filter: blur($blur);
+            box-shadow: 0 0.75rem 2rem 0 rgba(var(--header-bg_color), 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.125);
         HTML;
     }
 

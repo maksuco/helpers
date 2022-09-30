@@ -30,7 +30,7 @@ class Helpers
 			$data['result'] = $data['os'].' '.$data['browser'];
 			return $data;
 		}
-		$user_agent = $_SERVER["HTTP_USER_AGENT"];
+		$user_agent = $data['complete'] = $_SERVER["HTTP_USER_AGENT"];
 	
 		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
 			$data['tablet'] = true; $data['device'] = 'tablet';
