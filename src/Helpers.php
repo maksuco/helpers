@@ -642,7 +642,8 @@ function country_continents($countryCode) {
   //returns new filename
   function slug_file($filename,$random) {
     $data = pathinfo($filename); //explode('.', $filename);
-    $result = $this->slug($data['filename']).$this->slug_random($random).'.'.$data['extension'];
+	$filename = substr($data['filename'],0,60);
+    $result = $this->slug($filename).$this->slug_random($random).'.'.$data['extension'];
     return strtolower($result);
   }
   //returns filename with a name you specify
