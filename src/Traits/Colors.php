@@ -21,7 +21,7 @@ trait Colors {
         if(is_string($firstColor)) {
             $firstColor = $this->checkHEX($firstColor);
             if($firstColor==false){ return false; };
-        } else {
+        } elseif($firstColor !== false) {
             $firstColor = $firstColor->toHexa(); 
         }
         if($secondColor==false){
