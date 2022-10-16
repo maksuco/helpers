@@ -972,12 +972,13 @@ HTML;
 		$return = 'https://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
 		return $return;
 	}
-	function whatsappshare($url,$text) {
+	function whatsappshare($url,$text=false) {
 		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		if($text) $text = $text.' ';
 		if($this->mobile()){
-			$return = 'whatsapp://send?text='.rawurlencode($text.' ').$url;
+			$return = 'whatsapp://send?text='.rawurlencode($text).$url;
 		} else {
-			$return = 'https://wa.me/send?text='.rawurlencode($text.' ').$url;
+			$return = 'https://wa.me/send?text='.rawurlencode($text).$url;
 		}
 		return $return;
 	}
