@@ -974,7 +974,7 @@ HTML;
 	}
 	function whatsappshare($url,$text=false) {
 		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-		if($text) $text = $text.' ';
+		$text = ($text)? $text.' ' : '';
 		if($this->mobile()){
 			$return = 'whatsapp://send?text='.rawurlencode($text).$url;
 		} else {
@@ -982,10 +982,11 @@ HTML;
 		}
 		return $return;
 	}
-	function whatsappchat($phone,$url,$text) {
+	function whatsappchat($phone,$url,$text=false) {
+		$text = ($text)? $text.' ' : '';
 		$phone = str_replace([' ','-','(',')'], '', $phone);
 		$url = ($url AND !empty($url))? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-		$return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text.' ').$url;
+		$return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text).$url;
 		return $return;
 	}
 	function popup() {
