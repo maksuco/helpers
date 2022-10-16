@@ -974,7 +974,11 @@ HTML;
 	}
 	function whatsappshare($url,$text) {
 		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-		$return = 'whatsapp://send?text='.rawurlencode($text.' ').$url;
+		if($this->mobile()){
+			$return = 'whatsapp://send?text='.rawurlencode($text.' ').$url;
+		} else {
+			$return = 'https://wa.me/send?text='.rawurlencode($text.' ').$url;
+		}
 		return $return;
 	}
 	function whatsappchat($phone,$url,$text) {
