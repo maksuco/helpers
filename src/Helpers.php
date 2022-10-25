@@ -281,6 +281,7 @@ function csvstring($action,$data,$new) {
 function array_process($action,$array,$new) {
 	//return $array[$new];
 	$exist = false;
+	$array = (is_array($array))? $array : [];
 	//IF ASSOCIATIVE
 	if(count(array_filter(array_keys($array), 'is_string')) > 0){
 		//ACTION

@@ -27,8 +27,8 @@
     if($optional=='ip-api') {
       $geo_data = json_decode(file_get_contents("http://ip-api.com/json/".$ip."?fields=11587583"));
       //DATA
-      $continent = $geo->continent_code = $geo_data->continentCode;
-      $geo->continent_name = $geo_data->continent;
+      $continent = $geo->continent_code = $geo_data->continentCode ?? '';
+      $geo->continent_name = $geo_data->continent ?? '';
       
       $country = $geo->country_code = $geo->country->isoCode = $geo_data->countryCode;
       $geo->country_name = $geo->country->name = $geo_data->country;
