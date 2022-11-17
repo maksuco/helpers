@@ -783,8 +783,9 @@ function getVideoID($provider,$string) {
 
 //CHECK if url has http
 function link($url) {
-	if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-			$url = "http://" . $url;
+	if (str_starts_with($url, 'tel') || str_starts_with($url, 'mail') || str_starts_with($url, 'sms')) {
+	} elseif (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+		$url = "http://" . $url;
 	}
 	return $url;
 }

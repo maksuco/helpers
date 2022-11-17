@@ -339,6 +339,8 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
   {{\Helpers::link($account->domain)}}
   //SEND: somedomain.com
   //RETURNS: http://somedomain.com
+  //SEND: mailto:xxxx
+  //RETURNS: mailto:xxxx
 
 ```
 
