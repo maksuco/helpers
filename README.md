@@ -48,6 +48,7 @@ Returns the browser locale, for example 'en', you send the available languages o
 ```php
   \Helpers::user_agent();
   //Returns Array ( [desktop] => 1 [mobile] => [tablet] =>  [device] => desktop [browser] => Chrome [os] => Macintosh [result] => Macintosh Chrome )
+  //Returns ['lang'], and ['estimate']=true if is not exact data
 ```
 
 # Avatar

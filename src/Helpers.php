@@ -23,14 +23,17 @@ class Helpers
 	//BROWSER, OS
 	function user_agent() {
 		$data = [];
-		$data['tablet'] = $data['mobile'] = $data['desktop'] = false;
+		$data['tablet'] = $data['mobile'] = $data['desktop'] = $data['estimated'] = false;
 		if(!isset($_SERVER["HTTP_USER_AGENT"])) {
 			$data['browser'] = 'Chrome';
 			$data['os'] = 'Windows';
 			$data['result'] = $data['os'].' '.$data['browser'];
+			$data['lang'] = 'en';
+			$data['estimated'] = true;
 			return $data;
 		}
 		$user_agent = $data['complete'] = $_SERVER["HTTP_USER_AGENT"];
+        $data['lang'] = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'en';
 	
 		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
 			$data['tablet'] = true; $data['device'] = 'tablet';
