@@ -132,6 +132,7 @@
   function geoip2Laravel($ip,$optional) {
     $geo = [];
     $geo['ip'] = $ip;
+    $geo['estimated'] = false;
     //DATA
     if(in_array($ip, ['localhost','127.0.0.1'])) {
       return geoip2NotFoundArray($geo);
@@ -198,6 +199,7 @@
 
 
   function geoip2NotFound($geo) {
+    $geo->estimated = true;
     $geo->country_code = $geo->country->isoCode = 'US';
     $geo->country_name = "United States";
     $geo->city_name = null;
@@ -213,6 +215,7 @@
   }
 
   function geoip2NotFoundArray($geo) {
+    $geo['estimated'] = true;
     $geo['country_code'] = $geo['country']['isoCode'] = 'US';
     $geo['country_name'] = "United States";
     $geo['city_name'] = null;
