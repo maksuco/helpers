@@ -788,7 +788,7 @@ function getVideoID($provider,$string) {
 function link($url) {
 	if (str_starts_with($url, 'tel') || str_starts_with($url, 'mail') || str_starts_with($url, 'sms')) {
 	} elseif (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-		$url = "http://" . $url;
+		$url = "https://" . $url;
 	}
 	return $url;
 }
