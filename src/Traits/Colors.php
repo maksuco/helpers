@@ -76,7 +76,8 @@ trait Colors {
     public function alphaColor($color,$opacity=0) {
         $color = $this->newColor($color); 
         if($color==false){ return false; };
-        return $color->fadeIn($opacity);
+        ray('color alphaColor 3',$color->fade(30)->toHexa(),$opacity);
+        return $color->fade($opacity)->toHexa();
     }
 
     public function color($color,$function='fade',$amount=0) {
