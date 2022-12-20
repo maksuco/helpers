@@ -63,7 +63,7 @@ trait Colors {
         if($color->isLight()){
             return $color->darken($change)->spin($value*.5);
         }
-        return $color->lighten($change)->spin($value);
+        return $color->lighten($change)->spin($value*.8);
     }
 
     public function mixColor($firstColor,$secondColor,$value=50) {
@@ -135,6 +135,32 @@ trait Colors {
         HTML;
     }
 
+
+
+    public function mesh($firstColor,$color2=false,$opacity=0) {
+        $firstColor = new Hexa($firstColor);
+        $variant1 = (new Hexa('#FFB879'))->mix($firstColor, 5)->fade(85); //light orange
+        //$variant1 = $firstColor->spin(10)->mix($firstColor, 5)->fade(60); //light orange
+        $variant2 = (new Hexa('#1CDDFF'))->mix($firstColor, 5)->fade(70); //light blue
+        //$variant3 = $firstColor->spin(140)->mix($firstColor, 5)->tint(70)->fade(60); //piel
+        $variant3 = (new Hexa('#FFDBDE'))->mix($firstColor, 5)->fade(80); //piel
+        //$variant4 = $firstColor->spin(120)->mix($firstColor, 5)->tint(32)->fade(60); //red
+        $variant4 = (new Hexa('#FF85AD'))->mix($firstColor, 5)->fade(90); //red
+        //$variant5 = $firstColor->spin(15)->mix($firstColor, 5)->tint(12)->fade(60); //blue
+        $variant5 = (new Hexa('#6B66FF'))->mix($firstColor, 5)->fade(80); //blue
+        //$variant2 = $this->spinColor($firstColor,30,30)->lighten(70)->fade(50);
+        return <<<HTML
+            background-color: {$firstColor};
+            background-image:
+            radial-gradient(at 40% 20%, {$variant1} 0px, transparent 50%),
+            radial-gradient(at 80% 0%, {$variant2} 0px, transparent 50%),
+            radial-gradient(at 0% 50%, {$variant3} 0px, transparent 50%),
+            radial-gradient(at 80% 50%, {$variant4} 0px, transparent 50%),
+            radial-gradient(at 0% 100%, {$variant1} 0px, transparent 50%),
+            radial-gradient(at 80% 100%, {$variant5} 0px, transparent 50%),
+            radial-gradient(at 0% 0%, {$variant4} 0px, transparent 50%);
+        HTML;
+    }
 
 
 }
