@@ -137,20 +137,23 @@ trait Colors {
 
 
 
-    public function mesh($firstColor,$color2=false,$opacity=0) {
-        $firstColor = new Hexa($firstColor);
-        $variant1 = (new Hexa('#FFB879'))->mix($firstColor, 5)->fade(85); //light orange
-        //$variant1 = $firstColor->spin(10)->mix($firstColor, 5)->fade(60); //light orange
-        $variant2 = (new Hexa('#1CDDFF'))->mix($firstColor, 5)->fade(70); //light blue
-        //$variant3 = $firstColor->spin(140)->mix($firstColor, 5)->tint(70)->fade(60); //piel
-        $variant3 = (new Hexa('#FFDBDE'))->mix($firstColor, 5)->fade(80); //piel
-        //$variant4 = $firstColor->spin(120)->mix($firstColor, 5)->tint(32)->fade(60); //red
-        $variant4 = (new Hexa('#FF85AD'))->mix($firstColor, 5)->fade(90); //red
-        //$variant5 = $firstColor->spin(15)->mix($firstColor, 5)->tint(12)->fade(60); //blue
-        $variant5 = (new Hexa('#6B66FF'))->mix($firstColor, 5)->fade(80); //blue
-        //$variant2 = $this->spinColor($firstColor,30,30)->lighten(70)->fade(50);
+    public function mesh($primaryColor,$opacity=1,$logic=false) {
+        $primaryColor = new Hexa($primaryColor);
+        if($logic){
+            $variant1 = $primaryColor->spin(10)->mix($primaryColor, 5)->fade(50*$opacity); //light orange
+            $variant2 = $primaryColor->spin(90)->mix($primaryColor, 5)->tint(22)->fade(50*$opacity); //red
+            $variant3 = $primaryColor->spin(140)->mix($primaryColor, 5)->tint(60)->fade(50*$opacity); //piel
+            $variant4 = $primaryColor->spin(280)->mix($primaryColor, 30)->tint(10)->fade(60*$opacity); //red
+            $variant5 = $primaryColor->spin(15)->mix($primaryColor, 5)->tint(10)->fade(50*$opacity); //blue
+        } else {
+            $variant1 = (new Hexa('#FFB879'))->mix($primaryColor, 5)->fade(80*$opacity); //light orange
+            $variant2 = (new Hexa('#1CDDFF'))->mix($primaryColor, 5)->fade(70*$opacity); //light blue
+            $variant3 = (new Hexa('#FFDBDE'))->mix($primaryColor, 5)->fade(80*$opacity); //piel
+            $variant4 = (new Hexa('#FF85AD'))->mix($primaryColor, 5)->fade(90*$opacity); //red
+            $variant5 = (new Hexa('#6B66FF'))->mix($primaryColor, 5)->fade(80*$opacity); //blue
+        };
         return <<<HTML
-            background-color: {$firstColor};
+            background-color: {$primaryColor};
             background-image:
             radial-gradient(at 40% 20%, {$variant1} 0px, transparent 50%),
             radial-gradient(at 80% 0%, {$variant2} 0px, transparent 50%),
