@@ -96,7 +96,9 @@ trait Colors {
         // ray()->clearAll();
         // ray('color hex',$color);
         // ray()->pause();
-        if(strlen($color)>7){
+        if($color==1){
+            return new Hexa('#000000');
+        } elseif(strlen($color)>7){
             return new Hexa($color);
         } else {
             return new Hex($color);
