@@ -97,6 +97,8 @@ Here's an example of how to implement crypto to transform strings to hashed keys
   $security = Helpers::encrypt($string,$key);
   //AFTER
   $string = Helpers::decrypt($security,$key);
+  //CONVERT LETTERS TO NUMBERS
+  $string = Helpers::lettersToNumbers($string,$phone=false);
 
 ```
 

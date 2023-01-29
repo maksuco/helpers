@@ -570,6 +570,11 @@ function country_continents($countryCode) {
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
 	  return $decrypted;
 	}
+	function lettersToNumbers($string,$phone=false) {
+		$replace = ($phone)? '22233344455566677778889999' : '01122233344455556677788899';
+		$string = strtr(strtoupper($string), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", $replace);
+	  	return $string;
+	}
 
 	//GET FILE TYPE
 	function getFileType($filename) {
