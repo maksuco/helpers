@@ -551,6 +551,14 @@ Here's an example of how to implement the random function, Adds random at the en
 
 ```
 
+Here's an example of how to implement the random function, Adds random at the end of the file name, and checks if its numeric or string
+```php
+
+  $slug = \Helpers::slug_username('Hi how are you? Muy@#$%^&*good');
+  //hihowareyoumuygood
+
+```
+
 # Code
 
 Help with pre and code content

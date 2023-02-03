@@ -661,6 +661,11 @@ function country_continents($countryCode) {
     $result = $this->slug($name).$this->slug_random($random).'.'.$data['extension'];
     return strtolower($result);
 	}
+
+	function slug_username($string) {
+		$string = $this->slug($string);
+		return str_replace("-", "", $string);
+	}
 	
   //Adds random at the end of the file name, and checks if its numeric or string
   function slug_random($characters) {
