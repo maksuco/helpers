@@ -15,7 +15,7 @@
     "minimum-stability": "dev",
 	"prefer-stable" : true,
     "require": {
-        "ozdemirburak/iris": "^3.0"
+        "ozdemirburak/iris": "^3.*"
     },
     "autoload": {
         "psr-4": {
