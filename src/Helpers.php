@@ -81,8 +81,9 @@ class Helpers
 	}
 
 	//CHECK IF VISITOR IS BOT
-	function botDetected() {
-    	if(isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider|curl|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) { return true; }
+	function botDetected($user_agent=false) {
+		$user_agent = $user_agent ?? $_SERVER['HTTP_USER_AGENT'] ?? false;
+    	if($user_agent != false && preg_match('/bot|crawl|slurp|spider|curl|mediapartners/i', $user_agent)) { return true; }
 		return false;
 	}
 
