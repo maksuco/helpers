@@ -51,6 +51,13 @@ Returns the browser locale, for example 'en', you send the available languages o
   //Returns ['lang'], and ['estimate']=true if is not exact data
 ```
 
+# Check if visitor is a bot
+
+```php
+  \Helpers::botDetected();
+  //Returns true or false
+```
+
 # Avatar
 
 This function helps you show the user avatar or the gravatar, just send the user array or email.

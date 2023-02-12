@@ -80,6 +80,12 @@ class Helpers
 		return false;
 	}
 
+	//CHECK IF VISITOR IS BOT
+	function botDetected() {
+    	if(isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider|curl|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) { return true; }
+		return false;
+	}
+
 
 	//BROWSER LOCALE
 	function browserLocale($languages) {
