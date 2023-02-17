@@ -17,8 +17,12 @@ This Package works with auto discovery in Laravel +5.5, but is compatible with o
 ## Usage
 ```php
 <?php
-
-use Illuminate\Support\Facades\Helpers;
+//In laravel
+\Helpers::mobile();
+//In php
+$helpers = new \Maksuco\Helpers\Helpers();
+$helpers->mobile();
+//use Illuminate\Support\Facades\Helpers;
 
 ```
 
