@@ -171,7 +171,11 @@ function moneyFormat($value,$currency='USD') {
 
 
 function decimalsFormat($number) {
+	$number = preg_replace('/\.(?=.*\.)/', '', $number);
+	$number = str_replace([","," ","$","€","£","¥","₣","₹","₴"],"",$number);
 	$number_parts = explode('.', $number);
+	if(count($number_parts) > 1){
+	}
 	if(isset($number_parts[1])){
 		return str_replace (',', '', $number_parts[0]).'.'.substr($number_parts[1], 0, 2);
 	} else {

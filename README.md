@@ -226,7 +226,7 @@ Returns an array with all results
 Useful for saving numbers on mysql decimal columns
 ```php
 
-  {{\Helpers::decimalFormat($number)}}
+  {{\Helpers::decimalsFormat($number)}}
   //SEND: 1,234.56 RETURNS: 1234.56
   //SEND: 1,234 RETURNS: 1234.00
 
