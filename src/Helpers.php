@@ -818,7 +818,7 @@ function link($url) {
 	return $url;
 }
 
-//CHECK if domain or email domain exist.
+//CHECK if email domain exist.
 function email_check($email) {
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		return false; 
@@ -830,15 +830,21 @@ function email_check($email) {
 	return true;
 }
 
-//CHECK if domain or email domain exist.
+//CHECK if domain exist.
 function domain_check($value) {
-	$domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
-	if($domain) {
-		//$handle = dns_get_record($url);
-    $check = checkdnsrr($domain, "MX");
-		return (!empty($check))? true : false;
-	}
-	return false;
+
+	$domain = parse_url($value);
+	if(!empty($domain['host'])) { return false;}
+	$check = checkdnsrr($domain['host'], "MX");
+	return (!empty($check))? true : false;
+
+	// $domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
+	// if($domain) {
+	// 	//$handle = dns_get_record($url);
+    // 	$check = checkdnsrr($domain, "A");
+	// 	return (!empty($check))? true : false;
+	// }
+	// return false;
 }
 
 function domain_from_url($url,$subdomain=false) {
