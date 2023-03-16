@@ -833,9 +833,11 @@ function email_check($email) {
 //CHECK if domain exist.
 function domain_check($value) {
 
+	return (!empty(@file_get_contents($value)))? true : false;
+
 	$domain = parse_url($value);
 	if(!empty($domain['host'])) { return false;}
-	$check = checkdnsrr($domain['host'], "MX");
+	$check = checkdnsrr($domain['host'], "A");
 	return (!empty($check))? true : false;
 
 	// $domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
