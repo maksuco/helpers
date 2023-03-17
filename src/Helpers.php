@@ -831,14 +831,18 @@ function email_check($email) {
 }
 
 //CHECK if domain exist.
-function domain_check($value) {
+function domain_check($domain) {
 
-	return (!empty(@file_get_contents($value)))? true : false;
+	$domain =  str_replace(["https://","http://"],"",$domain);
+	$check = dns_get_record($domain);
+	return (count($check) > 0) ? true : false;
 
-	$domain = parse_url($value);
-	if(!empty($domain['host'])) { return false;}
-	$check = checkdnsrr($domain['host'], "A");
-	return (!empty($check))? true : false;
+	// return (!empty(@file_get_contents($domain)))? true : false;
+
+	// $domain = parse_url($domain);
+	// if(!empty($domain['host'])) { return false;}
+	// $check = checkdnsrr($domain['host'], "A");
+	// return (!empty($check))? true : false;
 
 	// $domain = (strpos($value, '@') !== false)? substr(strrchr($value, "@"), 1) : $value;
 	// if($domain) {
