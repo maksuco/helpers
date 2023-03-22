@@ -170,9 +170,13 @@ function moneyFormat($value,$currency='USD') {
 }
 
 
-function decimalsFormat($number) {
-	$number = preg_replace('/\.(?=.*\.)/', '', $number);
-	$number = str_replace([","," ","$","€","£","¥","₣","₹","₴"],"",$number);
+function decimalsFormat($number,$cents=true) {
+	if($cents){
+		$number = preg_replace('/\.(?=.*\.)/', '', $number);
+		$number = str_replace([","," ","$","€","£","¥","₣","₹","₴"],"",$number);
+	} else {
+		return str_replace([".",","," ","$","€","£","¥","₣","₹","₴"],"",$number);
+	}
 	$number_parts = explode('.', $number);
 	if(count($number_parts) > 1){
 	}

@@ -229,6 +229,9 @@ Useful for saving numbers on mysql decimal columns
   {{\Helpers::decimalsFormat($number)}}
   //SEND: 1,234.56 RETURNS: 1234.56
   //SEND: 1,234 RETURNS: 1234.00
+  {{\Helpers::decimalsFormat($number,false)}} //NO CENTS
+  //SEND: 1,234.560 RETURNS: 1234560
+  //SEND: 1,234 RETURNS: 1234
 
 ```
 
