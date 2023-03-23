@@ -171,19 +171,19 @@ function moneyFormat($value,$currency='USD') {
 
 
 function decimalsFormat($number,$cents=true) {
-	if($cents){
-		$number = preg_replace('/\.(?=.*\.)/', '', $number);
-		$number = str_replace([","," ","$","€","£","¥","₣","₹","₴"],"",$number);
-	} else {
+	//ray('decimalsFormat',$cents);
+	if(!$cents){
 		return str_replace([".",","," ","$","€","£","¥","₣","₹","₴"],"",$number);
 	}
+	$number = preg_replace('/\.(?=.*\.)/', '', $number);
+	$number = str_replace([","," ","$","€","£","¥","₣","₹","₴"],"",$number);
 	$number_parts = explode('.', $number);
 	if(count($number_parts) > 1){
 	}
 	if(isset($number_parts[1])){
-		return str_replace (',', '', $number_parts[0]).'.'.substr($number_parts[1], 0, 2);
+		return str_replace(',', '', $number_parts[0]).'.'.substr($number_parts[1], 0, 2);
 	} else {
-		return str_replace (',', '', $number).'.00';   
+		return str_replace(',', '', $number).'.00';   
 	}
 }
 
