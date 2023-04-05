@@ -867,8 +867,10 @@ function url_html($url,$section='body') {
 	$dom->loadHTML($html);
 	$body = $dom->getElementsByTagName($section)->item(0);
 	$content = '';
-	foreach ($body->childNodes as $node) {
-		$content .= $dom->saveHTML($node);
+	if(!empty($body->childNodes)){
+		foreach ($body->childNodes as $node) {
+			$content .= $dom->saveHTML($node);
+		}
 	}
 	return $content;
 }
