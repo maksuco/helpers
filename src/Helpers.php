@@ -860,6 +860,8 @@ function domain_check($domain) {
 
 function url_html($url,$section='body') {
 	$html = @file_get_contents($url);
+	if(empty($html)){ return ""; }
+	
 	$dom = new \DOMDocument();
 	libxml_use_internal_errors(true);
 	$dom->loadHTML($html);
