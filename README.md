@@ -380,6 +380,17 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
   //returns the account.domain.com from http://account.domain.com/something
 ```
 
+# Get html sections from url
+You need the dom extension https://stackoverflow.com/questions/14395239/class-domdocument-not-found
+
+```php
+
+  $domain = \Helpers::url_html($url);
+  //returns the body content of url
+  $domain = \Helpers::url_html($url,'div');
+  //returns a string with all div contents
+```
+
 
 # Transform number to telto number
 

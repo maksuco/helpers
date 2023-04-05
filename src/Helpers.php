@@ -858,6 +858,19 @@ function domain_check($domain) {
 	// return false;
 }
 
+function url_html($url,$section='body') {
+	$html = @file_get_contents($url);
+	$dom = new \DOMDocument();
+	libxml_use_internal_errors(true);
+	$dom->loadHTML($html);
+	$body = $dom->getElementsByTagName($section)->item(0);
+	$content = '';
+	foreach ($body->childNodes as $node) {
+		$content .= $dom->saveHTML($node);
+	}
+	return $content;
+}
+
 function domain_from_url($url,$subdomain=false) {
 	$parseUrl = parse_url(trim($url));
 	if(isset($parseUrl['host'])) {
