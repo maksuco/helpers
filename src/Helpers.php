@@ -524,7 +524,7 @@ function country_continents($countryCode) {
 }
 	
   //GetAvatar
-  function avatar($user) {
+  function avatar($user,$s3=false) {
 
 		//IF EMPTY
 		if(empty($user) OR $user == null) {
@@ -538,7 +538,8 @@ function country_continents($countryCode) {
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			return config('app.cloud_url').config('app.avatar_path').$user->avatar;
+			$server = $s3 ?? config('app.cloud_url');
+			return $server.config('app.avatar_path').$user->avatar;
 		}
 
 		//IF GRAVATAR

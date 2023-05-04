@@ -6,6 +6,88 @@ use OzdemirBurak\Iris\Color\Hexa;
 trait Colors {
 
 
+	public function prepareColor($itemCss,$default=null) {
+        if(is_array($itemCss)) {
+            $color = (!empty($itemCss['color']))? $itemCss['color'] : '#0F0F10';
+        } else {
+            $color = $itemCss;
+        }
+        if($color=='default' AND !empty($default)) {
+            $color = $default;
+        } elseif($color=='transparent') {
+            $color = 'rgba(0, 0, 0, 0)';
+        }
+        return $color;
+    }
+
+
+	public function textColor($itemCss, $default=null, $important=false) {
+        $color = $this->prepareColor($itemCss,$default);
+        if(!empty($itemCss['color_gradient'])) {
+            $gradient = '
+                background: '. $this->gradientCSS($color,false,100,50,0,20).';
+                -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;
+                -webkit-text-fill-color: transparent;
+            ';
+        }
+        return ["color" => $color, "style" => 'color: '.$color.(($important)? ' !important' : '').';'.($gradient ?? '')];
+	}
+
+    //WORKS WITH .box-bg
+	public function bgColor($itemCss, $default=null) {
+        //$new_color = $color = (empty($itemCss['bg_color']) || $itemCss['bg_color'] == 'default')? $default : $itemCss['bg_color'] ?? '#ffffff';
+        $new_color = $color = $this->prepareColor($itemCss,$default);
+        $css_string = $style_string = '';
+        $color_string = $new_color;
+        if(!empty($itemCss['bg_image']) AND empty($itemCss['bg_blur']) AND  empty($itemCss['bg_gradient']) AND empty($itemCss['bg_blend']) AND empty($itemCss['bg_mesh']) AND empty($itemCss['bg_transparent_color'])) {
+            return ["css" => '', "style" => ''];
+        }
+        if(!empty($itemCss['bg_transparent_color'])) {
+            $new_color = $this->alphaColor($color,95);
+            //$style_string = '--box-bg-color: '.$this->gradientCSS('transparent',$color,180,40,10).';';
+            $style_string = '--box-bg-color: linear-gradient(180deg, '.$color.'1A 40%, '.$color.'E7 80%)';
+            return ["css" => '', "style" => $style_string];
+        }
+        if(!empty($itemCss['bg_blur'])) {
+            $new_color = $this->alphaColor($color,40);
+            $css_string = 'box-bg-blur';
+        }
+        if(!empty($itemCss['bg_blend'])) {
+            $new_color = $this->alphaColor($color,55);
+        }
+        if(!empty($itemCss['bg_mesh'])) {
+            $style_string = $this->mesh($new_color);
+        } elseif(!empty($itemCss['bg_gradient'])) {
+            //$string .= $this->gradientCSS($color);
+            $color_string = $this->gradientCSS($new_color);
+            $style_string = '--box-bg-color: '.$color_string.';';
+        } else {
+            $style_string = '--box-bg-color: '.$new_color.';';
+        }
+        return ["css" => $css_string, "style" => $style_string, "color" => $color_string];
+	}
+
+	public function btnColor($itemCss, $default=null) {
+        $new_color = $color = $this->prepareColor($itemCss,$default);
+        if(!empty($itemCss['btn_bg_gradient'])) {
+            $new_color = $this->gradientCSS($color);
+        }
+        if(!empty($itemCss['no_background'])) {
+            return ["color" => 'transparent', "bg" => 'transparent', "border" => $color];
+        }
+        return ["color" => $color, "bg" => $new_color, "border" => $this->color($color,'fade',60)];
+	}
+
+	public function rounded($value=null, $default='') {
+        if($value === null || $value == 'default') {
+            $value = $value_sm = $default;
+        } elseif(is_numeric($value)){
+            $value = (int) $value;
+            $value_sm = (int) ($value * 7);
+        }
+        return ["css" => $value, "style" => '--rounded: '.$value.'px;', "style_sm" => '--rounded: '.$value_sm.'px;'];
+	}
+
     public function checkHEX($color) {
         $color = str_replace("#", "", $color);
         if($color=='transparent') {
