@@ -538,7 +538,7 @@ function country_continents($countryCode) {
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			$server = $s3 ?? config('app.cloud_url');
+			$server = $s3 ?? $user->server_s3 ?? config('app.cloud_url');
 			return $server.config('app.avatar_path').$user->avatar;
 		}
 
