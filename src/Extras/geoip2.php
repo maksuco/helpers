@@ -107,7 +107,7 @@
       }
 
     }
-    $geo->timezone_range  = getTimezone_range($continent);
+    $geo->timezone_range = getTimezone_range($continent);
 
     return $geo;
   }
@@ -160,6 +160,7 @@
     $geo['lang'] = $extra['lang'];
     $geo['langs'] = json_decode(json_encode($extra['langs']));
     $geo['currency'] =  $extra['currency'];
+    ray('getTimezone_range',$geo['continent_code']);
     $geo['timezone_range'] = getTimezone_range($geo['continent_code']);
 
     return json_decode(json_encode($geo));
