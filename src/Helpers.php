@@ -409,6 +409,15 @@ function country($isoCode="US") {
 	return false;
 }
 
+function continent($country,$simplify=false) {
+	include_once("Extras/geoip2.php");
+	$code =  getCountryData($country);
+    $code = getTimezone_range($code['continent_code']);
+	$code = ($simplify AND $code !== 'europe')? 'america' : $code;
+	return $code;
+}
+
+
 function timezones($laravel=false) {
 	if($laravel){
 		include_once(base_path().'/vendor/maksuco/helpers/src/Extras/timezones.php');

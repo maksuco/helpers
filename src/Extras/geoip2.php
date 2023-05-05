@@ -107,25 +107,10 @@
       }
 
     }
-
-    //timezone_range check
-    if(in_array($continent, ["SA", "NA"])) {
-      $geo->timezone_range = "america";
-    } elseif($continent == "EU") {
-      $geo->timezone_range = "europe";
-    } elseif($continent == "AS") {
-      $geo->timezone_range = "asia";
-    } elseif($continent == "AF") {
-      $geo->timezone_range = "europe";
-    } elseif(in_array($continent, ["AU","OC"])) {
-      $geo->timezone_range = "oceania";
-    } else {
-      $geo->timezone_range = "america";
-    }
+    $geo->timezone_range  = getTimezone_range($continent);
 
     return $geo;
   }
-
 
 
   //ONLY FOr LARAVEL
@@ -175,26 +160,26 @@
     $geo['lang'] = $extra['lang'];
     $geo['langs'] = json_decode(json_encode($extra['langs']));
     $geo['currency'] =  $extra['currency'];
-    $geo = getTimezone_range($geo);
+    $geo['timezone_range'] = getTimezone_range($geo['continent_code']);
 
     return json_decode(json_encode($geo));
   }
 
-  function getTimezone_range($geo) {
-    if(in_array($geo['continent_code'], ["SA", "NA"])) {
-      $geo['timezone_range'] = "america";
-    } elseif($geo['continent_code'] == "EU") {
-      $geo['timezone_range'] = "europe";
-    } elseif($geo['continent_code'] == "AS") {
-      $geo['timezone_range'] = "asia";
-    } elseif($geo['continent_code'] == "AF") {
-      $geo['timezone_range'] = "europe";
-    } elseif(in_array($geo['continent_code'], ["AU","OC"])) {
-      $geo['timezone_range'] = "oceania";
+  function getTimezone_range($code) {
+    if(in_array($code, ["SA", "NA"])) {
+      $range = "america";
+    } elseif($code == "EU") {
+      $range = "europe";
+    } elseif($code == "AS") {
+      $range = "asia";
+    } elseif($code == "AF") {
+      $range = "europe";
+    } elseif(in_array($code, ["AU","OC"])) {
+      $range = "oceania";
     } else {
-      $geo['timezone_range'] = "america";
+      $range = "america";
     }
-    return $geo;
+    return $range;
   }
 
 

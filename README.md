@@ -161,6 +161,19 @@ Returns an array with all results
 
 ```
 
+# Check continent
+
+ Returns the continent by name, simplify returns Europe if eu or america if anything else
+
+```php
+
+  {{\Helpers::continent('US')}}
+  //RETURNS: 'america'
+  {{\Helpers::continent('FR')}}
+  //RETURNS: 'europe'
+
+```
+
 # Get all timezones
 
  A list of timezones to show in a select
