@@ -239,11 +239,11 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
-    "\/icons\/behance-163.svg" : {
+    "\/icons\/behance-square.svg" : {
       "ft" : 2097152,
       "miP" : 0,
       "oA" : 2,
-      "oAP" : "\/icons\/behance-163.svg",
+      "oAP" : "\/icons\/behance-square.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
@@ -349,21 +349,11 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
-    "\/icons\/chn-wechat.svg" : {
+    "\/icons\/code.svg" : {
       "ft" : 2097152,
       "miP" : 0,
       "oA" : 2,
-      "oAP" : "\/icons\/chn-wechat.svg",
-      "oF" : 0,
-      "opt" : 0,
-      "plM" : 52780316221407,
-      "prP" : 0
-    },
-    "\/icons\/code-1115.svg" : {
-      "ft" : 2097152,
-      "miP" : 0,
-      "oA" : 2,
-      "oAP" : "\/icons\/code-1115.svg",
+      "oAP" : "\/icons\/code.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
@@ -969,11 +959,11 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
-    "\/icons\/gitlab-3.svg" : {
+    "\/icons\/gitlab-outline.svg" : {
       "ft" : 2097152,
       "miP" : 0,
       "oA" : 2,
-      "oAP" : "\/icons\/gitlab-3.svg",
+      "oAP" : "\/icons\/gitlab-outline.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
@@ -989,11 +979,11 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
-    "\/icons\/google-178.svg" : {
+    "\/icons\/google.svg" : {
       "ft" : 2097152,
       "miP" : 0,
       "oA" : 2,
-      "oAP" : "\/icons\/google-178.svg",
+      "oAP" : "\/icons\/google.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
@@ -1866,6 +1856,16 @@
       "oAP" : "\/icons\/web.svg",
       "oF" : 1,
       "opt" : 1,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/icons\/wechat.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/icons\/wechat.svg",
+      "oF" : 0,
+      "opt" : 0,
       "plM" : 52780316221407,
       "prP" : 0
     },

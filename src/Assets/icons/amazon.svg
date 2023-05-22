@@ -1,5 +1,4 @@
-<svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="800px"
-	 height="800px" viewBox="0 0 512 512" xml:space="preserve">
+<svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-icon" viewBox="0 0 512 512" xml:space="preserve">
 
 <g id="7935ec95c421cee6d86eb22ecd1149e3">
 
@@ -17,7 +16,6 @@
 		C471.646,423.598,463.72,413.361,454.261,417.377z M470.962,467.655c-2.043,5.106,2.345,7.172,6.964,3.296
 		c30.014-25.116,37.767-77.716,31.615-85.317c-6.093-7.532-58.565-14.021-90.599,8.461c-4.921,3.481-4.062,8.24,1.394,7.59
 		c18.036-2.17,58.182-6.986,65.343,2.183C492.828,413.036,477.717,450.779,470.962,467.655z">
-
 </path>
 
 </g>
