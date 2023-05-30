@@ -1,6 +1,1 @@
-
-<svg class="svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 10V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-<path d="M12 16V15.9888" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-<path d="M10.2518 5.147L3.6508 17.0287C2.91021 18.3618 3.87415 20 5.39912 20H18.6011C20.126 20 21.09 18.3618 20.3494 17.0287L13.7484 5.147C12.9864 3.77538 11.0138 3.77538 10.2518 5.147Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<svg class="svg-icon" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M327.555 41.3c32.238-54.622 112.655-54.622 144.895 0l316.213 535.78c33.264 56.363-9.87 123.253-72.446 123.253H83.787c-62.576 0-105.71-66.89-72.447-123.253L327.555 41.3Zm7.732 160.882C334.227 183.076 349.433 167 368.57 167h62.86c19.137 0 34.343 16.076 33.283 35.182L451.75 435.517C450.767 453.18 436.157 467 418.467 467h-36.934c-17.69 0-32.3-13.82-33.283-31.483l-12.963-233.335ZM466.667 567c0 36.82-29.847 66.667-66.667 66.667S333.333 603.82 333.333 567 363.18 500.333 400 500.333 466.667 530.18 466.667 567Z" fill="currentColor"/></svg>

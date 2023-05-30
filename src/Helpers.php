@@ -533,12 +533,17 @@ function country_continents($countryCode) {
 }
 
 
-	function icon($name,$action='get') {
-		$path = __DIR__."/Assets/icons/";
-		if($action=='get'){
-			return file_get_contents($path.$name.".svg");
+	function icon($name,$class=false,$extras='') {
+		$file = file_get_contents(__DIR__."/Assets/icons/".$name.".svg");
+		if($class){
+			$file = str_replace('"svg-icon"', '"'.$class.'" '.$extras, $file);
 		}
-		$files = scandir($path);
+		return $file;
+	}
+
+	//missing svg code per icon to show on front
+	function icons($name,$action='all') {
+		$files = scandir(__DIR__."/Assets/icons/");
 		if($action=='all'){
 			return $files;
 		} else {
