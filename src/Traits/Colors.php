@@ -68,7 +68,7 @@ trait Colors {
 	}
 
 	public function btnColor($itemCss, $default_color=null, $default_bg_color=null) {
-        $textColor = $this->prepareColor($itemCss,'color',$default_color);
+        $textColor = $this->prepareColor($itemCss,'btn_color',$default_color);
         $bg_style = $bg_color = $this->prepareColor($itemCss,'btn_bg_color',$default_bg_color);
         //BORDER
         if(!empty($itemCss['no_background'])) {
