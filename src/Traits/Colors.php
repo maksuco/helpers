@@ -85,6 +85,7 @@ trait Colors {
 	}
 
 	public function rounded($value=null, $default='') {
+        $value = $value_sm = 'default';
         if($value === null || $value == 'default') {
             $value = $value_sm = $default;
         } elseif(is_numeric($value)){
