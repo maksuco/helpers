@@ -558,26 +558,28 @@ function country_continents($countryCode) {
 	}
 	
   //GetAvatar
-  function avatar($user,$s3=false) {
+  function avatar($user,$s3=null) {
 
 		//IF EMPTY
 		if(empty($user) OR $user == null) {
 			$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
 			return "data:image/png;base64,".base64_encode($imagedata);
 		}
-
+		if(is_array($user)){
+			$user = json_decode(json_encode($user), FALSE);
+		}
 		//IF USER AVATAR
-		if(isset($user->avatar) AND !empty($user->avatar) AND $user->avatar != NULL) {
+		if(!empty($user->avatar) AND $user->avatar != NULL) {
 			//if avatar is facebook or google
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			$server = $s3 ?? $user->server_s3 ?? config('app.cloud_url');
-			return $server.config('app.avatar_path').$user->avatar;
+			$server = $s3 ?? $user->server_s3 ?? 's3';
+			//ray('avatar',$server,$s3,config('app.avatar_path'));
+			return \Storage::disk($server)->url(config('app.avatar_path').$user->avatar);
 		}
-
 		//IF GRAVATAR
-		if(isset($user->email) AND !empty($user->email) AND $user->email != NULL) {
+		if(!empty($user->email) AND $user->email != NULL) {
 			$gravatar = md5(strtolower(trim($user->email)));
 			$gravatar = @file_get_contents("https://s.gravatar.com/avatar/$gravatar?d=404");
 			if(!$gravatar){
@@ -588,7 +590,6 @@ function country_continents($countryCode) {
 				//return "https://s.gravatar.com/avatar/$gravatar";
 			}
 		}
-
 		//IF SEX
 		if(isset($user->sex)) {
 			if($user->sex == 'f'){
