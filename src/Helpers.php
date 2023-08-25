@@ -137,7 +137,7 @@ function replaceTextBetween($text, $start="", $end="", $replace=false) {
 
 function moneyFormat($value,$currency='USD') {
 		
-	$value = (is_string($value))? (float) $value : $value;
+	$value = (is_string($value))? (float) $value : $value ?? 0;
 	$string = sprintf("%.2f", $value);
 	$decimals = (strpos($string,'.00') !== false)? 0 : 2;
 	
