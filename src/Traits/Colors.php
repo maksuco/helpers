@@ -164,7 +164,7 @@ trait Colors {
     public function alphaColor($color,$opacity=0) {
         $color = $this->newColor($color); 
         if($color==false){ return false; };
-        ray('color alphaColor 3',$color->fade(30)->toHexa(),$opacity);
+        //ray('color alphaColor 3',$color->fade(30)->toHexa(),$opacity);
         return $color->fade($opacity)->toHexa();
     }
 
@@ -218,7 +218,7 @@ trait Colors {
         // }
         // return ($gradient)? $this->gradientCSS($color) : $color;
         $colorCSS = ($gradient)? $this->gradientCSS($color) : 'linear-gradient('.$color.','.$color.')';
-        ray('bgBlend',$gradient,$opacity,$colorCSS,$color,$this->gradientCSS($color));
+        //ray('bgBlend',$gradient,$opacity,$colorCSS,$color,$this->gradientCSS($color));
         return <<<HTML
             $colorCSS, 
             url('$imgUrl');
