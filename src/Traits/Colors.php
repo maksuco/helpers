@@ -94,13 +94,14 @@ trait Colors {
         return ["css" => $value, "style" => '--rounded: '.$value.'px;', "style_sm" => '--rounded: '.$value_sm.'px;'];
 	}
 
-    public function checkHEX($color) {
+    public function checkHEX($color, $hex=false) {
         $color = str_replace("#", "", $color);
         if($color=='transparent') {
             $color = 'FFFFFF00';
         }
         if(ctype_xdigit($color) && strlen($color)>5){
-            return str_starts_with($color, '#')? $color : '#'.$color;
+            $color = str_starts_with($color, '#')? $color : '#'.$color;
+            return $hex ? substr($color, 0, 7) : $color;
         }
         return false;
     }
@@ -156,6 +157,7 @@ trait Colors {
 
     public function mixColor($firstColor,$secondColor,$value=50) {
         $firstColor = $this->checkHEX($firstColor); 
+        $secondColor = $this->checkHEX($secondColor); 
         if($firstColor==false){ return false; };
         $color = new Hex($firstColor);
         return $color->mix(new Hex($secondColor), $value);

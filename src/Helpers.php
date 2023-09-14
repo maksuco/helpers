@@ -408,6 +408,17 @@ function country($isoCode="US") {
 	}
 	return false;
 }
+function cities($countryCode="US") {
+	include_once("Extras/geoip2.php");
+	return storeGeoData();
+
+	$data = json_decode(file_get_contents(__DIR__ ."/Extras/cities.json"));
+	$countryCode = strtoupper($countryCode);
+	foreach($data[$countryCode] as $city){
+		$results[] = $city;
+	}
+	return $results;
+}
 
 function continent($country,$simplify=false) {
 	include_once("Extras/geoip2.php");

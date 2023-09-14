@@ -143,6 +143,8 @@
     $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
     $geo['city_names'] = $geo_data->city->names;
     $geo['city_geonameid'] = $geo_data->city->geonameId;
+    $geo['location']['latitude'] = $geo_data->location->latitude ?? null;
+    $geo['location']['longitude'] = $geo_data->location->longitude ?? null;
     $geo['state_name'] = $geo['location']['state_name'] = $geo_data->mostSpecificSubdivision->name;
     $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
 
@@ -162,7 +164,7 @@
     $geo['currency'] =  $extra['currency'];
     //ray('getTimezone_range',$geo['continent_code']);
     $geo['timezone_range'] = getTimezone_range($geo['continent_code']);
-
+    ray($geo_data->city,$geo_data->location);
     return $geo;
     return json_decode(json_encode($geo));
   }
@@ -3292,4 +3294,26 @@
     ];
     
     return $countries[$code];
+  }
+
+  function storeGeoData() {
+    $file = fopen('vendor/maksuco/helpers-geo/src/GeoLite2-City-Locations-en.csv', 'r');
+    $file_es = fopen('vendor/maksuco/helpers-geo/src/GeoLite2-City-Locations-es.csv', 'r');
+    $results = [];
+    while(($data = fgetcsv($file)) !== false) {
+        if($data[0]=='geoname_id'){ continue; };
+        $country = $data[4];
+        $row['geoid'] = $data[0];
+        $row['name'] = $row['name_en'] = $row['name_es'] = $data[10];
+        while(($data_es = fgetcsv($file_es)) !== false) {
+          if($data_es[0]==$data[0] AND !empty($data_es[10])){ 
+            $row['name_es'] = $data_es[10];
+            $results[$country][] = $row;
+            break; 
+          };
+        }
+        ray('hola');
+    }
+    file_put_contents('vendor/maksuco/helpers/src/Extras/cities.php', json_encode($results));
+    fclose($file);
   }

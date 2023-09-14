@@ -161,6 +161,17 @@ Returns an array with all results
 
 ```
 
+# Get all cities by country
+
+ A list of cities in country
+
+```php
+
+  {{\Helpers::cities('US')}}
+  //RETURNS: "id": 241,"code": "US","name_en": "United States","name_es": "Estados Unidos","status": null,"tel": 1,"lang": "en","currency": "USD","currency_symbol": "$","timezone_group": null
+
+```
+
 # Check continent
 
  Returns the continent by name, simplify returns Europe if eu or america if anything else
