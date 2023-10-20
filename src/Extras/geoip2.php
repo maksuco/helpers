@@ -196,7 +196,6 @@
     $geo->state_code = null;
     $geo->timezone_range = "america";
     $geo->timezone = $geo->location->timeZone = "America/New_York";
-    $geo->timezone_range = "america";
     $geo->lang = 'en';
     $geo->isp = 'Server';
     $geo->prefix = '+1';
@@ -212,12 +211,13 @@
     $geo['state_code'] = null;
     $geo['timezone_range'] = "america";
     $geo['timezone'] = $geo['location']['timeZone'] = "America/New_York";
-    $geo['timezone_range'] = "america";
     $geo['lang'] = 'en';
     $geo['langs'] = json_decode(json_encode(['langs' => ['en' => 'English','es' => 'Ingles']]));
     $geo['currency'] = 'USD';
     $geo['isp'] = 'Server';
     $geo['prefix'] = '+1';
+		$geo['location']['latitude'] = '40.7171166';
+		$geo['location']['longitude'] = '-73.939077';
     return $geo;
   }
 
