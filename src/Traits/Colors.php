@@ -148,11 +148,12 @@ trait Colors {
     }
 
     public function spinColor($color,$value=30,$change=0) {
-        $color = new Hexa($color);
-        if($color->isLight()){
-            return $color->darken($change)->spin($value*.5);
-        }
-        return $color->lighten($change)->spin($value*.8);
+			$color = preg_match('/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/', $color) ? $color : '#FF0000';
+      $color = new Hexa($color);
+      if($color->isLight()){
+        return $color->darken($change)->spin($value*.5);
+      }
+      return $color->lighten($change)->spin($value*.8);
     }
 
     public function mixColor($firstColor,$secondColor,$value=50) {
