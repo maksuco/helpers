@@ -148,8 +148,7 @@ trait Colors {
     }
 
     public function spinColor($color,$value=30,$change=0) {
-			$color = preg_match('/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/', $color) ? $color : '#FF0000';
-      $color = new Hexa($color);
+      $color = $this->newHex($color);
       if($color->isLight()){
         return $color->darken($change)->spin($value*.5);
       }
@@ -227,6 +226,16 @@ trait Colors {
             url('$imgUrl');
         HTML;
     }
+		
+		public function newHex($color) {
+			if (preg_match('/^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]?\.\d+|1(\.0+)?|0)\)$/', $color, $matches)) {
+					$color = '#' . sprintf("%02X%02X%02X%02X", $matches[1], $matches[2], $matches[3], $matches[4] * 255);
+			} else {
+				$color = preg_match('/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/', $color) ? $color : '#FF0000';
+			}
+			return new Hexa($color);
+		}
+		
 
 
 
