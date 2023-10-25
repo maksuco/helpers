@@ -906,8 +906,8 @@ function domain_check($domain) {
 }
 
 function url_html($url,$section='body',$replace_url=false) {
-	$html = \Illuminate\Support\Facades\Http::get($url)->body();
-	//$html = @file_get_contents($url);
+	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
+	$html = @file_get_contents($url);
 	if(empty($html) || $html === FALSE){ return ""; }
 	$dom = new \DOMDocument();
 	libxml_use_internal_errors(true);
