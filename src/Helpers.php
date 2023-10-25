@@ -905,13 +905,33 @@ function domain_check($domain) {
 	// return false;
 }
 
-function url_html($url,$section='body') {
+function url_html($url,$section='body',$replace_url=false) {
+	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
 	$html = @file_get_contents($url);
 	if(empty($html) || $html === FALSE){ return ""; }
-
 	$dom = new \DOMDocument();
 	libxml_use_internal_errors(true);
 	$dom->loadHTML($html);
+	//check images url full path
+	if($replace_url){
+		$urlParts = parse_url($url);
+		$urlDomain = $urlParts['scheme'].'://'.$urlParts['host'];
+		$images = $dom->getElementsByTagName('img');
+		foreach ($images as $image) {
+			$src = $image->getAttribute('src');
+			if(strpos($src, 'https://') !== 0) {
+				$image->setAttribute('src', $urlDomain.$src);
+			}
+		}
+		$links = $dom->getElementsByTagName('a');
+		foreach ($links as $link) {
+			$href = $link->getAttribute('href');
+			if(strpos($href, 'https://') !== 0) {
+				$link->setAttribute('href', $urlDomain.$href);
+			}
+		}
+	}
+	//get content
 	$body = $dom->getElementsByTagName($section)->item(0);
 	$content = '';
 	if(!empty($body->childNodes)){
