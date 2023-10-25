@@ -411,8 +411,11 @@ You need the dom extension https://stackoverflow.com/questions/14395239/class-do
 
   $domain = \Helpers::url_html($url);
   //returns the body content of url
-  $domain = \Helpers::url_html($url,'div');
-  //returns a string with all div contents
+	$domain = \Helpers::url_html($url,'div');
+	//returns a string with first div content
+	$domain = \Helpers::url_html($url,'#home',true);
+	//returns the section with id="home" and true converts all img src and links href to full urls.
+	//using id selects the entire section, using elements only selects the content.
 ```
 
 

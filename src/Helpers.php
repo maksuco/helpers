@@ -906,8 +906,8 @@ function domain_check($domain) {
 }
 
 function url_html($url,$section='body',$replace_url=false) {
-	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
-	$html = @file_get_contents($url);
+	$html = \Illuminate\Support\Facades\Http::get($url)->body();
+	//$html = @file_get_contents($url);
 	if(empty($html) || $html === FALSE){ return ""; }
 	$dom = new \DOMDocument();
 	libxml_use_internal_errors(true);
@@ -919,24 +919,32 @@ function url_html($url,$section='body',$replace_url=false) {
 		$images = $dom->getElementsByTagName('img');
 		foreach ($images as $image) {
 			$src = $image->getAttribute('src');
-			if(strpos($src, 'https://') !== 0) {
+			if(!str_starts_with($src, "https://")) {
 				$image->setAttribute('src', $urlDomain.$src);
 			}
 		}
 		$links = $dom->getElementsByTagName('a');
 		foreach ($links as $link) {
 			$href = $link->getAttribute('href');
-			if(strpos($href, 'https://') !== 0) {
+			if(!str_starts_with($href, "https://")) {
 				$link->setAttribute('href', $urlDomain.$href);
 			}
 		}
 	}
 	//get content
-	$body = $dom->getElementsByTagName($section)->item(0);
 	$content = '';
-	if(!empty($body->childNodes)){
-		foreach ($body->childNodes as $node) {
-			$content .= $dom->saveHTML($node);
+	ray('start',$section);
+	if(str_starts_with($section, "#")) {
+		$section = ltrim($section, '#');
+		$element = $dom->getElementById($section);
+		$content = $dom->saveHTML($element);
+		ray($section,$element,$content);
+	} else {
+		$body = $dom->getElementsByTagName($section)->item(0);
+		if(!empty($body->childNodes)){
+			foreach ($body->childNodes as $node) {
+				$content .= $dom->saveHTML($node);
+			}
 		}
 	}
 	return $content;
