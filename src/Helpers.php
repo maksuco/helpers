@@ -300,7 +300,13 @@ function csvstring($action,$data,$new) {
 function array_process($action,$array,$new) {
 	//return $array[$new];
 	$exist = false;
-	$array = ($array !== null AND is_array($array))? $array : [];
+	//$array = ($array !== null AND is_array($array))? $array : [];
+	if($array == null){
+		$array = [];
+	} elseif(is_string($array) || is_int($array)){
+		$implode = true;
+		$array = explode(",", $array);
+	}
 	//IF ASSOCIATIVE
 	if(count(array_filter(array_keys($array), 'is_string')) > 0){
 		//ACTION
@@ -359,6 +365,9 @@ function array_process($action,$array,$new) {
 			return $exist;
 		}
 	}
+	if(isset($implode)){
+		return implode(",", $array);
+	}
 	return $array;
 }
 
@@ -399,10 +408,10 @@ function countries($lang='en') {
 }
 
 function country($isoCode="US") {
-	$data = json_decode(file_get_contents(__DIR__ ."/Extras/countries_en.json"));
+	$data = json_decode(file_get_contents(__DIR__ ."/Extras/countries_en.json"), true);
 	$isoCode = strtoupper($isoCode);
 	foreach($data as $country){
-		if($country->code == $isoCode){
+		if($country['code'] == $isoCode){
 			return $country;
 		}
 	}
