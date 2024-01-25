@@ -5,6 +5,17 @@ namespace Maksuco\Helpers;
 class Helpers
 {
   use Traits\Colors;
+
+
+	function get_tailwind($config = []) {
+		//return 'hola';
+		ob_start();
+		include __DIR__ ."/Assets/tailwind/tailwind.php";
+		$fileContent = ob_get_clean();
+		//$fileContent = file_get_contents(__DIR__ ."/Assets/tailwind/tailwind.php");
+		file_put_contents('resources/css/tailwind_base.css', $fileContent);
+		return $fileContent;
+	}
 	
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
