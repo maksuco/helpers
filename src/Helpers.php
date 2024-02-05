@@ -7,13 +7,23 @@ class Helpers
   use Traits\Colors;
 
 
-	function get_tailwind($config = []) {
-		//return 'hola';
+	function tailwindPHP($config = []) {
+		//GET FILES
 		ob_start();
 		include __DIR__ ."/Assets/tailwind/tailwind.php";
 		$fileContent = ob_get_clean();
-		//$fileContent = file_get_contents(__DIR__ ."/Assets/tailwind/tailwind.php");
-		file_put_contents('resources/css/tailwind_base.css', $fileContent);
+		//SCSS
+		$scss = new \ScssPhp\ScssPhp\Compiler();
+		$css = $scss->compile($fileContent);
+		$fileContent = str_replace('@charset "UTF-8";', '', $css);
+		//SAVE
+		if(!empty($config['path'])) {
+		} elseif(class_exists("Illuminate\Foundation\Application")) {
+			$config['path'] = 'resources/css/tailwind_helpers.css';
+		} else {
+			$config['path'] = 'assets/css/tailwind_helpers.css';
+		}
+		file_put_contents($config['path'], $fileContent);
 		return $fileContent;
 	}
 	

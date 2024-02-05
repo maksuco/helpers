@@ -1,18 +1,10 @@
-<?php
-function minPadding($value,$variant,$min=0.25,$max=false){
-    $x = (($value > $variant)? $value - $variant : 1) * 0.25;
-    $x = ($x > $min)? $x : $min;
-    if($max){
-        $x = ($x < $max)? $x : $max;
-    }
-    return $x;
-}
-?>
 .btn {
     width: fit-content;
-    @apply select-none inline-flex items-baseline justify-center whitespace-nowrap <?=$config['btnRadius']?> font-bold transition-colors disabled:pointer-events-none disabled:opacity-50;
+    cursor: pointer;
+    @apply select-none inline-flex items-baseline justify-center whitespace-nowrap <?=$config['btnRadius']?> font-<?=$config['btnWeight']?> transition;
+    @apply disabled:pointer-events-none disabled:opacity-60;
     @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem] px-[<?=$config['btnPaddingX'] * 0.25 ?>rem];
-    @apply <?=$config['btnBorder']?> <?=$config['btnRind']?> <?=$config['btnShadow']?> hover:bg-opacity-90;
+    @apply <?=$config['btnBorder']?> <?=$config['btnRing']?> <?=$config['btnShadow']?> hover:bg-opacity-90;
 }
 
 .btn-block {
@@ -22,12 +14,15 @@ function minPadding($value,$variant,$min=0.25,$max=false){
 .badge {
     width: fit-content;
     @apply select-none inline-flex justify-center items-center text-sm <?=$config['badgeRadius']?> font-semibold line-clamp-1 py-1 px-2.5;
+    .svg-icon {
+        @apply w-5 h-5;
+    }
 }
 
-.badge .svg-icon {
-    @apply w-5 h-5;
+.btn-xxs {
+    @apply text-xs py-0.5 px-1.5;
+    font-size: .65rem;
 }
-
 .btn-xs {
     @apply text-xs py-[<?= minPadding($config['btnPaddingY'],1.5,0.12) ?>rem] px-[<?= minPadding($config['btnPaddingX'],3.8,$min=0.25,1.6) ?>rem];
 }
@@ -119,3 +114,45 @@ $basicColors = [
     }
 
 <?php } ?>
+
+
+.btn-light, .badge-light {
+    background-color: <?= $configBase['light']['light'] ?>;
+}
+.dark {
+    .btn-light, .badge-light {
+        background-color: <?= $configBase['dark']['light'] ?>;
+    }
+}
+
+
+.btn-group {
+    @apply relative flex items-center gap-x-1 px-0 py-0 overflow-hidden;
+    > * {
+        @apply bg-transparent border-0 rounded-none;
+        position: relative;
+        border: none !important;
+        background: transparent;
+        // styles for the line between child elements
+        &:not(:last-child)::after {
+            @apply block absolute;
+            content: '';
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            border-right: 1px solid white;
+        }
+    }
+    * {
+        &:not(:last-child)::after {
+            @apply block absolute;
+            content: '';
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            border-right: 1px solid white;
+        }
+    }
+}

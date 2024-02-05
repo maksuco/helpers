@@ -1,124 +1,128 @@
 <?php
-//WEIGHT
-$configBase['headingWeight'] = 'bold';
-// $headingWeight = 'bold';
-// $configBase['headingWeight1'] = $headingWeight;
-// $configBase['headingWeight2'] = $headingWeight;
-// $configBase['headingWeight3'] = $headingWeight;
-// $configBase['headingWeight4'] = $headingWeight;
-// $configBase['headingWeight5'] = $headingWeight;
-// $configBase['headingWeight6'] = $headingWeight;
-// $h2Weight = (isset($config['headingWeight2']))? $headingWeight2 : $headingWeight;
-// $h3Weight = (isset($config['headingWeight3']))? $headingWeight3 : $headingWeight;
-// $h4Weight = (isset($config['headingWeight4']))? $headingWeight4 : $headingWeight;
-// $h5Weight = (isset($config['headingWeight5']))? $headingWeight5 : $headingWeight;
-// $h6Weight = (isset($config['headingWeight6']))? $headingWeight6 : $headingWeight;
-//BTN
-$configBase['btnRadius'] = 'rounded';
-$configBase['badgeRadius'] = 'rounded-full';
-$configBase['btnShadow'] = '';
-$configBase['btnRind'] = '';
-$configBase['btnBorder'] = 'border';
-$configBase['labelColor'] = 'gray-500';
-$configBase['btnBorderColor'] = 'primary-200';
-$configBase['btnBgColor'] = 'gray-400';
-$configBase['btnPaddingY'] = 2;
-$configBase['btnPaddingX'] = 5;
-//FORMS
-//COLORES
-$configBase['colors'] = [
-    'primary' => ['text' => 500,'bg' => 500,'border' => 400],
-    'slate' => ['text' => 500,'bg' => 400,'border' => 600],
-    'gray' => ['text' => 500,'bg' => 400,'border' => 600],
-    'zinc' => ['text' => 500,'bg' => 400,'border' => 600],
-    'neutral' => ['text' => 500,'bg' => 400,'border' => 600],
-    'stone' => ['text' => 500,'bg' => 400,'border' => 600],
-    'red' => ['text' => 500,'bg' => 500,'border' => 400],
-    'orange' => ['text' => 500,'bg' => 500,'border' => 400],
-    'amber' => ['text' => 500,'bg' => 500,'border' => 400],
-    'yellow' => ['text' => 500,'bg' => 500,'border' => 400],
-    'lime' => ['text' => 500,'bg' => 500,'border' => 400],
-    'green' => ['text' => 500,'bg' => 500,'border' => 400],
-    'emerald' => ['text' => 500,'bg' => 500,'border' => 400],
-    'teal' => ['text' => 500,'bg' => 500,'border' => 400],
-    'cyan' => ['text' => 500,'bg' => 500,'border' => 400],
-    'sky' => ['text' => 500,'bg' => 500,'border' => 400],
-    'blue' => ['text' => 500,'bg' => 500,'border' => 400],
-    'indigo' => ['text' => 500,'bg' => 500,'border' => 400],
-    'violet' => ['text' => 500,'bg' => 500,'border' => 400],
-    'purple' => ['text' => 500,'bg' => 500,'border' => 400],
-    'fuchsia' => ['text' => 500,'bg' => 500,'border' => 400],
-    'pink' => ['text' => 500,'bg' => 500,'border' => 400],
-    'rose' => ['text' => 500,'bg' => 500,'border' => 400],
-];
-//BACKEND
-$configBase['backend'] = false;
-$config = array_merge($configBase, $config);
+include 'functions.php';
+$config = prepareArray($config);
 ?>
 
-@layer components {
+
+:theme {
+    --colors-light: <?= $configBase['light']['bg'] ?>;
+    --colors-light-box: <?= $configBase['light']['box'] ?>;
+    --colors-light-title: <?= $configBase['light']['title'] ?>;
+    --colors-light-subtitle: <?= $configBase['light']['subtitle'] ?>;
+    --colors-light-body: <?= $configBase['light']['body'] ?>;
+    --colors-light-label: <?= $configBase['light']['label'] ?>;
+    --colors-light-form-basic-bg: <?= $configBase['light']['form-basic-bg'] ?>;
+    --colors-light-form-basic-border: <?= $configBase['light']['form-basic-border'] ?>;
+    --colors-light-form-muted-bg: <?= $configBase['light']['form-muted-bg'] ?>;
+    --colors-light-light: <?= $configBase['light']['light'] ?>;
+    --colors-dark: <?= $configBase['dark']['bg'] ?>;
+    --colors-dark-box: <?= $configBase['dark']['box'] ?>;
+    --colors-dark-title: <?= $configBase['dark']['title'] ?>;
+    --colors-dark-subtitle: <?= $configBase['dark']['subtitle'] ?>;
+    --colors-dark-body: <?= $configBase['dark']['body'] ?>;
+    --colors-dark-label: <?= $configBase['dark']['label'] ?>;
+    --colors-dark-form-basic-bg: <?= $configBase['dark']['form-basic-bg'] ?>;
+    --colors-dark-form-basic-border: <?= $configBase['dark']['form-basic-border'] ?>;
+    --colors-dark-form-muted-bg: <?= $configBase['dark']['form-muted-bg'] ?>;
+    --colors-dark-light: <?= $configBase['dark']['light'] ?>;
+}
+
+@layer base {
+    * {
+        @apply transition duration-200;
+    }
     body {
         @apply antialiased;
+        color: <?= $config['light']['body'] ?>;
+    }
+    .dark {
+        color: <?= $config['dark']['body'] ?>;
+        body {
+            color: <?= $config['dark']['body'] ?>;
+        }
+    }
+}
+
+@layer components {
+    [x-cloak] {
+        visibility: hidden !important;
+        overflow: hidden !important;
+        display: none !important;
+    }
+    .grecaptcha-badge {
+        visibility: hidden !important;
     }
     .container, .container-min, .container-max, .container-full {
         width: 100%;
         @apply relative flex mx-auto px-2 md:px-3;
         flex-wrap: wrap;
-        flex-direction: column;
-    }
-    .container {
-        @apply max-w-screen-xl;
-    }
-    .container-min {
-        @apply max-w-screen-lg;
-    }
-    .container-max {
-        @apply max-w-screen-2xl;
     }
 
     @screen md {
         .container, .container-min, .container-max, .container-full {
         }
+        .container {
+            @apply max-w-screen-xl;
+        }
+        .container-min {
+            @apply max-w-screen-lg;
+        }
+        .container-max {
+            @apply max-w-screen-2xl;
+        }
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply font-<?= $config['headingWeight'] ?> leading-tight tracking-tighter lg:leading-[1.1];
+        @apply leading-tight tracking-tighter lg:leading-[1.1];
+        color: <?= $config['light']['title'] ?>;
     }
 
     h1 {
-        @apply text-5xl md:text-6xl lg:text-7xl;
+        @apply font-<?= $config['headingFont1'] ?> font-<?= $config['headingWeight1'] ?> text-5xl md:text-6xl lg:text-7xl;
     }
 
     h2 {
-        @apply text-4xl md:text-5xl lg:text-6xl;
+        @apply font-<?= $config['headingFont2'] ?> font-<?= $config['headingWeight2'] ?> text-4xl md:text-5xl lg:text-6xl;
     }
 
     h3 {
-        @apply text-3xl md:text-4xl lg:text-5xl;
+        @apply font-<?= $config['headingFont3'] ?> font-<?= $config['headingWeight3'] ?> text-3xl md:text-4xl lg:text-5xl;
     }
 
     h4 {
-        @apply text-2xl md:text-3xl lg:text-4xl;
+        @apply font-<?= $config['headingFont4'] ?> font-<?= $config['headingWeight4'] ?> text-2xl md:text-3xl lg:text-4xl;
     }
 
     h5 {
-        @apply text-xl md:text-2xl lg:text-3xl;
+        @apply font-<?= $config['headingFont5'] ?> font-<?= $config['headingWeight4'] ?> text-xl md:text-2xl lg:text-3xl;
     }
 
     h6 {
-        @apply text-lg md:text-xl lg:text-2xl;
+        @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> text-lg md:text-xl lg:text-2xl;
     }
     .text-muted {
-        @apply text-primary-400 opacity-95 tracking-tight uppercase;
+        @apply text-brand-400 opacity-95 tracking-tight uppercase;
+        color: <?= $config['light']['subtitle'] ?>;
     }
 
     .subtitle {
         @apply max-w-[750px] text-lg sm:text-xl;
-        @apply text-muted;
+        color: <?= $config['light']['subtitle'] ?>;
+    }
+    .dark {
+        h1, h2, h3, h4, h5, h6 {
+            color: <?= $config['dark']['title'] ?>;
+        }
+        .text-muted {
+            color: <?= $config['dark']['subtitle'] ?>;
+        }
+        .subtitle {
+            color: <?= $config['dark']['subtitle'] ?>;
+        }
     }
 
-    .gradient-text {
-        @apply w-fit bg-clip-text text-transparent pr-0.5;
+    .text-gradient {
+        @apply inline-block text-transparent bg-clip-text bg-gradient-to-br from-brand-500 to-brand-300 pr-0.5;
     }
 
 
@@ -127,9 +131,11 @@ $config = array_merge($configBase, $config);
     }
 
     <?php 
+        include 'utilities.php';
         include 'btn-badges.php';
         include 'forms.php';
         include 'boxes.php';
+        include 'dropdowns.php';
         include 'other.php';
         if($configBase['backend']){
             include 'backend.php';

@@ -148,7 +148,9 @@ trait Colors {
     }
 
     public function spinColor($color,$value=30,$change=0) {
-      $color = $this->newHex($color);
+	    $color = preg_match('/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/', $color) ? $color : '#FF0000';
+      $color = new Hexa($color);
+      //$color = $this->newHex($color);
       if($color->isLight()){
         return $color->darken($change)->spin($value*.5);
       }

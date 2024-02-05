@@ -1,178 +1,469 @@
 @layer base {
 }
 
-label {
-    @apply text-sm text-<?=$config['labelColor']?> tracking-tight py-1;
+.label {
+    @apply flex items-center text-sm tracking-tight py-1 px-1;
+    color: <?= $config['light']['label'] ?>;
 }
+
+input[type="checkbox"], input[type="radio"] {
+    accent-color: var(--form-color, theme('colors.brand.500'));
+}
+input[type='select'], select {
+    @apply !appearance-none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill, input:-webkit-autofill-strong-password {
+  background-color: transparent !important;
+}
+
 .form-basic, .form-muted {
-    @apply w-full leading-6 border-<?=$config['btnBorderColor']?> <?=$config['btnRadius']?> shadow-sm;
+    @apply w-full leading-6 px-4 <?=$config['btnRadius']?> transition shadow-sm disabled:pointer-events-none disabled:opacity-50;
+    @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem];
+    @apply bg-<?=$config['formBG']?> <?=$config['formBorder']?> border-<?=$config['formBorderColor']?>;
+    @apply text-base focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent;
+    font-size: 1.05rem;
+    @apply autofill:transition-colors autofill:duration-[5000000ms];
 }
 
 .form-basic {
-    @apply bg-white;
+    @apply focus:bg-white;
+    color: <?= $config['light']['form-basic-text'] ?>;
+    background-color: <?= $config['light']['form-basic-bg'] ?>;
 }
 
 .form-muted {
-    @apply bg-<?=$config['btnBgColor']?> focus:bg-white border-<?=$config['btnBgColor']?>;
-}
-.form-muted [type='select'] {
-}
-.form-muted [type='checkbox'] {
-    @apply bg-white;
-}
-.form-muted [type='radio'] {
+    @apply focus:bg-white border-0;
+    color: <?= $config['light']['form-muted-text'] ?>;
+    background-color: <?= $config['light']['form-muted-bg'] ?>;
 }
 
 
-.custom-file-upload {
-    @apply relative inline-block text-sm py-1 px-2 cursor-pointer overflow-hidden;
-    svg {
-        fill: inherit;
-    }
-    &* {
-        pointer-events: none;
-    }
+.form-sm {
+    @apply text-sm px-3 py-[<?= minPadding($config['btnPaddingY'],1,0.2) ?>rem];
+    background-size: 1.4em 1.4em;
+}
+.form-lg {
+    @apply text-lg px-5 py-[<?=($config['btnPaddingY'] + 0.4) * 0.25 ?>rem];
+    background-size: 1.5em 1.5em;
+}
+.form-xl {
+    @apply text-xl px-6 py-[<?=($config['btnPaddingY'] + 1.3) * 0.25 ?>rem];
+    background-size: 1.55em 1.55em;
+}
+.form-2xl {
+    @apply text-2xl px-6 py-[<?=($config['btnPaddingY'] + 1.3) * 0.25 ?>rem];
+    background-size: 1.55em 1.55em;
+}
+
+.form-btn {
+    cursor: pointer;
+    border: none;
+    @apply flex items-center py-1.5 px-2 gap-x-1;
+    @apply hover:bg-light hover:bg-opacity-90;
+    @apply has-[:checked]:bg-light has-[:checked]:bg-opacity-80;
+    @apply text-<?=$config['labelColor']?> tracking-tight;
     label {
         cursor: pointer;
-    }
-    &:hover {
-        @apply text-white bg-primary;
-        svg {
-        fill: white;
-        }
+        @apply text-<?=$config['labelColor']?> tracking-tight px-1;
     }
     input {
-        @apply opacity-0 absolute inset-0;
+      border-radius: inherit;
+      @apply h-4 w-5 border-gray-300 focus:ring-indigo-500;
+      accent-color: var(--form-color, theme('colors.brand.500'));
     }
 }
 
 
-.form-switch {
-  width: 46px;
-  height: 26px;
-  display: inline-block;
-  vertical-align: -26%;
-  border-radius: 16px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+
+.form-btn-label {
   position: relative;
   cursor: pointer;
-  -ms-flex-item-align: center;
-  -webkit-align-self: center;
-  align-self: center;
-  outline: 0;
+  @apply flex items-center px-3 border-0 gap-x-1;
+  @apply has-[:checked]:text-light;
+  &:has(:checked) {
+    background-color: var(--form-color, theme('colors.brand.500'));
+  }
+  &:has(input:checked)::after {
+    content: '\2713';
+    color: white;
+    position: absolute;
+    padding: 0.11rem 0.14rem;
+    font-size: 0.6rem;
+    font-weight: bold;
+    line-height: 1;
+    top: -0.25rem;
+    right: -0.1rem;
+    background-color: theme('colors.green.500');
+    border-radius: 2px;
+    text-align: center;
+  }
+  label {
+    cursor: pointer;
+  }
+  input {
+    display: none;
+  }
+}
 
-  input[type="checkbox"] {
-    width: 46px;
-    height: 26px;
-    border-radius: 16px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background: #e5e5e5;
-    z-index: 0;
+
+ .custom-file-upload {
+  @apply relative inline-block cursor-pointer overflow-hidden;
+  @apply text-<?=$config['labelColor']?> bg-light;
+  svg{fill:inherit}
+  * {pointer-events:none}
+  label{cursor:pointer}
+  &:hover{
+    color:#fff; background-color:var(--form-color, theme('colors.brand.500'));
+    svg{fill:#fff}
+  }
+  input {
+    @apply opacity-0 absolute inset-0;
+    width:100%; height:100%;
+  }
+}
+
+.form-switch {
+  @apply appearance-none disabled:opacity-50 disabled:pointer-events-none checked:bg-none;
+  @apply relative w-[2.8rem] p-px bg-<?=$config['formBG']?> border-transparent rounded-full cursor-pointer transition;
+  @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-dark-input dark:border-<?=$config['formBG']?>;
+  @apply before:inline-block before:w-6 before:h-6 before:bg-white before:translate-x-0 checked:before:translate-x-3/4 before:rounded-full before:transform before:transition dark:before:bg-white dark:checked:before:bg-blue-200;
+  line-height: .81;
+  &:checked{
+    background-color: var(--form-color, theme('colors.brand.500')) !important;
+  }
+  &:checked::before{
+    @apply shadow-sm;
+    background-color: theme('colors.white');
+  }
+}
+
+
+// :is(.dark .form-switch:checked)::before {
+//   background-color: theme('colors.white');
+// }
+
+.form-switch-sm {
+  @apply before:w-5 before:h-5;
+  width: 2.3rem;
+  line-height: .75;
+}
+
+.form-switch-lg {
+  @apply w-[3.7rem] p-0.5;
+  @apply before:w-8 before:h-8;
+  line-height: .8;
+}
+
+
+:root {
+  --rounded-box: 1rem;
+  --fallback-p: #491eff;
+  --fallback-b1: #ffffff;
+  --fallback-bc: #1f2937;
+  --b1: 1 0 0;
+  --bc: 0.278078 0.029596 256.847952;
+}
+
+
+//RANGE
+.form-range {
+  height: 1.5rem;
+  width: 100%;
+  --range-shdw: var(--form-color, theme('colors.brand.500'));
+  @apply appearance-none cursor-pointer overflow-hidden rounded-full bg-transparent;
+  &:focus {
+    outline:none
+  }
+  &:focus-visible::-webkit-slider-thumb {
+    --focus-shadow: 0 0 0 6px var(--fallback-b1, oklch(var(--b1)/1)) inset, 0 0 0 2rem var(--range-shdw) inset;
+  }
+  //LINE
+  &::-webkit-slider-runnable-track {
+    height: 0.5rem;
+    width: 100%;
+    @apply bg-<?=$config['formBG']?> rounded-full;
+  }
+  &::-webkit-slider-thumb {
+    position: relative;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: var(--rounded-box, 1rem);
+    border-style: none;
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
+    appearance: none;
+    -webkit-appearance: none;
+    top: 50%;
+    color: var(--range-shdw);
+    transform: translateY(-50%);
+    --filler-size: 100rem;
+    --filler-offset: 0.6rem;
+    box-shadow: 0 0 0 3px var(--range-shdw) inset,
+      var(--focus-shadow, 0 0),
+      calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size)
+  }
+}
+
+
+// .form-range-brand {
+//     --range-shdw: var(--fallback-p, oklch(var(--p)/1));
+// }
+
+
+
+.form-range-xs {
+    height: 1rem}
+.form-range-xs::-webkit-slider-runnable-track {
+    height: 0.25rem}
+.form-range-xs::-moz-range-track {
+    height: 0.25rem}
+.form-range-xs::-webkit-slider-thumb {
+    height: 1rem;
+    width: 1rem;
+    --filler-offset: 0.4rem}
+.form-range-xs::-moz-range-thumb {
+    height: 1rem;
+    width: 1rem;
+    --filler-offset: 0.4rem}
+.form-range-sm {
+    height: 1.25rem}
+.form-range-sm::-webkit-slider-runnable-track {
+    height: 0.25rem}
+.form-range-sm::-moz-range-track {
+    height: 0.25rem}
+.form-range-sm::-webkit-slider-thumb {
+    height: 1.25rem;
+    width: 1.25rem;
+    --filler-offset: 0.5rem}
+.form-range-sm::-moz-range-thumb {
+    height: 1.25rem;
+    width: 1.25rem;
+    --filler-offset: 0.5rem}
+.form-range-md {
+    height: 1.5rem}
+.form-range-md::-webkit-slider-runnable-track {
+    height: 0.5rem}
+.form-range-md::-moz-range-track {
+    height: 0.5rem}
+.form-range-md::-webkit-slider-thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+    --filler-offset: 0.6rem}
+.form-range-md::-moz-range-thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+    --filler-offset: 0.6rem}
+.form-range-lg {
+    height: 2rem}
+.form-range-lg::-webkit-slider-runnable-track {
+    height: 1rem}
+.form-range-lg::-moz-range-track {
+    height: 1rem}
+.form-range-lg::-webkit-slider-thumb {
+    height: 2rem;
+    width: 2rem;
+    --filler-offset: 1rem}
+
+
+
+.form-range-vertical {
+  @apply relative;
+  height: 20rem;
+  width: 3rem;
+  &::before, &::after {
+    @apply block absolute;
+    z-index: 99;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: .75rem 0;
+    pointer-events: none;
+  }
+  &::before {
+    content: "+";
+  }
+  &::after {
+    content: "−";
+    bottom: 0;
+  }
+
+  input[type="range"] {
+    @apply appearance-none absolute rounded overflow-hidden;
+    background-color: rgba(#fff, .2);
+    top: 50%;
+    left: 50%;
     margin: 0;
     padding: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms;
-    outline: 0
-  }
-
-  input[type="checkbox"]:before {
-    content: ' ';
-    width: 43px;
-    height: 24px;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    border-radius: 16px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background: $white;
-    z-index: 1;
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms;
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1)
-  }
-
-  input[type="checkbox"]:after {
-    content: ' ';
-    height: 22px;
-    width: 22px;
-    border-radius: 22px;
-    background: #fff;
-    position: absolute;
-    z-index: 2;
-    top: 2px;
-    left: 2px;
-    -webkit-box-shadow: 0 2px 5px rgba($black, 0.4);
-    box-shadow: 0 2px 5px rgba($black, 0.4);
-    -webkit-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-  }
-
-  input[type="checkbox"]:checked {
-    background: $form-selected;
-  }
-  
-  input[type="checkbox"]:checked:before {
-    -webkit-transform: scale(0);
-    -ms-transform: scale(0);
-    transform: scale(0)
-  }
-  
-  input[type="checkbox"]:checked:after {
-    -webkit-transform: translate3d(20px, 0, 0);
-    -ms-transform: translate3d(20px, 0, 0);
-    transform: translate3d(20px, 0, 0)
-  }
-
-  &.form-xxsm {
-    width: 23px;
-    height: 13px;
-    transform: scale(0.8);
-    input[type="checkbox"] {
-      width: 23px;
-      height: 13px;
-      border-radius: 16px;
+    width: 20rem;
+    height: 3.5rem;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    cursor: row-resize;
+    
+    &[step]{
+      background-color: transparent;
+      background-image: repeating-linear-gradient(to right, rgba(#fff, .2), rgba(#fff, .2) calc(12.5% - 1px), #05051a 12.5%);
     }
-    input[type="checkbox"]:before {
-      width: 23px;
-      height: 13px;
-      border-radius: 16px;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 0;
+      box-shadow: -20rem 0 0 20rem rgba(#fff, 0.2);
     }
-    input[type="checkbox"]:after {
-      width: 11px;
-      height: 11px;
-      border-radius: 16px;
-      top: 1px;
-      -webkit-box-shadow: 0 2px 5px rgba($black, 0.4);
-      box-shadow: 0 2px 5px rgba($black, 0.4);
-    }
-    input[type="checkbox"]:checked:after {
-      -webkit-transform: translate3d(9px, 0, 0);
-      -ms-transform: translate3d(9px, 0, 0);
-      transform: translate3d(9px, 0, 0)
+
+    &::-moz-range-thumb {
+      border: none;
+      width: 0;
+      box-shadow: -20rem 0 0 20rem rgba(#fff, 0.2);
     }
   }
-  &.form-sm {
-    transform: scale(0.7);
+}
+
+//DOTS
+.dot {
+  @apply inline-block flex-none rounded-full p-1;
+  div {
+    @apply h-1.5 w-1.5 rounded-full;
   }
-  &.form-xs {
-    transform: scale(0.5);
+}
+.dot-brand {
+  @apply bg-brand-500/20;
+  div {
+    @apply bg-brand-500;
+  }
+}
+.dot-red {
+  @apply bg-red-500/20 p-1;
+  div {
+    @apply bg-red-500;
+  }
+}
+.dot-orange {
+  @apply bg-orange-500/20 p-1;
+  div {
+    @apply bg-orange-500;
+  }
+}
+.dot-green {
+  @apply bg-emerald-500/20 p-1;
+  div {
+    @apply bg-emerald-500;
+  }
+}
+
+
+//PANEL
+.form-panel {
+  @apply relative inline-block;
+  width: 100%;
+  input {
+    @apply !absolute h-px w-px border-0 overflow-hidden;
+    clip: rect(0, 0, 0, 0);
+    &:checked + label {
+      background-color: var(--form-color, theme('colors.brand.500'));
+      border-color: var(--form-color, theme('colors.brand.500'));
+      color: white;
+      box-shadow: none;
+    }
+  }
+  label {
+    @apply relative inline-block text-xs font-bold text-center border-2 select-none;
+    border-color: var(--form-color, theme('colors.brand.500'));
+    line-height: 1.1;
+    text-shadow: none;
+    height: 100%;
+    min-height: 142px;
+    min-width: 140px;
+    transition: all 0.2s ease-in-out;
+    // b {
+    //   //color: var(--form-panel-bg, $dark);
+    //   font-size: 1.3rem;
+    // }
+    // .h-badge {
+    //   @apply flex justify-center items-center;
+    //   min-height: 1.2rem;
+    //   margin: .4rem 0;
+    // }
+    // span {
+    //   @apply relative mx-auto text-5xl;
+    //   //color: var(--form-panel-bg, $dark);
+    //   display: table;
+    //   line-height: 1;
+    //   &::before {
+    //     @apply absolute text-2xl font-normal;
+    //     content: '$';
+    //     top: .5rem;
+    //     left: -15px;
+    //     line-height: 1;
+    //   }
+    //   &::after {
+    //     @apply absolute text-xs font-light;
+    //     content: 'usd';
+    //     bottom: .2rem;
+    //   }
+    // }
+    &:hover {
+        @apply cursor-pointer;
+      //background-color: lighten($primary, 60);
+    }
+    
+  }
+  @screen md {
+    b {
+      font-size: 1.2rem !important;
+    }
+    label {
+      width: 100%;
+      padding: 1.1rem 1.5rem;
+      min-height: 40px;
+      margin-right: 0px;
+    }
+    span {
+      @apply text-2xl;
+      &::after {
+        @apply text-xs;
+      }
+    }
+  }
+}
+
+
+//DARK
+.dark {
+  .label {
+      //@apply text-<?=$config['labelColorDark']?>;
+      color: <?= $config['dark']['label'] ?>;
+  }
+  .form-basic {
+      color: <?= $config['dark']['form-basic-text'] ?>;
+      background-color: <?= $config['dark']['form-basic-bg'] ?>;
+      border-color: <?= $config['dark']['form-basic-border'] ?>;
+  }
+
+  .form-muted {
+      color: <?= $config['dark']['form-muted-text'] ?>;
+      background-color: <?= $config['dark']['form-muted-bg'] ?>;
+  }
+
+  .form-btn {
+    @apply text-<?=$config['labelColorDark']?> hover:bg-light !bg-opacity-20 has-[:checked]:bg-<?=$config['formBGDark']?>;
+  }
+
+  .form-switch {
+    @apply bg-<?=$config['formBGDark']?>;
+  }
+  .form-range {
+    &::-webkit-slider-runnable-track {
+      @apply bg-<?=$config['formBGDark']?>;
+    }
+  }
+  .custom-file-upload {
+      @apply text-<?=$config['labelColorDark']?> bg-opacity-20 border-<?=$config['labelColorDark']?>;
+      background-color: theme('colors.light');
   }
 }
