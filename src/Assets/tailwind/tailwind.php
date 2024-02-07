@@ -3,28 +3,28 @@ include 'functions.php';
 $config = prepareArray($config);
 ?>
 
-
-:theme {
-    --colors-light: <?= $configBase['light']['bg'] ?>;
-    --colors-light-box: <?= $configBase['light']['box'] ?>;
-    --colors-light-title: <?= $configBase['light']['title'] ?>;
-    --colors-light-subtitle: <?= $configBase['light']['subtitle'] ?>;
-    --colors-light-body: <?= $configBase['light']['body'] ?>;
-    --colors-light-label: <?= $configBase['light']['label'] ?>;
-    --colors-light-form-basic-bg: <?= $configBase['light']['form-basic-bg'] ?>;
-    --colors-light-form-basic-border: <?= $configBase['light']['form-basic-border'] ?>;
-    --colors-light-form-muted-bg: <?= $configBase['light']['form-muted-bg'] ?>;
-    --colors-light-light: <?= $configBase['light']['light'] ?>;
-    --colors-dark: <?= $configBase['dark']['bg'] ?>;
-    --colors-dark-box: <?= $configBase['dark']['box'] ?>;
-    --colors-dark-title: <?= $configBase['dark']['title'] ?>;
-    --colors-dark-subtitle: <?= $configBase['dark']['subtitle'] ?>;
-    --colors-dark-body: <?= $configBase['dark']['body'] ?>;
-    --colors-dark-label: <?= $configBase['dark']['label'] ?>;
-    --colors-dark-form-basic-bg: <?= $configBase['dark']['form-basic-bg'] ?>;
-    --colors-dark-form-basic-border: <?= $configBase['dark']['form-basic-border'] ?>;
-    --colors-dark-form-muted-bg: <?= $configBase['dark']['form-muted-bg'] ?>;
-    --colors-dark-light: <?= $configBase['dark']['light'] ?>;
+//:theme {}
+:root {
+    --colors-light: <?= $config['light']['bg'] ?>;
+    --colors-light-box: <?= $config['light']['box'] ?>;
+    --colors-light-title: <?= $config['light']['title'] ?>;
+    --colors-light-subtitle: <?= $config['light']['subtitle'] ?>;
+    --colors-light-body: <?= $config['light']['body'] ?>;
+    --colors-light-label: <?= $config['light']['label'] ?>;
+    --colors-light-form-basic-bg: <?= $config['light']['form-basic-bg'] ?>;
+    --colors-light-form-basic-border: <?= $config['light']['form-basic-border'] ?>;
+    --colors-light-form-muted-bg: <?= $config['light']['form-muted-bg'] ?>;
+    --colors-light-light: <?= $config['light']['light'] ?>;
+    --colors-dark: <?= $config['dark']['bg'] ?>;
+    --colors-dark-box: <?= $config['dark']['box'] ?>;
+    --colors-dark-title: <?= $config['dark']['title'] ?>;
+    --colors-dark-subtitle: <?= $config['dark']['subtitle'] ?>;
+    --colors-dark-body: <?= $config['dark']['body'] ?>;
+    --colors-dark-label: <?= $config['dark']['label'] ?>;
+    --colors-dark-form-basic-bg: <?= $config['dark']['form-basic-bg'] ?>;
+    --colors-dark-form-basic-border: <?= $config['dark']['form-basic-border'] ?>;
+    --colors-dark-form-muted-bg: <?= $config['dark']['form-muted-bg'] ?>;
+    --colors-dark-light: <?= $config['dark']['light'] ?>;
 }
 
 @layer base {
@@ -56,6 +56,9 @@ $config = prepareArray($config);
         width: 100%;
         @apply relative flex mx-auto px-2 md:px-3;
         flex-wrap: wrap;
+    }
+    .row {
+        @apply relative w-full flex flex-wrap;
     }
 
     @screen md {
@@ -137,7 +140,7 @@ $config = prepareArray($config);
         include 'boxes.php';
         include 'dropdowns.php';
         include 'other.php';
-        if($configBase['backend']){
+        if($config['backend']){
             include 'backend.php';
         }
     ?>

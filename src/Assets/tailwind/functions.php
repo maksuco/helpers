@@ -1,5 +1,4 @@
 <?php
-
 function prepareArray($config){
     //HEADINGS
     $configBase['headingFont'] = 'sans';

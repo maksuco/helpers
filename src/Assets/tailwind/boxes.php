@@ -140,3 +140,41 @@
         @apply md:col-span-4;
     }
 }
+
+
+//STYLES
+.bg-frosted {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.shadow-panel {
+    @apply relative;
+    z-index: 1;
+}
+.shadow-panel:before, .shadow-panel:after {
+    @apply absolute shadow backdrop-blur;
+    content: "";
+    background-color: var(--bg-color, inherit);
+    border-radius: var(--border-radius, inherit);
+}
+.shadow-panel:before {
+    width: 84%;
+    left: 8%;
+    top: 90%;
+    bottom: var(--distance, -2.2%);
+    opacity: 0.35;
+    z-index: -1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.shadow-panel:after {
+    width: 72%;
+    left: 14%;
+    top: 90%;
+    bottom: var(--distance2, -3.8%);
+    opacity: 0.25;
+    z-index: -2;
+}

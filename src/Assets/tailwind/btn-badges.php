@@ -117,11 +117,11 @@ $basicColors = [
 
 
 .btn-light, .badge-light {
-    background-color: <?= $configBase['light']['light'] ?>;
+    background-color: <?= $config['light']['light'] ?>;
 }
 .dark {
     .btn-light, .badge-light {
-        background-color: <?= $configBase['dark']['light'] ?>;
+        background-color: <?= $config['dark']['light'] ?>;
     }
 }
 
