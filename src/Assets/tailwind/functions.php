@@ -18,7 +18,7 @@ function prepareArray($config){
     $configBase['btnBgColor'] = 'gray-400';
     $configBase['btnPaddingY'] = 2;
     $configBase['btnPaddingX'] = 5;
-    $configBase['btnWeight'] = 'base';
+    $configBase['btnWeight'] = 'normal';
     //FORMS
     $configBase['formText'] = 'gray-500'; //"slate-50"
     $configBase['formTextDark'] = 'gray-200'; //"slate-50"
