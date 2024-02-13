@@ -143,6 +143,9 @@ $config = prepareArray($config);
         if($config['backend']){
             include 'backend.php';
         }
+        if($config['extraFile']){
+            include $config['extraFile'];
+        }
     ?>
 
 }

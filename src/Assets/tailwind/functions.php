@@ -3,6 +3,7 @@ function prepareArray($config){
     //HEADINGS
     $configBase['headingFont'] = 'sans';
     $configBase['headingWeight'] = 'bold';
+    $configBase['extraFile'] = false;
     for ($i = 1; $i <= 6; $i++) {
         $configBase["headingFont{$i}"] = $configBase['headingFont'];
         $configBase["headingWeight{$i}"] = $configBase['headingWeight'];
