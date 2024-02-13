@@ -500,3 +500,13 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
       background-color: theme('colors.light');
   }
 }
+
+
+.form-error {
+  @apply text-xs text-red-500;
+  line-height: .8;
+}
+.form-warning {
+  @apply text-xs text-orange-500;
+  line-height: .8;
+}

@@ -11,6 +11,18 @@
     width: 100%;
 }
 
+@media (max-width: theme('screens.md')) {
+  .sm\:btn-block {
+    width: 100%;
+  }
+}
+
+@screen md {
+  .md\:btn-block {
+    width: 100%;
+  }
+}
+
 .badge {
     width: fit-content;
     @apply select-none inline-flex justify-center items-center text-sm <?=$config['badgeRadius']?> font-semibold line-clamp-1 py-1 px-2.5;
