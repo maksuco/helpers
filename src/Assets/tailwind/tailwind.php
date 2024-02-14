@@ -52,7 +52,7 @@ $config = prepareArray($config);
     .grecaptcha-badge {
         visibility: hidden !important;
     }
-    .container, .container-min, .container-max, .container-full {
+    .container, .container-min, .container-max, .container-full, .container-fluid {
         width: 100%;
         @apply relative flex mx-auto px-2 md:px-3;
         flex-wrap: wrap;
@@ -135,6 +135,7 @@ $config = prepareArray($config);
         .w-<?= $row ?> { width: <?= $row ?>px; };
         .max-w-<?= $row ?> { max-width: <?= $row ?>px; };
         .h-<?= $row ?> { height: <?= $row ?>px; };
+        .min-h-<?= $row ?> { min-height: <?= $row ?>px; };
         .max-h-<?= $row ?> { max-height: <?= $row ?>px; };
         .mt-<?= $row ?> { margin-top: <?= $row ?>px; };
         .mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
@@ -146,6 +147,7 @@ $config = prepareArray($config);
             .md\:w-<?= $row ?> { width: <?= $row ?>px; };
             .md\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .md\:h-<?= $row ?> { height: <?= $row ?>px; };
+            .md\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
             .md\:max-h-<?= $row ?> { max-height: <?= $row ?>px; };
             .md\:mt-<?= $row ?> { margin-top: <?= $row ?>px; };
             .md\:mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
@@ -158,6 +160,7 @@ $config = prepareArray($config);
             .lg\:w-<?= $row ?> { width: <?= $row ?>px; };
             .lg\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .lg\:h-<?= $row ?> { height: <?= $row ?>px; };
+            .lg\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
             .lg\:max-h-<?= $row ?> { max-height: <?= $row ?>px; };
             .lg\:mt-<?= $row ?> { margin-top: <?= $row ?>px; };
             .lg\:mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
