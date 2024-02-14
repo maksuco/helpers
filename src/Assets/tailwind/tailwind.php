@@ -81,27 +81,27 @@ $config = prepareArray($config);
     }
 
     h1 {
-        @apply font-<?= $config['headingFont1'] ?> font-<?= $config['headingWeight1'] ?> text-5xl md:text-6xl lg:text-7xl;
+        @apply font-<?= $config['headingFont1'] ?> font-<?= $config['headingWeight1'] ?> <?= $config['headingSize1'] ?>;
     }
 
     h2 {
-        @apply font-<?= $config['headingFont2'] ?> font-<?= $config['headingWeight2'] ?> text-4xl md:text-5xl lg:text-6xl;
+        @apply font-<?= $config['headingFont2'] ?> font-<?= $config['headingWeight2'] ?> <?= $config['headingSize2'] ?>;
     }
 
     h3 {
-        @apply font-<?= $config['headingFont3'] ?> font-<?= $config['headingWeight3'] ?> text-3xl md:text-4xl lg:text-5xl;
+        @apply font-<?= $config['headingFont3'] ?> font-<?= $config['headingWeight3'] ?> <?= $config['headingSize3'] ?>;
     }
 
     h4 {
-        @apply font-<?= $config['headingFont4'] ?> font-<?= $config['headingWeight4'] ?> text-2xl md:text-3xl lg:text-4xl;
+        @apply font-<?= $config['headingFont4'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize4'] ?>;
     }
 
     h5 {
-        @apply font-<?= $config['headingFont5'] ?> font-<?= $config['headingWeight4'] ?> text-xl md:text-2xl lg:text-3xl;
+        @apply font-<?= $config['headingFont5'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize5'] ?>;
     }
 
     h6 {
-        @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> text-lg md:text-xl lg:text-2xl;
+        @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> <?= $config['headingSize6'] ?>;
     }
     .text-muted {
         @apply text-brand-400 opacity-95 tracking-tight uppercase;

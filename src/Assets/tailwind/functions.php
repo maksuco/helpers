@@ -8,6 +8,12 @@ function prepareArray($config){
         $configBase["headingFont{$i}"] = $configBase['headingFont'];
         $configBase["headingWeight{$i}"] = $configBase['headingWeight'];
     }
+    $configBase["headingSize1"] = "text-5xl md:text-6xl lg:text-7xl";
+    $configBase["headingSize2"] = "text-4xl md:text-5xl lg:text-6xl";
+    $configBase["headingSize3"] = "text-3xl md:text-4xl lg:text-5xl";
+    $configBase["headingSize4"] = "text-2xl md:text-3xl lg:text-4xl";
+    $configBase["headingSize5"] = "text-xl md:text-2xl lg:text-3xl";
+    $configBase["headingSize6"] = "text-lg md:text-xl lg:text-2xl";
     //BTN
     $configBase['btnRadius'] = 'rounded';
     $configBase['badgeRadius'] = 'rounded-full';
