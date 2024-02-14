@@ -128,11 +128,6 @@ $config = prepareArray($config);
         @apply inline-block text-transparent bg-clip-text bg-gradient-to-br from-brand-500 to-brand-300 pr-0.5;
     }
 
-
-    .bg-custom {
-        @apply relative flex min-h-screen flex-col justify-center overflow-hidden py-6 sm:py-12;
-    }
-
     <?php
     $sizesHelpers = [50,60,70,80,90,100,150,200,250,300,350,400,500,600,700,800,900,1000];
     foreach($sizesHelpers as $row) { 
