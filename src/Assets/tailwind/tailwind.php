@@ -133,6 +133,46 @@ $config = prepareArray($config);
         @apply relative flex min-h-screen flex-col justify-center overflow-hidden py-6 sm:py-12;
     }
 
+    <?php
+    $sizesHelpers = [50,60,70,80,90,100,150,200,250,300,350,400,500,600,700,800,900,1000];
+    foreach($sizesHelpers as $row) { 
+    ?>
+        .w-<?= $row ?> { width: <?= $row ?>px; };
+        .max-w-<?= $row ?> { max-width: <?= $row ?>px; };
+        .h-<?= $row ?> { height: <?= $row ?>px; };
+        .max-h-<?= $row ?> { max-height: <?= $row ?>px; };
+        .mt-<?= $row ?> { margin-top: <?= $row ?>px; };
+        .mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
+        .my-<?= $row ?> { margin-top: <?= $row ?>px; margin-bottom: <?= $row ?>px; };
+        .pt-<?= $row ?> { padding-top: <?= $row ?>px; };
+        .pb-<?= $row ?> { padding-bottom: <?= $row ?>px; };
+        .py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
+        @screen md {
+            .md\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .md\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
+            .md\:h-<?= $row ?> { height: <?= $row ?>px; };
+            .md\:max-h-<?= $row ?> { max-height: <?= $row ?>px; };
+            .md\:mt-<?= $row ?> { margin-top: <?= $row ?>px; };
+            .md\:mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
+            .md\:my-<?= $row ?> { margin-top: <?= $row ?>px; margin-bottom: <?= $row ?>px; };
+            .md\:pt-<?= $row ?> { padding-top: <?= $row ?>px; };
+            .md\:pb-<?= $row ?> { padding-bottom: <?= $row ?>px; };
+            .md\:py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
+        }
+        @screen lg {
+            .lg\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .lg\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
+            .lg\:h-<?= $row ?> { height: <?= $row ?>px; };
+            .lg\:max-h-<?= $row ?> { max-height: <?= $row ?>px; };
+            .lg\:mt-<?= $row ?> { margin-top: <?= $row ?>px; };
+            .lg\:mb-<?= $row ?> { margin-bottom: <?= $row ?>px; };
+            .lg\:my-<?= $row ?> { margin-top: <?= $row ?>px; margin-bottom: <?= $row ?>px; };
+            .lg\:pt-<?= $row ?> { padding-top: <?= $row ?>px; };
+            .lg\:pb-<?= $row ?> { padding-bottom: <?= $row ?>px; };
+            .lg\:py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
+        }
+    <?php }; ?>
+
     <?php 
         include 'utilities.php';
         include 'btn-badges.php';
