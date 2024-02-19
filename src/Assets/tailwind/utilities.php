@@ -6,4 +6,7 @@
     .border-5 {
         border-width: 5px;
     }
+    .body-fix {
+        overflow: hidden;
+    }
 }
