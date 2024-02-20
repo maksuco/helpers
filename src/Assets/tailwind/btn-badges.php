@@ -168,3 +168,10 @@ $basicColors = [
         }
     }
 }
+
+.hover-zoom { 
+  transition: all .2s ease-in-out;
+  &:hover { 
+    transform: scale(1.03); 
+  }
+}
