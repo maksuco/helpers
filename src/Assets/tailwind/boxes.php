@@ -5,9 +5,12 @@
     background-color: <?= $config['light']['box'] ?>;
 }
 .dark {
-    .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {
+    .box-xxs, .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {
         background-color: <?= $config['dark']['box'] ?>;
     }
+}
+.box-xxs {
+    @apply px-2 pt-1.5 pb-1 md:px-2 md:pt-2 md:pb-1.5 rounded-lg;
 }
 .box-xs {
     @apply px-2.5 pt-2 pb-1.5 md:px-3 md:pt-3 md:pb-2.5 rounded-xl;

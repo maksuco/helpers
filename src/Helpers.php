@@ -11,20 +11,26 @@ class Helpers
 		//GET FILES
 		ob_start();
 		include __DIR__ ."/Assets/tailwind/tailwind.php";
-		$fileContent = ob_get_clean();
-		//SCSS
-		$scss = new \ScssPhp\ScssPhp\Compiler();
-		$css = $scss->compile($fileContent);
-		$fileContent = str_replace('@charset "UTF-8";', '', $css);
-		//SAVE
-		if(!empty($config['path'])) {
-		} elseif(class_exists("Illuminate\Foundation\Application")) {
-			$config['path'] = 'resources/css/tailwind_helpers.css';
-		} else {
-			$config['path'] = 'assets/css/tailwind_helpers.css';
+		
+		try {
+			$fileContent = ob_get_clean();
+			//SCSS
+			$scss = new \ScssPhp\ScssPhp\Compiler();
+			$css = $scss->compile($fileContent);
+			$fileContent = str_replace('@charset "UTF-8";', '', $css);
+			//SAVE
+			if(!empty($config['path'])) {
+			} elseif(class_exists("Illuminate\Foundation\Application")) {
+				$config['path'] = 'resources/css/tailwind_helpers.css';
+			} else {
+				$config['path'] = 'assets/css/tailwind_helpers.css';
+			}
+			file_put_contents($config['path'], $fileContent);
+		} catch (\Exception $e) {
+			return 'Error: '.substr($e->getMessage(), 0, 200);
 		}
-		file_put_contents($config['path'], $fileContent);
-		return $fileContent;
+		return 'true';
+		//return $fileContent;
 	}
 	
 	//GET DEVICE AGENT

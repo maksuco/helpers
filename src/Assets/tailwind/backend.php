@@ -20,34 +20,15 @@ $backend = [
 $backend = array_merge($backend, $config['backend']);
 ?>
 
-
-<!-- $backend-header-height: 60px !default;
-$backend-header-logo-height: ($backend-header-height * 0.8) !default;
-$backend-body: $body !default;
-$backend-bg: #f8fafc !default;
-$backend-sidebar-bg: white !default;
-$backend-sidebar-width: 250px !default;
-<?=$backend['xs_sidebarBG']?>: $backend-sidebar-bg !default;
-<?=$backend['xs_sidebarWidth']?>: 60px !default;
-<?=$backend['sidebarPadding']?>: calc(($backend-sidebar-width * 0.15) / 2) !default; -->
-<!-- $backend-article-margin: $backend-sidebar-width !default; -->
-$backend-sidebar-links: #2a5164 !default;
-$backend-sidebar-links-hover: transparent !default;
-$backend-sidebar-links-padding: 0.5rem !default;
-
-$backend-sidebar-active-color: $white !default;
-$backend-sidebar-active-bg: $primary !default;
-$backend-top-box-radius: 25px !default;
-
 body {
   @apply text-[$backend-body];
   background: linear-gradient(90deg, rgba(<?=$backend['bg']?>, 0.8) 30%, <?=$backend['bg']?> 70%);
 }
 main {
   @apply relative px-8;
-}
-main.rounded-full {
-  @apply rounded-[40px];
+  .rounded-full {
+    @apply rounded-[40px];
+  }
 }
 @screen lg {
   main {
@@ -66,44 +47,39 @@ main.rounded-full {
 .backend-sidebar-px {
   @apply pl-[<?=$backend['sidebarPadding']?>] pr-[<?=$backend['sidebarPadding']?>];
 }
-.dropdown-menu,
-.dropdown-menu-right {
-  @apply rounded-[$backend-dropdown-radius];
-}
 .nav-header {
   @apply h-[$backend-header-height];
+  .nav-logo {
+    @apply pl-[<?=$backend['sidebarPadding']?>] pr-[<?=$backend['sidebarPadding']?>] w-[$backend-sidebar-width] max-w-[$backend-sidebar-width];
+    margin-inline: 1rem;
+    .nav-logo-complete {
+      @apply max-h-[$backend-header-logo-height] mx-auto my-0;
+    }
+    .nav-logo-icon {
+      @apply max-h-[($backend-header-logo-height_*_0.8)] hidden mx-auto my-0;
+    }
+  }
+  .nav-text {
+    @apply pl-4;
+  }
+  .nav-top-box {
+    @apply inline-flex absolute z-[1] text-right rounded-[$backend-top-box-radius] text-[$gray] px-1.5 py-[5px] right-3 top-2;
+    background: <?=$backend['xs_sidebarBG']?>;
+    .element {
+      @apply cursor-pointer flex justify-center items-center text-center w-[30px] h-10 mx-[5px] my-0;
+    }
+    img {
+      @apply cursor-pointer rounded-[$backend-top-box-radius_*_0.98] w-10 h-10;
+    }
+  }
+  .nav-searchBox {
+    @apply fixed z-[999] p-4 inset-0;
+    background: <?=$backend['xs_sidebarBG']?>;
+  }
 }
-.nav-header .nav-logo {
-  @apply pl-[<?=$backend['sidebarPadding']?>] pr-[<?=$backend['sidebarPadding']?>] w-[$backend-sidebar-width] max-w-[$backend-sidebar-width];
-  margin-inline: 1rem;
-}
-.nav-header .nav-logo .nav-logo-complete {
-  @apply max-h-[$backend-header-logo-height] mx-auto my-0;
-}
-.nav-header .nav-logo .nav-logo-icon {
-  @apply max-h-[($backend-header-logo-height_*_0.8)] hidden mx-auto my-0;
-}
-.nav-header .nav-text {
-  @apply pl-4;
-}
-.nav-header .nav-top-box {
-  @apply inline-flex absolute z-[1] text-right rounded-[$backend-top-box-radius] text-[$gray] px-1.5 py-[5px] right-3 top-2;
-  background: <?=$backend['xs_sidebarBG']?>;
-}
-.nav-header .nav-top-box .element {
-  @apply cursor-pointer flex justify-center items-center text-center w-[30px] h-10 mx-[5px] my-0;
-}
-.nav-header .nav-top-box .element .fa-search {
-  @apply text-[1.2rem] text-[$gray];
-}
-.nav-header .nav-top-box img {
-  @apply cursor-pointer rounded-[$backend-top-box-radius_*_0.98] w-10 h-10;
-}
-.nav-header .nav-searchBox {
-  @apply fixed z-[999] p-4 inset-0;
-  background: <?=$backend['xs_sidebarBG']?>;
-}
-@media (max-width: $container) {
+
+
+@media (max-width: theme('screens.lg')) {
   .nav-header .nav-logo {
     @apply w-[<?=$backend['xs_sidebarWidth']?>] max-w-[<?=$backend['xs_sidebarWidth']?>] p-0;
     margin-inline: 1rem; //margin-left: 0.8rem;//margin-right: 1.2rem;
@@ -116,23 +92,25 @@ main.rounded-full {
   }
 }
 @screen sm {
-  .nav-header .nav-logo {
-    @apply hidden;
-  }
-  .nav-header .nav-text {
-    @apply pl-2;
-  }
-  .nav-header .nav-top-box {
-    @apply right-2;
-  }
-  .nav-header .nav-top-box .element {
-    @apply mx-1 my-0;
+  .nav-header {
+    .nav-logo {
+      @apply hidden;
+    }
+    .nav-text {
+      @apply pl-2;
+    }
+    .nav-top-box {
+      @apply right-2;
+      .element {
+        @apply mx-1 my-0;
+      }
+    }
   }
 }
 .nav-article {
   @apply min-h-[80vh] w-[calc(100%_-_275px)] max-w-[1330px] pl-0;
 }
-@media (min-width: map-get($container-max-widths, "md")) {
+@media (min-width: theme('screens.md')) {
   .nav-article {
     @apply px-4;
   }
@@ -143,75 +121,78 @@ main.rounded-full {
   border-radius: $btn-radius;
   .nav-sidebar-content {
     @apply p-[0.4rem];
-  }
-  .nav-sidebar-content ul {
-    @apply p-0;
-  }
-  .nav-sidebar-content ul li {
-    @apply leading-[0] py-[0.15rem];
-  }
-  .nav-sidebar-content ul li a {
-    @apply text-center text-[0] rounded-[$btn-radius] px-[0.3rem] py-[0.4rem] hover:bg-[darken(<?=$backend['xs_sidebarBG']?>,5%)];
-  }
-  .nav-sidebar-content ul li i {
-    @apply block text-[1.3rem] mx-auto my-0 p-0;
-  }
-  .nav-sidebar-content ul li svg {
-    @apply h-[22px] w-[22px] opacity-100 mx-auto my-0;
-  }
-  .nav-sidebar-content ul li .badge {
-    @apply leading-none text-[0.6rem] p-[0.24rem] left-[70%] right-auto -top-0.5;
+    ul {
+      @apply p-0;
+      li {
+        @apply leading-[0] py-[0.15rem];
+        a {
+          @apply text-center text-[0] rounded-[$btn-radius] px-[0.3rem] py-[0.4rem] hover:bg-[darken(<?=$backend['xs_sidebarBG']?>,5%)];
+        }
+        i {
+          @apply block text-[1.3rem] mx-auto my-0 p-0;
+        }
+        svg {
+          @apply h-[22px] w-[22px] opacity-100 mx-auto my-0;
+        }
+        .badge {
+          @apply leading-none text-[0.6rem] p-[0.24rem] left-[70%] right-auto -top-0.5;
+        }
+      }
+    }
   }
 }
 .nav-sidebar {
   @apply relative max-w-[$backend-sidebar-width] bg-[$backend-sidebar-bg] top-0; /* required */
   margin-inline: 1rem;
+  .nav-sidebar-content {
+    @apply relative clear-both;
+    ul {
+      @apply text-[13px] w-full align-middle pt-[<?=$backend['sidebarPadding']?>] pr-[<?=$backend['sidebarPadding']?>] pb-[<?=$backend['sidebarPadding']?>] pl-[<?=$backend['sidebarPadding']?>];
+      list-style: none;
+      li {
+        @apply block my-[0.1rem];
+        a {
+          @apply relative text-[$backend-sidebar-links] text-[0.96rem] font-[$font-weight-regular] flex items-center no-underline w-full rounded-[$btn-radius] hover:opacity-80;
+          padding: $backend-sidebar-links-padding ($backend-sidebar-links-padding * 0.8)
+          $backend-sidebar-links-padding ($backend-sidebar-links-padding * 1.6);
+          &:hover {
+            background: <?=$backend['xs_sidebarBG']?>;
+          }
+        }
+        i {
+          @apply w-[27px] text-center pr-2.5;
+        }
+        svg {
+          @apply text-[1.3em] opacity-80 -ml-1 mr-[9px];
+        }
+        .badge {
+          @apply absolute top-[($backend-sidebar-links-padding_*_1.2)] right-[($backend-sidebar-links-padding_*_0.8)] font-[$font-weight-bold];
+          padding: ($btn-padding-y * 0.4) ($btn-padding-x * 0.2);
+        }
+        .active {
+          @apply cursor-default text-[rgba($backend-sidebar-active-color,0.9)] hover:opacity-100;
+          background: $backend-sidebar-active-bg !important;
+        }
+      }
+    }
+  }
+  &.sticky {
+    @apply sticky z-[1];
+    position: -webkit-sticky;
+  }
+  &.full-h {
+    @apply min-h-screen;
+  }
 }
-.nav-sidebar .nav-sidebar-content {
-  @apply relative clear-both;
-}
-.nav-sidebar .nav-sidebar-content ul {
-  @apply text-[13px] w-full align-middle pt-[<?=$backend['sidebarPadding']?>] pr-[<?=$backend['sidebarPadding']?>] pb-[<?=$backend['sidebarPadding']?>] pl-[<?=$backend['sidebarPadding']?>];
-  list-style: none;
-}
-.nav-sidebar .nav-sidebar-content ul li {
-  @apply block my-[0.1rem];
-}
-.nav-sidebar .nav-sidebar-content ul li a {
-  @apply relative text-[$backend-sidebar-links] text-[0.96rem] font-[$font-weight-regular] flex items-center no-underline w-full rounded-[$btn-radius] hover:opacity-80;
-  padding: $backend-sidebar-links-padding ($backend-sidebar-links-padding * 0.8)
-    $backend-sidebar-links-padding ($backend-sidebar-links-padding * 1.6);
-}
-.nav-sidebar .nav-sidebar-content ul li a:hover {
-  background: <?=$backend['xs_sidebarBG']?>;
-}
-.nav-sidebar .nav-sidebar-content ul li i {
-  @apply w-[27px] text-center pr-2.5;
-}
-.nav-sidebar .nav-sidebar-content ul li svg {
-  @apply text-[1.3em] opacity-80 -ml-1 mr-[9px];
-}
-.nav-sidebar .nav-sidebar-content ul li .badge {
-  @apply absolute top-[($backend-sidebar-links-padding_*_1.2)] right-[($backend-sidebar-links-padding_*_0.8)] font-[$font-weight-bold];
-  padding: ($btn-padding-y * 0.4) ($btn-padding-x * 0.2);
-}
-.nav-sidebar .nav-sidebar-content ul li .active {
-  @apply cursor-default text-[rgba($backend-sidebar-active-color,0.9)] hover:opacity-100;
-  background: $backend-sidebar-active-bg !important;
-}
-.nav-sidebar.sticky {
-  @apply sticky z-[1];
-  position: -webkit-sticky;
-}
-.nav-sidebar.full-h {
-  @apply min-h-screen;
-}
-@media (min-width: map-get($container-max-widths, "md")) and (max-width: $container) {
+
+
+@media (min-width: theme('screens.md')) and (max-width: theme('screens.xl')) {
   .nav-sidebar {
     @include xs-sidebar;
   }
 }
-@media (max-width: map-get($container-max-widths, "md")) {
+
+@media (max-width: theme('screens.md')) {
   .nav-sidebar {
     @apply fixed w-full z-[900] bg-[<?=$backend['xs_sidebarBG']?>] shadow-[6px_0_15px_-8px_rgba($primary,0.2)] left-2 inset-y-4;
     margin-inline: 0;
@@ -220,7 +201,8 @@ main.rounded-full {
 .nav-sidebar.xs-sidebar {
   @include xs-sidebar;
 }
-@media (min-width: map-get($container-max-widths, "md")) {
+
+@media (min-width: theme('screens.md')) {
   .compressSideBar .nav-header .nav-logo {
     @apply max-w-[60px] pl-[0.8rem];
   }
@@ -248,23 +230,24 @@ main.rounded-full {
 }
 header {
   @apply flex flex-wrap w-auto box-border relative;
+  .header-title {
+    @apply flex items-center gap-2 min-h-[65px] px-0 py-[0.1rem];
+    h1 {
+      @apply text-[clamp(38px,5.4vw,47px)];
+    }
+    h2 {
+      @apply text-[clamp(34px,5.2vw,40px)];
+    }
+    h3 {
+      @apply text-[clamp(30px,5vw,30px)];
+    }
+    .v-div {
+      @apply h-[90%] w-0.5 bg-[color:var(--gray)] opacity-50 mx-[1.6rem];
+    }
+  }
 }
-header .header-title {
-  @apply flex items-center gap-2 min-h-[65px] px-0 py-[0.1rem];
-}
-header .header-title h1 {
-  @apply text-[clamp(38px,5.4vw,47px)];
-}
-header .header-title h2 {
-  @apply text-[clamp(34px,5.2vw,40px)];
-}
-header .header-title h3 {
-  @apply text-[clamp(30px,5vw,30px)];
-}
-header .header-title .v-div {
-  @apply h-[90%] w-0.5 bg-[color:var(--gray)] opacity-50 mx-[1.6rem];
-}
-@media (max-width: map-get($container-max-widths, "md")) {
+
+@media (max-width: theme('screens.md')) {
   header .header-title {
     @apply w-full flex-wrap min-h-[55px] mb-[0.2rem];
   }
@@ -280,7 +263,7 @@ header .header-title .v-div {
     @apply w-full leading-[normal];
   }
 }
-@media (min-width: map-get($container-max-widths, "md")) {
+@media (min-width: theme('screens.md')) {
   header .header-title {
     @apply min-h-[65px] mb-2;
   }
@@ -305,7 +288,8 @@ header .btn {
 header .dropdown-menu-right {
   @apply -top-px;
 }
-@media (min-width: map-get($container-max-widths, "md")) {
+
+@screen md {
   header {
     @apply mt-0 mb-[0.8rem] mx-0;
   }
@@ -313,12 +297,16 @@ header .dropdown-menu-right {
     @apply gap-[5px];
   }
 }
-@media (max-width: map-get($container-max-widths, "md")) {
+
+@media (max-width: theme('screens.md')) {
   header {
     @apply mx-[0.6rem] my-[0.1rem];
-  }
-  header .row {
-    @apply gap-1;
+    .row {
+      @apply gap-1;
+    }
+    .btn {
+      @apply px-2;
+    }
   }
   header .options button {
     @apply px-[0.6rem] py-[0.35rem];
@@ -328,9 +316,6 @@ header .dropdown-menu-right {
   }
   header .options button i {
     @apply text-[0.9rem] ml-0;
-  }
-  header .btn {
-    @apply px-2;
   }
 }
 footer {
@@ -360,7 +345,8 @@ footer {
 .search-results .search-result-item {
   @apply flex flex-wrap items-center w-full bg-[color:var(--white)] text-[$dark] rounded border transition-[0.3s] leading-[0.9] mt-1 p-2 border-solid border-[$light] hover:border hover:border-solid hover:border-[$primary];
 }
-@media (max-width: map-get($container-max-widths, "md")) {
+
+@media (max-width: theme('screens.md')) {
   .search-results {
     @apply w-[95%] pt-2 pb-[0.8rem] px-[0.8rem] inset-x-2.5;
   }
@@ -380,84 +366,90 @@ h4 {
 h5 {
   @apply text-[clamp(1.1rem,1.5vw,1.2rem)] leading-none;
 }
+
 .single-upload {
   @apply relative flex flex-wrap w-full z-[2];
-}
-.single-upload .preview-container {
-  @apply relative mr-[0.8rem];
-}
-.single-upload .preview-container .preview-img {
-  @apply min-w-[80px] w-[150px] h-[105px] object-contain bg-[white] rounded-[$btn-radius] border border-[color:var(--gray-300)] border-solid; // width: 100%;// height: 100%;
-}
-.single-upload .preview-container .percent-circle {
-  @apply absolute -translate-x-2/4 -translate-y-2/4 h-[50px] w-[50px] left-2/4 top-2/4;
-}
-.single-upload .preview-container .delete-btn {
-  @apply absolute border border-solid border-[rgba($white,0.3)] right-[3px] top-[3px];
-}
-.single-upload .custom-file-upload {
-  @apply min-h-[47px] bg-[$white] hover:text-[$white] hover:bg-[$primary];
-}
-.single-upload .custom-file-upload input {
-  @apply min-h-[47px];
-}
-.single-upload .custom-file-upload:hover svg {
-  @apply fill-[$white];
-}
-.single-upload .message-row {
-  @apply gap-[5px] min-h-[25px];
-  --gap: 5px;
-}
-.single-upload .message-row .btn,
-.single-upload .message-row .form-select-btn {
-  @apply border border-solid border-[rgba($gray,0.3)];
-}
-.single-upload .badge {
-  @apply border border-[color-mix(in_srgb,currentColor_10%,transparent)] border-solid;
-}
-@media (max-width: map-get($container-max-widths, "md")) {
-  .single-upload .preview-container {
-    @apply mr-0 mb-2;
+  .preview-container {
+    @apply relative mr-[0.8rem];
+    .preview-img {
+      @apply min-w-[80px] w-[150px] h-[105px] object-contain bg-[white] rounded-[$btn-radius] border border-[color:var(--gray-300)] border-solid; // width: 100%;// height: 100%;
+    }
+    .percent-circle {
+      @apply absolute -translate-x-2/4 -translate-y-2/4 h-[50px] w-[50px] left-2/4 top-2/4;
+    }
+    .delete-btn {
+      @apply absolute border border-solid border-[rgba($white,0.3)] right-[3px] top-[3px];
+    }
   }
-  .single-upload .preview-container .preview-img {
-    @apply w-full max-w-[400px] h-[120px];
+  .custom-file-upload {
+    @apply min-h-[47px] bg-[$white] hover:text-[$white] hover:bg-[$primary];
+    input {
+      @apply min-h-[47px];
+    }
+    &:hover svg {
+      @apply fill-[$white];
+    }
   }
-  .single-upload .message-row {
-    @apply min-h-[unset];
+  .message-row {
+    @apply gap-[5px] min-h-[25px];
+    --gap: 5px;
+  }
+  .btn, .form-select-btn {
+    @apply border border-solid border-[rgba($gray,0.3)];
+  }
+  .form-select-btn {
+    @apply border border-solid border-[rgba($gray,0.3)];
+  }
+  .badge {
+    @apply border border-[color-mix(in_srgb,currentColor_10%,transparent)] border-solid;
+  }
+}
+
+@media (max-width: theme('screens.md')) {
+  .single-upload {
+    .preview-container {
+      @apply mr-0 mb-2;
+      .preview-img {
+        @apply w-full max-w-[400px] h-[120px];
+      }
+    }
+    .message-row {
+      @apply min-h-[unset];
+    }
   }
 }
 .color-picker {
   @apply min-w-[2rem];
   outline: none;
+  &:focus {
+    outline: none;
+  }
+  .current-color {
+    @apply w-full h-full min-w-[15px] min-h-[20px] inline border border-[color:var(--light-600,$gray)] border-solid;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  .color-selected {
+    @apply relative after:absolute after:z-10 after:top-[-3px] after:right-[-3px] after:text-[$green] after:font-black after:content-["\f058"] after:bg-slate-50 after:rounded-[50%];
+    &:after {
+
+    }
+  }
+  .color-box {
+    @apply block relative w-6 h-6 cursor-pointer rounded border m-1 p-2 border-solid border-[rgba($gray,0.3)];
+    outline: none;
+    .color-selected {
+      @apply shadow-[0_1px_3px_0_rgba($primary,0.5)] after:right-px after:top-px;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
 }
-.color-picker:focus {
-  outline: none;
-}
-.color-picker .current-color {
-  @apply w-full h-full min-w-[15px] min-h-[20px] inline border border-[color:var(--light-600,$gray)] border-solid;
-  outline: none;
-}
-.color-picker .current-color:focus {
-  outline: none;
-}
-.color-picker .color-selected {
-  @apply relative after:absolute after:z-10 after:top-[-3px] after:right-[-3px] after:text-[$green] after:font-black after:content-["\f058"] after:bg-slate-50 after:rounded-[50%];
-}
-.color-picker .color-selected:after {
-  font-family: "Font Awesome 5 Pro";
-}
-.color-picker .color-box {
-  @apply block relative w-6 h-6 cursor-pointer rounded border m-1 p-2 border-solid border-[rgba($gray,0.3)];
-}
-.color-picker .color-box.color-selected {
-  @apply shadow-[0_1px_3px_0_rgba($primary,0.5)] after:right-px after:top-px;
-}
-.color-picker .color-box {
-  outline: none;
-}
-.color-picker .color-box:focus {
-  outline: none;
-}
+
+
 .color-picker .color-default {
   @apply border pl-[0.4rem] pr-[0.2rem] border-solid border-[rgba($gray,0.3)];
 }
@@ -541,7 +533,8 @@ $checkout-bg: #f1f5ff !default;
 .scroll-box div {
   @apply block text-[0.8rem] text-[color:var(--gray-500)] text-center mx-auto my-0;
 }
-@media (max-width: map-get($container-max-widths, "md")) {
+
+@media (max-width: theme('screens.md')) {
   .scroll-box label {
     @apply p-[0.3rem];
   }
@@ -594,22 +587,23 @@ $checkout-bg: #f1f5ff !default;
 #onboarding #onboarding_right.final {
   @apply bg-[$primary];
 }
-@media (min-width: map-get($container-max-widths, "md")) {
+
+@media (min-width: theme('screens.md')) {
   #onboarding #onboarding_modal #onboarding_content {
     @apply items-stretch min-h-screen;
   }
 }
-@media (min-width: map-get($container-max-widths, "md")) and (max-width: map-get($container-max-widths, "lg")) {
+@media (min-width: theme('screens.md')) and (max-width: theme('screens.lg')) {
   #onboarding #onboarding_menu h2 {
     @apply text-[2rem];
   }
 }
-@media (max-width: map-get($container-max-widths, "lg")) {
+@media (max-width: theme('screens.lg')) {
   #onboarding #onboarding_menu h5 {
     @apply text-[$body] font-[$font-weight-bold] text-[clamp(1rem,1.5vw,1.1rem)];
   }
 }
-@media (max-width: map-get($container-max-widths, "md")) {
+@media (max-width: theme('screens.md')) {
   #onboarding #onboarding_menu {
     @apply max-h-[280px];
   }
