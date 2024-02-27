@@ -1,8 +1,5 @@
 .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {
-    width: 100%;
-    //@apply relative bg-white dark:bg-dark-box ring-1 ring-gray-900/5;
-    @apply relative ring-1 ring-gray-900/5;
-    background-color: <?= $config['light']['box'] ?>;
+    @apply w-full relative ring-1 ring-gray-900/5;
 }
 .dark {
     .box-xxs, .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {

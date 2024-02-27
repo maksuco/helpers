@@ -72,6 +72,12 @@ $brandColors = [
 <?php } ?>
 
 
+svg.svg-icon {
+  width: 1.2em;
+  height: 1.2em;
+  padding: 1px;
+}
+
 .x-scroll {
   @apple inline-flex items-center;
   overflow-y: hidden;

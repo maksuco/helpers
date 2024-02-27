@@ -103,6 +103,28 @@ function prepareArray($config){
     return array_merge($configBase, $config);
 }
 
+
+function backendConfig($config){
+    $base = (is_array($config['backend']))? $config['backend'] : [];
+    $backend = [];
+    $backend["bg"] = '#f8fafc';
+    $backend["body"] = '#19212B';
+    $backend["headerHeight"] = '60px';
+    $backend["headerLogoHeight"] = ((float) $backend['headerHeight'] * 0.8) . 'px';
+    $backend["headerBody"] = '#e1e1e1';
+    $backend["headerBG"] = '#f8fafc';
+    $backend["headerRadius"] = '10px';
+    $backend["sidebarBG"] = 'transparent';
+    $backend["sidebarWidth"] = '250px';
+    $backend["xs_sidebarBG"] = $backend['sidebarBG'];
+    $backend["xs_sidebarWidth"] = '60px';
+    $backend["sidebarPadding"] = (((float) $backend['sidebarWidth'] * 0.15) / 2) . 'px';
+    $backend["sidebarLinksHover"] = 'transparent';
+    $backend["sidebarLinksPadding"] = '0.5rem';
+    $backend["articleMargin"] = $backend['sidebarWidth'];
+    return array_merge($backend, $base);
+}
+
 function minPadding($value,$variant,$min=0.25,$max=false){
     $x = (($value > $variant)? $value - $variant : 1) * 0.25;
     $x = ($x > $min)? $x : $min;

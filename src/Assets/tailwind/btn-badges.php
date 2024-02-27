@@ -5,6 +5,9 @@
     @apply disabled:pointer-events-none disabled:opacity-60;
     @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem] px-[<?=$config['btnPaddingX'] * 0.25 ?>rem];
     @apply <?=$config['btnBorder']?> <?=$config['btnRing']?> <?=$config['btnShadow']?> hover:bg-opacity-90;
+    .svg-icon {
+        @apply w-[1.1em] h-[1.1em];
+    }
 }
 
 .btn-block {
@@ -27,7 +30,7 @@
     width: fit-content;
     @apply select-none inline-flex justify-center items-center text-sm <?=$config['badgeRadius']?> font-semibold line-clamp-1 py-1 px-2.5;
     .svg-icon {
-        @apply w-5 h-5;
+        @apply w-[1.1em] h-[1.1em];
     }
 }
 
@@ -49,6 +52,11 @@
 }
 .btn-2xl {
     @apply text-2xl py-[<?=($config['btnPaddingY'] + 1.3) * 0.25 ?>rem] px-[<?=($config['btnPaddingX'] + 3.2) * 0.25 ?>rem];
+}
+.badge-xxs {
+    padding: 0 0.65rem;
+    font-size: 0.68rem;
+    line-height: 1rem;
 }
 .badge-xs {
     @apply text-xs py-0.5 px-1.5;

@@ -2,10 +2,8 @@
 
 namespace Maksuco\Helpers;
 
-class Helpers
-{
+class Helpers {
   use Traits\Colors;
-
 
 	function tailwindPHP($config = []) {
 		//GET FILES
@@ -27,10 +25,9 @@ class Helpers
 			}
 			file_put_contents($config['path'], $fileContent);
 		} catch (\Exception $e) {
-			return 'Error: '.substr($e->getMessage(), 0, 200);
+			return 'Error: '.$e->getMessage();
 		}
-		return 'true';
-		//return $fileContent;
+		return $fileContent;
 	}
 	
 	//GET DEVICE AGENT

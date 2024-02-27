@@ -12,7 +12,7 @@
   }
 
   .dropdown-container {
-    @apply flex items-center gap-x-2 block py-1.5 px-3 bg-<?=$config['dropdownItemsBG']?>;
+    @apply flex items-center gap-x-2 block py-1.5 px-3 text-left;
   }
 
   .dropdown-title {

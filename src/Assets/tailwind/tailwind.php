@@ -29,11 +29,12 @@ $config = prepareArray($config);
 
 @layer base {
     * {
-        @apply transition duration-200;
+        @apply transition duration-100;
     }
     body {
         @apply antialiased;
         color: <?= $config['light']['body'] ?>;
+        background-color: <?= $config['light']['bg'] ?>;
     }
     .dark {
         color: <?= $config['dark']['body'] ?>;
@@ -41,9 +42,6 @@ $config = prepareArray($config);
             color: <?= $config['dark']['body'] ?>;
         }
     }
-}
-
-@layer components {
     [x-cloak] {
         visibility: hidden !important;
         overflow: hidden !important;
@@ -52,6 +50,9 @@ $config = prepareArray($config);
     .grecaptcha-badge {
         visibility: hidden !important;
     }
+}
+
+@layer components {
     .container, .container-min, .container-max, .container-full, .container-fluid {
         width: 100%;
         @apply relative flex mx-auto px-2 md:px-3;
@@ -60,6 +61,36 @@ $config = prepareArray($config);
     .row {
         @apply relative w-full flex flex-wrap;
     }
+
+    .absolute-tl, .absolute-tc, .absolute-tr {
+        @apply absolute top-0;
+    }
+    .absolute-tl { left: 0; }
+    .absolute-tc {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .absolute-tr { right: 0; }
+    .absolute-cl, .absolute-c, .absolute-cr {
+        @apply absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .absolute-cl { left: 0; }
+    .absolute-c {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .absolute-cr { right: 0; }
+    .absolute-bl, .absolute-bc, .absolute-br {
+        @apply absolute bottom-0;
+    }
+    .absolute-bl { left: 0; }
+    .absolute-bc {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .absolute-br { right: 0; }
 
     @screen md {
         .container, .container-min, .container-max, .container-full {
@@ -73,6 +104,35 @@ $config = prepareArray($config);
         .container-max {
             @apply max-w-screen-2xl;
         }
+        .md\:absolute-tl, .md\:absolute-tc, .md\:absolute-tr {
+            @apply absolute top-0;
+        }
+        .md\:absolute-tl { left: 0; }
+        .md\:absolute-tc {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .md\:absolute-tr { right: 0; }
+        .md\:absolute-cl, .md\:absolute-c, .md\:absolute-cr {
+            @apply absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .md\:absolute-cl { left: 0; }
+        .md\:absolute-c {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .md\:absolute-cr { right: 0; }
+        .md\:absolute-bl, .md\:absolute-bc, .md\:absolute-br {
+            @apply absolute bottom-0;
+        }
+        .md\:absolute-bl { left: 0; }
+        .md\:absolute-bc {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .md\:absolute-br { right: 0; }
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -104,8 +164,7 @@ $config = prepareArray($config);
         @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> <?= $config['headingSize6'] ?>;
     }
     .text-muted {
-        @apply text-brand-400 opacity-95 tracking-tight uppercase;
-        color: <?= $config['light']['subtitle'] ?>;
+        @apply opacity-95 tracking-tight uppercase;
     }
 
     .subtitle {
@@ -115,9 +174,6 @@ $config = prepareArray($config);
     .dark {
         h1, h2, h3, h4, h5, h6 {
             color: <?= $config['dark']['title'] ?>;
-        }
-        .text-muted {
-            color: <?= $config['dark']['subtitle'] ?>;
         }
         .subtitle {
             color: <?= $config['dark']['subtitle'] ?>;
@@ -178,10 +234,10 @@ $config = prepareArray($config);
         include 'boxes.php';
         include 'dropdowns.php';
         include 'other.php';
-        if($config['backend']){
-            include 'backend.php';
-        }
-        if($config['extraFile']){
+        $backend = backendConfig($config);
+        include 'backend.php';
+        include 'components.php';
+        if(!empty($config['extraFile'])){
             include $config['extraFile'];
         }
     ?>
