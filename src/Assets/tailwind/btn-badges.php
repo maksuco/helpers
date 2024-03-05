@@ -1,12 +1,12 @@
 .btn {
     width: fit-content;
     cursor: pointer;
-    @apply select-none inline-flex items-baseline justify-center whitespace-nowrap <?=$config['btnRadius']?> font-<?=$config['btnWeight']?> transition;
+    @apply select-none inline-flex items-center justify-center <?=$config['btnRadius']?> font-<?=$config['btnWeight']?> transition;
     @apply disabled:pointer-events-none disabled:opacity-60;
     @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem] px-[<?=$config['btnPaddingX'] * 0.25 ?>rem];
     @apply <?=$config['btnBorder']?> <?=$config['btnRing']?> <?=$config['btnShadow']?> hover:bg-opacity-90;
     .svg-icon {
-        @apply w-[1.1em] h-[1.1em];
+        @apply w-[1.2em] h-[1.2em];
     }
 }
 
@@ -77,10 +77,11 @@
     foreach($config['colors'] as $key => $row) { 
         $bg = $config['colors'][$key]['bg'];
         $border = $config['colors'][$key]['bg'];
+        $bgVariant = $row['bgVariant'];
 ?>
 
     .btn-<?= $key ?> {
-        @apply bg-<?= $key ?>-<?= $bg ?> border-<?= $key.'-'.$border ?> text-<?= $key ?>-50 hover:text-white hover:bg-<?= $key ?>-600;
+        @apply bg-<?= $key ?>-<?= $bg ?> border-<?= $key.'-'.$border ?> text-<?=$key?>-50 hover:text-white hover:bg-<?= $key ?>-600;
         @apply ring-<?= $key ?>-900/5 shadow-<?= $key ?>-500/50;
     }
 
@@ -90,7 +91,7 @@
     }
 
     .label-<?= $key ?> {
-        @apply bg-<?= $key ?>-50 border-<?= $key.'-'.$border ?> text-<?= $key ?>-500 hover:text-<?= $key ?>-600;
+        @apply bg-<?= $key ?>-<?= $bgVariant ?> border-<?= $key.'-'.$border ?> text-<?= $key ?>-500 hover:text-<?= $key ?>-600;
         @apply shadow-<?= $key ?>-500/10;
     }
 
@@ -107,10 +108,11 @@ $basicColors = [
 <?php 
     foreach($basicColors as $key => $row) { 
     $text = $basicColors[$key]['text'];
+    $bg = $basicColors[$key]['bg'];
     $border = $basicColors[$key]['border'];
 ?>
     .btn-<?= $key ?> {
-        @apply bg-<?= $key ?> border-<?= $border ?> text-<?= $text ?>;
+        @apply bg-<?=$key?> border-<?=$border?> text-<?=$text?>;
         @apply ring-<?= $key ?>/5 shadow-<?= $key ?>/50;
         &:hover {
             opacity: 0.95;
@@ -141,8 +143,12 @@ $basicColors = [
 }
 .dark {
     .btn-light, .badge-light {
+        color:  <?= $config['light']['light'] ?>;
         background-color: <?= $config['dark']['light'] ?>;
     }
+}
+.btn-transparent {
+    @apply bg-transparent dark:bg-transparent text-gray-500 dark:text-light;
 }
 
 
@@ -152,7 +158,6 @@ $basicColors = [
         @apply bg-transparent border-0 rounded-none;
         position: relative;
         border: none !important;
-        background: transparent;
         // styles for the line between child elements
         &:not(:last-child)::after {
             @apply block absolute;

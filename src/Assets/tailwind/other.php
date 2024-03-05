@@ -79,7 +79,7 @@ svg.svg-icon {
 }
 
 .x-scroll {
-  @apple inline-flex items-center;
+  @apple w-full inline-flex items-center;
   overflow-y: hidden;
    overflow-x: auto;
   white-space: nowrap;
@@ -106,3 +106,4 @@ svg.svg-icon {
     }
   }
 }
+

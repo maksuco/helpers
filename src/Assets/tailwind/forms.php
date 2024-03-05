@@ -2,7 +2,7 @@
 }
 
 .label {
-    @apply flex items-center text-sm tracking-tight py-1 px-1;
+    @apply flex items-center text-sm tracking-tight pb-1.5 px-1 <?= $config['labelCSS'] ?>;
     color: <?= $config['light']['label'] ?>;
 }
 
@@ -26,6 +26,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     @apply bg-<?=$config['formBG']?> <?=$config['formBorder']?> border-<?=$config['formBorderColor']?>;
     @apply text-base focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent;
     font-size: 1.05rem;
+    max-width: 450px;
     @apply autofill:transition-colors autofill:duration-[5000000ms];
 }
 
@@ -469,7 +470,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 //DARK
 .dark {
   .label {
-      //@apply text-<?=$config['labelColorDark']?>;
       color: <?= $config['dark']['label'] ?>;
   }
   .form-basic {

@@ -1,19 +1,14 @@
 .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {
-    @apply w-full relative ring-1 ring-gray-900/5;
-}
-.dark {
-    .box-xxs, .box-xs, .box-sm, .box, .box-lg, .box-xl, .box-xxl {
-        background-color: <?= $config['dark']['box'] ?>;
-    }
+    @apply w-full relative;
 }
 .box-xxs {
-    @apply px-2 pt-1.5 pb-1 md:px-2 md:pt-2 md:pb-1.5 rounded-lg;
+    @apply px-2 pt-1.5 pb-1 md:px-2 md:pt-2 md:pb-1.5 rounded;
 }
 .box-xs {
-    @apply px-2.5 pt-2 pb-1.5 md:px-3 md:pt-3 md:pb-2.5 rounded-xl;
+    @apply px-2.5 pt-2 pb-1.5 md:px-3 md:pt-3 md:pb-2.5 rounded-lg;
 }
 .box-sm {
-    @apply px-4 pt-4 pb-3 md:px-5 md:pt-4 md:pb-4 rounded-2xl;
+    @apply px-4 pt-4 pb-3 md:px-5 md:pt-4 md:pb-4 rounded-xl;
 }
 .box {
     @apply px-5 pt-5 pb-4 md:px-6 md:pt-5 md:pb-5 <?=$config['boxRadius']?>;
@@ -26,6 +21,17 @@
 }
 .box-xxl {
     @apply px-9 pt-9 pb-9 md:px-10 md:pt-10 md:pb-10 rounded-[3rem];
+}
+.box-bg {
+    @apply bg-white dark:bg-slate-950;
+}
+.box-gradient {
+    @apply bg-gradient-to-br from-white to-white/90 to-70%;
+}
+.dark {
+    .box-gradient {
+        @apply bg-gradient-to-br from-slate-900 to-gray-950 to-70%;
+    }
 }
 
 //BENTOS
@@ -143,12 +149,12 @@
 
 
 //STYLES
+.borderline-gradient-blue {
+    @apply bg-gradient-to-tl from-blue-600 via-brand-100/20 to-brand !p-px;
+}
 .bg-frosted {
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    @apply bg-white/20 dark:bg-dark-box/20 backdrop-blur-md;
+    @apply border border-white/30 dark:border-dark-box/30;
 }
 .shadow-panel {
     @apply relative;
@@ -177,4 +183,51 @@
     bottom: var(--distance2, -3.8%);
     opacity: 0.25;
     z-index: -2;
+}
+
+
+//MODAL
+
+.modal {
+  @apply fixed flex justify-center items-center overflow-hidden outline-none inset-0;
+  z-index: 1050;
+  &::before {
+    @apply absolute inset-0 bg-white/10 dark:bg-dark/10 backdrop-blur-lg;
+    content: "";
+  }
+  .modal-dialog {
+    @apply absolute;
+    z-index: 950;
+    .modal-header {
+      @apply flex justify-between py-5 border-0 text-left;
+    }
+    .modal-title {
+      @apply w-auto font-bold pb-3;
+      line-height: 1.1;
+      span {
+        @apply block opacity-70;
+        font-weight: normal;
+        font-size: 1rem;
+      }
+    }
+    .modal-close {
+      @apply absolute top-2 right-2.5 badge badge-light;
+      z-index: 100;
+    }
+    .modal-body {
+      @apply px-1 py-3 text-left;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      max-height: 70vh;
+      //HIDE SCROLL BAR
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;
+      &::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+      }
+    }
+    .modal-footer {
+      @apply flex items-center text-left border-0;
+    }
+  }
 }

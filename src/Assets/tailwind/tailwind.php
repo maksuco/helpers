@@ -1,8 +1,3 @@
-<?php
-include 'functions.php';
-$config = prepareArray($config);
-?>
-
 //:theme {}
 :root {
     --colors-light: <?= $config['light']['bg'] ?>;
@@ -49,6 +44,14 @@ $config = prepareArray($config);
     }
     .grecaptcha-badge {
         visibility: hidden !important;
+    }
+
+    .disabled {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        pointer-events: none;
+        opacity: .95;
     }
 }
 
@@ -181,7 +184,7 @@ $config = prepareArray($config);
     }
 
     .text-gradient {
-        @apply inline-block text-transparent bg-clip-text bg-gradient-to-br from-brand-500 to-brand-300 pr-0.5;
+        @apply inline-block text-transparent dark:text-transparent bg-clip-text bg-gradient-to-br dark:bg-gradient-to-br from-brand-500 to-brand-300 pb-0.5 pr-0.5;
     }
 
     <?php
@@ -189,6 +192,7 @@ $config = prepareArray($config);
     foreach($sizesHelpers as $row) { 
     ?>
         .w-<?= $row ?> { width: <?= $row ?>px; };
+        .min-w-<?= $row ?> { min-width: <?= $row ?>px; };
         .max-w-<?= $row ?> { max-width: <?= $row ?>px; };
         .h-<?= $row ?> { height: <?= $row ?>px; };
         .min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -201,6 +205,7 @@ $config = prepareArray($config);
         .py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
         @screen md {
             .md\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .md\:min-w-<?= $row ?> { min-width: <?= $row ?>px; };
             .md\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .md\:h-<?= $row ?> { height: <?= $row ?>px; };
             .md\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -214,6 +219,7 @@ $config = prepareArray($config);
         }
         @screen lg {
             .lg\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .lg\:min-w-<?= $row ?> { min-width: <?= $row ?>px; };
             .lg\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .lg\:h-<?= $row ?> { height: <?= $row ?>px; };
             .lg\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -227,19 +233,7 @@ $config = prepareArray($config);
         }
     <?php }; ?>
 
-    <?php 
-        include 'utilities.php';
-        include 'btn-badges.php';
-        include 'forms.php';
-        include 'boxes.php';
-        include 'dropdowns.php';
-        include 'other.php';
-        $backend = backendConfig($config);
-        include 'backend.php';
-        include 'components.php';
-        if(!empty($config['extraFile'])){
-            include $config['extraFile'];
-        }
+    <?php
     ?>
 
 }

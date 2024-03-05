@@ -29,6 +29,7 @@ function prepareArray($config){
     $configBase['formText'] = 'gray-500'; //"slate-50"
     $configBase['formTextDark'] = 'gray-200'; //"slate-50"
     $configBase['labelColor'] = $configBase['formText'];
+    $configBase['labelCSS'] = '';
     $configBase['labelColorDark'] = 'gray-300';
     $configBase['formBG'] = 'slate-100'; //"light"
     $configBase['formBGDark'] = 'slate-600'; //"light"
@@ -43,29 +44,29 @@ function prepareArray($config){
     $configBase['dropdownItemsBG'] = 'light'; //"slate-50"
     //COLORES
     $configBase['colors'] = [
-        'brand' => ['text' => 500,'bg' => 500,'border' => 400],
-        'slate' => ['text' => 500,'bg' => 400,'border' => 600],
-        'gray' => ['text' => 500,'bg' => 400,'border' => 600],
-        'zinc' => ['text' => 500,'bg' => 400,'border' => 600],
-        'neutral' => ['text' => 500,'bg' => 400,'border' => 600],
-        'stone' => ['text' => 500,'bg' => 400,'border' => 600],
-        'red' => ['text' => 500,'bg' => 500,'border' => 400],
-        'orange' => ['text' => 500,'bg' => 500,'border' => 400],
-        'amber' => ['text' => 500,'bg' => 500,'border' => 400],
-        'yellow' => ['text' => 500,'bg' => 500,'border' => 400],
-        'lime' => ['text' => 500,'bg' => 500,'border' => 400],
-        'green' => ['text' => 500,'bg' => 500,'border' => 400],
-        'emerald' => ['text' => 500,'bg' => 500,'border' => 400],
-        'teal' => ['text' => 500,'bg' => 500,'border' => 400],
-        'cyan' => ['text' => 500,'bg' => 500,'border' => 400],
-        'sky' => ['text' => 500,'bg' => 500,'border' => 400],
-        'blue' => ['text' => 500,'bg' => 500,'border' => 400],
-        'indigo' => ['text' => 500,'bg' => 500,'border' => 400],
-        'violet' => ['text' => 500,'bg' => 500,'border' => 400],
-        'purple' => ['text' => 500,'bg' => 500,'border' => 400],
-        'fuchsia' => ['text' => 500,'bg' => 500,'border' => 400],
-        'pink' => ['text' => 500,'bg' => 500,'border' => 400],
-        'rose' => ['text' => 500,'bg' => 500,'border' => 400],
+        'brand' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'slate' => ['text' => 500,'bg' => 400,'border' => 600,'bgVariant' => 100],
+        'gray' => ['text' => 500,'bg' => 400,'border' => 600,'bgVariant' => 50],
+        'zinc' => ['text' => 500,'bg' => 400,'border' => 600,'bgVariant' => 50],
+        'neutral' => ['text' => 500,'bg' => 400,'border' => 600,'bgVariant' => 50],
+        'stone' => ['text' => 500,'bg' => 400,'border' => 600,'bgVariant' => 50],
+        'red' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'orange' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 100],
+        'amber' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'yellow' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 100],
+        'lime' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 100],
+        'green' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'emerald' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'teal' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'cyan' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'sky' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'blue' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'indigo' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'violet' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'purple' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'fuchsia' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'pink' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
+        'rose' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
     ];
     //THEME
     $dark = $config['darkColor'] ?? '#101827';

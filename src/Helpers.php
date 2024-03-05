@@ -5,10 +5,32 @@ namespace Maksuco\Helpers;
 class Helpers {
   use Traits\Colors;
 
+  //npx tailwindcss -i ./resources/assets/scss/tw-base.css -o ./public/assets/css/backendTW.css --all --watch --min
 	function tailwindPHP($config = []) {
 		//GET FILES
 		ob_start();
-		include __DIR__ ."/Assets/tailwind/tailwind.php";
+		//error return to before or find way to add @layer(xxx)
+		$dir = __DIR__."/Assets/tailwind/";
+		include $dir.'functions.php';
+		$config = prepareArray($config);
+		include $dir.'tailwind.php';
+
+		echo "@layer components {";
+        include $dir.'utilities.php';
+        include $dir.'btn-badges.php';
+        include $dir.'forms.php';
+        include $dir.'boxes.php';
+        include $dir.'dropdowns.php';
+        include $dir.'other.php';
+        $backend = backendConfig($config);
+        include $dir.'backend.php';
+        include $dir.'components.php';
+        include $dir.'code.php';
+        if(!empty($config['extraFile'])){
+            include '/../../'.$config['extraFile'];
+        }
+        include $dir.'packages/iziToast.scss';
+		echo "}";
 		
 		try {
 			$fileContent = ob_get_clean();
@@ -19,9 +41,9 @@ class Helpers {
 			//SAVE
 			if(!empty($config['path'])) {
 			} elseif(class_exists("Illuminate\Foundation\Application")) {
-				$config['path'] = 'resources/css/tailwind_helpers.css';
+				$config['path'] = 'resources/assets/scss/tw_helpers.css';
 			} else {
-				$config['path'] = 'assets/css/tailwind_helpers.css';
+				$config['path'] = 'assets/css/tw_helpers.css';
 			}
 			file_put_contents($config['path'], $fileContent);
 		} catch (\Exception $e) {

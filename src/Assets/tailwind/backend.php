@@ -31,11 +31,9 @@ main {
 }
 
 
-
-
 //HEADER
 .nav-header {
-  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>];
+  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/20 dark:lg:bg-[#FFFFFF0B] rounded mb-3;
   flex: 0 0 auto;
   .nav-logo {
     @apply hidden flex items-center justify-center w-[55px];
@@ -49,13 +47,13 @@ main {
     }
   }
   .nav-text {
-    @apply flex items-center pl-4;
+    @apply flex items-center pl-2;
     .badge {
       @apply !rounded;
     }
   }
   .nav-top-box {
-    @apply inline-flex items-center gap-2 absolute z-[1] text-right rounded-[<?=$backend['headerRadius']?>] text-gray-500 px-2 py-[5px] right-3 top-2;
+    @apply inline-flex items-center gap-2 fixed lg:relative lg:ml-auto z-[1] text-right rounded-[<?=$backend['headerRadius']?>] text-gray-500 px-2 py-[5px] right-3 top-2.5 lg:top-0;
     @apply bg-white/80;
     .element {
       @apply cursor-pointer flex justify-center items-center text-center w-[30px] h-10 mx-[5px] my-0;
@@ -113,9 +111,8 @@ main {
   }
 }
 .nav-article {
-  @apply min-h-[80vh] max-w-[1330px] pl-0;
-  width: calc(100% - 275px);
-  position: relative;
+  @apply relative w-full min-h-[80vh] pl-0;
+  //width: calc(100% - 275px);
   flex: 1 0 0%;
 }
 @media (min-width: theme('screens.md')) {
@@ -156,11 +153,11 @@ main {
 }
 
 .nav-sidebar-desktop {
-    @apply w-[55px] bg-white dark:bg-white dark:text-gray-500 rounded-lg;
+    @apply w-[55px] bg-white dark:bg-white dark:text-gray-500 rounded-lg mt-1;
     position: sticky;
     position: -webkit-sticky;
     z-index: 1;
-    top: 0;
+    top: 0.5rem;
     .nav-sidebar-content {
       font-size: 0;
       ul {
@@ -227,31 +224,26 @@ main {
 }
 
 //FORCE COMPRESS SIDEBAR
-@media (min-width: theme('screens.md')) {
-  .compressSideBar {
-      .nav-header {
-        .nav-logo {
-          max-width: 55px;
-          padding-left: .8rem;
-          .nav-logo-complete {
-            display: none;
+.compressSideBar {
+  .nav-sidebar-desktop {
+    @apply w-[55px] bg-white dark:bg-white text-gray-500 dark:text-gray-500;
+    .nav-sidebar-content {
+      font-size: 0;
+      ul {
+        li {
+          a {
+            justify-content: center !important;
+            @apply hover:bg-light/70 text-gray-600;
+            svg {
+              @apply mx-0;
+            }
           }
-          .nav-logo-icon {
-            display: block;
-          }
         }
       }
-      .nav-sidebar {
-        .hidden {
-          display: none !important;
-        }
-      }
-      .nav-article {
-        max-width: 100% !important;
-        main {
-          max-width: 100% !important;
-        }
-      }
+    }
+  }
+  .nav-article {
+    @apply lg:pl-8;
   }
 }
 
@@ -362,9 +354,6 @@ footer {
 }
 .search-input input::placeholder {
   @apply text-gray-500 pl-[0.1rem];
-}
-.modal--backdrop {
-  @apply fixed z-[900] bg-light/80 w-full h-full left-0 top-0;
 }
 .search-results {
   @apply fixed z-[99999] w-[90%] max-w-[450px] min-h-[100px] bg-white pt-4 pb-6 px-6 rounded-2xl right-[50px] top-2.5;
