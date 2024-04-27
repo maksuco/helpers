@@ -16,20 +16,25 @@ class Helpers {
 		include $dir.'tailwind.php';
 
 		echo "@layer components {";
-        include $dir.'utilities.php';
-        include $dir.'btn-badges.php';
-        include $dir.'forms.php';
-        include $dir.'boxes.php';
-        include $dir.'dropdowns.php';
-        include $dir.'other.php';
-        $backend = backendConfig($config);
-        include $dir.'backend.php';
-        include $dir.'components.php';
-        include $dir.'code.php';
-        if(!empty($config['extraFile'])){
-            include '/../../'.$config['extraFile'];
-        }
-        include $dir.'packages/iziToast.scss';
+			include $dir.'utilities.php';
+			include $dir.'btn-badges.php';
+			include $dir.'forms.php';
+			include $dir.'boxes.php';
+			include $dir.'dropdowns.php';
+			include $dir.'other.php';
+			$backend = backendConfig($config);
+			include $dir.'backend.php';
+			include $dir.'components.php';
+			include $dir.'code.php';
+			//return $config['extraFiles'];
+			if(!empty($config['extraFiles'])){
+				foreach($config['extraFiles'] as $file){
+					$path = resource_path($file);
+					//return $path;
+					include $path;
+				}
+			}
+			include $dir.'packages/iziToast.scss';
 		echo "}";
 		
 		try {
@@ -41,7 +46,7 @@ class Helpers {
 			//SAVE
 			if(!empty($config['path'])) {
 			} elseif(class_exists("Illuminate\Foundation\Application")) {
-				$config['path'] = 'resources/assets/scss/tw_helpers.css';
+				$config['path'] = 'resources/css/tw_helpers.css';
 			} else {
 				$config['path'] = 'assets/css/tw_helpers.css';
 			}
@@ -111,6 +116,45 @@ class Helpers {
 	
 		$data['result'] = $data['os'].' '.$data['browser'];
 		return $data;
+	}
+
+	//google fonts downloader
+	function gFonts($url, $config=[]) {
+		if(!empty($config['path'])) {
+		} elseif(class_exists("Illuminate\Foundation\Application")) {
+			$config['path'] = 'public/assets/fonts/';
+		} else {
+			$config['path'] = 'assets/fonts/';
+		}
+		$srcPath = (!empty($config['src']))? $config['src'] : '/assets/fonts/';
+		//$cssContent = file_get_contents($url);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+		$cssContent = curl_exec($ch);
+		curl_close($ch);
+		preg_match_all('/@font-face\s*{[^}]*}/', $cssContent, $matches);
+		preg_match("/font-family: '(.*?)'/", $matches[0][0], $name);
+		if(!empty($config['name'])) {
+			$cssContent = str_replace($name[1], $config['name'], $cssContent);
+			$name = $config['name'];
+		} else {
+			$name = str_replace(' ', '', $name[1]);
+		}
+		foreach($matches[0] as $fontFaceRule) {
+			preg_match("/font-style: (.*?);/", $fontFaceRule, $style);
+			preg_match("/font-weight: (.*?);/", $fontFaceRule, $weight);
+			preg_match("/src: url\((.*?)\)/", $fontFaceRule, $src);
+			//get and save
+			$font = file_get_contents($src[1]);
+			$ext = pathinfo($src[1], PATHINFO_EXTENSION);
+			$filename = strtolower($name).'-'.$style[1].'-'.$weight[1].'.'.$ext;
+			file_put_contents($config['path'].$filename, $font);
+			//replace
+			$cssContent = str_replace($src[1], $srcPath.$filename, $cssContent);
+		}
+		file_put_contents($config['path'].strtolower($name).'.css', $cssContent);
+		return $cssContent;
 	}
 	
 	//GET DEVICE AGENT
@@ -674,24 +718,55 @@ function country_continents($countryCode) {
   }
 	
 	//CRYPTO
-	function encrypt($string,$key) {
-		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYX';
+	function encrypt($data,$key) {
+		$data = (is_array($data))? json_encode($data) : $data;
+		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYXasdfpoiu';
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
-		$encrypted = openssl_encrypt($string, "AES-256-CBC", $key, 0, $iv);
+		$encrypted = openssl_encrypt($data, "AES-256-CBC", $key, 0, $iv);
 		$encrypted = strtr($encrypted, "+/", "-_");
 	  return $encrypted;
 	}
-	function decrypt($string,$key) {
-		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYX';
+	function decrypt($string,$key,$array=false) {
+		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYXasdfpoiu';
 		$string = strtr( $string, "-_", "+/");
 		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
 		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
-	  return $decrypted;
+		return $array? json_decode($decrypted, true) : $decrypted;
 	}
 	function lettersToNumbers($string,$phone=false) {
 		$replace = ($phone)? '22233344455566677778889999' : '01122233344455556677788899';
 		$string = strtr(strtoupper($string), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", $replace);
 	  	return $string;
+	}
+	
+	//THINKER
+	function tinker(...$args)
+	{
+		$namedParameters = \Illuminate\Support\Collection::make(debug_backtrace())
+			->where('function', 'tinker')->take(1)
+			->map(function ($slice) {
+				//return (is_array($slice))? array_values($slice) : explode(";&^", $slice);
+				return array_values($slice);
+			})
+			->mapSpread(function ($filePath, $lineNumber, $function, $args) {
+				return file($filePath)[$lineNumber - 1];
+				// "    tinker($post, new User);"
+			})->map(function ($carry) {
+				return \Illuminate\Support\Str::before(\Illuminate\Support\Str::after($carry, 'tinker('), ');');
+				// "$post, new User"
+			})->flatMap(function ($carry) {
+				return array_map('trim', explode(',', $carry));
+				// ["post", "new User"]
+			})->map(function ($carry, $index) {
+				return strpos($carry, '$') === 0
+					? \Illuminate\Support\Str::after($carry, '$')
+					: 'temp'.$index;
+				// ["post", "temp1"]
+			})
+			->combine($args)
+			->all();
+
+		exec('open "tinkerwell://?cwd='.base64_encode(base_path()).'&scope='.base64_encode(serialize($namedParameters)).'"');
 	}
 
 	//GET FILE TYPE

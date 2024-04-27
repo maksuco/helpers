@@ -22,8 +22,8 @@ function prepareArray($config){
     $configBase['btnBorder'] = 'border';
     $configBase['btnBorderColor'] = 'brand-200';
     $configBase['btnBgColor'] = 'gray-400';
-    $configBase['btnPaddingY'] = 2;
-    $configBase['btnPaddingX'] = 5;
+    $configBase['btnPaddingY'] = 1.5;
+    $configBase['btnPaddingX'] = 4;
     $configBase['btnWeight'] = 'normal';
     //FORMS
     $configBase['formText'] = 'gray-500'; //"slate-50"
@@ -101,6 +101,7 @@ function prepareArray($config){
     $configBase['dark']['form-basic-text'] = $configBase['dark']['form-muted-text'] = $configBase['dark']['body'];
     //BACKEND
     $configBase['backend'] = false;
+    $configBase['extraFiles'] = [];
     return array_merge($configBase, $config);
 }
 

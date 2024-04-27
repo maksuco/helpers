@@ -49,11 +49,10 @@
 
 
 //COLOR PICKER
-
 .color-picker {
   @apply block;
   outline: none;
-  z-index: 15;
+  //z-index: 15;
   &:focus {
     outline: none;
   }
@@ -79,7 +78,7 @@
   .color-selected {
     position: relative;
     &:after {
-      @apply absolute z-10 top-[-8px] right-[4px];
+      @apply absolute z-10 !top-[-6px];
       @apply w-1 h-1;
       content: "✅";
       font-size: 0.65em;
@@ -192,7 +191,7 @@
 // }
 
 .title-link {
-  @apply flex items-center w-full text-gray-100 transition-[0.6s] cursor-pointer hover:text-gray-600;
+  @apply flex items-center w-full text-gray-100 transition-none duration-0 cursor-pointer hover:text-gray-600;
 }
 
 $checkout-color: #687189 !default;

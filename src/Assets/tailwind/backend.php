@@ -4,7 +4,7 @@
   @apply bg-[<?=$backend['bg']?>] dark:bg-dark dark:text-light;
 }
 main {
-  @apply relative px-8;
+  @apply relative px-1 md:px-8;
   .rounded-full {
     @apply rounded-[40px];
   }

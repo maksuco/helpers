@@ -36,3 +36,34 @@
   right: unset;
   @apply  left-0 origin-top-left;
 }
+
+
+.anchor-dropdown {
+  @apply z-[150] box-sm shadow-sm shadow-brand/50;
+  opacity: 1;
+  max-width: 300px;
+  outline: none;
+  overflow: hidden;
+  cursor: auto;
+  .x-scroll {
+    max-width: 100%;
+  }
+  .anchorContent {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    max-height: 480px;
+  }
+}
+.anchor-hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  * {
+    opacity: 0;
+  }
+}

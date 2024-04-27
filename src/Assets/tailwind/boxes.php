@@ -69,7 +69,7 @@
 }
 
 .bento-formula-3 {
-    @apply bento-3;
+	@apply grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6;
     .bento-item:nth-child(4) {
         @apply md:col-span-2 md:row-span-2;
     }
@@ -79,7 +79,7 @@
 }
 
 .bento-formula-4 {
-    @apply bento-4;
+	@apply grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6;
     .bento-item:nth-child(1) {
         @apply md:row-span-2;
     }
@@ -98,7 +98,7 @@
 }
 
 .bento-formula-5 {
-    @apply bento-5;
+	@apply grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6;
     .bento-item:nth-child(4) {
         @apply md:col-span-2;
     }
@@ -114,7 +114,7 @@
 }
 
 .bento-formula-10 {
-    @apply bento-10;
+	@apply grid grid-cols-1 md:grid-cols-10 gap-4 md:gap-6;
     .bento-item {
         @apply md:col-span-2;
     }
@@ -195,12 +195,9 @@
     @apply absolute inset-0 bg-white/10 dark:bg-dark/10 backdrop-blur-lg;
     content: "";
   }
-  .modal-dialog {
-    @apply absolute;
+  .modal-container {
+    @apply absolute !p-0 bg-white w-auto overflow-hidden;
     z-index: 950;
-    .modal-header {
-      @apply flex justify-between py-5 border-0 text-left;
-    }
     .modal-title {
       @apply w-auto font-bold pb-3;
       line-height: 1.1;
@@ -215,7 +212,7 @@
       z-index: 100;
     }
     .modal-body {
-      @apply px-1 py-3 text-left;
+      @apply px-5 pt-5 pb-6 md:px-6 md:pt-5 md:pb-7 text-left;
       overflow-y: auto;
       flex: 1 1 auto;
       max-height: 70vh;
@@ -227,7 +224,8 @@
       }
     }
     .modal-footer {
-      @apply flex items-center text-left border-0;
+      @apply flex items-center text-left border-t border-gray-100 bg-gray-50;
+      @apply px-5 py-2 md:px-6 md:py-3;
     }
   }
 }

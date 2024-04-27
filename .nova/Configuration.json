@@ -1,0 +1,4 @@
+{
+  "sciencefidelity.dart.config.enableAnalyzer" : "false",
+  "sciencefidelity.dart.config.formatDocumentOnSave" : "false"
+}

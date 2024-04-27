@@ -26,7 +26,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     @apply bg-<?=$config['formBG']?> <?=$config['formBorder']?> border-<?=$config['formBorderColor']?>;
     @apply text-base focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent;
     font-size: 1.05rem;
-    max-width: 450px;
+    max-width: 550px;
     @apply autofill:transition-colors autofill:duration-[5000000ms];
 }
 
@@ -97,8 +97,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     cursor: pointer;
     border: none;
     @apply flex items-center py-1.5 px-2 gap-x-1;
-    @apply hover:bg-light hover:bg-opacity-90;
-    @apply has-[:checked]:bg-light has-[:checked]:bg-opacity-80;
+    @apply hover:bg-light hover:opacity-90;
     @apply text-<?=$config['labelColor']?> tracking-tight;
     label {
         cursor: pointer;
@@ -108,6 +107,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
       border-radius: inherit;
       @apply h-4 w-5 border-gray-300 focus:ring-indigo-500;
       accent-color: var(--form-color, theme('colors.brand.500'));
+    }
+    &:checked {
+      @apply bg-light/80;
     }
 }
 
@@ -163,7 +165,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .form-switch {
   @apply appearance-none disabled:opacity-50 disabled:pointer-events-none checked:bg-none;
   @apply relative w-[2.8rem] p-px bg-<?=$config['formBG']?> border-transparent rounded-full cursor-pointer transition;
-  @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-dark-input dark:border-<?=$config['formBG']?>;
+  @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-[<?= $config['dark']['form-muted-bg'] ?>] dark:border-<?=$config['formBG']?>;
   @apply before:inline-block before:w-6 before:h-6 before:bg-white before:translate-x-0 checked:before:translate-x-3/4 before:rounded-full before:transform before:transition dark:before:bg-white dark:checked:before:bg-blue-200;
   line-height: .81;
   &:checked{
@@ -484,7 +486,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   }
 
   .form-btn {
-    @apply text-<?=$config['labelColorDark']?> hover:bg-light !bg-opacity-20 has-[:checked]:bg-<?=$config['formBGDark']?>;
+    @apply text-<?=$config['labelColorDark']?> hover:bg-light/20 has-[:checked]:bg-<?=$config['formBGDark']?>;
   }
 
   .form-switch {
@@ -496,7 +498,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     }
   }
   .custom-file-upload {
-      @apply text-<?=$config['labelColorDark']?> bg-opacity-20 border-<?=$config['labelColorDark']?>;
+      @apply text-<?=$config['labelColorDark']?> bg-[<?= $config['light']['bg'] ?>]/20 border-<?=$config['labelColorDark']?>;
       background-color: theme('colors.light');
   }
 }
