@@ -13,9 +13,6 @@ class Helpers {
 		$dir = __DIR__."/Assets/tailwind/";
 		include $dir.'functions.php';
 		$config = prepareArray($config);
-		var_dump($config);
-		$extraFiles = (!is_array($config['extraFiles']))? $config['extraFiles'] : implode(",", $config['extraFiles']);
-		return $extraFiles."////".$config['backend'];
 		include $dir.'tailwind.php';
 
 		echo "@layer components {";
@@ -31,12 +28,11 @@ class Helpers {
 				include $dir.'components.php';
 			}
 			include $dir.'code.php';
-			//return $config['extraFiles'];
 			if(!empty($config['extraFiles'])){
 				$config['extraFiles'] = (is_array($config['extraFiles']))? $config['extraFiles'] : explode(",", $config['extraFiles']);
 				foreach($config['extraFiles'] as $file){
-					$path = resource_path($file);
-					//return $path;
+					//var_dump($file);
+					//$path = resource_path($file);
 					include $path;
 				}
 			}
