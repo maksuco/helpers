@@ -13,6 +13,8 @@ class Helpers {
 		$dir = __DIR__."/Assets/tailwind/";
 		include $dir.'functions.php';
 		$config = prepareArray($config);
+		$extraFiles = (!is_array($config['extraFiles']))? $config['extraFiles'] : implode(",", $config['extraFiles']);
+		return $extraFiles."////".$config['backend'];
 		include $dir.'tailwind.php';
 
 		echo "@layer components {";
