@@ -1,25 +1,37 @@
 //:theme {}
-:root {
-    --colors-light: <?= $config['light']['bg'] ?>;
-    --colors-light-box: <?= $config['light']['box'] ?>;
-    --colors-light-title: <?= $config['light']['title'] ?>;
-    --colors-light-subtitle: <?= $config['light']['subtitle'] ?>;
-    --colors-light-body: <?= $config['light']['body'] ?>;
-    --colors-light-label: <?= $config['light']['label'] ?>;
-    --colors-light-form-basic-bg: <?= $config['light']['form-basic-bg'] ?>;
-    --colors-light-form-basic-border: <?= $config['light']['form-basic-border'] ?>;
-    --colors-light-form-muted-bg: <?= $config['light']['form-muted-bg'] ?>;
-    --colors-light-light: <?= $config['light']['light'] ?>;
-    --colors-dark: <?= $config['dark']['bg'] ?>;
-    --colors-dark-box: <?= $config['dark']['box'] ?>;
-    --colors-dark-title: <?= $config['dark']['title'] ?>;
-    --colors-dark-subtitle: <?= $config['dark']['subtitle'] ?>;
-    --colors-dark-body: <?= $config['dark']['body'] ?>;
-    --colors-dark-label: <?= $config['dark']['label'] ?>;
-    --colors-dark-form-basic-bg: <?= $config['dark']['form-basic-bg'] ?>;
-    --colors-dark-form-basic-border: <?= $config['dark']['form-basic-border'] ?>;
-    --colors-dark-form-muted-bg: <?= $config['dark']['form-muted-bg'] ?>;
-    --colors-dark-light: <?= $config['dark']['light'] ?>;
+@theme {
+    --color-brand: #ac4ffd;
+    --color-brand-50: #faf5ff;
+    --color-brand-100: #f4e7ff;
+    --color-brand-200: #ead3ff;
+    --color-brand-300: #dab1ff;
+    --color-brand-400: #c37fff;
+    --color-brand-500: #ac4ffd;
+    --color-brand-600: #982cf1;
+    --color-brand-700: #8c1fe2;
+    --color-brand-800: #6e1cad;
+    --color-brand-900: #5b188b;
+    --color-brand-950: #3d0368;
+    --color-light: <?= $config['light']['bg'] ?>;
+    --color-light-box: <?= $config['light']['box'] ?>;
+    --color-light-title: <?= $config['light']['title'] ?>;
+    --color-light-subtitle: <?= $config['light']['subtitle'] ?>;
+    --color-light-body: <?= $config['light']['body'] ?>;
+    --color-light-label: <?= $config['light']['label'] ?>;
+    --color-light-form-basic-bg: <?= $config['light']['form-basic-bg'] ?>;
+    --color-light-form-basic-border: <?= $config['light']['form-basic-border'] ?>;
+    --color-light-form-muted-bg: <?= $config['light']['form-muted-bg'] ?>;
+    --color-light-light: <?= $config['light']['light'] ?>;
+    --color-dark: <?= $config['dark']['bg'] ?>;
+    --color-dark-box: <?= $config['dark']['box'] ?>;
+    --color-dark-title: <?= $config['dark']['title'] ?>;
+    --color-dark-subtitle: <?= $config['dark']['subtitle'] ?>;
+    --color-dark-body: <?= $config['dark']['body'] ?>;
+    --color-dark-label: <?= $config['dark']['label'] ?>;
+    --color-dark-form-basic-bg: <?= $config['dark']['form-basic-bg'] ?>;
+    --color-dark-form-basic-border: <?= $config['dark']['form-basic-border'] ?>;
+    --color-dark-form-muted-bg: <?= $config['dark']['form-muted-bg'] ?>;
+    --color-dark-light: <?= $config['dark']['light'] ?>;
 }
 
 @layer base {
@@ -45,6 +57,7 @@
     .grecaptcha-badge {
         visibility: hidden !important;
     }
+
     .disabled {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -98,13 +111,13 @@
         .container, .container-min, .container-max, .container-full {
         }
         .container {
-            @apply max-w-screen-xl;
+            @apply max-w-xl;
         }
         .container-min {
-            @apply max-w-screen-lg;
+            @apply max-w-lg;
         }
         .container-max {
-            @apply max-w-screen-2xl;
+            @apply max-w-2xl;
         }
         .md\:absolute-tl, .md\:absolute-tc, .md\:absolute-tr {
             @apply absolute top-0;
@@ -138,37 +151,32 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply leading-tight tracking-tighter lg:leading-[1.1] <?= $config['headingColor'] ?>;
+        @apply leading-tight tracking-tighter lg:leading-[1.1];
+        color: <?= $config['light']['title'] ?>;
     }
 
     h1 {
         @apply font-<?= $config['headingFont1'] ?> <?= $config['headingSize1'] ?>;
-        font-weight: <?= $config['headingWeight1'] ?>;
     }
 
     h2 {
-        @apply font-<?= $config['headingFont2'] ?> <?= $config['headingSize2'] ?>;
-        font-weight: <?= $config['headingWeight2'] ?>;
+        @apply font-<?= $config['headingFont2'] ?> font-<?= $config['headingWeight2'] ?> <?= $config['headingSize2'] ?>;
     }
 
     h3 {
-        @apply font-<?= $config['headingFont3'] ?> <?= $config['headingSize3'] ?>;
-        font-weight: <?= $config['headingWeight3'] ?>;
+        @apply font-<?= $config['headingFont3'] ?> font-<?= $config['headingWeight3'] ?> <?= $config['headingSize3'] ?>;
     }
 
     h4 {
-        @apply font-<?= $config['headingFont4'] ?> <?= $config['headingSize4'] ?>;
-        font-weight: <?= $config['headingWeight4'] ?>;
+        @apply font-<?= $config['headingFont4'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize4'] ?>;
     }
 
     h5 {
-        @apply font-<?= $config['headingFont5'] ?> <?= $config['headingSize5'] ?>;
-        font-weight: <?= $config['headingWeight5'] ?>;
+        @apply font-<?= $config['headingFont5'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize5'] ?>;
     }
 
     h6 {
-        @apply font-<?= $config['headingFont6'] ?> <?= $config['headingSize6'] ?>;
-        font-weight: <?= $config['headingWeight6'] ?>;
+        @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> <?= $config['headingSize6'] ?>;
     }
     .text-muted {
         @apply opacity-95 tracking-tight uppercase;
@@ -188,7 +196,7 @@
     }
 
     .text-gradient {
-        @apply inline-block text-transparent bg-clip-text bg-gradient-to-br from-brand-500 to-brand-300 pr-0.5;
+        @apply inline-block text-transparent dark:text-transparent bg-clip-text bg-gradient-to-br dark:bg-gradient-to-br from-brand-500 to-brand-300 pb-0.5 pr-0.5;
     }
 
     <?php
@@ -196,6 +204,7 @@
     foreach($sizesHelpers as $row) { 
     ?>
         .w-<?= $row ?> { width: <?= $row ?>px; };
+        .min-w-<?= $row ?> { min-width: <?= $row ?>px; };
         .max-w-<?= $row ?> { max-width: <?= $row ?>px; };
         .h-<?= $row ?> { height: <?= $row ?>px; };
         .min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -208,6 +217,7 @@
         .py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
         @screen md {
             .md\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .md\:min-w-<?= $row ?> { min-width: <?= $row ?>px; };
             .md\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .md\:h-<?= $row ?> { height: <?= $row ?>px; };
             .md\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -221,6 +231,7 @@
         }
         @screen lg {
             .lg\:w-<?= $row ?> { width: <?= $row ?>px; };
+            .lg\:min-w-<?= $row ?> { min-width: <?= $row ?>px; };
             .lg\:max-w-<?= $row ?> { max-width: <?= $row ?>px; };
             .lg\:h-<?= $row ?> { height: <?= $row ?>px; };
             .lg\:min-h-<?= $row ?> { min-height: <?= $row ?>px; };
@@ -233,5 +244,8 @@
             .lg\:py-<?= $row ?> { padding-top: <?= $row ?>px; padding-bottom: <?= $row ?>px; };
         }
     <?php }; ?>
+
+    <?php
+    ?>
 
 }

@@ -22,9 +22,11 @@ class Helpers {
 			include $dir.'boxes.php';
 			include $dir.'dropdowns.php';
 			include $dir.'other.php';
-			$backend = backendConfig($config);
-			include $dir.'backend.php';
-			include $dir.'components.php';
+			if($config['backend']==true){
+				$backend = backendConfig($config);
+				include $dir.'backend.php';
+				include $dir.'components.php';
+			}
 			include $dir.'code.php';
 			//return $config['extraFiles'];
 			if(!empty($config['extraFiles'])){
