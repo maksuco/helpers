@@ -30,6 +30,7 @@ class Helpers {
 			include $dir.'code.php';
 			//return $config['extraFiles'];
 			if(!empty($config['extraFiles'])){
+				$config['extraFiles'] = (is_array($config['extraFiles']))? $config['extraFiles'] : explode(",", $config['extraFiles']);
 				foreach($config['extraFiles'] as $file){
 					$path = resource_path($file);
 					//return $path;
