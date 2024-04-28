@@ -1,47 +1,5 @@
 <?php
 function prepareArray($config){
-    //HEADINGS
-    $configBase['headingFont'] = 'sans';
-    $configBase['headingWeight'] = 'bold';
-    $configBase['extraFile'] = false;
-    for ($i = 1; $i <= 6; $i++) {
-        $configBase["headingFont{$i}"] = $configBase['headingFont'];
-        $configBase["headingWeight{$i}"] = $configBase['headingWeight'];
-    }
-    $configBase["headingSize1"] = "text-5xl md:text-6xl lg:text-7xl";
-    $configBase["headingSize2"] = "text-4xl md:text-5xl lg:text-6xl";
-    $configBase["headingSize3"] = "text-3xl md:text-4xl lg:text-5xl";
-    $configBase["headingSize4"] = "text-2xl md:text-3xl lg:text-4xl";
-    $configBase["headingSize5"] = "text-xl md:text-2xl lg:text-3xl";
-    $configBase["headingSize6"] = "text-lg md:text-xl lg:text-2xl";
-    //BTN
-    $configBase['btnRadius'] = 'rounded';
-    $configBase['badgeRadius'] = 'rounded-full';
-    $configBase['btnShadow'] = '';
-    $configBase['btnRing'] = '';
-    $configBase['btnBorder'] = 'border';
-    $configBase['btnBorderColor'] = 'brand-200';
-    $configBase['btnBgColor'] = 'gray-400';
-    $configBase['btnPaddingY'] = 1.5;
-    $configBase['btnPaddingX'] = 4;
-    $configBase['btnWeight'] = 'normal';
-    //FORMS
-    $configBase['formText'] = 'gray-500'; //"slate-50"
-    $configBase['formTextDark'] = 'gray-200'; //"slate-50"
-    $configBase['labelColor'] = $configBase['formText'];
-    $configBase['labelCSS'] = '';
-    $configBase['labelColorDark'] = 'gray-300';
-    $configBase['formBG'] = 'slate-100'; //"light"
-    $configBase['formBGDark'] = 'slate-600'; //"light"
-    $configBase['formBorder'] = 'border';
-    $configBase['formBorderColor'] = 'gray-300';
-    $configBase['formBorderColorDark'] = 'gray-500';
-    //BOXES
-    $configBase['boxRadius'] = 'rounded-3xl';
-    //DROPDOWN
-    $configBase['dropdownRadius'] = 'rounded-xl';
-    $configBase['dropdownTextColor'] = 'gray';
-    $configBase['dropdownItemsBG'] = 'light'; //"slate-50"
     //COLORES
     $configBase['colors'] = [
         'brand' => ['text' => 500,'bg' => 500,'border' => 400,'bgVariant' => 50],
@@ -99,6 +57,49 @@ function prepareArray($config){
         'light' => $hex->lighten(10)->desaturate(15)
     ];
     $configBase['dark']['form-basic-text'] = $configBase['dark']['form-muted-text'] = $configBase['dark']['body'];
+    $configBase['extraFile'] = false;
+    //HEADINGS
+    $configBase['headingColor'] = 'text-['.$configBase['light']['title'].']';
+    $configBase['headingFont'] = 'sans';
+    $configBase['headingWeight'] = 'bold';
+    for ($i = 1; $i <= 6; $i++) {
+        $configBase["headingFont{$i}"] = $config['headingFont'] ?? $configBase['headingFont'];
+        $configBase["headingWeight{$i}"] = $config['headingWeight'] ?? $configBase['headingWeight'];
+    }
+    $configBase["headingSize1"] = "text-5xl md:text-6xl lg:text-7xl";
+    $configBase["headingSize2"] = "text-4xl md:text-5xl lg:text-6xl";
+    $configBase["headingSize3"] = "text-3xl md:text-4xl lg:text-5xl";
+    $configBase["headingSize4"] = "text-2xl md:text-3xl lg:text-4xl";
+    $configBase["headingSize5"] = "text-xl md:text-2xl lg:text-3xl";
+    $configBase["headingSize6"] = "text-lg md:text-xl lg:text-2xl";
+    //BTN
+    $configBase['btnRadius'] = 'rounded';
+    $configBase['badgeRadius'] = 'rounded-full';
+    $configBase['btnShadow'] = '';
+    $configBase['btnRing'] = '';
+    $configBase['btnBorder'] = 'border';
+    $configBase['btnBorderColor'] = 'brand-200';
+    $configBase['btnBgColor'] = 'gray-400';
+    $configBase['btnPaddingY'] = 1.5;
+    $configBase['btnPaddingX'] = 4;
+    $configBase['btnWeight'] = 'normal';
+    //FORMS
+    $configBase['formText'] = 'gray-500'; //"slate-50"
+    $configBase['formTextDark'] = 'gray-200'; //"slate-50"
+    $configBase['labelColor'] = $configBase['formText'];
+    $configBase['labelCSS'] = '';
+    $configBase['labelColorDark'] = 'gray-300';
+    $configBase['formBG'] = 'slate-100'; //"light"
+    $configBase['formBGDark'] = 'slate-600'; //"light"
+    $configBase['formBorder'] = 'border';
+    $configBase['formBorderColor'] = 'gray-300';
+    $configBase['formBorderColorDark'] = 'gray-500';
+    //BOXES
+    $configBase['boxRadius'] = 'rounded-3xl';
+    //DROPDOWN
+    $configBase['dropdownRadius'] = 'rounded-xl';
+    $configBase['dropdownTextColor'] = 'gray';
+    $configBase['dropdownItemsBG'] = 'light'; //"slate-50"
     //BACKEND
     $configBase['backend'] = false;
     $configBase['extraFiles'] = [];

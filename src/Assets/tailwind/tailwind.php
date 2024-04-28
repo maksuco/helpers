@@ -138,32 +138,37 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply leading-tight tracking-tighter lg:leading-[1.1];
-        color: <?= $config['light']['title'] ?>;
+        @apply leading-tight tracking-tighter lg:leading-[1.1] <?= $config['headingColor'] ?>;
     }
 
     h1 {
-        @apply font-<?= $config['headingFont1'] ?> font-<?= $config['headingWeight1'] ?> <?= $config['headingSize1'] ?>;
+        @apply font-<?= $config['headingFont1'] ?> <?= $config['headingSize1'] ?>;
+        font-weight: <?= $config['headingWeight1'] ?>;
     }
 
     h2 {
         @apply font-<?= $config['headingFont2'] ?> font-<?= $config['headingWeight2'] ?> <?= $config['headingSize2'] ?>;
+        font-weight: <?= $config['headingWeight2'] ?>;
     }
 
     h3 {
         @apply font-<?= $config['headingFont3'] ?> font-<?= $config['headingWeight3'] ?> <?= $config['headingSize3'] ?>;
+        font-weight: <?= $config['headingWeight3'] ?>;
     }
 
     h4 {
         @apply font-<?= $config['headingFont4'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize4'] ?>;
+        font-weight: <?= $config['headingWeight4'] ?>;
     }
 
     h5 {
         @apply font-<?= $config['headingFont5'] ?> font-<?= $config['headingWeight4'] ?> <?= $config['headingSize5'] ?>;
+        font-weight: <?= $config['headingWeight5'] ?>;
     }
 
     h6 {
         @apply font-<?= $config['headingFont6'] ?> font-<?= $config['headingWeight6'] ?> <?= $config['headingSize6'] ?>;
+        font-weight: <?= $config['headingWeight6'] ?>;
     }
     .text-muted {
         @apply opacity-95 tracking-tight uppercase;
