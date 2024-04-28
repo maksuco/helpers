@@ -33,7 +33,7 @@ class Helpers {
 				foreach($config['extraFiles'] as $file){
 					//var_dump($file);
 					//$path = resource_path($file);
-					include $path;
+					include $file;
 				}
 			}
 			include $dir.'packages/iziToast.scss';
