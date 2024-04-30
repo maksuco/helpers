@@ -114,7 +114,7 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        .md\:absolute-tr { right: 0; }
+        .md\:absolute-tr { right: 0; transform: none; }
         .md\:absolute-cl, .md\:absolute-c, .md\:absolute-cr {
             @apply absolute;
             top: 50%;
