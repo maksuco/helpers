@@ -122,7 +122,7 @@ $basicColors = [
     }
 
     .btn-<?= $key ?>-outline {
-        @apply border-<?= $text ?> text-<?= $text ?>;
+        @apply border-<?= $bg ?> text-<?= $bg ?>;
         @apply ring-<?= $key ?>/5 shadow-<?= $key ?>/50;
         &:hover {
             opacity: 0.95;
