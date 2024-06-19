@@ -1,6 +1,6 @@
 //:theme {}
 :root {
-    --colors-light: <?= $config['light']['bg'] ?>;
+    --colors-light: <?= $config['light']['bg'] ?>; 
     --colors-light-box: <?= $config['light']['box'] ?>;
     --colors-light-title: <?= $config['light']['title'] ?>;
     --colors-light-subtitle: <?= $config['light']['subtitle'] ?>;
@@ -10,6 +10,17 @@
     --colors-light-form-basic-border: <?= $config['light']['form-basic-border'] ?>;
     --colors-light-form-muted-bg: <?= $config['light']['form-muted-bg'] ?>;
     --colors-light-light: <?= $config['light']['light'] ?>;
+    
+    --colors-bg: <?= $config['bg'] ?>;
+    --colors-box: <?= $config['box'] ?>
+    --colors-title: <?= $config['title'] ?>;
+    --colors-subtitle: <?= $config['subtitle'] ?>;
+    --colors-body: <?= $config['body'] ?>;
+    --colors-label: <?= $config['label'] ?>;
+    --colors-form-basic-bg: <?= $config['form-basic-bg'] ?>;
+    --colors-form-basic-border: <?= $config['form-basic-border'] ?>;
+    --colors-form-muted-bg: <?= $config['form-muted-bg'] ?>;
+    
     --colors-dark: <?= $config['dark']['bg'] ?>;
     --colors-dark-box: <?= $config['dark']['box'] ?>;
     --colors-dark-title: <?= $config['dark']['title'] ?>;
@@ -28,8 +39,8 @@
     }
     body {
         @apply antialiased;
-        color: <?= $config['light']['body'] ?>;
-        background-color: <?= $config['light']['bg'] ?>;
+        color: <?= $config['body'] ?>;
+        background-color: <?= $config['bg'] ?>;
     }
     .dark {
         color: <?= $config['dark']['body'] ?>;
@@ -93,6 +104,8 @@
         transform: translateX(-50%);
     }
     .absolute-br { right: 0; }
+    
+    .absolute-full { top: 0; bottom: 0; left: 0; right: 0; }
 
     @screen md {
         .container, .container-min, .container-max, .container-full {
@@ -135,6 +148,7 @@
             transform: translateX(-50%);
         }
         .md\:absolute-br { right: 0; }
+        .md\:absolute-full { top: 0; bottom: 0; left: 0; right: 0; }
     }
 
     h1, h2, h3, h4, h5, h6 {

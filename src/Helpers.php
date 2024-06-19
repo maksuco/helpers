@@ -3,61 +3,8 @@
 namespace Maksuco\Helpers;
 
 class Helpers {
-  use Traits\Colors;
-
-  //npx tailwindcss -i ./resources/assets/scss/tw-base.css -o ./public/assets/css/backendTW.css --all --watch --min
-	function tailwindPHP($config = []) {
-		//GET FILES
-		ob_start();
-		//error return to before or find way to add @layer(xxx)
-		$dir = __DIR__."/Assets/tailwind/";
-		include $dir.'functions.php';
-		$config = prepareArray($config);
-		include $dir.'tailwind.php';
-
-		echo "@layer components {";
-			include $dir.'utilities.php';
-			include $dir.'btn-badges.php';
-			include $dir.'forms.php';
-			include $dir.'boxes.php';
-			include $dir.'dropdowns.php';
-			include $dir.'other.php';
-			if($config['backend']==true){
-				$backend = backendConfig($config);
-				include $dir.'backend.php';
-				include $dir.'components.php';
-			}
-			include $dir.'code.php';
-			if(!empty($config['extraFiles'])){
-				$config['extraFiles'] = (is_array($config['extraFiles']))? $config['extraFiles'] : explode(",", $config['extraFiles']);
-				foreach($config['extraFiles'] as $file){
-					//var_dump($file);
-					//$path = resource_path($file);
-					include $file;
-				}
-			}
-			include $dir.'packages/iziToast.scss';
-		echo "}";
-		
-		try {
-			$fileContent = ob_get_clean();
-			//SCSS
-			$scss = new \ScssPhp\ScssPhp\Compiler();
-			$css = $scss->compile($fileContent);
-			$fileContent = str_replace('@charset "UTF-8";', '', $css);
-			//SAVE
-			if(!empty($config['path'])) {
-			} elseif(class_exists("Illuminate\Foundation\Application")) {
-				$config['path'] = 'resources/css/tw_helpers.css';
-			} else {
-				$config['path'] = 'assets/css/tw_helpers.css';
-			}
-			file_put_contents($config['path'], $fileContent);
-		} catch (\Exception $e) {
-			return 'Error: '.$e->getMessage();
-		}
-		return $fileContent;
-	}
+	use Traits\Colors;
+	use Traits\Tailwind;
 	
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
@@ -739,36 +686,6 @@ function country_continents($countryCode) {
 		$replace = ($phone)? '22233344455566677778889999' : '01122233344455556677788899';
 		$string = strtr(strtoupper($string), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", $replace);
 	  	return $string;
-	}
-	
-	//THINKER
-	function tinker(...$args)
-	{
-		$namedParameters = \Illuminate\Support\Collection::make(debug_backtrace())
-			->where('function', 'tinker')->take(1)
-			->map(function ($slice) {
-				//return (is_array($slice))? array_values($slice) : explode(";&^", $slice);
-				return array_values($slice);
-			})
-			->mapSpread(function ($filePath, $lineNumber, $function, $args) {
-				return file($filePath)[$lineNumber - 1];
-				// "    tinker($post, new User);"
-			})->map(function ($carry) {
-				return \Illuminate\Support\Str::before(\Illuminate\Support\Str::after($carry, 'tinker('), ');');
-				// "$post, new User"
-			})->flatMap(function ($carry) {
-				return array_map('trim', explode(',', $carry));
-				// ["post", "new User"]
-			})->map(function ($carry, $index) {
-				return strpos($carry, '$') === 0
-					? \Illuminate\Support\Str::after($carry, '$')
-					: 'temp'.$index;
-				// ["post", "temp1"]
-			})
-			->combine($args)
-			->all();
-
-		exec('open "tinkerwell://?cwd='.base64_encode(base_path()).'&scope='.base64_encode(serialize($namedParameters)).'"');
 	}
 
 	//GET FILE TYPE

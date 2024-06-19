@@ -9,6 +9,42 @@
 input[type="checkbox"], input[type="radio"] {
     accent-color: var(--form-color, theme('colors.brand.500'));
 }
+.form-checkbox {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  background-color: theme('colors.light');
+  border-radius: 0.25em;
+  transition: all 0.25s;
+  &:checked ~ .form-checkbox {
+    background-color: var(--form-color, theme('colors.brand.500'));
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    transform: rotate(0deg);
+    border: 0.1em solid theme('colors.light');
+    left: 0;
+    top: 0;
+    width: 1.05em;
+    height: 1.05em;
+    border-radius: 0.25em;
+    transition: all 0.25s, border-width 0.1s;
+  }
+  &:checked ~ &:after {
+    left: 0.45em;
+    top: 0.25em;
+    width: 0.25em;
+    height: 0.5em;
+    border-color: #fff0 white white #fff0;
+    border-width: 0 0.15em 0.15em 0;
+    border-radius: 0em;
+    transform: rotate(45deg);
+  }
+}
+
 input[type='select'], select {
     @apply !appearance-none;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");

@@ -29,6 +29,16 @@ function prepareArray($config){
     //THEME
     $dark = $config['darkColor'] ?? '#101827';
     $hex = new \OzdemirBurak\Iris\Color\Hex($dark);
+    $configBase['bg'] = $hex->lighten(96)->desaturate(15);
+    $configBase['box'] = $hex->lighten(97)->desaturate(5);
+    $configBase['title'] = $hex->shade(10);
+    $configBase['subtitle'] = $hex->lighten(50)->desaturate(35)->tint(5);
+    $configBase['body'] = $hex->lighten(25)->desaturate(17)->darken(4);
+    $configBase['label'] = $hex->lighten(15)->saturate(20)->tint(40);
+    $configBase['form-basic-bg'] = '#ffffff';
+    $configBase['form-basic-border'] = $hex->lighten(50)->tint(70);
+    $configBase['form-muted-bg'] = $hex->lighten(85);
+
     $configBase['light'] = [
         'bg' => $hex->lighten(96)->desaturate(15),
         'box' => $hex->lighten(97)->desaturate(5),
@@ -82,6 +92,7 @@ function prepareArray($config){
     $configBase['btnPaddingY'] = 1.5;
     $configBase['btnPaddingX'] = 4;
     $configBase['btnWeight'] = 'normal';
+    $configBase['btnExtras'] = '';
     //FORMS
     $configBase['formText'] = 'gray-500'; //"slate-50"
     $configBase['formTextDark'] = 'gray-200'; //"slate-50"

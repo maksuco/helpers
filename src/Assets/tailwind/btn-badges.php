@@ -4,7 +4,7 @@
     @apply select-none inline-flex items-center justify-center <?=$config['btnRadius']?> font-<?=$config['btnWeight']?> transition;
     @apply disabled:pointer-events-none disabled:opacity-60;
     @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem] px-[<?=$config['btnPaddingX'] * 0.25 ?>rem];
-    @apply <?=$config['btnBorder']?> <?=$config['btnRing']?> <?=$config['btnShadow']?>;
+    @apply <?=$config['btnBorder']?> <?=$config['btnRing']?> <?=$config['btnShadow']?> <?=$config['btnExtras']?>;
     .svg-icon {
         @apply w-[1.2em] h-[1.2em];
     }
