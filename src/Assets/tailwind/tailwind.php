@@ -105,7 +105,7 @@
     }
     .absolute-br { right: 0; }
     
-    .absolute-full { top: 0; bottom: 0; left: 0; right: 0; }
+    .absolute-full { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 
     @screen md {
         .container, .container-min, .container-max, .container-full {
@@ -148,7 +148,7 @@
             transform: translateX(-50%);
         }
         .md\:absolute-br { right: 0; }
-        .md\:absolute-full { top: 0; bottom: 0; left: 0; right: 0; }
+        .md\:absolute-full { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
     }
 
     h1, h2, h3, h4, h5, h6 {
