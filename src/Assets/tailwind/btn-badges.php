@@ -20,12 +20,6 @@
   }
 }
 
-@screen md {
-  .md\:btn-block {
-    width: 100%;
-  }
-}
-
 .badge {
     width: fit-content;
     @apply select-none inline-flex justify-center items-center text-sm <?=$config['badgeRadius']?> font-semibold line-clamp-1 py-1 px-2.5;
@@ -33,6 +27,33 @@
         @apply w-[1.1em] h-[1.1em];
     }
 }
+.badge-xxs {
+  --btn-px: 0.25rem;
+    font-size: 0.68rem;
+    line-height: 1rem;
+    @apply py-px px-1;
+}
+.badge-xs {
+  --btn-px: 0.375rem;
+  @apply text-xs py-0.5 px-1.5;
+}
+.badge-sm {
+  --btn-px: 0.5rem;
+    @apply text-sm py-1 px-2;
+}
+.badge-base {
+  --btn-px: 0.625rem;
+    @apply text-base py-1 px-2.5;
+}
+.badge-lg {
+  --btn-px: 1rem;
+    @apply text-lg py-1.5 px-4;
+}
+.badge-xl {
+  --btn-px: 1.5rem;
+    @apply text-xl py-2.5 px-6;
+}
+
 
 .btn-xxs {
     @apply text-xs py-0.5 px-1.5;
@@ -44,6 +65,9 @@
 .btn-sm {
     @apply text-sm py-[<?= minPadding($config['btnPaddingY'],1,0.2) ?>rem] px-[<?= minPadding($config['btnPaddingX'],3,0.35,2.2) ?>rem];
 }
+.btn-base {
+    @apply text-base py-[<?=$config['btnPaddingY'] * 0.25 ?>rem] px-[<?=$config['btnPaddingX'] * 0.25 ?>rem];
+}
 .btn-lg {
     @apply text-lg py-[<?=($config['btnPaddingY'] + 0.4) * 0.25 ?>rem] px-[<?=($config['btnPaddingX'] + 2) * 0.25 ?>rem];
 }
@@ -53,24 +77,6 @@
 .btn-2xl {
     @apply text-2xl py-[<?=($config['btnPaddingY'] + 1.3) * 0.25 ?>rem] px-[<?=($config['btnPaddingX'] + 3.2) * 0.25 ?>rem];
 }
-.badge-xxs {
-    padding: 0 0.65rem;
-    font-size: 0.68rem;
-    line-height: 1rem;
-}
-.badge-xs {
-    @apply text-xs py-0.5 px-1.5;
-}
-.badge-sm {
-    @apply text-sm py-1 px-3;
-}
-.badge-lg {
-    @apply text-lg py-1.5 px-4;
-}
-.badge-xl {
-    @apply text-xl py-2.5 px-6;
-}
-
 
 
 <?php 
@@ -116,25 +122,19 @@ $basicColors = [
     .btn-<?= $key ?> {
         @apply bg-<?=$key?> border-<?=$border?> text-<?=$text?>;
         @apply ring-<?= $key ?>/5 shadow-<?= $key ?>/50;
-        &:hover {
-            opacity: 0.95;
-        }
+        @apply hover:bg-<?= $key ?>/90;
     }
 
     .btn-<?= $key ?>-outline {
         @apply border-<?= $bg ?> text-<?= $bg ?>;
         @apply ring-<?= $key ?>/5 shadow-<?= $key ?>/50;
-        &:hover {
-            opacity: 0.95;
-        }
+        @apply hover:border-<?= $key ?>/90;
     }
 
     .label-<?= $key ?> {
         @apply bg-<?= $key ?> border-<?= $key ?> text-<?= $text ?>;
         @apply shadow-<?= $key ?>/10;
-        &:hover {
-            opacity: 0.95;
-        }
+        @apply hover:bg-<?= $key ?>/90;
     }
 
 <?php } ?>

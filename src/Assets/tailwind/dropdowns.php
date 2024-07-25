@@ -9,6 +9,7 @@
   .dropdown-item {
     @apply flex items-center gap-x-2 text-<?=$config['dropdownTextColor']?>-700 block mx-1 py-1.5 px-2 <?=$config['btnRadius']?> hover:bg-<?=$config['dropdownItemsBG']?>;
     font-size: 0.92rem;
+    cursor: pointer;
   }
 
   .dropdown-container {

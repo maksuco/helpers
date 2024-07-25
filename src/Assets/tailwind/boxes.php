@@ -65,7 +65,7 @@
 
 .bento-item {
     @apply row-span-1;
-    min-height: 200px;
+    min-height: 150px;
 }
 
 .bento-formula-3 {
@@ -192,11 +192,12 @@
   @apply fixed flex justify-center items-center overflow-hidden outline-none inset-0;
   z-index: 1050;
   &::before {
-    @apply absolute inset-0 bg-white/10 dark:bg-dark/10 backdrop-blur-lg;
+    @apply absolute inset-0 bg-white/20 dark:bg-dark/20;
+    backdrop-filter: var(--backdrop-effect, blur(2px));
     content: "";
   }
   .modal-container {
-    @apply absolute !p-0 bg-white w-auto overflow-hidden;
+    @apply relative !p-0 bg-white w-auto overflow-hidden border-2 border-dark/5;
     z-index: 950;
     .modal-title {
       @apply w-auto font-bold pb-3;

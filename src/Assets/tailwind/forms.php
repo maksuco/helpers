@@ -44,6 +44,41 @@ input[type="checkbox"], input[type="radio"] {
     transform: rotate(45deg);
   }
 }
+.form-check {
+  --selected: 0;
+  --check-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  display: grid;
+  grid-template-columns: auto calc(var(--selected) * 20px);
+  align-items: center;
+  border: var(--btn-border, 1px) solid currentColor;
+  transition: all 0.25s ease-out;
+  input {
+    display: none;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 1em;
+    height: 1em;
+    margin-left: 0.3em;
+    opacity: var(--selected);
+    background-image: var(--check-svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform-origin: center;
+    transform: scale(0);
+    transition: all 0.3s ease-out;
+  }
+  &:has(:checked) { 
+    --selected: 1;
+    @apply bg-brand/80 border-brand text-white;
+    padding-right: calc(var(--px, var(--btn-px)) * 0.95);
+    &::after {
+      transform: scale(0.9);
+    }
+  }
+}
 
 input[type='select'], select {
     @apply !appearance-none;
@@ -179,6 +214,15 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   input {
     display: none;
   }
+  &.btn-xs::after {
+    font-size: 0.5rem;
+  }
+  &.btn-sm::after {
+    font-size: 0.55rem;
+  }
+  &.btn-lg::after, &.btn-lg::after {
+    font-size: 0.65rem;
+  }
 }
 
 
@@ -201,7 +245,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .form-switch {
   @apply appearance-none disabled:opacity-50 disabled:pointer-events-none checked:bg-none;
   @apply relative w-[2.8rem] p-px bg-<?=$config['formBG']?> border-transparent rounded-full cursor-pointer transition;
-  @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-[<?= $config['dark']['form-muted-bg'] ?>] dark:border-<?=$config['formBG']?>;
+  @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-[<?= $config['formBG'] ?>] dark:border-<?=$config['formBG']?>;
   @apply before:inline-block before:w-6 before:h-6 before:bg-white before:translate-x-0 checked:before:translate-x-3/4 before:rounded-full before:transform before:transition dark:before:bg-white dark:checked:before:bg-blue-200;
   line-height: .81;
   &:checked{

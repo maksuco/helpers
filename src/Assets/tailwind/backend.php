@@ -33,7 +33,7 @@ main {
 
 //HEADER
 .nav-header {
-  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/20 dark:lg:bg-[#FFFFFF0B] rounded mb-3;
+  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/20 dark:lg:bg-[#FFFFFF0B] rounded mb-3 z-10;
   flex: 0 0 auto;
   .nav-logo {
     @apply hidden flex items-center justify-center w-[55px];
@@ -53,10 +53,10 @@ main {
     }
   }
   .nav-top-box {
-    @apply inline-flex items-center gap-2 fixed lg:relative lg:ml-auto z-[1] text-right rounded-[<?=$backend['headerRadius']?>] text-gray-500 px-2 py-[5px] right-3 top-2.5 lg:top-0;
+    @apply inline-flex items-center gap-1 fixed lg:relative lg:ml-auto z-[1] text-right rounded-[<?=$backend['headerRadius']?>] text-gray-500 px-2 py-[5px] right-3 top-2.5 lg:top-0;
     @apply bg-white/80;
-    .element {
-      @apply cursor-pointer flex justify-center items-center text-center w-[30px] h-10 mx-[5px] my-0;
+    .nav-element {
+      @apply cursor-pointer flex justify-center items-center text-center w-[30px] h-10 ml-[4px] my-0;
     }
     img {
       @apply cursor-pointer w-10 h-10 border border-light;
@@ -104,8 +104,8 @@ main {
     }
     .nav-top-box {
       @apply right-2;
-      .element {
-        @apply mx-1 my-0;
+      .nav-element {
+        @apply ml-1 my-0;
       }
     }
   }
@@ -132,13 +132,13 @@ main {
   .nav-sidebar-content {
     @apply relative clear-both p-1;
     ul {
-      @apply w-full align-middle space-y-1;
+      @apply w-full align-middle space-y-0;
       list-style: none;
       li {
-        @apply my-[0.1rem] leading-[0] py-[0.25rem];
+        @apply leading-[0] py-[0.23rem];
         a {
           @apply relative font-normal flex lg:justify-center xl:justify-start items-center no-underline w-full <?=$config['btnRadius']?> opacity-80 px-[0.8rem] py-[0.6rem];
-          @apply hover:opacity-100 hover:bg-light/70;
+          @apply hover:opacity-100 hover:bg-white/80;
           line-height: 1.05;
         }
         svg {
@@ -171,7 +171,7 @@ main {
 }
 
 .nav-sidebar-mobile {
-  @apply !fixed top-3 w-full max-w-[330px] bg-white dark:bg-white shadow-2xl rounded-xl px-2 pt-4 pb-5;
+  @apply !fixed top-3 w-full max-w-[310px] bg-white dark:bg-white shadow-2xl rounded-xl px-2 pt-4 pb-5;
   z-index: 9999;
   .nav-sidebar-logo {
       @apply flex justify-start p-2 mb-4;
@@ -243,7 +243,7 @@ main {
     }
   }
   .nav-article {
-    @apply lg:pl-8;
+    @apply lg:pl-2;
   }
 }
 
@@ -351,6 +351,8 @@ footer {
 }
 .search-input input {
   @apply text-[2rem] text-dark caret-brand;
+  outline: none;
+  max-width: 100%;
 }
 .search-input input::placeholder {
   @apply text-gray-500 pl-[0.1rem];

@@ -83,7 +83,7 @@ function prepareArray($config){
     $configBase["headingSize6"] = "text-lg md:text-xl lg:text-2xl";
     //BTN
     $configBase['btnRadius'] = 'rounded';
-    $configBase['badgeRadius'] = 'rounded-full';
+    $configBase['badgeRadius'] = $configBase['btnRadius'];
     $configBase['btnShadow'] = '';
     $configBase['btnRing'] = '';
     $configBase['btnBorder'] = 'border';
@@ -112,7 +112,16 @@ function prepareArray($config){
     $configBase['dropdownItemsBG'] = 'light'; //"slate-50"
     //BACKEND
     $configBase['backend'] = false;
+    $configBase['components'] = false;
     $configBase['extraFiles'] = [];
+    //EMAILS
+    $configBase['emails'] = false;
+    $configBase['email-text'] = 'text-gray-600';
+    $configBase['email-bg'] = 'bg-light';
+    $configBase['email-padding'] = 'p-1 md:p-2';
+    $configBase['email-content'] = 'bg-white p-4';
+    $configBase['email-align'] = 'text-center';
+    $configBase['email-logo-height'] = 'max-w-[90px] max-h-[60px]';
     return array_merge($configBase, $config);
 }
 

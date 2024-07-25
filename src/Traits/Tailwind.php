@@ -14,50 +14,56 @@ trait Tailwind {
         include $dir.'tailwind.php';
 
         echo "@layer components {";
-            include $dir.'utilities.php';
-            include $dir.'btn-badges.php';
-            include $dir.'forms.php';
-            include $dir.'boxes.php';
-            include $dir.'dropdowns.php';
-            include $dir.'other.php';
-            if($config['backend']==true){
-                $backend = backendConfig($config);
-                include $dir.'backend.php';
-                include $dir.'components.php';
-            }
-            include $dir.'code.php';
-            include $dir.'packages/iziToast.scss';
-            // if(!empty($config['extraFiles'])){
-            //     $config['extraFiles'] = (is_array($config['extraFiles']))? $config['extraFiles'] : explode(",", $config['extraFiles']);
-            //     foreach($config['extraFiles'] as $file){
-            //         //var_dump($file);
-            //         //$path = resource_path($file);
-            //         include $file;
-            //     }
-            // }
-            foreach($config['extraFiles'] as $file){
-                include $file;
-            }
+          include $dir.'utilities.php';
+          include $dir.'btn-badges.php';
+          include $dir.'forms.php';
+          include $dir.'boxes.php';
+          include $dir.'dropdowns.php';
+          include $dir.'other.php';
+          $backend = backendConfig($config);
+          if($config['backend']==true){
+            include $dir.'backend.php';
+          }
+          if($config['backend'] || $config['components']==true){
+            include $dir.'components.php';
+          }
+          include $dir.'code.php';
+          include $dir.'packages/iziToast.scss';
+          if($config['emails']==true){
+            include $dir.'emails.php';
+          }
+          // if(!empty($config['extraFiles'])){
+          //     $config['extraFiles'] = (is_array($config['extraFiles']))? $config['extraFiles'] : explode(",", $config['extraFiles']);
+          //     foreach($config['extraFiles'] as $file){
+          //         //var_dump($file);
+          //         //$path = resource_path($file);
+          //         include $file;
+          //     }
+          // }
+          foreach($config['extraFiles'] as $file){
+            include $file;
+          }
         echo "}";
         
         try {
-            $fileContent = ob_get_clean();
-            //SCSS
-            $scss = new \ScssPhp\ScssPhp\Compiler();
-            $css = $scss->compile($fileContent);
-            $fileContent = str_replace('@charset "UTF-8";', '', $css);
-            //SAVE
-            if(!empty($config['path'])) {
-            } elseif(class_exists("Illuminate\Foundation\Application")) {
-                $config['path'] = 'resources/css/tw_helpers.css';
-            } else {
-                $config['path'] = 'assets/css/tw_helpers.css';
-            }
-            file_put_contents($config['path'], $fileContent);
+          $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
+          $fileContent = ob_get_clean();
+          //SCSS
+          $scss = new \ScssPhp\ScssPhp\Compiler();
+          $css = $scss->compile($fileContent);
+          $fileContent = str_replace('@charset "UTF-8";', '', $css);
+          //SAVE
+          if(!empty($config['path'])) {
+          } elseif(class_exists("Illuminate\Foundation\Application")) {
+              $config['path'] = resource_path('css/'.$filename);
+          } else {
+              $config['path'] = 'assets/css/'.$filename;
+          }
+          file_put_contents($config['path'], $fileContent);
         } catch (\Exception $e) {
             return 'Error: '.$e->getMessage();
         }
-        return $fileContent;
+        return true;
     }
 
 
