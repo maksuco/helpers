@@ -635,7 +635,7 @@ function country_continents($countryCode) {
 			}
 			$server = $s3 ?? $user->server_s3 ?? 's3';
 			//ray('avatar',$server,$s3,config('app.avatar_path'));
-			return \Storage::disk($server)->url(config('app.avatar_path').$user->avatar);
+			return \Storage::disk($server)->url(config('bizhelpers.avatar_path').$user->avatar);
 		}
 		//IF GRAVATAR
 		if(!empty($user->email) AND $user->email != NULL) {

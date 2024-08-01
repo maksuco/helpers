@@ -1,5 +1,5 @@
 .single-upload {
-  @apply relative flex flex-wrap w-full z-[2];
+  @apply relative flex flex-wrap gap-2 w-full z-[2];
   .preview-container {
     @apply relative mr-[0.8rem];
     .preview-img {

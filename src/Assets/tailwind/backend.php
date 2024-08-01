@@ -33,7 +33,7 @@ main {
 
 //HEADER
 .nav-header {
-  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/20 dark:lg:bg-[#FFFFFF0B] rounded mb-3 z-10;
+  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/40 dark:lg:bg-[#FFFFFF0B] rounded mb-3 z-10;
   flex: 0 0 auto;
   .nav-logo {
     @apply hidden flex items-center justify-center w-[55px];
@@ -135,7 +135,7 @@ main {
       @apply w-full align-middle space-y-0;
       list-style: none;
       li {
-        @apply leading-[0] py-[0.23rem];
+        @apply leading-[0] py-[0.1rem];
         a {
           @apply relative font-normal flex lg:justify-center xl:justify-start items-center no-underline w-full <?=$config['btnRadius']?> opacity-80 px-[0.8rem] py-[0.6rem];
           @apply hover:opacity-100 hover:bg-white/80;
@@ -313,7 +313,7 @@ header .dropdown-menu-right {
 
 @screen md {
   header {
-    @apply mt-0 mb-[0.8rem] mx-0;
+    @apply mx-[0.6rem] mt-0 mb-[0.8rem] mx-0;
   }
   header .row {
     @apply gap-[5px];
@@ -322,7 +322,7 @@ header .dropdown-menu-right {
 
 @media (max-width: theme('screens.md')) {
   header {
-    @apply mx-[0.6rem] my-[0.1rem];
+    @apply my-[0.1rem];
     .row {
       @apply gap-1;
     }
@@ -370,7 +370,7 @@ footer {
   }
 }
 h1 {
-  @apply text-[clamp(2.8rem,7vw,3.5rem)] leading-[0.9];
+  @apply text-[clamp(2.9rem,7vw,3.5rem)] leading-[0.9];
 }
 h2 {
   @apply text-[clamp(2.5rem,4.7vw,3rem)] leading-[0.9];
