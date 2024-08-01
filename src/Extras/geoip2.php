@@ -164,7 +164,7 @@
     $geo['currency'] =  $extra['currency'];
     //ray('getTimezone_range',$geo['continent_code']);
     $geo['timezone_range'] = getTimezone_range($geo['continent_code']);
-    ray($geo_data->city,$geo_data->location);
+    //ray($geo_data->city,$geo_data->location);
     return $geo;
     return json_decode(json_encode($geo));
   }
@@ -3312,7 +3312,7 @@
             break; 
           };
         }
-        ray('hola');
+        //ray('hola');
     }
     file_put_contents('vendor/maksuco/helpers/src/Extras/cities.php', json_encode($results));
     fclose($file);
