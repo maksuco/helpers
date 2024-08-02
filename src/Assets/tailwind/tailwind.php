@@ -63,17 +63,6 @@
         pointer-events: none;
         opacity: .95;
     }
-    
-    @media (max-width: calc(theme('screens.md') - 1px)) {
-        .sm-hidden {
-            display: hidden;
-        }
-    }
-    @media (min-width: theme('screens.md')) and (max-width: calc(theme('screens.lg') - 1px)) {
-        .md-hidden {
-            display: hidden;
-        }
-    }
 }
 
 @layer components {
@@ -117,6 +106,17 @@
     .absolute-br { right: 0; }
     
     .absolute-full { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
+    
+    @media (max-width: calc(theme('screens.md') - 1px)) {
+        .sm-hidden {
+            display: hidden;
+        }
+    }
+    @media (min-width: theme('screens.md')) and (max-width: calc(theme('screens.lg') - 1px)) {
+        .md-hidden {
+            display: hidden;
+        }
+    }
 
     @screen md {
         .container, .container-min, .container-max, .container-full {
