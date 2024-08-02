@@ -109,12 +109,12 @@
     
     @media (max-width: calc(theme('screens.md') - 1px)) {
         .sm-hidden {
-            display: hidden !important;
+            display: none !important;
         }
     }
     @media (min-width: theme('screens.md')) and (max-width: calc(theme('screens.lg') - 1px)) {
         .md-hidden {
-            display: hidden !important;
+            display: none !important;
         }
     }
 
