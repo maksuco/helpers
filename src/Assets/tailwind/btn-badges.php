@@ -104,12 +104,11 @@
     }
     
     .text-<?= $key ?>-all {
-        @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        @apply text-<?= $key ?>-500 fill-<?= $key ?>-500;
         h1, h2, h3, h4, h5, h6, small, a, p {
-          @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+          @apply text-<?= $key ?>-500 fill-<?= $key ?>-500;
         }
     }
-    
 
 <?php } ?>
 
@@ -146,9 +145,9 @@ $basicColors = [
     }
     
     .text-<?= $key ?>-all {
-        @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        @apply text-<?= $key ?> fill-<?= $key ?>;
         h1, h2, h3, h4, h5, h6, small, a, p {
-          @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+          @apply text-<?= $key ?> fill-<?= $key ?>;
         }
     }
 
