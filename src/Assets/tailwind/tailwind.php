@@ -63,6 +63,17 @@
         pointer-events: none;
         opacity: .95;
     }
+    
+    @media (max-width: calc(theme('screens.md') - 1px)) {
+        .sm-hidden {
+            display: hidden;
+        }
+    }
+    @media (min-width: theme('screens.md')) and (max-width: calc(theme('screens.lg') - 1px)) {
+        .md-hidden {
+            display: hidden;
+        }
+    }
 }
 
 @layer components {
