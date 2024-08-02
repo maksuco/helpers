@@ -66,7 +66,13 @@ $brandColors = [
   foreach($brandColors as $key => $row) { 
 ?>
     .bg-<?= $key ?> {
-        background-color: <?= $row ?>;
+      background-color: <?= $row ?>;
+    }
+    .fill-<?= $key ?> {
+      fill: <?= $row ?>;
+    }
+    .text-<?= $key ?> {
+      color: <?= $row ?>;
     }
 
 <?php } ?>
@@ -75,7 +81,7 @@ $brandColors = [
 svg.svg-icon {
   width: 1.2em;
   height: 1.2em;
-  padding: 1px;
+  padding: 0.5px;
 }
 
 .x-scroll {
