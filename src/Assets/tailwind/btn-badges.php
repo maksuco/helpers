@@ -97,11 +97,19 @@
         @apply ring-<?= $key ?>-900/5 shadow-<?= $key ?>-500/50;
         @apply hover:border-<?= $key.'-'.$border ?>/90;
     }
-
+    
     .label-<?= $key ?> {
         @apply bg-<?= $key ?>-<?= $bgVariant ?> border-<?= $key.'-'.$border ?> text-<?= $key ?>-500 hover:text-<?= $key ?>-600;
         @apply shadow-<?= $key ?>-500/10;
     }
+    
+    .text-<?= $key ?>-all {
+        @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        h1, h2, h3, h4, h5, h6, small, a, p {
+          @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        }
+    }
+    
 
 <?php } ?>
 
@@ -135,6 +143,13 @@ $basicColors = [
         @apply bg-<?= $key ?> border-<?= $key ?> text-<?= $text ?>;
         @apply shadow-<?= $key ?>/10;
         @apply hover:bg-<?= $key ?>/90;
+    }
+    
+    .text-<?= $key ?>-all {
+        @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        h1, h2, h3, h4, h5, h6, small, a, p {
+          @apply text-<?= $key ?>-500 fill-text-<?= $key ?>-500;
+        }
     }
 
 <?php } ?>
