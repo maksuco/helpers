@@ -117,7 +117,7 @@ main {
 }
 @media (min-width: theme('screens.md')) {
   .nav-article {
-    @apply px-4;
+    @apply px-2;
   }
 }
 
