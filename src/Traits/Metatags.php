@@ -3,16 +3,17 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($lang="en", $title="", $description="", $alternative=[], $keywords=false, $image=false, $url=false) {
+	function metatags($lang="en", $title="", $description="", $alternate=[], $keywords=false, $image=false, $url=false) {
 		// CHECK
-		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		$host = $protocol . $_SERVER['HTTP_HOST'];
+		// $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		// $host = $protocol . $_SERVER['HTTP_HOST'];
+		$host = 'https://' . $_SERVER['HTTP_HOST'];
 		if (!$url) {
 			$url = $host.$_SERVER['REQUEST_URI'];
 		}
 		
 		// Generate Metas
-		$twitterMetaTags = '
+		$metaTags = '
 			<title>' . htmlspecialchars($title, ENT_QUOTES) . '</title>
 			<meta name="description" content="' . htmlspecialchars($description, ENT_QUOTES) . '">
 			<link rel="canonical" href="' . htmlspecialchars($url, ENT_QUOTES) . '">
@@ -24,10 +25,10 @@ trait Metatags {
 			<link rel="icon" type="image/png" href="' . $host. '/assets/img/favicon.png">
 			<link rel="icon" type="image/svg+xml" href="' . $host. '/assets/img/favicon.png">';
 		
-		$alternativeMetaTags = '';
-		foreach ($alternative as $alt) {
+		$alternateMetaTags = '';
+		foreach ($alternate as $alt) {
 				if (isset($alt['lang']) && isset($alt['url'])) {
-						$alternativeMetaTags .= '<link rel="alternate" hreflang="' . htmlspecialchars($alt['lang'], ENT_QUOTES) . '" href="' . htmlspecialchars($alt['url'], ENT_QUOTES) . '">';
+						$alternateMetaTags .= '<link rel="alternate" hreflang="' . htmlspecialchars($alt['lang'], ENT_QUOTES) . '" href="' . htmlspecialchars($alt['url'], ENT_QUOTES) . '">';
 				}
 		}
 		
@@ -60,6 +61,6 @@ trait Metatags {
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
 		
 		// Return combined meta tags and JSON-LD script
-		return $jsonLdScript . $twitterMetaTags . $ogMetaTags . $alternativeMetaTags;
+		return $metaTags . $alternateMetaTags . $twitterMetaTags . $ogMetaTags . $jsonLdScript;
 	}
 }
