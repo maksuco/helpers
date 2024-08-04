@@ -5,8 +5,6 @@ trait Metatags {
 	
 	function metatags($lang="en", $title="", $description="", $alternate=[], $keywords=false, $image=false, $url=false) {
 		// CHECK
-		// $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		// $host = $protocol . $_SERVER['HTTP_HOST'];
 		$title = htmlspecialchars($title, ENT_QUOTES);
 		$description = htmlspecialchars($description, ENT_QUOTES);
 		$image = htmlspecialchars($image, ENT_QUOTES);
@@ -15,19 +13,19 @@ trait Metatags {
 		
 		// Generate Metas
 		$metaTags = '
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-			<meta http-equiv="X-UA-Compatible" content="ie=edge">
-			<title>' . $title . '</title>
-			<meta name="description" content="' . $description . '">
-			<meta name="author" content="Maksuco.com">
-			<meta name="google" content="notranslate" />
-			<link rel="shortcut icon" href="' . $host. '/assets/img/favicon.png">
-			<link rel="icon" href="/favicon.ico">
-			<link rel="apple-touch-icon" href="/assets/img/favicon.png">
-			<link rel="icon" type="image/png" href="' . $host. '/assets/img/favicon.png">
-			<link rel="icon" type="image/svg+xml" href="' . $host. '/assets/img/favicon.png">
-			<link rel="canonical" href="' . $url . '">';
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>' . $title . '</title>
+		<meta name="description" content="' . $description . '">
+		<meta name="author" content="Maksuco.com">
+		<meta name="google" content="notranslate" />
+		<link rel="shortcut icon" href="' . $host. '/assets/img/favicon.png">
+		<link rel="icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/assets/img/favicon.png">
+		<link rel="icon" type="image/png" href="' . $host. '/assets/img/favicon.png">
+		<link rel="icon" type="image/svg+xml" href="' . $host. '/assets/img/favicon.png">
+		<link rel="canonical" href="' . $url . '">';
 		
 		foreach ($alternate as $alt) {
 			if(isset($alt['lang'])) {
@@ -37,33 +35,34 @@ trait Metatags {
 		
 		// Generate Twitter meta tags
 		$twitterMetaTags = '
-			<meta name="twitter:card" content="summary_large_image">
-			<meta name="twitter:title" content="' . $title . '">
-			<meta name="twitter:description" content="' . $description . '">
-			<meta name="twitter:image" content="' . $image . '">
-			<meta name="twitter:url" content="' . $url . '">';
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="' . $title . '">
+		<meta name="twitter:description" content="' . $description . '">
+		<meta name="twitter:image" content="' . $image . '">
+		<meta name="twitter:url" content="' . $url . '">';
 		
 		// Generate Open Graph meta tags
 		$ogMetaTags = '
-			<meta property="og:type" content="website">
-			<meta property="og:title" content="' . $title . '">
-			<meta property="og:description" content="' . $description . '">
-			<meta property="og:image" content="' . $image . '">
-			<meta property="og:url" content="' . $url . '">';
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="' . $title . '">
+		<meta property="og:description" content="' . $description . '">
+		<meta property="og:image" content="' . $image . '">
+		<meta property="og:url" content="' . $url . '">';
 				
 		// Generate JSON-LD script
 		$jsonLd = [
-				"@context" => "https://schema.org",
-				"@type" => "WebPage",
-				"name" => $title,
-				"description" => $description,
-				"image" => $image,
-				"url" => $url
+			"@context" => "https://schema.org",
+			"@type" => "WebPage",
+			"name" => $title,
+			"description" => $description,
+			"image" => $image,
+			"url" => $url
 		];
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
 		
 		// Return combined meta tags and JSON-LD script
-		return $metaTags . $twitterMetaTags . $ogMetaTags . $jsonLdScript;
+		$metaTags .= $twitterMetaTags . $ogMetaTags . $jsonLdScript;
+		return trim(preg_replace('/\s+/', ' ', $metaTags));
 	}
 }
