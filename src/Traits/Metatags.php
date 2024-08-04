@@ -8,8 +8,13 @@ trait Metatags {
 		$title = htmlspecialchars($title, ENT_QUOTES);
 		$description = htmlspecialchars($description, ENT_QUOTES);
 		$image = htmlspecialchars($image, ENT_QUOTES);
-		$host = 'https://' . $_SERVER['HTTP_HOST'];
-		$url = ($url==false)? $host.$_SERVER['REQUEST_URI'] : htmlspecialchars($url, ENT_QUOTES);
+		if($url==false) {
+			$host = 'https://' . $_SERVER['HTTP_HOST'];
+			$url = $host.$_SERVER['REQUEST_URI'];
+		} else {
+			$host = 'https://' . parse_url($url)['host'];
+			$url = htmlspecialchars($url, ENT_QUOTES);
+		}
 		
 		// Generate Metas
 		$metaTags = '
