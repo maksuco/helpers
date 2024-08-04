@@ -1332,32 +1332,33 @@ HTML;
 		$results['count'] = $data->pluck('count');
 		return $results;
 	}
-
+	
 	function minify_html($html) {
-		$search = [
-			'/(\n|^)(\x20+|\t)/',
-			'/(\n|^)\/\/(.*?)(\n|$)/',
-			'/\n/',
-			'/\<\!--.*?-->/',
-			'/(\x20+|\t)/', # Delete multispace (Without \n)
-			'/\>\s+\</', # strip whitespaces between tags
-			'/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
-			'/=\s+(\"|\')/' # strip whitespaces between = "'
-		];
-
-		$replace = [
-			"\n",
-			"\n",
-			" ",
-			"",
-			" ",
-			"><",
-			"$1>",
-			"=$1"
-		];
-
-		$html = preg_replace($search,$replace,$html);
-		return $html;
+			// Preserve pre, code, textarea, and script content
+			$placeholders = [];
+			$html = preg_replace_callback('/<(pre|code|textarea|script).*?>(.*?)<\/\1>/si', function($matches) use (&$placeholders) {
+					$placeholder = '___PRESERVE_' . count($placeholders) . '___';
+					$placeholders[$placeholder] = $matches[0];
+					return $placeholder;
+			}, $html);
+	
+			// Remove comments (but keep conditional comments)
+			$html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
+	
+			// Remove whitespace
+			$html = preg_replace('/\s+/', ' ', $html);
+			$html = preg_replace('/>\s+</', '><', $html);
+			$html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
+	
+			// Remove unnecessary quotes and semicolons
+			$html = preg_replace('/;(?=\s*})/', '', $html); // Remove last semicolon in style blocks
+			$html = preg_replace('/([a-z-])="([a-z0-9-_]+)"/i', '$1=$2', $html); // Remove quotes from simple attribute values
+	
+			// Restore preserved content
+			foreach ($placeholders as $placeholder => $original) {
+					$html = str_replace($placeholder, $original, $html);
+			}
+			return trim($html);
 	}
 
 
