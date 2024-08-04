@@ -5,6 +5,7 @@ namespace Maksuco\Helpers;
 class Helpers {
 	use Traits\Colors;
 	use Traits\Tailwind;
+	use Traits\Metatags;
 	
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
