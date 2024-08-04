@@ -16,6 +16,7 @@ trait Metatags {
 			$url = htmlspecialchars($url, ENT_QUOTES);
 		}
 		$host = 'https://' . $domain;
+		$s3 = parse_url($image)['host'];
 		
 		// Generate Metas
 		$metaTags = '
@@ -23,7 +24,7 @@ trait Metatags {
 		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<link rel="dns-prefetch" href="//'.$domain.'">
-		<link rel="dns-prefetch" href="//'.str_replace("https://","",$image).'">
+		<link rel="dns-prefetch" href="//'.$s3.'">
 		<link rel="dns-prefetch" href="//www.googletagmanager.com">
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
