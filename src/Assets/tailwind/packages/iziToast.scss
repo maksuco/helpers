@@ -463,7 +463,7 @@
 $izitoastColors: ('red', 'orange', 'green', 'blue', 'yellow');
 @each $type in $izitoastColors {
   .iziToast.iziToast-color-#{$type} {
-    @apply bg-#{$type}-600 border-#{$type}-500 shadow-#{$type}-500;
+    @apply bg-#{$type}-600 border-#{$type}-500 shadow-sm shadow-#{$type}-500;
     .iziToast-title, .iziToast-close {
       @apply text-#{$type}-50;
     }
