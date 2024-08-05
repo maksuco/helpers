@@ -31,6 +31,7 @@
     --colors-dark-form-basic-border: <?= $config['dark']['form-basic-border'] ?>;
     --colors-dark-form-muted-bg: <?= $config['dark']['form-muted-bg'] ?>;
     --colors-dark-light: <?= $config['dark']['light'] ?>;
+    --check-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
 }
 
 @layer base {

@@ -46,7 +46,6 @@ input[type="checkbox"], input[type="radio"] {
 }
 .form-check {
   --selected: 0;
-  --check-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   display: grid;
   grid-template-columns: auto calc(var(--selected) * 20px);
   align-items: center;
@@ -73,7 +72,7 @@ input[type="checkbox"], input[type="radio"] {
   &:has(:checked) { 
     --selected: 1;
     @apply bg-brand/80 border-brand text-white;
-    padding-right: calc(var(--px, var(--btn-px)) * 0.95);
+    padding-right: calc(var(--px, var(--btn-px)) * 1);
     &::after {
       transform: scale(0.9);
     }

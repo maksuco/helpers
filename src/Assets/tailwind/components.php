@@ -78,10 +78,16 @@
   .color-selected {
     position: relative;
     &:after {
-      @apply absolute z-10 !top-[-6px];
-      @apply w-1 h-1;
-      content: "✅";
-      font-size: 0.65em;
+      content: '';
+      display: block;
+      width: 0.9em;
+      height: 0.9em;
+      margin-left: 0.3em;
+      background-image: var(--check-svg);
+      background-size: 90%;
+      background-repeat: no-repeat;
+      background-position: center;
+      @apply bg-green-600/85 rounded-full;
     }
   }
   .color-box {
