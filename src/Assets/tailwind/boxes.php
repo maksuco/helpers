@@ -200,7 +200,7 @@
     @apply relative !p-0 bg-white w-auto overflow-hidden border-2 border-dark/5;
     z-index: 950;
     .modal-title {
-      @apply w-auto font-bold pb-3;
+      @apply w-auto font-bold dark:text-dark pb-3;
       line-height: 1.1;
       span {
         @apply block opacity-70;
