@@ -57,10 +57,10 @@
     outline: none;
   }
   .current-color {
-    @apply border border-slate-200 w-8 h-full;
+    @apply border border-slate-300 w-8 h-full;
     min-width: 20px;
-    min-height: 20px;
-    display: inline;
+    min-height: 25px;
+    display: block;
     outline: none;
     &:focus {
       outline: none;
@@ -122,8 +122,9 @@
     width: 18px;
     height: 18px;
     vertical-align: middle;
-    margin-left: 1px;
+    margin-left: 0.2rem;
     border-radius: 5rem;
+    @apply border broder-gray-500;
   }
   .color-selected-box {
     @apply border border-gray-500/10 rounded;

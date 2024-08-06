@@ -478,17 +478,25 @@ function continent($country,$simplify=false) {
 }
 
 
-function timezones($laravel=false) {
-	if($laravel){
+function timezones($short=false) {
+	if(class_exists("Illuminate\Foundation\Application")){
 		include_once(base_path().'/vendor/maksuco/helpers/src/Extras/timezones.php');
 	} else {
 		include_once(__DIR__ ."/Extras/timezones.php");
+	}
+	if($short){
+		foreach ($timezones as $key => $value) {
+				$cleanedValue = preg_replace('/\(GMT[^)]*\) /', '', $value);
+				$cleanedTimezones[$key] = $cleanedValue;
+		}
+		ksort($cleanedTimezones);
+		$timezones = $cleanedTimezones;
 	}
 	return $timezones;
 }
 
 function languages($lang='all',$laravel=false) {
-	if($laravel){
+	if(class_exists("Illuminate\Foundation\Application")){
 		include(base_path().'/vendor/maksuco/helpers/src/Extras/languages.php');
 	} else {
 		include(__DIR__ ."/Extras/languages.php");

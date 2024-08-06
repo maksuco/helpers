@@ -25,6 +25,10 @@ if($config['email-align']=='text-left'){
   mso-line-height-rule: exactly;
   @apply <?= $config['email-text'] ?> <?= $config['email-bg'] ?> !bg-none;
   
+  h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  
   center {
     width: 100%;
     @apply <?= $config['email-bg'] ?>;
