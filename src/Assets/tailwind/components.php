@@ -124,7 +124,7 @@
     vertical-align: middle;
     margin-left: 0.2rem;
     border-radius: 5rem;
-    @apply border broder-gray-500;
+    @apply border border-gray-500;
   }
   .color-selected-box {
     @apply border border-gray-500/10 rounded;
