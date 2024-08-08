@@ -103,6 +103,9 @@ class Helpers {
 			//replace
 			$cssContent = str_replace($src[1], $srcPath.$filename, $cssContent);
 		}
+		if($config['minify']){
+			$cssContent = $this->minify_html($cssContent);
+		}
 		file_put_contents($config['path'].strtolower($name).'.css', $cssContent);
 		return $cssContent;
 	}
