@@ -69,6 +69,14 @@ class Helpers {
 	}
 
 	//google fonts downloader
+	// $config["minify"] = true;
+	// $config["path"] = "public/templates/fonts/";
+	// $config["src"] = "https://showpage.app/templates/fonts/";
+	// foreach ($fonts as $key => $font) {
+	// 	$config["name"] = $key;
+	// 	\Helpers::gFonts($font, $config);
+	// 	echo $key . " ";
+	// }
 	function gFonts($url, $config=[]) {
 		if(!empty($config['path'])) {
 		} elseif(class_exists("Illuminate\Foundation\Application")) {
