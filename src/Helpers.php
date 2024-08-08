@@ -76,7 +76,7 @@ class Helpers {
 		} else {
 			$config['path'] = 'assets/fonts/';
 		}
-		$srcPath = (!empty($config['src']))? $config['src'] : '/assets/fonts/';
+		$srcPath = $config['src'] ?? $config['path'];
 		//$cssContent = file_get_contents($url);
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
