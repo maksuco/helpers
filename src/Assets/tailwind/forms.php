@@ -44,6 +44,7 @@ input[type="checkbox"], input[type="radio"] {
     transform: rotate(45deg);
   }
 }
+
 .form-check {
   --selected: 0;
   display: grid;
@@ -262,8 +263,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 // }
 
 .form-switch-sm {
-  @apply before:w-5 before:h-5;
-  width: 2.3rem;
+  @apply before:w-4 before:h-4;
+  width: 2.1rem;
   line-height: .75;
 }
 
