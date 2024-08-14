@@ -17,16 +17,14 @@ trait Metatags {
 		}
 		$host = 'https://' . $domain;
 		$s3 = parse_url($image)['host'];
-		if($domain != $s3) {
-			$s3 = '<link rel="dns-prefetch" href="//'.$s3.'">';
-		}
+		$s3Dns = ($domain != $s3)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
 		
 		// Generate Metas
 		$metaTags = '
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="dns-prefetch" href="//'.$domain.'">'.$s3.'
+		<link rel="dns-prefetch" href="//'.$domain.'">'.$s3Dns.'
 		<link rel="dns-prefetch" href="//www.googletagmanager.com">
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
