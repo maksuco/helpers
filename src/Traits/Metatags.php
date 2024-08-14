@@ -43,7 +43,7 @@ trait Metatags {
 			}
 		}
 		if($defaultLang) {
-			$metaTags .= '<link rel="alternate" href="'.$host.'/'.$defaultLang.'" hreflang="x-default" />';
+			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$host.'/'.$defaultLang.'" />';
 		}
 		
 		// Generate Twitter meta tags
