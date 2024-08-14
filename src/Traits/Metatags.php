@@ -42,6 +42,9 @@ trait Metatags {
 				$metaTags .= '<link rel="alternate" hreflang="'.$alt['lang'].'" href="'.$alt['url'].'">';
 			}
 		}
+		if(isset($alt['defaultLang'])) {
+			$metaTags .= '<link rel="alternate" href="'.$host.'/'.$alt['defaultLang'].'" hreflang="x-default" />';
+		}
 		
 		// Generate Twitter meta tags
 		$twitterMetaTags = '
