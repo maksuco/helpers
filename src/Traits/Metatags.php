@@ -5,8 +5,8 @@ trait Metatags {
 	
 	function metatags($lang="en", $title="", $description="", $alternate=[], $keywords=false, $image=false, $url=false) {
 		// CHECK
-		$title = htmlspecialchars($title, ENT_QUOTES);
-		$description = htmlspecialchars($description, ENT_QUOTES);
+		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
+		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
 		$image = htmlspecialchars($image, ENT_QUOTES);
 		if($url==false) {
 			$domain = $_SERVER['HTTP_HOST'];
