@@ -11,14 +11,15 @@ trait Metatags {
 		if($url==false) {
 			$domain = $_SERVER['HTTP_HOST'];
 			$url = 'https://'.$domain.$_SERVER['REQUEST_URI'];
+			$canonical = ($canonical)? $domain.$canonical : $url;
 		} else {
 			$domain = parse_url($url)['host'];
 			$url = htmlspecialchars($url, ENT_QUOTES);
+			$canonical = ($canonical)? $domain.$canonical : $url;
 		}
 		$host = 'https://' . $domain;
 		$s3 = parse_url($image)['host'];
 		$s3Dns = ($domain != $s3)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
-		$canonical = $canonical ?? $url;
 		
 		// Generate Metas
 		$metaTags = '
