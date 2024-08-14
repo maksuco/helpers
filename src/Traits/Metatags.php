@@ -3,7 +3,7 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($lang="en", $title="", $description="", $alternate=[], $keywords=false, $image=false, $url=false) {
+	function metatags($lang="en", $title="", $description="", $alternate=[], defaultLang=false, $keywords=false, $image=false, $url=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
@@ -42,8 +42,8 @@ trait Metatags {
 				$metaTags .= '<link rel="alternate" hreflang="'.$alt['lang'].'" href="'.$alt['url'].'">';
 			}
 		}
-		if(isset($meta['defaultLang'])) {
-			$metaTags .= '<link rel="alternate" href="'.$host.'/'.$meta['defaultLang'].'" hreflang="x-default" />';
+		if($defaultLang) {
+			$metaTags .= '<link rel="alternate" href="'.$host.'/'.$defaultLang.'" hreflang="x-default" />';
 		}
 		
 		// Generate Twitter meta tags
