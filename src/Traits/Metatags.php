@@ -3,7 +3,7 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($lang="en", $title="", $description="", $alternate=[], $defaultLang=false, $keywords=false, $image=false, $url=false) {
+	function metatags($lang="en", $title="", $description="", $canonical=false, $alternate=[], $defaultLang=false, $keywords=false, $image=false, $url=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
@@ -18,6 +18,7 @@ trait Metatags {
 		$host = 'https://' . $domain;
 		$s3 = parse_url($image)['host'];
 		$s3Dns = ($domain != $s3)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
+		$canonical = $canonical ?? $url;
 		
 		// Generate Metas
 		$metaTags = '
@@ -35,7 +36,7 @@ trait Metatags {
 		<link rel="apple-touch-icon" href="/assets/img/favicon.png">
 		<link rel="icon" type="image/png" href="'.$host.'/assets/img/favicon.png">
 		<link rel="icon" type="image/svg+xml" href="'.$host.'/assets/img/favicon.png">
-		<link rel="canonical" href="'.$url.'">';
+		<link rel="canonical" href="'.$canonical.'">';
 		
 		foreach ($alternate as $alt) {
 			if(isset($alt['lang'])) {
