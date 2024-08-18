@@ -248,6 +248,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   @apply checked:text-<?=$config['formBG']?> checked:border-<?=$config['formBG']?> focus:checked:border-<?=$config['formBG']?> dark:bg-[<?= $config['formBG'] ?>] dark:border-<?=$config['formBG']?>;
   @apply before:inline-block before:w-6 before:h-6 before:bg-white before:translate-x-0 checked:before:translate-x-3/4 before:rounded-full before:transform before:transition dark:before:bg-white dark:checked:before:bg-blue-200;
   line-height: .81;
+  height: calc(theme('spacing.6') + 2px);
   &:checked{
     background-color: var(--form-color, theme('colors.brand.500')) !important;
   }
@@ -264,6 +265,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .form-switch-sm {
   @apply before:w-4 before:h-4;
+  height: calc(theme('spacing.4') + 2px);
   width: 2.1rem;
   line-height: .75;
 }
@@ -271,6 +273,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .form-switch-lg {
   @apply w-[3.7rem] p-0.5;
   @apply before:w-8 before:h-8;
+  height: calc(theme('spacing.8') + 2px);
   line-height: .8;
 }
 
@@ -301,7 +304,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   &::-webkit-slider-runnable-track {
     height: 0.5rem;
     width: 100%;
-    @apply bg-<?=$config['formBG']?> rounded-full;
+    @apply rounded-full;
+    background-color: var(--range-track, theme('colors.<?= str_replace('-', '.', $config['formBG']) ?>'));
   }
   &::-webkit-slider-thumb {
     position: relative;

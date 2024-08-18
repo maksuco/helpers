@@ -171,7 +171,7 @@ main {
 }
 
 .nav-sidebar-mobile {
-  @apply !fixed top-3 w-full max-w-[310px] bg-white dark:bg-white shadow-2xl rounded-xl px-2 pt-4 pb-5;
+  @apply !fixed top-3 w-full max-w-[280px] bg-white dark:bg-white shadow-2xl shadow-brand rounded-xl px-2 pt-4 pb-5;
   z-index: 9999;
   .nav-sidebar-logo {
       @apply flex justify-start p-2 mb-4;

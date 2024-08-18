@@ -3,7 +3,7 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($lang="en", $title="", $description="", $canonical=false, $alternate=[], $defaultLang=false, $keywords=false, $image=false, $url=false) {
+	function metatags($lang="en", $title="", $description="", $keywords=false, $url=false, $canonical=false, $alternate=[], $defaultLang=false, $image=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
@@ -11,13 +11,13 @@ trait Metatags {
 		if($url==false) {
 			$domain = $_SERVER['HTTP_HOST'];
 			$url = 'https://'.$domain.$_SERVER['REQUEST_URI'];
-			$canonical = ($canonical)? $domain.$canonical : $url;
+			$canonical = ($canonical)? $this->metaLink($canonical) : $url;
 		} else {
 			$domain = parse_url($url)['host'];
-			$url = htmlspecialchars($url, ENT_QUOTES);
-			$canonical = ($canonical)? $domain.$canonical : $url;
+			$url = $this->metaLink($url);
+			$canonical = ($canonical)? $this->metaLink($canonical) : $url;
 		}
-		$host = 'https://' . $domain;
+		$host = 'https://'.$domain;
 		$s3 = parse_url($image)['host'];
 		$s3Dns = ($domain != $s3)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
 		
@@ -79,5 +79,13 @@ trait Metatags {
 		// Return combined meta tags and JSON-LD script
 		$metaTags .= $twitterMetaTags . $ogMetaTags . $jsonLdScript;
 		return trim(preg_replace('/\s+/', ' ', $metaTags));
+	}
+	
+	function metaLink($url,$domain=false) {
+		$domain = $domain ?? $_SERVER['HTTP_HOST'];
+		if(!str_starts_with('http', $url)) {
+			$url = $domain.((str_starts_with('/', $url))? '':'/').$url;
+		};
+		return htmlspecialchars($url, ENT_QUOTES);
 	}
 }
