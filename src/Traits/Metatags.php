@@ -3,23 +3,16 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($lang="en", $title="", $description="", $keywords=false, $url=false, $canonical=false, $alternate=[], $defaultLang=false, $image=false) {
+	function metatags($domain="", $title="", $description="", $keywords=false, $lang="en", $canonical=false, $alternate=[], $default=false, $image=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
 		$image = htmlspecialchars($image, ENT_QUOTES);
-		if($url==false) {
-			$domain = $_SERVER['HTTP_HOST'];
-			$url = 'https://'.$domain.$_SERVER['REQUEST_URI'];
-			$canonical = ($canonical)? $this->metaLink($canonical) : $url;
-		} else {
-			$domain = parse_url($url)['host'];
-			$url = $this->metaLink($url);
-			$canonical = ($canonical)? $this->metaLink($canonical) : $url;
-		}
-		$host = 'https://'.$domain;
+		$domain = str_replace('https://', '', $domain);
+		$url = 'https://'.$domain;
+		$canonical = $url.rtrim($canonical, '/');
 		$s3 = parse_url($image)['host'];
-		$s3Dns = ($domain != $s3)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
+		$s3Dns = ($s3 != $domain)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
 		
 		// Generate Metas
 		$metaTags = '
@@ -32,20 +25,21 @@ trait Metatags {
 		<meta name="description" content="'.$description.'">
 		<meta name="author" content="Maksuco.com">
 		<meta name="google" content="notranslate" />
-		<link rel="shortcut icon" href="'.$host.'/assets/img/favicon.png">
-		<link rel="icon" href="/favicon.ico">
-		<link rel="apple-touch-icon" href="/assets/img/favicon.png">
-		<link rel="icon" type="image/png" href="'.$host.'/assets/img/favicon.png">
-		<link rel="icon" type="image/svg+xml" href="'.$host.'/assets/img/favicon.png">
+		<link rel="shortcut icon" href="'.$url.'/assets/img/favicon.png">
+		<link rel="icon" href="'.$url.'/favicon.ico">
+		<link rel="apple-touch-icon" href="'.$url.'/assets/img/favicon.png">
+		<link rel="icon" type="image/png" href="'.$url.'/assets/img/favicon.png">
+		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.png">
 		<link rel="canonical" href="'.$canonical.'">';
 		
 		foreach ($alternate as $alt) {
 			if(isset($alt['lang'])) {
-				$metaTags .= '<link rel="alternate" hreflang="'.$alt['lang'].'" href="'.$alt['url'].'">';
+				$metaTags .= '<link rel="alternate" hreflang="'.$alt['lang'].'" href="'.$url.rtrim($alt['url'], '/').'">';
 			}
 		}
-		if($defaultLang) {
-			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$host.'/'.$defaultLang.'" />';
+		if($default !== false) {
+			$default = $url.'/'.$default;
+			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.rtrim($default, '/').'" />';
 		}
 		
 		// Generate Twitter meta tags
@@ -54,7 +48,7 @@ trait Metatags {
 		<meta name="twitter:title" content="'.$title.'">
 		<meta name="twitter:description" content="'.$description.'">
 		<meta name="twitter:image" content="'.$image.'">
-		<meta name="twitter:url" content="'.$url.'">';
+		<meta name="twitter:url" content="'.$canonical.'">';
 		
 		// Generate Open Graph meta tags
 		$ogMetaTags = '
@@ -62,7 +56,7 @@ trait Metatags {
 		<meta property="og:title" content="'.$title.'">
 		<meta property="og:description" content="'.$description.'">
 		<meta property="og:image" content="'.$image.'">
-		<meta property="og:url" content="'.$url.'">';
+		<meta property="og:url" content="'.$canonical.'">';
 				
 		// Generate JSON-LD script
 		$jsonLd = [
@@ -71,7 +65,7 @@ trait Metatags {
 			"name" => $title,
 			"description" => $description,
 			"image" => $image,
-			"url" => $url
+			"url" => $canonical
 		];
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
