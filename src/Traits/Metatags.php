@@ -75,11 +75,11 @@ trait Metatags {
 		return trim(preg_replace('/\s+/', ' ', $metaTags));
 	}
 	
-	function metaLink($url,$domain=false) {
-		$domain = $domain ?? $_SERVER['HTTP_HOST'];
-		if(!str_starts_with('http', $url)) {
-			$url = $domain.((str_starts_with('/', $url))? '':'/').$url;
-		};
-		return htmlspecialchars($url, ENT_QUOTES);
-	}
+	// function metaLink($url,$domain=false) {
+	// 	$domain = $domain ?? $_SERVER['HTTP_HOST'];
+	// 	if(!str_starts_with('http', $url)) {
+	// 		$url = $domain.((str_starts_with('/', $url))? '':'/').$url;
+	// 	};
+	// 	return htmlspecialchars($url, ENT_QUOTES);
+	// }
 }
