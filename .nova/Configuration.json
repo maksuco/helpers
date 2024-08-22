@@ -1,4 +1,5 @@
 {
   "sciencefidelity.dart.config.enableAnalyzer" : "false",
-  "sciencefidelity.dart.config.formatDocumentOnSave" : "false"
+  "sciencefidelity.dart.config.formatDocumentOnSave" : "false",
+  "workspace.name" : "Helpers"
 }

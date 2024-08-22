@@ -150,6 +150,7 @@
   //box-shadow: 0 0 0 1px rgba(0,0,0,0.6);
 }
 .iziToast > .iziToast-body .iziToast-buttons {
+  width: 100%;
   min-height: 17px;
   float: left;
   margin: 6px -2px;
@@ -485,6 +486,11 @@ $izitoastColors: ('red', 'orange', 'green', 'blue', 'yellow');
 .iziToast.iziToast-color-blue {
   button {
     @apply !bg-gray-500/20;
+  }
+}
+.iziToast.iziToast-color-red {
+  button {
+    @apply !bg-white/90;
   }
 }
 
