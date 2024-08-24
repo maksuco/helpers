@@ -67,6 +67,10 @@ function prepareArray($config){
         'light' => $hex->lighten(10)->desaturate(15)
     ];
     $configBase['dark']['form-basic-text'] = $configBase['dark']['form-muted-text'] = $configBase['dark']['body'];
+    //CONTAINERS
+    $configBase["containerMinWidth"] = "max-w-screen-lg";
+    $configBase["containerWidth"] = "max-w-screen-xl";
+    $configBase["containerMaxWidth"] = "max-w-screen-2xl";
     //HEADINGS
     $configBase['headingColor'] = 'text-['.$configBase['light']['title'].']';
     $configBase['headingFont'] = 'sans';

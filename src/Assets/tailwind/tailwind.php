@@ -123,13 +123,13 @@
         .container, .container-min, .container-max, .container-full {
         }
         .container {
-            @apply max-w-screen-xl;
+            @apply <?= $config['containerWidth'] ?>;
         }
         .container-min {
-            @apply max-w-screen-lg;
+            @apply <?= $config['containerMinWidth'] ?>;
         }
         .container-max {
-            @apply <?= $config['container']['max']['width'] ?? "max-w-screen-2xl" ?>;
+            @apply <?= $config['containerMaxWidth'] ?>;
         }
         .md\:absolute-tl, .md\:absolute-tc, .md\:absolute-tr {
             @apply absolute top-0;
