@@ -3,7 +3,7 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($domain="", $title="", $description="", $keywords=false, $lang="en", $canonical=false, $alternate=[], $default=false, $image=false) {
+	function metatags($author = "Maksuco.com", $domain="", $title="", $description="", $keywords=false, $lang="en", $canonical=false, $alternate=[], $default=false, $image=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
@@ -23,7 +23,7 @@ trait Metatags {
 		<link rel="dns-prefetch" href="//www.googletagmanager.com">
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
-		<meta name="author" content="Maksuco.com">
+		<meta name="author" content="'.$author.'">
 		<meta name="google" content="notranslate" />
 		<link rel="shortcut icon" href="'.$url.'/assets/img/favicon.png">
 		<link rel="icon" href="'.$url.'/favicon.ico">
