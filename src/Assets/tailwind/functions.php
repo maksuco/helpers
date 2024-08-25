@@ -105,6 +105,7 @@ function prepareArray($config){
     $configBase['labelColorDark'] = 'gray-300';
     $configBase['formBG'] = 'slate-100'; //"light"
     $configBase['formBGDark'] = 'slate-600'; //"light"
+    $configBase['formRadius'] = $configBase['btnRadius'];
     $configBase['formBorder'] = 'border';
     $configBase['formBorderColor'] = 'gray-300';
     $configBase['formBorderColorDark'] = 'gray-500';

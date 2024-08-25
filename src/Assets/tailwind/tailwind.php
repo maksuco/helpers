@@ -12,7 +12,7 @@
     --colors-light-light: <?= $config['light']['light'] ?>;
     
     --colors-bg: <?= $config['bg'] ?>;
-    --colors-box: <?= $config['box'] ?>
+    --colors-box: <?= $config['box'] ?>;
     --colors-title: <?= $config['title'] ?>;
     --colors-subtitle: <?= $config['subtitle'] ?>;
     --colors-body: <?= $config['body'] ?>;
