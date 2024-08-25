@@ -92,7 +92,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 }
 
 .form-basic, .form-muted {
-    @apply w-full leading-6 px-4 <?=$config['btnRadius']?> transition shadow-sm disabled:pointer-events-none disabled:opacity-50;
+    @apply w-full leading-6 px-4 <?=$config['formRadius']?> transition shadow-sm disabled:pointer-events-none disabled:opacity-50;
     @apply py-[<?=$config['btnPaddingY'] * 0.25 ?>rem];
     @apply bg-<?=$config['formBG']?> <?=$config['formBorder']?> border-<?=$config['formBorderColor']?>;
     @apply text-base focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent;
