@@ -3,7 +3,7 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 	
-	function metatags($author = "Maksuco.com", $domain="", $title="", $description="", $keywords=false, $lang="en", $canonical=false, $alternate=[], $default=false, $image=false) {
+	function metatags($author = "Maksuco.com", $domain="", $title="", $description="", $keywords=false, $lang="en", $canonical=false, $alternate=[], $default=false, $image=false, $type="website", $phone=false, $local=false, $geo=false, $cat=false) {
 		// CHECK
 		$title = htmlspecialchars(substr($title, 0, 60), ENT_QUOTES);
 		$description = htmlspecialchars(substr($description, 0, 160), ENT_QUOTES);
@@ -61,12 +61,34 @@ trait Metatags {
 		// Generate JSON-LD script
 		$jsonLd = [
 			"@context" => "https://schema.org",
-			"@type" => "WebPage",
+			"@type" => $type,
 			"name" => $title,
 			"description" => $description,
 			"image" => $image,
 			"url" => $canonical
 		];
+		if($local) {
+			$jsonLd["address"] = [
+				"@type" => "PostalAddress",
+				"streetAddress"  => $local["street"],
+				"addressLocality"  => $local["city"],
+				"addressRegion"  => $local["state"],
+				"postalCode"  => $local["zip"]
+			];
+			if($geo) {
+				$jsonLd["geo"] = [
+					"@type" => "GeoCoordinates",
+					"latitude" => $geo["lat"],
+					"longitude" => $geo["long"]
+				];
+			}
+			if($phone) {
+				$jsonLd["telephone"] = $phone;
+			}
+		}
+		if($cat) {
+			$jsonLd["servesCuisine"] = $cat;
+		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
 		
