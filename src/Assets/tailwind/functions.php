@@ -146,8 +146,10 @@ function backendConfig($config){
     $backend["xs_sidebarBG"] = $backend['sidebarBG'];
     $backend["xs_sidebarWidth"] = '60px';
     $backend["sidebarPadding"] = (((float) $backend['sidebarWidth'] * 0.15) / 2) . 'px';
-    $backend["sidebarLinksHover"] = 'transparent';
+    $backend["sidebarLinksWeight"] = 'font-normal';
+    $backend["sidebarLinksHover"] = 'hover:opacity-100 hover:bg-white/80';
     $backend["sidebarLinksPadding"] = '0.5rem';
+    $backend["sidebarLinksActive"] = '!bg-brand !text-brand-50';
     $backend["articleMargin"] = $backend['sidebarWidth'];
     return array_merge($backend, $base);
 }

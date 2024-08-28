@@ -21,7 +21,7 @@ trait Tailwind {
           include $dir.'dropdowns.php';
           include $dir.'other.php';
           $backend = backendConfig($config);
-          if($config['backend']==true){
+          if($config['backend']){
             include $dir.'backend.php';
           }
           if($config['backend'] || $config['components']==true){

@@ -87,7 +87,7 @@ trait Metatags {
 			}
 		}
 		if($cat) {
-			$jsonLd["servesCuisine"] = $cat;
+			$jsonLd["servesCuisine"] = '['.implode(",", $cat ?? []).']';
 		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';

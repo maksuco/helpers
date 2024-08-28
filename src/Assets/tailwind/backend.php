@@ -137,15 +137,15 @@ main {
       li {
         @apply leading-[0] py-[0.1rem];
         a {
-          @apply relative font-normal flex lg:justify-center xl:justify-start items-center no-underline w-full <?=$config['btnRadius']?> opacity-80 px-[0.8rem] py-[0.6rem];
-          @apply hover:opacity-100 hover:bg-white/80;
+          @apply relative <?=$backend['sidebarLinksWeight']?> flex lg:justify-center xl:justify-start items-center no-underline w-full <?=$config['btnRadius']?> opacity-80 px-[0.8rem] py-[0.6rem];
+          @apply <?=$backend['sidebarLinksHover']?>;
           line-height: 1.05;
         }
         svg {
-          @apply !h-[1.4rem] !w-[1.4rem] opacity-100 my-0;
+          @apply h-[1.4rem] w-[1.4rem] opacity-100 my-0;
         }
         .nav-sidebar-active {
-          @apply cursor-default !bg-brand !text-brand-50 !opacity-100;
+          @apply cursor-default <?=$backend['sidebarLinksActive']?> !opacity-100;
         }
       }
     }
