@@ -187,7 +187,6 @@
 
 
 //MODAL
-
 .modal {
   @apply fixed flex justify-center items-center overflow-hidden outline-none inset-0;
   z-index: 1050;
@@ -225,7 +224,7 @@
       }
     }
     .modal-footer {
-      @apply flex items-center text-left border-t border-gray-100 bg-gray-50;
+      @apply flex justify-end items-center absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-gray-50;
       @apply px-5 py-2 md:px-6 md:py-3;
     }
   }

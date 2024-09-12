@@ -1,17 +1,10 @@
 .backend-body {
-  //color: <?=$backend["body"]?>;
-  //background: linear-gradient(90deg, rgba(<?=$backend['bg']?>, 0.8) 30%, <?=$backend['bg']?> 70%);
-  @apply bg-[<?=$backend['bg']?>] dark:bg-dark dark:text-light;
+  @apply bg-[<?=$backend['bg']?>] dark:bg-dark dark:text-light p-1 xl:px-2;
 }
-main {
-  @apply relative px-1 md:px-8;
+#container-main {
+  @apply relative grid grid-cols-1 lg:grid-cols-[55px_auto] xl:grid-cols-[245px_auto] lg:gap-x-7 px-1 xl:px-[0.2rem];
   .rounded-full {
     @apply rounded-[40px];
-  }
-}
-@screen lg {
-  main {
-    @apply px-[0.2rem];
   }
 }
 .bg-backend {
@@ -33,8 +26,8 @@ main {
 
 //HEADER
 .nav-header {
-  @apply relative flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/40 dark:lg:bg-[#FFFFFF0B] rounded mb-3 z-10;
-  flex: 0 0 auto;
+  @apply relative lg:col-span-2 flex items-center w-full h-[<?=$backend["headerHeight"]?>] lg:bg-white/40 dark:lg:bg-[#FFFFFF0B] rounded mb-3 z-10;
+  //flex: 0 0 auto;
   .nav-logo {
     @apply hidden flex items-center justify-center w-[55px];
     margin-inline: 1rem;
@@ -111,14 +104,8 @@ main {
   }
 }
 .nav-article {
-  @apply relative w-full min-h-[80vh] pl-0;
-  //width: calc(100% - 275px);
-  flex: 1 0 0%;
-}
-@media (min-width: theme('screens.md')) {
-  .nav-article {
-    @apply px-2;
-  }
+  @apply relative w-full min-h-[80vh] pl-0 md:px-2 overflow-x-hidden;
+  //flex: 1 0 0%;
 }
 
 //SIDEBAR
