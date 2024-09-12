@@ -9,7 +9,6 @@ trait Tailwind {
         ob_start();
         //error return to before or find way to add @layer(xxx)
         $dir = dirname(__DIR__)."/Assets/tailwind/";
-				var_dump($dir);die;
         include $dir.'functions.php';
         $config = prepareArray($config);
         include $dir.'tailwind.php';
