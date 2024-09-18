@@ -1364,7 +1364,7 @@ HTML;
 		return $results;
 	}
 	
-	function minify_html_svg($html) {
+	function minify_html($html) {
     	// Preserve pre, code, textarea, script, and svg content
     	$placeholders = [];
     	$html = preg_replace_callback('/<(pre|code|textarea|script|svg).*?>(.*?)<\/\1>/si', function($matches) use (&$placeholders) {
