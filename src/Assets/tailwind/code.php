@@ -4,6 +4,15 @@
 	.tag {
 		@apply text-indigo-400 opacity-70;
 	}
+	&.string {
+		@apply text-orange-400 opacity-90;
+	}
+	&.function {
+		@apply text-teal-400 opacity-90;
+	}
+	&.parameter {
+		@apply text-indigo-400 opacity-80;
+	}
 }
 .hljs-comment {
 		@apply text-gray-400 opacity-90;
@@ -15,10 +24,10 @@
 		@apply text-indigo-400 opacity-80;
 }
 .hljs-string {
-		@apply text-yellow-400 opacity-90;
+		@apply text-orange-400 opacity-90;
 }
 .hljs-title {
-		@apply text-orange-200 opacity-90;
+		@apply text-teal-400 opacity-90;
 }
 .hljs-keyword {
 		@apply text-teal-200 opacity-90;
@@ -158,7 +167,7 @@
     //padding: 1.1rem 1rem .9rem 1.2rem;
     line-height: 1.1rem;
     //margin: 0 2rem 0 0;
-    padding: 0.3rem 2rem 0.3rem 2rem;
+    padding: 0.3rem 2rem 0.3rem 1.8rem;
     overflow-x: scroll;
     flex: 1;
   }
@@ -183,6 +192,7 @@
     }
     code {
       font-size: .8rem;
+    	padding: 0.1rem 1.8rem 0.1rem 0.8rem;
     }
   }
 }

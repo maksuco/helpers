@@ -31,14 +31,14 @@
   clear: both;
   position: relative;
   font-size: 14px;
-  padding: 7px 45px 9px 0;
+  padding: 7px 42px 9px 0;
   overflow: hidden;
   width: 100%;
   pointer-events: all;
   cursor: default;
   transform: translateX(0);
   user-select: none;
-  min-height: 50px;
+  min-height: 40px;
 }
 .iziToast > .iziToast-progressbar {
   position: absolute;
@@ -91,8 +91,8 @@
   top: 0;
   border: 0;
   padding: 0;
-  opacity: 0.6;
-  width: 42px;
+  opacity: 0.8;
+  width: 40px;
   height: 100%;
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAJPAAACTwBcGfW0QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAD3SURBVFiF1ZdtDoMgDEBfdi4PwAX8vLFn0qT7wxantojKupmQmCi8R4tSACpgjC2ICCUbEBa8ingjsU1AXRBeR8aLN64FiknswN8CYefBBDQ3whuFESy7WyQMeC0ipEI0A+0FeBvHUFN8xPaUhAH/iKoWsnXHGegy4J0yxialOfaHJAz4bhRzQzgDvdGnz4GbAonZbCQMuBm1K/kcFu8Mp1N2cFFpsxsMuJqqbIGExGl4loARajU1twskJLLhIsID7+tvUoDnIjTg5T9DPH9EBrz8rxjPzciAl9+O8SxI8CzJ8CxKFfh3ynK8Dyb8wNHM/XDqejx/AtNyPO87tNybAAAAAElFTkSuQmCC") no-repeat 50% 50%;
   background-size: 8px;
@@ -230,6 +230,7 @@
   float: left;
   color: #000;
   white-space: normal;
+	width: 100%;
 }
 .iziToast > .iziToast-body .iziToast-message {
   padding: 0;

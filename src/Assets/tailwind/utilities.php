@@ -16,4 +16,16 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
   	}
+		.scroll-x {
+  		overflow-x: auto;
+  		overflow-y: hidden;
+  		width: 100%;
+  		white-space: nowrap;
+			flex-wrap: nowrap;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+		}
+		.scroll-x::-webkit-scrollbar {
+      display: none;
+    }
 }

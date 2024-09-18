@@ -104,8 +104,8 @@
   }
 }
 .nav-article {
-  @apply relative w-full min-h-[80vh] pl-0 md:px-2 overflow-x-hidden;
-  //flex: 1 0 0%;
+  @apply relative w-full min-h-[80vh] pl-0 md:px-2;
+  //flex: 1 0 0%; overflow-x-hidden
 }
 
 //SIDEBAR

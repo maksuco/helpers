@@ -8,19 +8,19 @@
     @apply px-2.5 pt-2 pb-1.5 md:px-3 md:pt-3 md:pb-2.5 rounded-lg;
 }
 .box-sm {
-    @apply px-4 pt-4 pb-3 md:px-5 md:pt-4 md:pb-4 rounded-xl;
+    @apply px-3 pt-4 pb-3 md:px-5 md:pt-4 md:pb-4 rounded-xl;
 }
 .box {
-    @apply px-5 pt-5 pb-4 md:px-6 md:pt-5 md:pb-5 <?=$config['boxRadius']?>;
+    @apply px-4 pt-5 pb-4 md:px-6 md:pt-5 md:pb-5 <?=$config['boxRadius']?>;
 }
 .box-lg {
-    @apply px-6 pt-6 pb-5 md:px-7 md:pt-6 md:pb-6 rounded-[2rem];
+    @apply px-5 pt-6 pb-5 md:px-7 md:pt-6 md:pb-6 rounded-[2rem];
 }
 .box-xl {
-    @apply px-7 pt-7 pb-6 md:px-8 md:pt-8 md:pb-7 rounded-[2.5rem];
+    @apply px-6 pt-7 pb-6 md:px-8 md:pt-8 md:pb-7 rounded-[2.5rem];
 }
 .box-xxl {
-    @apply px-9 pt-9 pb-9 md:px-10 md:pt-10 md:pb-10 rounded-[3rem];
+    @apply px-7 pt-9 pb-9 md:px-10 md:pt-10 md:pb-10 rounded-[3rem];
 }
 .box-bg {
     @apply bg-white dark:bg-slate-950;
