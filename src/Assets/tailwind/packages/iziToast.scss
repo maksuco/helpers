@@ -153,12 +153,12 @@
   width: 100%;
   min-height: 17px;
   float: left;
-  margin: 6px -2px;
+  margin: 8px -2px 6px -2px;
 }
 .iziToast > .iziToast-body .iziToast-buttons > a,
 .iziToast > .iziToast-body .iziToast-buttons > button,
 .iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]) {
-  @apply rounded-lg;
+  @apply rounded-lg bg-white/70 text-dark;
   position: relative;
   display: inline-block;
   margin: 2px 5px 2px 2px;
@@ -166,16 +166,14 @@
   font-size: 13px;
   letter-spacing: 0.02em;
   cursor: pointer;
-  background: rgba(0,0,0,0.1);
   border-width: 2px;
   border-style: solid;
-  color: #000;
   appearance: auto;
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:hover,
 .iziToast > .iziToast-body .iziToast-buttons > button:hover,
 .iziToast > .iziToast-body .iziToast-buttons > input:not([type=checkbox]):not([type=radio]):hover {
-  background: rgba(0,0,0,0.2);
+  @apply bg-white;
 }
 .iziToast > .iziToast-body .iziToast-buttons > a:focus,
 .iziToast > .iziToast-body .iziToast-buttons > button:focus,
@@ -224,8 +222,8 @@
 .iziToast > .iziToast-body .iziToast-title {
   padding: 0;
   margin: 0;
-  line-height: 16px;
-  font-size: 16px;
+  line-height: 18px;
+  font-size: 17px;
   text-align: left;
   float: left;
   color: #000;
@@ -485,13 +483,13 @@ $izitoastColors: ('red', 'orange', 'green', 'blue', 'yellow');
 }
 
 .iziToast.iziToast-color-blue {
+    @apply !bg-blue-700;
   button {
-    @apply !bg-gray-500/20;
   }
 }
 .iziToast.iziToast-color-red {
+    @apply !bg-red-600;
   button {
-    @apply !bg-white/90;
   }
 }
 
