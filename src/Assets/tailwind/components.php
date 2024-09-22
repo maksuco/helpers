@@ -37,6 +37,7 @@
   .single-upload {
     .preview-container {
       @apply mr-0 mb-2;
+			min-width: 200px;
       .preview-img {
         @apply w-full max-w-[400px] h-[120px];
       }
