@@ -96,7 +96,7 @@ if($config['email-align']=='text-left'){
     display: block;
     width: auto;
     height: auto;
-    @apply <?= $config['email-logo-height'] ?> <?= $config['email-logo-align'] ?>;
+    @apply max-w-20 <?= $config['email-logo-height'] ?> <?= $config['email-logo-align'] ?>;
   }
   
   .email-subject {
