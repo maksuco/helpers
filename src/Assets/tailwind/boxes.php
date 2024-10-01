@@ -196,7 +196,7 @@
     content: "";
   }
   .modal-container {
-    @apply relative !p-0 bg-white w-auto overflow-hidden border-2 border-dark/5;
+    @apply relative !p-0 bg-white w-auto overflow-hidden;
     z-index: 950;
     .modal-title {
       @apply w-auto font-bold dark:text-dark pb-3;
@@ -215,7 +215,7 @@
       @apply px-5 pt-5 pb-6 md:px-6 md:pt-5 md:pb-7 text-left;
       overflow-y: auto;
       flex: 1 1 auto;
-      max-height: 70vh;
+      max-height: 80vh;
       //HIDE SCROLL BAR
       -ms-overflow-style: none;  /* Internet Explorer 10+ */
       scrollbar-width: none;
@@ -228,4 +228,8 @@
       @apply px-5 py-2 md:px-6 md:py-3;
     }
   }
+}
+
+.modal-right {
+  @apply max-w-700 right-2 left-auto top-2 bottom-2;
 }
