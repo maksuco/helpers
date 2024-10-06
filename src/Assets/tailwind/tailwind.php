@@ -94,7 +94,7 @@
     .absolute-c {
         left: 50%;
         top: 50%;
-        transform: translateX(-50%) translateY(-50%);
+    		transform: translate(-50%,-50%);
     }
     .absolute-cr { right: 0; }
     .absolute-bl, .absolute-bc, .absolute-br {
@@ -150,7 +150,7 @@
         .md\:absolute-c {
             top: 50%;
             left: 50%;
-            transform: translateX(-50%) translateY(-50%);
+    				transform: translate(-50%,-50%);
         }
         .md\:absolute-cr { right: 0; }
         .md\:absolute-bl, .md\:absolute-bc, .md\:absolute-br {
