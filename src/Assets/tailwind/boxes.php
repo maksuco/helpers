@@ -83,6 +83,9 @@
     .bento-item:nth-child(1) {
         @apply md:col-span-2 md:row-span-2;
     }
+    .bento-item:nth-child(5) {
+        @apply md:col-span-2;
+    }
     .bento-item:nth-child(8) {
         @apply md:col-span-2;
     }
