@@ -78,6 +78,16 @@
     }
 }
 
+.bento-formula-3b {
+	@apply grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6;
+    .bento-item:nth-child(1) {
+        @apply md:col-span-2 md:row-span-2;
+    }
+    .bento-item:nth-child(8) {
+        @apply md:col-span-2;
+    }
+}
+
 .bento-formula-4 {
 	@apply grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6;
     .bento-item:nth-child(1) {
