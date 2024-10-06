@@ -85,7 +85,7 @@
         transform: translateX(-50%);
     }
     .absolute-tr { right: 0; }
-    .absolute-cl, .absolute-c, .absolute-cr {
+    .absolute-cl, .absolute-cr {
         @apply absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -93,7 +93,8 @@
     .absolute-cl { left: 0; }
     .absolute-c {
         left: 50%;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
     }
     .absolute-cr { right: 0; }
     .absolute-bl, .absolute-bc, .absolute-br {
@@ -140,15 +141,16 @@
             transform: translateX(-50%);
         }
         .md\:absolute-tr { right: 0; transform: none; }
-        .md\:absolute-cl, .md\:absolute-c, .md\:absolute-cr {
+        .md\:absolute-cl, .md\:absolute-cr {
             @apply absolute;
             top: 50%;
             transform: translateY(-50%);
         }
         .md\:absolute-cl { left: 0; }
         .md\:absolute-c {
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(-50%);
         }
         .md\:absolute-cr { right: 0; }
         .md\:absolute-bl, .md\:absolute-bc, .md\:absolute-br {
