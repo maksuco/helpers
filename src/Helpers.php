@@ -788,6 +788,7 @@ function country_continents($countryCode) {
   //Slug helper
   public function slug($data,$div='-')
   {
+		$data = trim($data);
 		$replace = $this->slugReplace();
 		$data = strtr($data, $replace);
 		$data = preg_replace('~[^\\pL\d.]+~u', $div, $data);
