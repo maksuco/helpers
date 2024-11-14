@@ -490,6 +490,9 @@ function cities($countryCode="US") {
 	foreach($data[$countryCode] as $city){
 		$results[] = $city;
 	}
+    usort($results, function($a, $b) {
+        return $a['name'] <=> $b['name'];
+    });
 	return $results;
 }
 
