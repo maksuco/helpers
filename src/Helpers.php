@@ -482,8 +482,8 @@ function country($isoCode="US") {
 	return false;
 }
 function cities($countryCode="US") {
-	include_once("Extras/geoip2.php");
-	return storeGeoData();
+	// include_once("Extras/geoip2.php");
+	// return storeGeoData();
 
 	$data = json_decode(file_get_contents(__DIR__ ."/Extras/cities.json"));
 	$countryCode = strtoupper($countryCode);
