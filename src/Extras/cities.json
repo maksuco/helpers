@@ -813,6 +813,22 @@
             "latitude": "4.08667",
             "longitude": "-76.19528",
             "slug": "tulua"
+        },
+        {
+            "name": "Riohacha",
+            "region": "LAG",
+            "country": "CO",
+            "latitude": "11.544167",
+            "longitude": "-72.906944",
+            "slug": "riohacha"
+        },
+        {
+            "name": "Puerto Colombia",
+            "region": "ATL",
+            "country": "CO",
+            "latitude": "11.001298836795726",
+            "longitude": "-74.95172888091874",
+            "slug": "puerto-colombia"
         }
     ],
     "DO": [
