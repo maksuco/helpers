@@ -168,8 +168,7 @@ Returns an array with all results
 ```php
 
   {{\Helpers::cities('US')}}
-  //RETURNS: "id": 241,"code": "US","name_en": "United States","name_es": "Estados Unidos","status": null,"tel": 1,"lang": "en","currency": "USD","currency_symbol": "$","timezone_group": null
-
+  //RETURNS:"name": "Salta","region": "A","country": "AR","latitude": "-24.78835","longitude": "-65.41266","slug": "salta"
 ```
 
 # Check continent

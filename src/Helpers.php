@@ -485,7 +485,7 @@ function cities($countryCode="US") {
 	// include_once("Extras/geoip2.php");
 	// return storeGeoData();
 
-	$data = json_decode(file_get_contents(__DIR__ ."/Extras/cities.json"));
+	$data = json_decode(file_get_contents(__DIR__ ."/Extras/cities.json"), true);
 	$countryCode = strtoupper($countryCode);
 	foreach($data[$countryCode] as $city){
 		$results[] = $city;
