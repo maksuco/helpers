@@ -719,14 +719,6 @@
             "slug": "mocoa"
         },
         {
-            "name": "Mocoa",
-            "region": "PUT",
-            "country": "CO",
-            "latitude": "1.14917",
-            "longitude": "-76.63111",
-            "slug": "mocoa-co"
-        },
-        {
             "name": "Armenia",
             "region": "QUI",
             "country": "CO",
