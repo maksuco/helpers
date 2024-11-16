@@ -550,7 +550,8 @@ function currencies($isoCode=null) {
 	} elseif($isoCode != null){
 		return $currencies[strtolower($isoCode)];
 	}
-	return array_keys($currencies);
+	return array_map('strtoupper', array_keys($currencies));
+	//return array_keys($currencies);
 }
 
 
