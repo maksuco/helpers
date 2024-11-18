@@ -67,8 +67,20 @@ trait Tailwind {
     }
 
     function tailwindV4($config = []) {
-      $query = http_build_query($config);
-      $fileContent = file_get_contents('https://api.webcms.dev/tailwind?'.$query);
+      if(!empty($config['extrafile'])){
+        $extraContent = file_get_contents($config['extrafile']);
+        $config['extraFile'] = base64_encode($extraContent);
+      }
+      $data = http_build_query($config);
+      $options = [
+          'http' => [
+              'method'  => 'POST',
+              'header'  => 'Content-type: application/x-www-form-urlencoded',
+              'content' => $data
+          ]
+      ];
+      $context = stream_context_create($options);
+      $fileContent = file_get_contents('https://api.webcms.dev/tailwind', false, $context);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
@@ -78,6 +90,7 @@ trait Tailwind {
           $config['path'] = 'assets/css/'.$filename;
       }
       file_put_contents($config['path'], $fileContent);
+      return $fileContent;
     }
 
 }
