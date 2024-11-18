@@ -68,7 +68,7 @@ trait Tailwind {
 
     function tailwindV4($config = []) {
       $query = http_build_query($config);
-      file_get_contents('https://api.webcms.dev/tailwind?'.$query);
+      $fileContent = file_get_contents('https://api.webcms.dev/tailwind?'.$query);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
