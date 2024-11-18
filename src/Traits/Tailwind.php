@@ -66,5 +66,18 @@ trait Tailwind {
         return true;
     }
 
+    function tailwindV4($config = []) {
+      $query = http_build_query($config);
+      file_get_contents('https://api.webcms.dev/tailwind?'.$query);
+      //SAVE
+      $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
+      if(!empty($config['path'])) {
+      } elseif(class_exists("Illuminate\Foundation\Application")) {
+          $config['path'] = resource_path('css/'.$filename);
+      } else {
+          $config['path'] = 'assets/css/'.$filename;
+      }
+      file_put_contents($config['path'], $fileContent);
+    }
 
 }
