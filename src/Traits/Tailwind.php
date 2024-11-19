@@ -67,17 +67,24 @@ trait Tailwind {
     }
 
     function tailwindV4($config = []) {
-      if(!empty($config['extrafile'])){
-        $extraContent = file_get_contents($config['extrafile']);
-        $config['extraFile'] = base64_encode($extraContent);
+      if(!empty($config['baseFile'])){
+        $baseContent = file_get_contents($config['baseFile']);
+        $config['baseFile'] = base64_encode($baseContent);
+      }
+      if(!empty($config['extrafiles'])){
+        foreach($config['extrafiles'] as $file){
+          $extraContent = file_get_contents($file);
+          $config['extraFiles'][] = base64_encode($extraContent);
+        }
       }
       $data = http_build_query($config);
       $options = [
-          'http' => [
-              'method'  => 'POST',
-              'header'  => 'Content-type: application/x-www-form-urlencoded',
-              'content' => $data
-          ]
+        'http' => [
+          'method'  => 'POST',
+          'header'  => 'Content-type: application/x-www-form-urlencoded',
+          'content' => $data,
+          'ignore_errors' => true
+        ]
       ];
       $context = stream_context_create($options);
       $fileContent = file_get_contents('https://api.webcms.dev/tailwind', false, $context);
