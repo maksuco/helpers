@@ -877,7 +877,7 @@ function country_continents($countryCode) {
 	}
 
 	function random_quote() {
-		$quotes = json_decode(file_get_contents('Extras/quotes.json'),true);
+		$quotes = json_decode(file_get_contents(__DIR__ .'/Extras/quotes.json'),true);
 		shuffle($quotes);
 		return $quotes[0];
 	}
