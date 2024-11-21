@@ -97,11 +97,11 @@ trait Tailwind {
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
+        $config['path'] .= $filename;
       } elseif(class_exists("Illuminate\Foundation\Application")) {
-        return base_path($config["path"].$filename).' '.resource_path('css/'.$filename);
-          $config['path'] = (!empty($config["path"]))? base_path($config["path"].$filename) : resource_path('css/'.$filename);
+        $config['path'] = resource_path('css/'.$filename);
       } else {
-          $config['path'] = 'assets/css/'.$filename;
+        $config['path'] = 'assets/css/'.$filename;
       }
       file_put_contents($config['path'], $fileContent);
       return $fileContent;
