@@ -88,7 +88,8 @@ trait Tailwind {
       ];
       
       $context = stream_context_create($options);
-      $fileContent = file_get_contents('https://api.webcms.dev/tailwind', false, $context);
+      $url = 'https://api.webcms.'.($config["testing"] ?? "dev").'/tailwind';
+      $fileContent = file_get_contents($url, false, $context);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
