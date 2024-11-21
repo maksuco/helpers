@@ -98,7 +98,7 @@ trait Tailwind {
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
       } elseif(class_exists("Illuminate\Foundation\Application")) {
-          $config['path'] = (!empty($config["path"])? base_path($config["path"]) : resource_path('css/'.$filename);
+          $config['path'] = (!empty($config["path"])? base_path($config["path"].$filename) : resource_path('css/'.$filename);
       } else {
           $config['path'] = 'assets/css/'.$filename;
       }
