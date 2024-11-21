@@ -79,6 +79,10 @@ trait Tailwind {
       }
       $data = http_build_query($config);
       $options = [
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
         'http' => [
           'method'  => 'POST',
           'header'  => 'Content-type: application/x-www-form-urlencoded',
@@ -88,13 +92,13 @@ trait Tailwind {
       ];
       
       $context = stream_context_create($options);
-      $url = 'https://api.webcms.'.($config["testing"] ?? "dev").'/tailwind';
+      $url = 'https://api.webcms.'.($config["test"] ?? "dev").'/tailwind';
       $fileContent = file_get_contents($url, false, $context);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
       if(!empty($config['path'])) {
       } elseif(class_exists("Illuminate\Foundation\Application")) {
-          $config['path'] = resource_path('css/'.$filename);
+          $config['path'] = (!empty($config["path"])? base_path($config["path"]) : resource_path('css/'.$filename);
       } else {
           $config['path'] = 'assets/css/'.$filename;
       }
