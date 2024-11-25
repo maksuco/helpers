@@ -85,7 +85,7 @@ trait Tailwind {
         ],
         'http' => [
           'method'  => 'POST',
-          'header'  => 'Content-type: application/x-www-form-urlencoded',
+          'header'  => 'Content-Type: application/json',
           'content' => $data,
           'ignore_errors' => true
         ]
