@@ -77,7 +77,7 @@ trait Tailwind {
           $config['extraFiles'][] = base64_encode($extraContent);
         }
       }
-      $data = json_encode($config);
+      $data = http_build_query($config);
       $options = [
         'ssl' => [
             'verify_peer' => false,
@@ -85,7 +85,7 @@ trait Tailwind {
         ],
         'http' => [
           'method'  => 'POST',
-          'header'  => 'Content-Type: application/json',
+          'header'  => 'Content-type: application/x-www-form-urlencoded',
           'content' => $data,
           'ignore_errors' => true
         ]
