@@ -77,7 +77,7 @@ trait Tailwind {
           $config['extraFiles'][] = base64_encode($extraContent);
         }
       }
-      $data = http_build_query($config);
+      $data = json_encode($config);
       $options = [
         'ssl' => [
             'verify_peer' => false,
