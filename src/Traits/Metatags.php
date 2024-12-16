@@ -75,6 +75,9 @@ trait Metatags {
 				"addressRegion"  => $local["state"],
 				"postalCode"  => $local["zip"]
 			];
+			if($local["country"]) {
+				$jsonLd["address"]["addressCountry"] = $local["country"];
+			}
 			if($geo) {
 				$jsonLd["geo"] = [
 					"@type" => "GeoCoordinates",
@@ -86,8 +89,8 @@ trait Metatags {
 				$jsonLd["telephone"] = $phone;
 			}
 		}
-		if($cat) {
-			$jsonLd["servesCuisine"] = '['.implode(",", $cat ?? []).']';
+		if(!empty($cat)) {
+			$jsonLd["keywords"] = '"'.implode(",", $cat ?? []).'"';
 		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
