@@ -10,7 +10,7 @@ trait Metatags {
 		$image = htmlspecialchars($image, ENT_QUOTES);
 		$domain = str_replace('https://', '', $domain);
 		$url = 'https://'.$domain;
-		$canonical = $url.rtrim($canonical, '/');
+		$canonical = $url.str_replace("//", "/", "/".$canonical);
 		$s3 = parse_url($image)['host'];
 		$s3Dns = ($s3 != $domain)? '<link rel="dns-prefetch" href="//'.$s3.'">' : "";
 		
@@ -38,7 +38,7 @@ trait Metatags {
 			}
 		}
 		if($default !== false) {
-			$default = $url.'/'.$default;
+			$default = $url.str_replace("//", "/", "/".$default);
 			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.rtrim($default, '/').'" />';
 		}
 		
