@@ -74,7 +74,7 @@ trait Metatags {
 				"addressLocality"  => $local["city"],
 				"addressRegion"  => $local["state"]
 			];
-			if($local["postalCode"]) {
+			if(!empty($local["postalCode"])) {
 				$jsonLd["address"]["postalCode"] = $local["zip"];
 			}
 			if($local["country"]) {
