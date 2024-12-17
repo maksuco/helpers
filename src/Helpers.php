@@ -928,7 +928,7 @@ function country_continents($countryCode) {
 
 //CHECK if url has http
 function telto($phone) {
-	if(empty($phone)) { return "" };
+	if(empty($phone)) { return ""; };
 	return str_replace(['+', '(', ')', '-', ' '], '', $phone);
 }
 
