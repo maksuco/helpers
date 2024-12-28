@@ -69,7 +69,6 @@ class Helpers {
 	}
 
 	//google fonts downloader
-	// $config["minify"] = true;
 	// $config["path"] = "public/templates/fonts/";
 	// $config["src"] = "https://showpage.app/templates/fonts/";
 	// foreach ($fonts as $key => $font) {
@@ -111,9 +110,6 @@ class Helpers {
 			//replace
 			$cssContent = str_replace($src[1], $srcPath.$filename, $cssContent);
 		}
-		// if(!empty($config['minify'])){
-		// 	$cssContent = $this->minify_html($cssContent);
-		// }
 		$cssContent = $this->minify_html($cssContent);
 		file_put_contents($config['path'].strtolower($name).'.css', $cssContent);
 		return $cssContent;

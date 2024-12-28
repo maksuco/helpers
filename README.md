@@ -681,6 +681,12 @@ Just add to the link onclick="return popup(this);"
 ```
 
 
+### DOWNLOAD GOOGLE FONT
+```php
+  $html = \Helpers::gFonts($url);
+```
+
+
 
 ### PROCESS INSTAGRAM SCRAPER
 Requires https://github.com/postaddictme/instagram-php-scraper composer require raiym/instagram-php-scraper
