@@ -682,6 +682,7 @@ Just add to the link onclick="return popup(this);"
 
 
 ### DOWNLOAD GOOGLE FONT
+Example url: "https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
 ```php
   $html = \Helpers::gFonts($url);
 ```
