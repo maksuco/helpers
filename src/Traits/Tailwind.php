@@ -44,7 +44,7 @@ trait Tailwind {
             include $file;
           }
         echo "}";
-        
+
         try {
           $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
           $fileContent = ob_get_clean();
@@ -90,12 +90,44 @@ trait Tailwind {
           'ignore_errors' => true
         ]
       ];
-      
+
       $context = stream_context_create($options);
       $url = 'https://api.webcms.'.($config["test"] ?? "dev").'/tailwind';
       $fileContent = file_get_contents($url, false, $context);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tw_helpers.css';
+      if(!empty($config['path'])) {
+        $config['path'] .= $filename;
+      } elseif(class_exists("Illuminate\Foundation\Application")) {
+        $config['path'] = resource_path('css/'.$filename);
+      } else {
+        $config['path'] = 'assets/css/'.$filename;
+      }
+      file_put_contents($config['path'], $fileContent);
+      return $fileContent;
+    }
+
+
+    function tailboot($config = []) {
+      $data = http_build_query($config);
+      $options = [
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+        'http' => [
+          'method'  => 'POST',
+          'header'  => 'Content-type: application/x-www-form-urlencoded',
+          'content' => $data,
+          'ignore_errors' => true
+        ]
+      ];
+
+      $context = stream_context_create($options);
+      $url = 'https://tailboot.test/api/generate-tailboot';
+      $fileContent = file_get_contents($url, false, $context);
+      //SAVE
+      $filename = (!empty($config['filename']))? $config['filename'] : 'tailboot.css';
       if(!empty($config['path'])) {
         $config['path'] .= $filename;
       } elseif(class_exists("Illuminate\Foundation\Application")) {

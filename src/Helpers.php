@@ -79,11 +79,11 @@ class Helpers {
 	function gFonts($url, $config=[]) {
 		if(!empty($config['path'])) {
 		} elseif(class_exists("Illuminate\Foundation\Application")) {
-			$config['path'] = 'public/assets/fonts/';
+			$config['path'] = 'public/assets/fonts/'; //storage path
 		} else {
-			$config['path'] = 'assets/fonts/';
+			$config['path'] = 'assets/fonts/'; //storage path
 		}
-		$srcPath = $config['src'] ?? $config['path'];
+		$srcPath = $config['src'] ?? $config['path']; //relative path
 		//$cssContent = file_get_contents($url);
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
