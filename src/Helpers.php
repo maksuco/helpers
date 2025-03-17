@@ -6,7 +6,7 @@ class Helpers {
 	use Traits\Colors;
 	use Traits\Tailwind;
 	use Traits\Metatags;
-	
+
 	//GET DEVICE AGENT
 	function agent($mobile,$tablet,$desktop) {
 		if(!isset($_SERVER["HTTP_USER_AGENT"])) {
@@ -14,9 +14,9 @@ class Helpers {
 		}
 	    $agent = $_SERVER["HTTP_USER_AGENT"];
 	    if(preg_match("/(ipad|tablet)/i", $agent)) {
-			return $tablet;  
+			return $tablet;
 	    } elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
-			return $mobile; 
+			return $mobile;
 		}
 	  return $desktop;
 	}
@@ -35,7 +35,7 @@ class Helpers {
 		}
 		$user_agent = $data['complete'] = $_SERVER["HTTP_USER_AGENT"];
         $data['lang'] = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'en';
-	
+
 		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
 			$data['tablet'] = true; $data['device'] = 'tablet';
 		} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $user_agent)) {
@@ -52,7 +52,7 @@ class Helpers {
 		elseif (strpos($user_agent, 'Safari')) { $data['browser'] = 'Safari'; }
 		elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) { $data['browser'] = 'Internet Explorer'; }
 		else { $data['browser'] = 'Other'; }
-			
+
 		//OS
 		if (strpos($user_agent, 'Macintosh')) { $data['os'] = 'Macintosh'; }
 		elseif (strpos($user_agent, 'iPhone') || strpos($user_agent, 'iOS')) { $data['os'] = 'ios'; }
@@ -63,7 +63,7 @@ class Helpers {
 		elseif (strpos($user_agent, 'Windows Phone')) { $data['os'] = 'WindowsPhone'; }
 		elseif (strpos($user_agent, 'Windows')) { $data['os'] = 'Windows'; }
 		else { $data['os'] = 'Other'; }
-	
+
 		$data['result'] = $data['os'].' '.$data['browser'];
 		return $data;
 	}
@@ -114,15 +114,15 @@ class Helpers {
 		file_put_contents($config['path'].strtolower($name).'.css', $cssContent);
 		return $cssContent;
 	}
-	
+
 	//GET DEVICE AGENT
 	function mobile() {
 		if(isset($_SERVER["HTTP_USER_AGENT"])) {
 			$agent = $_SERVER["HTTP_USER_AGENT"];
 			if(preg_match("/(ipad|tablet)/i", $agent)) {
-				return false;  
+				return false;
 			} elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
-				return true; 
+				return true;
 			}
 		}
 		return false;
@@ -140,11 +140,11 @@ class Helpers {
 	function browserLocale($languages) {
 		$browserLang = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : $languages[0];
 		if(!in_array($browserLang, $languages)) {
-			return $languages[0];  
+			return $languages[0];
 		}
 		return $browserLang;
 	}
-	
+
 function nav_active($page) {
 	if(isset($active)) {
 		return ($active == $page)? "active" : "";
@@ -188,13 +188,13 @@ function moneyFormat($value=null,$currency='USD') {
 	$value = (is_string($value))? (float) $value : $value ?? 0;
 	$string = sprintf("%.2f", $value);
 	$decimals = (strpos($string,'.00') !== false)? 0 : 2;
-	
+
 	if (in_array($currency, ['ARS','BRL','CAD','EUR','ILS','RUB','VND'])) {
 		$value = number_format($value, $decimals, '.', ',');
 	} else {
 		$value = number_format($value, $decimals, ',', '.');
 	}
-	
+
 	if($currency=='EUR'){ return '€ '.$value;
 	} elseif($currency=='BRL') { return 'R$ '.$value;
 	} elseif($currency=='CNY') { return '¥ '.$value;
@@ -232,7 +232,7 @@ function decimalsFormat($number,$cents=true) {
 	if(isset($number_parts[1])){
 		return str_replace(',', '', $number_parts[0]).'.'.substr($number_parts[1], 0, 2);
 	} else {
-		return str_replace(',', '', $number).'.00';   
+		return str_replace(',', '', $number).'.00';
 	}
 }
 
@@ -292,7 +292,7 @@ function timezone($ip,$date) {
 		$dist = rad2deg($dist);
 		$dist = $dist * 60 * 1.1515;
 		$unit = strtoupper($unit);
-	
+
 		if ($unit == "K") {
 			$dist = $dist * 1.609344;
 		} else if ($unit == "N") {
@@ -648,7 +648,7 @@ function country_continents($countryCode) {
 			return $results;
 		}
 	}
-	
+
   //GetAvatar
   function avatar($user,$s3=null) {
 
@@ -692,13 +692,13 @@ function country_continents($countryCode) {
 				return "data:image/png;base64,".base64_encode($imagedata);
 			}
 		}
-		
+
 		//ALL OTHERS
 		// "data:image/png;base64,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",
 		$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
 		return "data:image/png;base64,".base64_encode($imagedata);
   }
-	
+
 	//CRYPTO
 	function encrypt($data,$key) {
 		$data = (is_array($data))? json_encode($data) : $data;
@@ -736,7 +736,7 @@ function country_continents($countryCode) {
         }
         return 'raw';
 	}
-	
+
 	//FILE SIZES CALCULATOR TO BYTES
 	function sizetobytes($size,$reverse=false) {
 		//UNITS TO BYTES
@@ -746,8 +746,8 @@ function country_continents($countryCode) {
 			$value = intval(preg_replace('/[^0-9]/', '', $size));
 			$units = array('b'=>0, 'kb'=>1, 'mb'=>2, 'gb'=>3, 'tb'=>4);
 			$exponent = isset($units[$unit]) ? $units[$unit] : 0;
-			return ($value * pow(1024, $exponent));    
-		}       
+			return ($value * pow(1024, $exponent));
+		}
 		//BYTES TO UNITS
         if ($size >= 1073741824) {
             $size = number_format($size / 1073741824, 2).' gb';
@@ -779,7 +779,7 @@ function country_continents($countryCode) {
 		}
 		return basename($string);
 	}
-	
+
 	function slugReplace(){
 	return [
         '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '', '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä'=> 'Ae', '&Auml;' => 'A', 'Å' => 'A', 'Ā' => 'A', 'Ą' => 'A', 'Ă' => 'A', 'Æ' => 'Ae', 'Ç' => 'C', 'Ć' => 'C', 'Č' => 'C', 'Ĉ' => 'C', 'Ċ' => 'C', 'Ď' => 'D', 'Đ' => 'D', 'Ð' => 'D', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ē' => 'E', 'Ę' => 'E', 'Ě' => 'E', 'Ĕ' => 'E', 'Ė' => 'E', 'Ĝ' => 'G', 'Ğ' => 'G', 'Ġ' => 'G', 'Ģ' => 'G', 'Ĥ' => 'H', 'Ħ' => 'H', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ī' => 'I', 'Ĩ' => 'I', 'Ĭ' => 'I', 'Į' => 'I', 'İ' => 'I', 'Ĳ' => 'IJ', 'Ĵ' => 'J', 'Ķ' => 'K', 'Ł' => 'K', 'Ľ' => 'K', 'Ĺ' => 'K', 'Ļ' => 'K', 'Ŀ' => 'K', 'Ñ' => 'N', 'Ń' => 'N', 'Ň' => 'N', 'Ņ' => 'N', 'Ŋ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'Oe', '&Ouml;' => 'Oe', 'Ø' => 'O', 'Ō' => 'O', 'Ő' => 'O', 'Ŏ' => 'O', 'Œ' => 'OE', 'Ŕ' => 'R', 'Ř' => 'R', 'Ŗ' => 'R', 'Ś' => 'S', 'Š' => 'S', 'Ş' => 'S', 'Ŝ' => 'S', 'Ș' => 'S', 'Ť' => 'T', 'Ţ' => 'T', 'Ŧ' => 'T', 'Ț' => 'T', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'Ue', 'Ū' => 'U', '&Uuml;' => 'Ue', 'Ů' => 'U', 'Ű' => 'U', 'Ŭ' => 'U', 'Ũ' => 'U', 'Ų' => 'U', 'Ŵ' => 'W', 'Ý' => 'Y', 'Ŷ' => 'Y', 'Ÿ' => 'Y', 'Ź' => 'Z', 'Ž' => 'Z', 'Ż' => 'Z', 'Þ' => 'T', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'ae', '&auml;' => 'ae', 'å' => 'a', 'ā' => 'a', 'ą' => 'a', 'ă' => 'a', 'æ' => 'ae', 'ç' => 'c', 'ć' => 'c', 'č' => 'c', 'ĉ' => 'c', 'ċ' => 'c', 'ď' => 'd', 'đ' => 'd', 'ð' => 'd', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ē' => 'e', 'ę' => 'e', 'ě' => 'e', 'ĕ' => 'e', 'ė' => 'e', 'ƒ' => 'f', 'ĝ' => 'g', 'ğ' => 'g', 'ġ' => 'g', 'ģ' => 'g', 'ĥ' => 'h', 'ħ' => 'h', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ī' => 'i', 'ĩ' => 'i', 'ĭ' => 'i', 'į' => 'i', 'ı' => 'i', 'ĳ' => 'ij', 'ĵ' => 'j', 'ķ' => 'k', 'ĸ' => 'k', 'ł' => 'l', 'ľ' => 'l', 'ĺ' => 'l', 'ļ' => 'l', 'ŀ' => 'l', 'ñ' => 'n', 'ń' => 'n', 'ň' => 'n', 'ņ' => 'n', 'ŉ' => 'n', 'ŋ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'oe', '&ouml;' => 'oe', 'ø' => 'o', 'ō' => 'o', 'ő' => 'o', 'ŏ' => 'o', 'œ' => 'oe', 'ŕ' => 'r', 'ř' => 'r', 'ŗ' => 'r', 'š' => 's', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'ue', 'ū' => 'u', '&uuml;' => 'ue', 'ů' => 'u', 'ű' => 'u', 'ŭ' => 'u', 'ũ' => 'u', 'ų' => 'u', 'ŵ' => 'w', 'ý' => 'y', 'ÿ' => 'y', 'ŷ' => 'y', 'ž' => 'z', 'ż' => 'z', 'ź' => 'z', 'þ' => 't', 'ß' => 'ss', 'ſ' => 'ss', 'ый' => 'iy', 'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G', 'Д' => 'D', 'Е' => 'E', 'Ё' => 'YO', 'Ж' => 'ZH', 'З' => 'Z', 'И' => 'I', 'Й' => 'Y', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N', 'О' => 'O', 'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T', 'У' => 'U', 'Ф' => 'F', 'Х' => 'H', 'Ц' => 'C', 'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SCH', 'Ъ' => '', 'Ы' => 'Y', 'Ь' => '', 'Э' => 'E', 'Ю' => 'YU', 'Я' => 'YA', 'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'yo', 'ж' => 'zh', 'з' => 'z', 'и' => 'i', 'й' => 'y', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n', 'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch', 'ш' => 'sh', 'щ' => 'sch', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e', 'ю' => 'yu', 'я' => 'ya', '.' => '', '"' => '', "'" => ''
@@ -816,7 +816,7 @@ function country_continents($countryCode) {
 		$string = preg_replace('~[^-\w.]+~', '', $string);
 		return strtolower(trim($string));
 	}
-	
+
   //Adds random at the end of the file name, and checks if its numeric or string
   function slug_random($characters) {
     if (is_numeric($characters)) {
@@ -828,7 +828,7 @@ function country_continents($countryCode) {
     }
     return '-'.$characters;
 	}
-	
+
 	//Because str_random doesn't work anymore
   function random($characters = 1,$numbers = null) {
 		if($numbers == null) {
@@ -847,7 +847,7 @@ function country_continents($countryCode) {
 		}
 		return $random;
 	}
-	
+
 	//Because str_random doesn't work anymore
   function random_name($type=null) {
 		$names = ['Allison','Arthur','Arnold','Ana','Alex','Alberto','Barry','Bertha','Bill','Bonnie','Brian','Charlie','Charley','Cindy','Chris','Dean','Dolly','Danny','Danielle','Dennis','Debby','Erin','Eduard','Erika','Earl','Emily','Ernesto','Felix','Fay','Fabian','Frances','Franklin','Florence','Gustav','Grace','Gaston','Gert','Gordon','Humberto','Hanna','Harrison','Henry','Hermine','Harvey','Helene','Iris','Isidore','Isabel','Ivan','Ines','Irene','Isaac','Jerry','Josephine','Juan','Jeanne','John','Jose','Joyce','Karen','Kyle','Kate','Karl','Katrina','Kirk','Lorenzo','Lili','Larry','Lisa','Lee','Leslie','Michelle','Marco','Mindy','Maria','Michael','Noel','Nana','Nicholas','Nicole','Nate','Nadine','Ned','Olga','Omar','Odette','Otto','Ophelia','Oscar','Pablo','Paloma','Peter','Paul','Paula','Philippe','Patty','Rebekah','Rene','Rose','Richard','Rita','Rafael','Robert','Sally','Sam','Stan','Sandy','Steve','Tanya','Teddy','Teresa','Tomas','Tammy','Tony','Van','Vicky','Victor','Vince','Valerie','Wendy','Wilfred','Will','Wanda','Walter','Wilma','William','Vision'];
@@ -877,7 +877,7 @@ function country_continents($countryCode) {
 		shuffle($quotes);
 		return $quotes[0];
 	}
-	
+
 	//Because str_random doesn't work anymore
   function greetings_by_time($timezone=false) {
 		if($timezone){
@@ -925,7 +925,7 @@ function country_continents($countryCode) {
 //CHECK if url has http
 function telto($phone="") {
 	if(empty($phone) || $phone == null) { return ""; };
-	return str_replace(['+', '(', ')', '-', ' '], '', $phone);
+	return str_replace(['+', '(', ')', '-', ' ', '  '], '', $phone);
 }
 
 
@@ -957,11 +957,11 @@ function link($url) {
 //CHECK if email domain exist.
 function email_check($email) {
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		return false; 
+		return false;
 	}
 	$domain = explode("@",$email);
 	if (!checkdnsrr($domain[1], 'MX')) {
-		return false; 
+		return false;
 	}
 	return true;
 }
@@ -1119,9 +1119,9 @@ return <<<HTML
 </style>
 HTML;
 }
-  
+
   //analytics
-  
+
 	function period($period,$period2) {
 	    if($period == 'month') {
 	        $startDate = Carbon::now()->subMonth($period2)->startOfMonth();
@@ -1149,12 +1149,12 @@ HTML;
 		}
 	    return [$startDate,$endDate];
 	}
-	
+
 	function counter($period,$period2,$path) {
-		
+
 	    	$periods = period($period,$period2);
 		    $metrics = 'ga:visits,ga:pageviews';
-		    
+
 			if(!empty($path)) {
 				$analytics = Analytics::performQuery(Spatie\Analytics\Period::create($periods[0], $periods[1]), $metrics, $others = ['filters' => 'ga:pagePath=~/'.$path, 'dimensions' => 'ga:pagePath']);
 				//dd($analytics);
@@ -1169,12 +1169,12 @@ HTML;
 				$visitors = $analytics->sum('visitors');
 				$pageviews = $analytics->sum('pageViews');
 			}
-			
+
 	    return [$visitors,$pageviews];
 	}
 
 	//SOCIAL SHARING
-	
+
 	function facebookshare($url,$title,$app_id=null) {
 		$url = ($url)? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$return = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).'&app_id='.$app_id;
@@ -1221,7 +1221,7 @@ HTML;
 				let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=400,height=500";
 				var popup_window = open(url, "Share", params);
 				try {
-					popup_window.focus();   
+					popup_window.focus();
 				} catch (e) {
 					window.open(url, "_blank");
 				}
@@ -1234,14 +1234,14 @@ HTML;
 		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	}
 
-	
+
 	//RETURNS DATA FILTERED BY USER
 	function dashboard($data) {
 		$month = $data->filter(function($user){ return $user->created_at->format('m-y') == date('m-y'); });
 		$lastmonth = $data->filter(function($user){ return $user->created_at->format('m-y') == Carbon::now()->firstOfMonth()->subMonth()->format('m-y'); });
 		$year = $data->filter(function($user){ return $user->created_at->format('y') == date('y'); });
 		$lastyear = $data->filter(function($user){ return $user->created_at->format('y') == Carbon::now()->subYear()->format('y'); });
-	
+
 		$results = collect([
 				'month' => $month->count(),
 				'lastmonth' => $lastmonth->count(),
@@ -1260,13 +1260,13 @@ HTML;
 			};
 	    return $results;
 	}
-	
-	
+
+
 	function chart($period,$period2,$path) {
-		
+
 	    	$periods = period($period,$period2);
 		    $metrics = 'ga:visits,ga:pageviews';
-		    
+
 			if(!empty($path)) {
 				$analytics = Analytics::performQuery(Spatie\Analytics\Period::create($periods[0], $periods[1]), $metrics, $others = ['filters' => 'ga:pagePath=~/'.$path, 'dimensions' => 'ga:pagePath']);
 				$visitors = 0; $pageviews = 0;
@@ -1283,35 +1283,35 @@ HTML;
 			foreach($dates as $date) {
 				$labels[] = $date->format('d-m-Y');
 			}
-			
+
 	        $labels = collect($labels);
-			
+
 	    return [$visitors,$pageviews,$labels];
 	}
-	
+
 	//RETURNS CHART DATA FOR CLIENTS data1 and data2
 	function charts($data1) {
 	    $startDate = Carbon::now()->subDay(365);
 	    $endDate = Carbon::now();
-	
+
 		//THIS RETURNS THE 4 BOXES
 		$month = $data->filter(function($data1){ return $data1->created_at->format('m-y') == date('m-y'); });
 		$lastmonth = $data->filter(function($data1){ return $data1->created_at->format('m-y') == Carbon::now()->firstOfMonth()->subMonth()->format('m-y'); });
 		$year = $data->filter(function($data1){ return $data1->created_at->format('y') == date('y'); });
 		$lastyear = $data->filter(function($data1){ return $data1->created_at->format('y') == Carbon::now()->subYear()->format('y'); });
-	
+
 	}
-	
+
 	//I think is better to cretae a reports_total and divide this and also implement in invoices.blade
 	function reports($biz_id,$table,$date,$sum) {
-	
+
 		$results = [];
 		$resultsDB = \DB::table($table)->where('biz_id', $biz_id);
 
 		if(isset($_GET['client_id']) AND $_GET['client_id'] != 'all' AND $table != 'clients') {
 			$resultsDB->where('client_id', $_GET['client_id']);
 		}
-		
+
 		if(isset($_GET['currency'])) {
 			$resultsDB->where('currency', $_GET['currency']);
 		}
@@ -1350,12 +1350,12 @@ HTML;
 		$results['lastyear_sum'] = $lastyear->sum($sum);
 		$results['total'] = $resultsDB->count();
 		$results['total_sum'] = $resultsDB->sum($sum);
-		
+
     	return $results;
 	}
 
 	function reports_chart($resultsDB,$date,$sum,$sum2) {
-		
+
 		$results = [];
 		$data = $resultsDB->select(\DB::raw($date.' as date'), \DB::raw('sum('.$sum.') as total'), \DB::raw('sum('.$sum2.') as sum2'), \DB::raw('count(id) as count'))->groupBy(\DB::raw($date))->get();
 		$results['total_sum'] = $data->sum('total');
@@ -1366,7 +1366,7 @@ HTML;
 		$results['count'] = $data->pluck('count');
 		return $results;
 	}
-	
+
 	function minify_html($html) {
     	// Preserve pre, code, textarea, script, and svg content
     	$placeholders = [];
@@ -1375,19 +1375,19 @@ HTML;
         	$placeholders[$placeholder] = $matches[0];
         	return $placeholder;
     	}, $html);
-	
+
     	// Remove comments (but keep conditional comments)
     	$html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
-	
+
     	// Remove whitespace
     	$html = preg_replace('/\s+/', ' ', $html);
     	$html = preg_replace('/>\s+</', '><', $html);
     	$html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
-	
+
     	// Remove unnecessary quotes and semicolons
     	$html = preg_replace('/;(?=\s*})/', '', $html); // Remove last semicolon in style blocks
     	$html = preg_replace('/([a-z-])="([a-z0-9-_]+)"/i', '$1=$2', $html); // Remove quotes from simple attribute values
-	
+
     	// Restore preserved content
     	foreach ($placeholders as $placeholder => $original) {
         	// Minify SVG content
@@ -1407,7 +1407,7 @@ HTML;
 
 	//PROCESS INSTAGRAM SCRAPER - OLD VERSION SEE WEBCMS
 	function instagram_process($instagram,$username) {
-		
+
 		$media = $instagram->getMedias($username,40);
 		$object = [];
 		foreach ($media as $key => $photo) {
@@ -1448,5 +1448,5 @@ HTML;
 		}
 		return $data;
 	}
-	
+
 }
