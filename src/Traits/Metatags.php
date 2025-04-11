@@ -40,6 +40,14 @@ trait Metatags {
 //         'lat' => '34.0522',
 //         'long' => '-118.2437'
 //     ],
+// $meta["jsonExtras"] = [
+//   "servesCuisine" => "Restaurant",
+//   "aggregateRating" => [
+//     "@type" => "AggregateRating",
+//     "ratingValue" => "4.4",
+//     "reviewCount" => "102"
+//   ]
+// ];
 //
 //     // Optional: Phone Number (for JSON-LD, requires 'local' usually)
 //     'phone' => '+1-555-123-4567',
@@ -138,12 +146,12 @@ trait Metatags {
 					"longitude" => $geo["long"]
 				];
 			}
-			if($phone) {
-				$jsonLd["telephone"] = $phone;
-			}
 		}
-		if(!empty($cat)) {
-			$jsonLd["keywords"] = $cat;
+		if(!empty($meta["jsonExtras"])) {
+			$jsonLd = array_merge($jsonLd, $meta["jsonExtras"]);
+		}
+		if(!empty($meta["phone"])) {
+			$jsonLd["telephone"] = (string) $meta["phone"];
 		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
