@@ -54,10 +54,10 @@ trait Metatags {
 
 		$title = trim(substr($meta['title'] ?? $meta['metatags']['title'][$currentLang] ?? '', 0, 60));
 		$description = substr($meta['description'] ?? $meta['metatags']['description'][$currentLang] ?? '', 0, 160);
-		$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
+		//$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
 		$image = $meta['image'] ?? '';
 		$author = 'Maksuco.com';
-		$type = $meta['type'] ?? 'website';
+		$type = $meta['type'] ?? 'WebPage';
 
 		$domainHost = parse_url($url)['host'] ?? '';
 		$imageHost = !empty($image) ? (parse_url($image)['host'] ?? '') : '';
@@ -71,17 +71,16 @@ trait Metatags {
 		<link rel="dns-prefetch" href="//www.googletagmanager.com">
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
-		<meta name="keywords" content="'.$keywords.'">
 		<meta name="author" content="'.$author.'">
-		<meta name="google" content="notranslate" />
+		<meta name="google" content="notranslate">
 		<link rel="shortcut icon" href="'.$url.'/assets/img/favicon.png">
 		<link rel="icon" href="'.$url.'/favicon.ico">
 		<link rel="apple-touch-icon" href="'.$url.'/assets/img/favicon.png">
 		<link rel="icon" type="image/png" href="'.$url.'/assets/img/favicon.png">
-		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.png">';
+		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.svg">';
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
-		$canonical = $url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang]));
+		$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 		if(!empty($meta['slugs'])) {
 			if(count($langs) > 1){
@@ -89,7 +88,7 @@ trait Metatags {
 				$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
 				foreach($langs as $langKey){
 					$altUrl = $url.'/'.($prepent[$langKey] ?? '').$meta['slugs'][$langKey];
-					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.$altUrl.'">';
+					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.rtrim($altUrl, '/').'">';
 				}
 			}
 		}
