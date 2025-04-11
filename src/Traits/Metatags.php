@@ -40,7 +40,8 @@ trait Metatags {
 //         'lat' => '34.0522',
 //         'long' => '-118.2437'
 //     ],
-// $meta["jsonExtras"] = [
+// $meta["jsExtras"] = [
+//	"serviceType" => ["Web Design", "App Development"]
 //   "servesCuisine" => "Restaurant",
 //   "aggregateRating" => [
 //     "@type" => "AggregateRating",
@@ -147,8 +148,8 @@ trait Metatags {
 				];
 			}
 		}
-		if(!empty($meta["jsonExtras"])) {
-			$jsonLd = array_merge($jsonLd, $meta["jsonExtras"]);
+		if(!empty($meta["jsExtras"])) {
+			$jsonLd = array_merge($jsonLd, $meta["jsExtras"]);
 		}
 		if(!empty($meta["phone"])) {
 			$jsonLd["telephone"] = (string) $meta["phone"];
