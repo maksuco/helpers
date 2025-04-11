@@ -49,8 +49,6 @@ trait Metatags {
 //     "reviewCount" => "102"
 //   ]
 // ];
-//
-//     // Optional: Phone Number (for JSON-LD, requires 'local' usually)
 //     'phone' => '+1-555-123-4567',
 //
 // ];
