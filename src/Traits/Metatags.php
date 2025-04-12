@@ -49,6 +49,7 @@ trait Metatags {
 //     "reviewCount" => "102"
 //   ]
 // ];
+//   $meta['jsExtras']['sameAs'] = array_map(fn($social) => $social->name, array_values((array) $general->social));
 //     'phone' => '+1-555-123-4567',
 //
 // ];
@@ -153,7 +154,7 @@ trait Metatags {
 			$jsonLd["telephone"] = (string) $meta["phone"];
 		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-		$jsonLdScript = '<script type="application/ld+json">' . $jsonLdString . '</script>';
+		$jsonLdScript = '<script type="application/ld+json">'.$jsonLdString.'</script>';
 
 		$metaTags .= $twitterMetaTags . $ogMetaTags . $jsonLdScript;
 		return trim(preg_replace('/\s+/', ' ', $metaTags));
