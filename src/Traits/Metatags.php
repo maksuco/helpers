@@ -56,7 +56,7 @@ trait Metatags {
 	function metatags($meta, $currentLang, $langs): string
 	{
     	$meta = json_decode(json_encode($meta), true);
-		$domain = $meta['domain'] ?? ''; // Full URL https://maksuco.com
+		$domain = $meta['domain'] ?? config('app.url') ?? ''; // Full URL https://maksuco.com
 		$url = rtrim($domain, '/');
 		$mainLang = current($langs);
 
@@ -88,6 +88,7 @@ trait Metatags {
 		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.svg">';
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
+		\Debugbar::info('Metatags.php debug',$currentLang);
 		$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 		if(!empty($meta['slugs'])) {
@@ -119,7 +120,7 @@ trait Metatags {
 		$jsonLd = [
 			"@context" => "https://schema.org",
 			"@type" => $type,
-			"name" => ucfirst($meta['name'] ?? str_replace("www.", "", parse_url($url, PHP_URL_HOST))),
+			"name" => ucfirst($meta['name'] ??config('app.name') ?? str_replace("www.", "", parse_url($url, PHP_URL_HOST))),
 			"headline" => $title,
 			"description" => $description,
 			"image" => $image,

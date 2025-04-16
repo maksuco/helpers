@@ -530,6 +530,16 @@ function languages($lang='all',$laravel=false) {
 		return $languages[$lang];
 	}
 }
+//returns alternative langs
+function alternateLang($lang, $langs=false)
+{
+	if($langs) {
+    	return $lang === 'en' ? 'es' : 'en';
+	}
+    return array_filter($langs, function ($row) use ($lang) {
+        return $row !== $currentLang;
+    });
+}
 
 
 function prepareCode($code) {
