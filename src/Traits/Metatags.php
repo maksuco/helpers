@@ -88,7 +88,7 @@ trait Metatags {
 		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.svg">';
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
-		\Debugbar::info('Metatags.php debug',$currentLang);
+		//\Debugbar::info('Metatags.php debug',$currentLang);
 		$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 		if(!empty($meta['slugs'])) {
