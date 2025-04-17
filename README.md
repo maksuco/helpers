@@ -330,12 +330,12 @@ Invert adds the new if doesn't exist, or removes it if exist and returns the act
   //array_process('remove',$array,'michael') returns ['gina']
 
   //array_process('invert',$array,'michael') returns "removed" MALLLLLLl
-  
+
   //Associative
 	//$array = ['michael'=>'m'];
 	//$new = ['michael'=>'something','donald'=>'duck','bob'=>'m'];
   //array_process('add',$array2,$new2) returns ['michael'=>'something','donald'=>'duck','bob'=>'m']
-  
+
 	//array_process('check',$array,'gina') returns TRUE
 
 ```
@@ -463,6 +463,23 @@ You need the dom extension https://stackoverflow.com/questions/14395239/class-do
 ```
 
 
+
+# Get Domain Name from url
+
+```php
+
+  \Helpers::domainName('https://apple-Study.edu.us')
+  //returns Apple Study
+  OR
+  \Helpers::domainName('https://apple.us')
+  //returns Apple
+  OR
+  \Helpers::domainName('https://www.maksuco.com')
+  //returns Maksuco
+
+```
+
+
 ## Get file type
 ```php
   \Helpers::getFileType('xxx.mov');
@@ -538,7 +555,7 @@ Returns today, tomorrow, 10 days a go, etc...
 
 ## Filename Parsing
 
-Get a filename name from a string or url, you can also parse it and get basename, extension and filename 
+Get a filename name from a string or url, you can also parse it and get basename, extension and filename
 
 ```php
 

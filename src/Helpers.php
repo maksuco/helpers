@@ -1000,6 +1000,54 @@ function domain_check($domain) {
 	// return false;
 }
 
+function domainName($link) {
+
+  $host = parse_url($link, PHP_URL_HOST);
+  if (!$host) { return null; }
+  $hostParts = explode(".", $host);
+  $numParts = count($hostParts);
+  $domain = null;
+
+  if ($numParts <= 1) {
+    // Handles 'localhost' or invalid single-part hosts
+    $domain = $hostParts[0] ?? null;
+  } elseif ($numParts === 2) {
+    // Handles 'domain.com', 'domain.us'
+    $domain = $hostParts[0];
+  } else {
+    // $numParts >= 3
+    // Check if the last part looks like a 2-character country code TLD
+    $lastPartIs2Chars = strlen($hostParts[$numParts - 1]) === 2;
+
+    // Check if the second-to-last part looks like a common SLD often paired with country codes
+    // (This is still a heuristic, not foolproof)
+    $commonSLDs = ["co", "com", "org", "gov", "edu", "ac", "net"];
+    $secondLastLooksLikeSLD = in_array($hostParts[$numParts - 2], $commonSLDs);
+
+    // If the last part is 2 chars AND the second-to-last looks like a common SLD
+    // AND there are at least 3 parts (e.g., domain.co.uk, domain.edu.us)
+    // OR if there are 4+ parts and the last is 2 chars (e.g., sub.domain.co.uk)
+    if ($lastPartIs2Chars && ($secondLastLooksLikeSLD || $numParts >= 4)) {
+      // Assume TLD is last two parts. Domain is the part before these two.
+      $domain = $hostParts[$numParts - 3];
+    } else {
+      // Assume TLD is only the last part.
+      // Handles:
+      // - domain.com (numParts=2 handled above)
+      // - www.domain.com (numParts=3)
+      // - www.las2orillas.co (numParts=3, last is 2 chars, but second-last 'las2orillas' isn't a common SLD)
+      // - sub.sub.domain.com (numParts=4+)
+      $domain = $hostParts[$numParts - 2];
+    }
+  }
+
+  if ($domain) {
+    return ucwords(str_replace("-", " ", $domain));
+  }
+
+  return null;
+}
+
 function url_html($url,$section='body',$replace_url=false) {
 	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
 	$html = @file_get_contents($url);
