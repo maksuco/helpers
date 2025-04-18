@@ -1000,53 +1000,68 @@ function domain_check($domain) {
 	// return false;
 }
 
+
 function domainName($link) {
+	$host = parse_url($link, PHP_URL_HOST);
+	if (!$host) {
+		return null;
+	}
+	// Ensure lowercase for consistent processing
+	$host = strtolower($host);
+	$hostParts = explode(".", $host);
+	$numParts = count($hostParts);
+	$domain = null;
+	$domainIndex = -1; // Keep track of where the domain was found
 
-  $host = parse_url($link, PHP_URL_HOST);
-  if (!$host) { return null; }
-  $hostParts = explode(".", $host);
-  $numParts = count($hostParts);
-  $domain = null;
+	if ($numParts <= 1) {
+		// Handles 'localhost' or invalid single-part hosts
+		$domain = $hostParts[0] ?? null;
+		$domainIndex = 0;
+	} elseif ($numParts === 2) {
+		// Handles 'domain.com', 'domain.us'
+		$domain = $hostParts[0];
+		$domainIndex = 0;
+	} else {
+		// $numParts >= 3
+		$lastPartIs2Chars = strlen($hostParts[$numParts - 1]) === 2;
+		$commonSLDs = ["co","com","org","gov","edu","ac","net","biz","info","gob","mil","sch","ne","nom","ltd","plc","mod","nhs","police","asso","gouv","aeroport","avocat","notaires","pharmaciens","veterinaire","medecin","tm","firm","store","web","art","rec","int","eu","qc","on","bc","ab","sk","mb","ns","pe","nl","nt","nu","yk","act","nsw","nt","qld","sa","tas","vic","wa","conf","idf","gen","ltd","priv","cri","prd","soc","grp","ind","pri","av","ca","e","i","o","u","isla","pro","med","fvg","aip","aosta","sv","bg","bo","bz","fc","fe","fi","fr","ge","go","gr","im","is","kr","lc","le","li","lo","lt","lu","mc","mn","mo","ms","mt","no","or","pa","pc","pd","pe","pg","pi","pn","po","pr","pt","pu","pv","pz","ra","rc","re","rg","ri","rm","rn","ro","sa","si","so","sp","sr","ss","sv","ta","te","tn","to","tp","tr","ts","tv","ud","va","vb","vc","ve","vi","vr","vs","vt","vv"];
+		$secondLastLooksLikeSLD = in_array($hostParts[$numParts - 2], $commonSLDs);
 
-  if ($numParts <= 1) {
-    // Handles 'localhost' or invalid single-part hosts
-    $domain = $hostParts[0] ?? null;
-  } elseif ($numParts === 2) {
-    // Handles 'domain.com', 'domain.us'
-    $domain = $hostParts[0];
-  } else {
-    // $numParts >= 3
-    // Check if the last part looks like a 2-character country code TLD
-    $lastPartIs2Chars = strlen($hostParts[$numParts - 1]) === 2;
+		if ($lastPartIs2Chars && ($secondLastLooksLikeSLD || $numParts >= 4)) {
+		// Assume TLD is last two parts. Domain is the part before these two.
+		$domain = $hostParts[$numParts - 3];
+		$domainIndex = $numParts - 3;
+		} else {
+		// Assume TLD is only the last part.
+		$domain = $hostParts[$numParts - 2];
+		$domainIndex = $numParts - 2;
+		}
+	}
 
-    // Check if the second-to-last part looks like a common SLD often paired with country codes
-    // (This is still a heuristic, not foolproof)
-    $commonSLDs = ["co", "com", "org", "gov", "edu", "ac", "net"];
-    $secondLastLooksLikeSLD = in_array($hostParts[$numParts - 2], $commonSLDs);
+	if ($domain) {
+		// Format the main domain part
+		$mainDomainFormatted = ucwords(str_replace("-", " ", $domain));
+		$outputName = $mainDomainFormatted; // Default output
 
-    // If the last part is 2 chars AND the second-to-last looks like a common SLD
-    // AND there are at least 3 parts (e.g., domain.co.uk, domain.edu.us)
-    // OR if there are 4+ parts and the last is 2 chars (e.g., sub.domain.co.uk)
-    if ($lastPartIs2Chars && ($secondLastLooksLikeSLD || $numParts >= 4)) {
-      // Assume TLD is last two parts. Domain is the part before these two.
-      $domain = $hostParts[$numParts - 3];
-    } else {
-      // Assume TLD is only the last part.
-      // Handles:
-      // - domain.com (numParts=2 handled above)
-      // - www.domain.com (numParts=3)
-      // - www.las2orillas.co (numParts=3, last is 2 chars, but second-last 'las2orillas' isn't a common SLD)
-      // - sub.sub.domain.com (numParts=4+)
-      $domain = $hostParts[$numParts - 2];
-    }
-  }
+		// Check if a subdomain exists before the main domain part
+		// $domainIndex will be > 0 if there are parts before the identified domain
+		if ($domainIndex > 0) {
+		// Get the first part as the potential primary subdomain
+		$subdomainPart = $hostParts[0];
+		// Check if its length meets the criteria
+		if (strlen($subdomainPart) > 5) {
+			// Format the subdomain part
+			$subdomainFormatted = ucwords(str_replace("-", " ", $subdomainPart));
+			// Combine as "MainDomain Subdomain"
+			$outputName = $mainDomainFormatted . " " . $subdomainFormatted;
+		}
+		}
+		return $outputName;
+	}
 
-  if ($domain) {
-    return ucwords(str_replace("-", " ", $domain));
-  }
-
-  return null;
+	return null;
 }
+
 
 function url_html($url,$section='body',$replace_url=false) {
 	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
