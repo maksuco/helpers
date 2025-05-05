@@ -655,6 +655,14 @@
             "slug": "santa-marta"
         },
         {
+            "name": "Santo Tomas",
+            "region": "ATL",
+            "country": "CO",
+            "latitude": "10.75778",
+            "longitude": "-74.75520",
+            "slug": "santo-tomas"
+        },
+        {
             "name": "Villavicencio",
             "region": "MET",
             "country": "CO",
