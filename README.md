@@ -480,6 +480,23 @@ You need the dom extension https://stackoverflow.com/questions/14395239/class-do
 ```
 
 
+
+# Get Primary Domain from url
+
+```php
+
+  \Helpers::domainPrimary('https://www.apple-Study.edu.us')
+  //returns apple-Study.edu.us
+  OR
+  \Helpers::domainName('https://apple.us')
+  //returns apple.us
+  OR
+  \Helpers::domainName('https://l.maksuco.com')
+  //returns maksuco.com
+
+```
+
+
 ## Get file type
 ```php
   \Helpers::getFileType('xxx.mov');

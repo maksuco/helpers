@@ -1062,6 +1062,41 @@ function domainName($link) {
 	return null;
 }
 
+function domainPrimary($link) {
+    $host = parse_url($link, PHP_URL_HOST);
+    if (!$host || strtolower($host) === 'localhost') { return null; }
+    $host = strtolower($host);
+    $hostParts = explode(".", $host);
+    $numParts = count($hostParts);
+
+    // Not enough parts for a domain and TLD (e.g., "com", or a single word like "invalid")
+    if ($numParts < 2) { return null; }
+    // If only two parts, it's already the primary domain (e.g., example.com, domain.us)
+    if ($numParts === 2) { return $host; }
+
+    // For 3 or more parts ($numParts >= 3)
+    $lastPart = $hostParts[$numParts - 1];
+    $lastPartIs2Chars = (strlen($lastPart) === 2);
+
+    if ($lastPartIs2Chars) {
+        // TLD is likely a 2-character country code (e.g., .uk, .us, .co)
+        if ($numParts === 3) {
+            $commonSubdomainPrefixes = ['www', 'm', 'mobile', 'api', 'app', 'dev', 'blog', 'shop', 'store', 'my', 'mail', 'ftp', 'secure', 'support', 'status', 'docs', 'developer', 'account', 'accounts', 'admin', 'l'];
+            $firstPart = $hostParts[0];
+
+            if (in_array($firstPart, $commonSubdomainPrefixes)) {
+                return $hostParts[1] . '.' . $hostParts[2];
+            } else {
+                return $hostParts[0] . '.' . $hostParts[1] . '.' . $hostParts[2];
+            }
+        } else {
+            return $hostParts[$numParts - 3] . '.' . $hostParts[$numParts - 2] . '.' . $hostParts[$numParts - 1];
+        }
+    } else {
+        return $hostParts[$numParts - 2] . '.' . $hostParts[$numParts - 1];
+    }
+}
+
 
 function url_html($url,$section='body',$replace_url=false) {
 	//$html = \Illuminate\Support\Facades\Http::get($url)->body();
