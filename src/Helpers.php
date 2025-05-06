@@ -22,10 +22,10 @@ class Helpers {
 	}
 
 	//BROWSER, OS
-	function user_agent() {
+	function user_agent($user_agent = null) {
 		$data = [];
 		$data['tablet'] = $data['mobile'] = $data['desktop'] = $data['estimated'] = false;
-		if(!isset($_SERVER["HTTP_USER_AGENT"])) {
+		if(!$user_agent && !isset($_SERVER["HTTP_USER_AGENT"])) {
 			$data['browser'] = 'Chrome';
 			$data['os'] = 'Windows';
 			$data['result'] = $data['os'].' '.$data['browser'];
@@ -33,7 +33,7 @@ class Helpers {
 			$data['estimated'] = true;
 			return $data;
 		}
-		$user_agent = $data['complete'] = $_SERVER["HTTP_USER_AGENT"];
+		$user_agent = $data['complete'] = $user_agent ?? $_SERVER["HTTP_USER_AGENT"];
         $data['lang'] = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'en';
 
 		if(preg_match("/(ipad|tablet)/i", $user_agent)) {
