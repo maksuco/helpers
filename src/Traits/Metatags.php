@@ -81,11 +81,11 @@ trait Metatags {
 		<meta name="description" content="'.$description.'">
 		<meta name="author" content="'.$author.'">
 		<meta name="google" content="notranslate">
-		<link rel="shortcut icon" href="'.$url.'/assets/img/favicon.png">
+		<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
 		<link rel="icon" href="'.$url.'/favicon.ico">
-		<link rel="apple-touch-icon" href="'.$url.'/assets/img/favicon.png">
-		<link rel="icon" type="image/png" href="'.$url.'/assets/img/favicon.png">
-		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/img/favicon.svg">';
+		<link rel="apple-touch-icon" href="'.$url.'/assets/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="'.$url.'/assets/favicon/favicon.png">
+		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">';
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
 		//\Debugbar::info('Metatags.php debug',$currentLang);
