@@ -546,8 +546,8 @@ function altSlug($slugs, $lang, $principal='en')
 	if($lang == $principal && in_array($slugs[$lang], ['home','inicio'])){
 		$slugs[$lang] = '';
 	}
-    $lang = ($lang === 'en')? 'es' : 'en';
-	return $slugs[$lang];
+    $altLang = ($lang === 'en')? 'es' : 'en';
+	return $slugs[$altLang];
 }
 
 
