@@ -533,12 +533,21 @@ function languages($lang='all',$laravel=false) {
 //returns alternative langs
 function alternateLang($lang, $langs=false)
 {
-	if($langs) {
+	if(!$langs) {
     	return $lang === 'en' ? 'es' : 'en';
 	}
     return array_filter($langs, function ($row) use ($lang) {
         return $row !== $currentLang;
     });
+}
+
+function altSlug($slugs, $lang, $principal)
+{
+	if($lang == $principal && in_array($slugs[$lang], ['home','inicio'])){
+		$slugs[$lang] = '';
+	}
+    $lang = ($lang === 'en')? 'es' : 'en';
+	return $slugs[$lang];
 }
 
 
