@@ -76,7 +76,6 @@ trait Metatags {
 		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<link rel="dns-prefetch" href="//'.$domainHost.'">'.$s3Dns.'
-		<link rel="dns-prefetch" href="//www.googletagmanager.com">
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
 		<meta name="author" content="'.$author.'">
