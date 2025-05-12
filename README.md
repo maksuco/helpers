@@ -709,6 +709,16 @@ Just add to the link onclick="return popup(this);"
 ```
 
 
+### ALTENATIVE SLUG
+```php
+  $slug = \Helpers::altSlug($slugs, $lang, $principal='en');
+```
+
+### ALTENATIVE LANG
+```php
+  $altLang = \Helpers::alternateLang($lang, $langs=false);
+```
+
 ### MINIFY HTML
 ```php
   $html = \Helpers::minify_html($html);

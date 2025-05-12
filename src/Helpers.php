@@ -541,7 +541,7 @@ function alternateLang($lang, $langs=false)
     });
 }
 
-function altSlug($slugs, $lang, $principal)
+function altSlug($slugs, $lang, $principal='en')
 {
 	if($lang == $principal && in_array($slugs[$lang], ['home','inicio'])){
 		$slugs[$lang] = '';
