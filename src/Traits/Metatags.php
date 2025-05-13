@@ -70,11 +70,13 @@ trait Metatags {
 		$domainHost = parse_url($url)['host'] ?? '';
 		$imageHost = !empty($image) ? (parse_url($image)['host'] ?? '') : '';
 		$s3Dns = ($imageHost && $imageHost !== $domainHost) ? '<link rel="dns-prefetch" href="//'.$imageHost.'">' : "";
+		$robot = empty($meta['noindex'])? 'index, follow' : 'noindex, nofollow';
 
 		$metaTags = '
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="robots" content="'.$robot.'">
 		<link rel="dns-prefetch" href="//'.$domainHost.'">'.$s3Dns.'
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
