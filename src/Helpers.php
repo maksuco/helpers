@@ -1483,41 +1483,48 @@ HTML;
 	}
 
 	function minify_html($html) {
-    	// Preserve pre, code, textarea, script, and svg content
-    	$placeholders = [];
-    	$html = preg_replace_callback('/<(pre|code|textarea|script|svg).*?>(.*?)<\/\1>/si', function($matches) use (&$placeholders) {
-        	$placeholder = '___PRESERVE_' . count($placeholders) . '___';
-        	$placeholders[$placeholder] = $matches[0];
-        	return $placeholder;
-    	}, $html);
+		// Preserve pre, code, textarea, script, and svg content
+		$placeholders = [];
+		$html = preg_replace_callback('/<(pre|code|textarea|script|svg).*?>(.*?)<\/\1>/si', function($matches) use (&$placeholders) {
+			$placeholder = '___PRESERVE_' . count($placeholders) . '___';
+			$placeholders[$placeholder] = $matches[0];
+			return $placeholder;
+		}, $html);
 
-    	// Remove comments (but keep conditional comments)
-    	$html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
+		// Remove comments (but keep conditional comments)
+		$html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
 
-    	// Remove whitespace
-    	$html = preg_replace('/\s+/', ' ', $html);
-    	$html = preg_replace('/>\s+</', '><', $html);
-    	$html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
+		// Remove excessive whitespace
+		$html = preg_replace('/\s+/', ' ', $html);
 
-    	// Remove unnecessary quotes and semicolons
-    	$html = preg_replace('/;(?=\s*})/', '', $html); // Remove last semicolon in style blocks
-    	$html = preg_replace('/([a-z-])="([a-z0-9-_]+)"/i', '$1=$2', $html); // Remove quotes from simple attribute values
+		// Preserve spaces between inline elements
+		$html = preg_replace_callback('/>(\s+)</', function($matches) {
+			// If the space is between inline elements, preserve it
+			return preg_match('/<\/(span|a|b|i|strong|em|small|label|abbr|sub|sup|u|mark|del|ins|q|cite|time|var|samp|kbd|code|s|dfn|data|bdi|bdo|wbr)>/', $matches[0]) ? '> <' : '><';
+		}, $html);
 
-    	// Restore preserved content
-    	foreach ($placeholders as $placeholder => $original) {
-        	// Minify SVG content
-        	if (strpos($original, '<svg') === 0) {
-            	$original = preg_replace('/\s+/', ' ', $original);
-            	$original = preg_replace('/>\s+</', '><', $original);
-            	$original = preg_replace('/\s*([=<>])\s*/', '$1', $original);
-            	// Ensure self-closing tags end with />
-            	$original = preg_replace('/<(\w+)([^>]*?)\s*>(?=\s*<\/\1>)/', '<$1$2 />', $original);
-        	}
-        	$html = str_replace($placeholder, $original, $html);
-    	}
-    	return trim($html);
+		// Remove unnecessary spaces around attributes
+		$html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
+
+		// Remove unnecessary quotes and semicolons
+		$html = preg_replace('/;(?=\s*})/', '', $html); // Remove last semicolon in style blocks
+		$html = preg_replace('/([a-z-])="([a-z0-9-_]+)"/i', '$1=$2', $html); // Remove quotes from simple attribute values
+
+		// Restore preserved content
+		foreach ($placeholders as $placeholder => $original) {
+			// Minify SVG content
+			if (strpos($original, '<svg') === 0) {
+				$original = preg_replace('/\s+/', ' ', $original);
+				$original = preg_replace('/>\s+</', '><', $original);
+				$original = preg_replace('/\s*([=<>])\s*/', '$1', $original);
+				// Ensure self-closing tags end with />
+				$original = preg_replace('/<(\w+)([^>]*?)\s*>(?=\s*<\/\1>)/', '<$1$2 />', $original);
+			}
+			$html = str_replace($placeholder, $original, $html);
+		}
+
+		return trim($html);
 	}
-
 
 
 	//PROCESS INSTAGRAM SCRAPER - OLD VERSION SEE WEBCMS
