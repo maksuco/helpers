@@ -11,7 +11,7 @@ class HelpersServiceProvider extends ServiceProvider
         // Only publish when running artisan commands (not on every web load)
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/Extras/avatars' => public_path('vendor/maksuco'),
+                __DIR__.'/Extras/img' => public_path('vendor/maksuco'),
             ], 'public');
 
             // Optionally: auto-publish without user running vendor:publish manually
@@ -22,7 +22,7 @@ class HelpersServiceProvider extends ServiceProvider
     protected function autoPublishAssets()
     {
         // Laravel's vendor:publish handles publishing — but if you want truly automatic (copy assets programmatically)
-        $source = __DIR__.'/Extras/avatars';
+        $source = __DIR__.'/Extras/img';
         $destination = public_path('vendor/maksuco');
 
         if (! is_dir($destination)) {
