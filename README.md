@@ -98,17 +98,10 @@ Helps you show the user first name, from a full name, max length of the returned
 ```
 
 
-# Crypto
-
-Here's an example of how to implement crypto to transform strings to hashed keys, using 2 security keys: one set in the config.app (crypto_string) and another inside the controller, example the $user->id:
+# CONVERT LETTERS TO NUMBERS
 
 ```php
 
-  //SEND
-  $security = Helpers::encrypt($string,$key);
-  //AFTER
-  $string = Helpers::decrypt($security,$key);
-  //CONVERT LETTERS TO NUMBERS
   $string = Helpers::lettersToNumbers($string,$phone=false);
 
 ```

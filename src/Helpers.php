@@ -715,22 +715,6 @@ function country_continents($countryCode) {
 		return "data:image/png;base64,".base64_encode($imagedata);
   }
 
-	//CRYPTO
-	function encrypt($data,$key) {
-		$data = (is_array($data))? json_encode($data) : $data;
-		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYXasdfpoiu';
-		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
-		$encrypted = openssl_encrypt($data, "AES-256-CBC", $key, 0, $iv);
-		$encrypted = strtr($encrypted, "+/", "-_");
-	  return $encrypted;
-	}
-	function decrypt($string,$key,$array=false) {
-		$CRYPTO_STRING = config('app.crypto_string') ?? config('app.key') ?? '123456789ZYXasdfpoiu';
-		$string = strtr( $string, "-_", "+/");
-		$iv = substr(hash('sha256', $CRYPTO_STRING), 0, 16);
-		$decrypted = openssl_decrypt($string, "AES-256-CBC", $key, 0, $iv);
-		return $array? json_decode($decrypted, true) : $decrypted;
-	}
 	function lettersToNumbers($string,$phone=false) {
 		$replace = ($phone)? '22233344455566677778889999' : '01122233344455556677788899';
 		$string = strtr(strtoupper($string), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", $replace);

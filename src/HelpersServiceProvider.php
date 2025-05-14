@@ -21,21 +21,35 @@ class HelpersServiceProvider extends ServiceProvider
 
     protected function autoPublishAssets()
     {
-        // Laravel's vendor:publish handles publishing — but if you want truly automatic (copy assets programmatically)
-        $source = __DIR__.'/Extras/img';
+        $source = __DIR__ . '/Extras/img';
         $destination = public_path('vendor/maksuco');
 
-        if (! is_dir($destination)) {
-            // Ensure the directory exists
+        $this->copyDirectory($source, $destination);
+    }
+
+    protected function copyDirectory($source, $destination)
+    {
+        // Ensure the destination directory exists
+        if (!is_dir($destination)) {
             mkdir($destination, 0755, true);
         }
 
+        // Iterate through the source directory
         foreach (scandir($source) as $file) {
             if ($file === '.' || $file === '..') {
                 continue;
             }
 
-            copy($source . '/' . $file, $destination . '/' . $file);
+            $sourcePath = $source . '/' . $file;
+            $destinationPath = $destination . '/' . $file;
+
+            if (is_dir($sourcePath)) {
+                // Recursively copy subdirectories
+                $this->copyDirectory($sourcePath, $destinationPath);
+            } else {
+                // Copy files
+                copy($sourcePath, $destinationPath);
+            }
         }
     }
 
