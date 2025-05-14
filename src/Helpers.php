@@ -673,7 +673,7 @@ function country_continents($countryCode) {
 
 		//IF EMPTY
 		if(empty($user) OR $user == null) {
-			$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+			$imagedata = file_get_contents(__DIR__."/Extras/img/avatar.png");
 			return "data:image/png;base64,".base64_encode($imagedata);
 		}
 		if(is_array($user)){
@@ -694,7 +694,7 @@ function country_continents($countryCode) {
 			$gravatar = md5(strtolower(trim($user->email)));
 			$gravatar = @file_get_contents("https://s.gravatar.com/avatar/$gravatar?d=404");
 			if(!$gravatar){
-				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+				$imagedata = file_get_contents(__DIR__."/Extras/img/avatar.png");
 				return "data:image/png;base64,".base64_encode($imagedata);
 			} else {
 				return "data:image/png;base64,".base64_encode($gravatar);
@@ -704,14 +704,14 @@ function country_continents($countryCode) {
 		//IF SEX
 		if(isset($user->sex)) {
 			if($user->sex == 'f'){
-				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+				$imagedata = file_get_contents(__DIR__."/Extras/img/avatar.png");
 				return "data:image/png;base64,".base64_encode($imagedata);
 			} else {
-				$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+				$imagedata = file_get_contents(__DIR__."/Extras/img/avatar.png");
 				return "data:image/png;base64,".base64_encode($imagedata);
 			}
 		}
-		$imagedata = file_get_contents(__DIR__."/Extras/avatars/avatar.png");
+		$imagedata = file_get_contents(__DIR__."/Extras/img/avatar.png");
 		return "data:image/png;base64,".base64_encode($imagedata);
   }
 
