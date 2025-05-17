@@ -90,9 +90,8 @@ trait Metatags {
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
 		//\Debugbar::info('Metatags.php debug',$currentLang);
-		$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
-		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 		if(!empty($meta['slugs'])) {
+			$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 			if(count($langs) > 1){
 				$default = $url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang];
 				$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
@@ -101,7 +100,10 @@ trait Metatags {
 					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.rtrim($altUrl, '/').'">';
 				}
 			}
+		} else {
+			$canonical = request()->url();
 		}
+		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 
 		$twitterMetaTags = '
 		<meta name="twitter:card" content="summary_large_image">
