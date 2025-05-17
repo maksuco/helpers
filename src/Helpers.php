@@ -1511,6 +1511,34 @@ function minify_html($html) {
     return trim($html);
 }
 
+function mergeTW(string $base, string $new): string
+{
+    $all = array_merge(explode(' ', $base), explode(' ', $new));
+    $map = [];
+
+    foreach ($all as $class) {
+        // Extract prefix (e.g., sm, md, lg) and base (e.g., col-span-3, box-dark)
+        $parts = explode(':', $class);
+        if (count($parts) > 1) {
+            $prefix = $parts[0];
+            $rest = implode(':', array_slice($parts, 1));
+        } else {
+            $prefix = '';
+            $rest = $parts[0];
+        }
+
+        // The "key" is based on the main class group (first segment)
+        $baseKey = explode('-', $rest)[0]; // e.g., 'col', 'box', 'grid', etc.
+        $mapKey = ($prefix ? $prefix . ':' : '') . $baseKey;
+
+        // Replace or add to map
+        $map[$mapKey] = $class;
+    }
+
+    return implode(' ', array_values($map));
+}
+
+
 
 
 
