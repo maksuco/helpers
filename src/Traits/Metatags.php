@@ -101,7 +101,7 @@ trait Metatags {
 				}
 			}
 		} else {
-			$canonical = request()->url();
+			$canonical = request()->url() ?? "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		}
 		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 
