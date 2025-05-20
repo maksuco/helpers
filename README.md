@@ -227,6 +227,19 @@ Returns an array with all results
 
 ```
 
+# anyNumberFormat($value, $currency = null)
+
+```php
+  {{\Helpers::anyNumberFormat($value,$currency)}}
+echo \Helpers::anyNumberFormat(1000) // 1.000
+echo \Helpers::anyNumberFormat("90%") // 90%
+echo \Helpers::anyNumberFormat("90.9%") // 90%
+echo \Helpers::anyNumberFormat('$1000.00') // 1.000
+echo \Helpers::anyNumberFormat('$1000.50', "usd") // $1,000.50
+echo \Helpers::anyNumberFormat("1000.50", "eur") // € 1.000,50
+
+```
+
 # Currency Money Exchange
 
 ```php

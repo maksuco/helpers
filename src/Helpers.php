@@ -181,7 +181,26 @@ function replaceTextBetween($text, $start="", $end="", $replace=false) {
 	return preg_replace($search,$replace,$text);
 }
 
-
+function anyNumberFormat($value, $currency = null)
+{
+	if (is_null($value) || $value === '') return '';
+	// Preserve percentage as-is
+	if (is_string($value) && str_ends_with(trim($value), '%')) {
+		return $value;
+	}
+	// If value includes $ and no currency given, default to USD
+	if (is_string($value) && str_contains($value, '$') && is_null($currency)) {
+		$currency = 'USD';
+	}
+	// Clean the value from non-numeric characters except dot
+	$cleanValue = (float) preg_replace('/[^0-9.\-]/', '', $value);
+	if ($currency !== null) {
+		$result = $this->moneyFormat($cleanValue, strtoupper($currency));
+		return str_replace(" ", "", $result);
+	}
+	$decimals = ($cleanValue == (int) $cleanValue) ? 0 : 2;
+	return number_format($cleanValue, $decimals, '.', ',');
+}
 
 function moneyFormat($value=null,$currency='USD') {
 	if($value==null) { return ''; }
@@ -1511,13 +1530,11 @@ function minify_html($html) {
     return trim($html);
 }
 
-function mergeTW(string $base, string $new): string
-{
+function mergeTW($base, $new) {
     $all = array_merge(explode(' ', $base), explode(' ', $new));
     $map = [];
-
+    $specialMap = [];
     foreach ($all as $class) {
-        // Extract prefix (e.g., sm, md, lg) and base (e.g., col-span-3, box-dark)
         $parts = explode(':', $class);
         if (count($parts) > 1) {
             $prefix = $parts[0];
@@ -1527,15 +1544,33 @@ function mergeTW(string $base, string $new): string
             $rest = $parts[0];
         }
 
-        // The "key" is based on the main class group (first segment)
-        $baseKey = explode('-', $rest)[0]; // e.g., 'col', 'box', 'grid', etc.
+        $segments = explode('-', $rest);
+        $baseKey = $segments[0];
         $mapKey = ($prefix ? $prefix . ':' : '') . $baseKey;
 
-        // Replace or add to map
-        $map[$mapKey] = $class;
+        if (in_array($baseKey, ['border','ring','outline'])) {
+            $suffix = implode('-', array_slice($segments, 1));
+            // Numeric border: only keep the last one
+            if (is_numeric($suffix)) {
+                $specialMap[$mapKey . '-number'] = $class;
+            } else {
+                // Non-numeric border: allow multiple
+                $specialMap[$mapKey . '-' . $suffix] = $class;
+            }
+        } else {
+            $map[$mapKey] = $class;
+        }
     }
-
-    return implode(' ', array_values($map));
+    // Merge normal and special classes
+    $result = array_merge(array_values($map), array_values($specialMap));
+    // Ensure $new classes are at the end if not already present
+    $newClasses = explode(' ', $new);
+    foreach ($newClasses as $class) {
+        if (!in_array($class, $result)) {
+            $result[] = $class;
+        }
+    }
+    return implode(' ', $result);
 }
 
 
