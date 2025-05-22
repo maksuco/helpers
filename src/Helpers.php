@@ -54,15 +54,15 @@ class Helpers {
 		else { $data['browser'] = 'Other'; }
 
 		//OS
-		if (strpos($user_agent, 'Macintosh')) { $data['os'] = 'Macintosh'; }
-		elseif (strpos($user_agent, 'iPhone') || strpos($user_agent, 'iOS')) { $data['os'] = 'ios'; }
-		elseif (strpos($user_agent, 'CrOS')) { $data['os'] = 'ChromeOS'; }
-		elseif (strpos($user_agent, 'Android')) { $data['os'] = 'Android'; }
-		elseif (strpos($user_agent, 'Ubuntu')) { $data['os'] = 'Ubuntu'; }
-		elseif (strpos($user_agent, 'Linux')) { $data['os'] = 'Linux'; }
-		elseif (strpos($user_agent, 'Windows Phone')) { $data['os'] = 'WindowsPhone'; }
-		elseif (strpos($user_agent, 'Windows')) { $data['os'] = 'Windows'; }
-		else { $data['os'] = 'Other'; }
+		if (strpos($user_agent, 'Macintosh') !== false) { $data['os'] = 'Macintosh';
+		} elseif (strpos($user_agent, 'iPhone') !== false || strpos($user_agent, 'iOS') !== false) { $data['os'] = 'ios';
+		} elseif (strpos($user_agent, 'CrOS') !== false) { $data['os'] = 'ChromeOS';
+		} elseif (strpos($user_agent, 'Android') !== false) { $data['os'] = 'Android';
+		} elseif (strpos($user_agent, 'Ubuntu') !== false) { $data['os'] = 'Ubuntu';
+		} elseif (strpos($user_agent, 'Linux') !== false) { $data['os'] = 'Linux';
+		} elseif (strpos($user_agent, 'Windows Phone') !== false) { $data['os'] = 'WindowsPhone';
+		} elseif (strpos($user_agent, 'Windows') !== false) { $data['os'] = 'Windows';
+		} else { $data['os'] = 'Other'; }
 
 		$data['result'] = $data['os'].' '.$data['browser'];
 		return $data;
