@@ -671,6 +671,12 @@ function country_continents($countryCode) {
 		return $file;
 	}
 
+	function flag($name) {
+		$file = file_get_contents(__DIR__."/Assets/flags/".$name.".svg");
+		$base64 = base64_encode($file);
+		return "data:image/svg+xml;base64,{$base64}";
+	}
+
 	//missing svg code per icon to show on front
 	function icons($name,$action='all') {
 		$files = scandir(__DIR__."/Assets/icons/");
