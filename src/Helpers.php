@@ -672,7 +672,7 @@ function country_continents($countryCode) {
 	}
 
 	function flag($name) {
-		$file = file_get_contents(__DIR__."/Assets/flags/".$name.".svg");
+		$file = file_get_contents(__DIR__."/Assets/flags/".strtolower($name).".svg");
 		$base64 = base64_encode($file);
 		return "data:image/svg+xml;base64,{$base64}";
 	}
