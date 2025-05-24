@@ -658,8 +658,8 @@ function country_continents($countryCode) {
       $lang = "fr";
     } else {
       $lang = "en";
-		}
-		return $lang;
+	}
+	return $lang;
 }
 
 
