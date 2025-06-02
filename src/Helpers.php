@@ -1518,7 +1518,7 @@ function minify_html($html) {
     $html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
 
     // 5. Remove unnecessary quotes
-    $html = preg_replace('/([a-z-]+)="([a-z0-9-_]+)"/i', '$1=$2', $html);
+    //$html = preg_replace('/([a-z-]+)="([a-z0-9-_]+)"/i', '$1=$2', $html); //messing with metatags
 
     // 6. Restore preserved content
     foreach ($placeholders as $key => $original) {
