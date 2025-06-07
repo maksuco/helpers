@@ -664,7 +664,7 @@ function country_continents($countryCode) {
 
 
 	function icon($name,$class=false,$extras='') {
-		$file = file_get_contents(__DIR__."/Assets/icons/".$name.".svg");
+		$file = @file_get_contents(__DIR__."/Assets/icons/".$name.".svg");
 		if($class){
 			$file = str_replace('"svg-icon"', '"'.$class.'" '.$extras, $file);
 		}
@@ -672,8 +672,8 @@ function country_continents($countryCode) {
 	}
 
 	function flag($name) {
-		$file = file_get_contents(__DIR__."/Assets/flags/".strtolower($name).".svg");
-		$base64 = base64_encode($file);
+		$file = @file_get_contents(__DIR__."/Assets/flags/".strtolower($name).".svg");
+		$base64 = base64_encode($file ?? '');
 		return "data:image/svg+xml;base64,{$base64}";
 	}
 
