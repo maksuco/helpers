@@ -5,18 +5,30 @@ use OzdemirBurak\Iris\Color\Hexa;
 
 trait Colors {
 
-    function contrastColor($colorInput) {
+    function contrastColor($colorInput, $return_color = false) {
         if (preg_match('/^#([a-f0-9]{8})$/i', $colorInput)) {
             $color = new Hexa($colorInput);
-            $alpha = $color->alpha(); // Already parsed
+            $alpha = $color->alpha();
         } else {
             $color = new Hex($colorInput);
-            $alpha = 1.0; // Fully opaque
+            $alpha = 1.0;
         }
+
         $rgb = $color->toRgb();
         $components = $rgb->values(); // [R, G, B]
         $brightness = (299 * $components[0] + 587 * $components[1] + 114 * $components[2]) / 1000;
-        return ($brightness > 128 || $alpha < 0.5) ? 'dark' : 'light';
+        $isLight = $brightness > 128 || $alpha < 0.5;
+        if (!$return_color) {
+            return $isLight ? 'dark' : 'light';
+        }
+
+        // Dynamically calculate adjustment (between 5% and 30%)
+        $distanceFromMid = abs(128 - $brightness); // 0 to 128
+        $scale = 1 - ($distanceFromMid / 128); // 1 when brightness is 128, 0 when it's 0 or 255
+        $adjust_percent = 5 + ($scale * 25); // 5% to 30%
+        // Round for nice output
+        $adjust_percent = round($adjust_percent);
+        return $isLight? (string) $color->darken($adjust_percent) : (string) $color->lighten($adjust_percent);
     }
 
 
