@@ -5,6 +5,20 @@ use OzdemirBurak\Iris\Color\Hexa;
 
 trait Colors {
 
+    function contrastColor($colorInput) {
+        if (preg_match('/^#([a-f0-9]{8})$/i', $colorInput)) {
+            $color = new Hexa($colorInput);
+            $alpha = $color->alpha(); // Already parsed
+        } else {
+            $color = new Hex($colorInput);
+            $alpha = 1.0; // Fully opaque
+        }
+        $rgb = $color->toRgb();
+        $components = $rgb->values(); // [R, G, B]
+        $brightness = (299 * $components[0] + 587 * $components[1] + 114 * $components[2]) / 1000;
+        return ($brightness > 128 || $alpha < 0.5) ? 'dark' : 'light';
+    }
+
 
 	public function prepareColor($itemCss,$fieldname,$default=null) {
         if(is_array($itemCss)) {
@@ -111,7 +125,7 @@ trait Colors {
             $firstColor = $this->checkHEX($firstColor);
             if($firstColor==false){ return false; };
         } elseif($firstColor !== false) {
-            $firstColor = $firstColor->toHexa(); 
+            $firstColor = $firstColor->toHexa();
         }
         if($secondColor==false){
             $secondColor = $this->spinColor($firstColor,15,$amount)->fadeOut($opacity);
@@ -124,7 +138,7 @@ trait Colors {
             $firstColor = $this->checkHEX($firstColor);
             if($firstColor==false){ return false; };
         } else {
-            $firstColor = $firstColor->toHexa(); 
+            $firstColor = $firstColor->toHexa();
         }
         $secondColor = $this->spinColor($firstColor,30,1)->fadeOut($opacity);
         if($color2) {
@@ -141,8 +155,8 @@ trait Colors {
         // $radial1Out = $radial1->fade(0);
         // $radial2Out = $radial2->fade(0);
         return <<<HTML
-            radial-gradient(circle at $radial1_dist% 65%, $radial1 0%, transparent 70%), 
-            radial-gradient(circle at -40% 30%, $radial2 0%, transparent 80%), 
+            radial-gradient(circle at $radial1_dist% 65%, $radial1 0%, transparent 70%),
+            radial-gradient(circle at -40% 30%, $radial2 0%, transparent 80%),
             linear-gradient(180deg, $firstColor 0%, $secondColor 99.72%);
         HTML;
     }
@@ -158,15 +172,15 @@ trait Colors {
     }
 
     public function mixColor($firstColor,$secondColor,$value=50) {
-        $firstColor = $this->checkHEX($firstColor); 
-        $secondColor = $this->checkHEX($secondColor); 
+        $firstColor = $this->checkHEX($firstColor);
+        $secondColor = $this->checkHEX($secondColor);
         if($firstColor==false){ return false; };
         $color = new Hex($firstColor);
         return $color->mix(new Hex($secondColor), $value);
     }
 
     public function alphaColor($color,$opacity=0) {
-        $color = $this->newColor($color); 
+        $color = $this->newColor($color);
         if($color==false){ return false; };
         //ray('color alphaColor 3',$color->fade(30)->toHexa(),$opacity);
         return $color->fade($opacity)->toHexa();
@@ -176,7 +190,7 @@ trait Colors {
         $color = $this->newColor($color);
         return $color->$function($amount);
     }
-    
+
     public function newColor($color) {
         $color = str_replace("#", "", $color);
         if($color=='transparent' || empty($color)) {
@@ -224,11 +238,11 @@ trait Colors {
         $colorCSS = ($gradient)? $this->gradientCSS($color) : 'linear-gradient('.$color.','.$color.')';
         //ray('bgBlend',$gradient,$opacity,$colorCSS,$color,$this->gradientCSS($color));
         return <<<HTML
-            $colorCSS, 
+            $colorCSS,
             url('$imgUrl');
         HTML;
     }
-		
+
 		public function newHex($color) {
 			if (preg_match('/^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]?\.\d+|1(\.0+)?|0)\)$/', $color, $matches)) {
 					$color = '#' . sprintf("%02X%02X%02X%02X", $matches[1], $matches[2], $matches[3], $matches[4] * 255);
@@ -237,7 +251,7 @@ trait Colors {
 			}
 			return new Hexa($color);
 		}
-		
+
 
 
 
