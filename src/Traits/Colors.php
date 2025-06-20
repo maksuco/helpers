@@ -25,14 +25,14 @@ trait Colors {
         // Dynamically calculate adjustment (between 5% and 30%)
         $distanceFromMid = abs(128 - $brightness); // 0 to 128
         $scale = 1 - ($distanceFromMid / 128); // 1 when brightness is 128, 0 when it's 0 or 255
-        $adjust_percent = 5 + ($scale * 45); // 5% to 30%
+        $adjust_percent = 5 + ($scale * 40); // 5% to 30%
         // Round for nice output
         $adjust_percent = round($adjust_percent);
         //return $brightness.' - '.$adjust_percent.' - '.$isLight;
         if (!$isLight && $brightness < 45) {
             $return_color = $color->lighten($adjust_percent * 3.5); // really brighten it up
         } elseif ($isLight && $brightness > 160) {
-            $return_color = $color->darken($adjust_percent * 3);
+            $return_color = $color->darken($adjust_percent * 2.8);
         } elseif($isLight){
             $return_color = $color->darken($adjust_percent);
         } else {
