@@ -5,7 +5,7 @@ use OzdemirBurak\Iris\Color\Hexa;
 
 trait Colors {
 
-    function contrastColor($colorInput, $return_color = false) {
+    function contrastColor($colorInput, $return_hex = false, $mix = false, $mix_value = 40) {
         if (preg_match('/^#([a-f0-9]{8})$/i', $colorInput)) {
             $color = new Hexa($colorInput);
             $alpha = $color->alpha();
@@ -18,17 +18,30 @@ trait Colors {
         $components = $rgb->values(); // [R, G, B]
         $brightness = (299 * $components[0] + 587 * $components[1] + 114 * $components[2]) / 1000;
         $isLight = $brightness > 128 || $alpha < 0.5;
-        if (!$return_color) {
+        if (!$return_hex) {
             return $isLight ? 'dark' : 'light';
         }
 
         // Dynamically calculate adjustment (between 5% and 30%)
         $distanceFromMid = abs(128 - $brightness); // 0 to 128
         $scale = 1 - ($distanceFromMid / 128); // 1 when brightness is 128, 0 when it's 0 or 255
-        $adjust_percent = 5 + ($scale * 25); // 5% to 30%
+        $adjust_percent = 5 + ($scale * 50); // 5% to 30%
         // Round for nice output
         $adjust_percent = round($adjust_percent);
-        return $isLight? (string) $color->darken($adjust_percent) : (string) $color->lighten($adjust_percent);
+        //return $brightness.' - '.$adjust_percent.' - '.$isLight;
+        if (!$isLight && $brightness < 45) {
+            $return_color = $color->lighten($adjust_percent * 3.5); // really brighten it up
+        } elseif ($isLight && $brightness > 160) {
+            $return_color = $color->darken($adjust_percent * 3);
+        } elseif($isLight){
+            $return_color = $color->darken($adjust_percent);
+        } else {
+            $return_color = $color->lighten($adjust_percent);
+        }
+        if($mix) {
+            $return_color = $return_color->mix(new Hex($mix), $mix_value);
+        }
+        return (string) $return_color;
     }
 
 
