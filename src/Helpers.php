@@ -1514,24 +1514,23 @@ function minify_html($html) {
 
     // 4. Collapse whitespace
     $html = preg_replace('/\s+/', ' ', $html);
-    $html = preg_replace('/>\s+</', '><', $html);
+
+    // 5. Preserve spaces between inline elements (e.g., <span>)
+    $html = preg_replace_callback('/>(\s+)</', function($matches) {
+        // If the space is between inline elements, preserve it
+        return preg_match('/<\/(span|a|b|i|strong|em|small|label|abbr|sub|sup|u|mark|del|ins|q|cite|time|var|samp|kbd|code|s|dfn|data|bdi|bdo|wbr)>/', $matches[0]) ? '> <' : '><';
+    }, $html);
+
+    // 6. Remove unnecessary spaces around attributes
     $html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
 
-    // 5. Remove unnecessary quotes
-    //$html = preg_replace('/([a-z-]+)="([a-z0-9-_]+)"/i', '$1=$2', $html); //messing with metatags
-
-    // 6. Restore preserved content
+    // 7. Restore preserved content
     foreach ($placeholders as $key => $original) {
         $html = str_replace($key, $original, $html);
     }
-	// $replace = [
-	// 	'class=" ' => 'class="',
-	// 	' >' => '>'
-	// ];
-	// $html = str_replace(array_keys($replace), $replace, $html);
-	$html = preg_replace('/<(\w+)([^>]*)\s+>/', '<$1$2>', $html);
-	// Clean space after = and quotes in attributes (e.g. class=" something" → class="something")
-	$html = preg_replace('/=\s*"([^"]*?)"/', '="$1"', $html);
+
+    // 8. Clean space after = and quotes in attributes (e.g., class=" something" → class="something")
+    $html = preg_replace('/=\s*"([^"]*?)"/', '="$1"', $html);
 
     return trim($html);
 }
