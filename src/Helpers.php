@@ -1492,44 +1492,29 @@ HTML;
 	}
 
 function minify_html($html) {
-    $placeholders = [];
-
-    // 1. Preserve pre, code, textarea, script, svg (specific tags only)
-    $html = preg_replace_callback('/<(pre|code|textarea|script|svg)(.*?)>(.*?)<\/\1>/is', function($matches) use (&$placeholders) {
-        $key = '___PRESERVE_' . count($placeholders) . '___';
-        $placeholders[$key] = $matches[0];
-        return $key;
+    // 1. Preserve pre, code, textarea, script, svg content
+    $html = preg_replace_callback('/<(pre|code|textarea|script|svg)(.*?)>(.*?)<\/\1>/is', function($matches) {
+        // Return the content of these tags as-is to avoid breaking them
+        return $matches[0];
     }, $html);
 
-    // 2. Preserve h1–h6, p tags to avoid breaking inline element spacing
-    $html = preg_replace_callback('/<(h[1-6]|p)([^>]*)>(.*?)<\/\1>/is', function($matches) use (&$placeholders) {
-        $key = '___BLOCK_' . count($placeholders) . '___';
-        $placeholders[$key] = $matches[0]; // Preserve as-is to retain spacing inside
-        return $key;
-    }, $html);
-
-    // 3. Remove comments (except conditional)
+    // 2. Remove comments (except conditional comments)
     $html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
 
-    // 4. Collapse whitespace
+    // 3. Collapse whitespace
     $html = preg_replace('/\s+/', ' ', $html);
 
-    // 5. Preserve spaces between inline elements (e.g., <span>)
-    $html = preg_replace_callback('/>(\s+)</', function($matches) {
-        // If the space is between inline elements, preserve it
-        return preg_match('/<\/(span|a|b|i|strong|em|small|label|abbr|sub|sup|u|mark|del|ins|q|cite|time|var|samp|kbd|code|s|dfn|data|bdi|bdo|wbr)>/', $matches[0]) ? '> <' : '><';
-    }, $html);
+    // 4. Remove unnecessary spaces between tags
+    $html = preg_replace('/>\s+</', '><', $html);
 
-    // 6. Remove unnecessary spaces around attributes
+    // 5. Remove unnecessary spaces around attributes
     $html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
 
-    // 7. Restore preserved content
-    foreach ($placeholders as $key => $original) {
-        $html = str_replace($key, $original, $html);
-    }
-
-    // 8. Clean space after = and quotes in attributes (e.g., class=" something" → class="something")
+    // 6. Clean up spaces in attributes (e.g., class=" something" → class="something")
     $html = preg_replace('/=\s*"([^"]*?)"/', '="$1"', $html);
+
+    // 7. Remove unnecessary spaces before closing tags
+    $html = preg_replace('/<(\w+)([^>]*)\s+>/', '<$1$2>', $html);
 
     return trim($html);
 }
