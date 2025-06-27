@@ -1491,11 +1491,10 @@ HTML;
 		return $results;
 	}
 
-
 function minify_html($html) {
     $placeholders = [];
 
-    // 1. Preserve pre, code, textarea, script, svg
+    // 1. Preserve pre, code, textarea, script, svg (specific tags only)
     $html = preg_replace_callback('/<(pre|code|textarea|script|svg)(.*?)>(.*?)<\/\1>/is', function($matches) use (&$placeholders) {
         $key = '___PRESERVE_' . count($placeholders) . '___';
         $placeholders[$key] = $matches[0];
