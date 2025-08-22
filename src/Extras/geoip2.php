@@ -136,7 +136,7 @@
     $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
     $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
     $geo['timezone'] = $geo_data->location->timeZone;
-    if($optional=='min') {
+    if($optional == 'min') {
       return $geo;
     }
 
@@ -155,7 +155,7 @@
 
     //$geo->lang = $geo_data->locales[0] ?? null;
 
-    if($optional!='city'){
+    if($optional != 'city'){
       $isp = new Reader(base_path().'/vendor/maksuco/helpers-geo/src/GeoLite2-ASN.mmdb');
       $isp = $isp->asn($ip);
       $geo['isp'] = $isp->autonomousSystemOrganization;
@@ -210,9 +210,9 @@
     $geo['estimated'] = true;
     $geo['country_code'] = $geo['country']['isoCode'] = 'US';
     $geo['country_name'] = "United States";
-    $geo['city_name'] = null;
-    $geo['state_name'] = null;
-    $geo['state_code'] = null;
+    $geo['city_name'] = "Miami";
+    $geo['state_name'] = "Florida";
+    $geo['state_code'] = "FL";
     $geo['timezone_range'] = "america";
     $geo['timezone'] = $geo['location']['timeZone'] = "America/New_York";
     $geo['lang'] = 'en';
@@ -220,8 +220,8 @@
     $geo['currency'] = 'USD';
     $geo['isp'] = 'Server';
     $geo['prefix'] = '+1';
-		$geo['location']['latitude'] = '40.7171166';
-		$geo['location']['longitude'] = '-73.939077';
+	$geo['location']['latitude'] = '40.7171166';
+	$geo['location']['longitude'] = '-73.939077';
     return $geo;
   }
 
