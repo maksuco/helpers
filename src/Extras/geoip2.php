@@ -3,7 +3,7 @@
   use GeoIp2\Database\Reader;
 
   function geoip2($ip,$optional,$key='') {
-    
+
     $geo = new stdClass();
     $geo->ip = $ip;
     $geo->country = new stdClass();
@@ -20,7 +20,7 @@
 
     //check if private or local ip
     // | FILTER_FLAG_NO_PRIV_RANGE |  FILTER_FLAG_NO_RES_RANGE
-    //!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR 
+    //!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) OR
     if(in_array($ip, ['localhost','127.0.0.1'])) {
       return geoip2NotFound($geo);
     }
@@ -29,10 +29,10 @@
       //DATA
       $continent = $geo->continent_code = $geo_data->continentCode ?? '';
       $geo->continent_name = $geo_data->continent ?? '';
-      
+
       $country = $geo->country_code = $geo->country->isoCode = $geo_data->countryCode;
       $geo->country_name = $geo->country->name = $geo_data->country;
-      
+
       $geo->city_name = $geo->location->city_name = $geo_data->city;
       $geo->city_geonameid = null;
       $geo->state_name = $geo->location->state_name = $geo_data->regionName;
@@ -51,10 +51,10 @@
       //DATA
       $continent = $geo->continent_code = $geo_data->continent_code;
       $geo->continent_name = $geo_data->continent_name;
-      
+
       $country = $geo->country_code = $geo->country->isoCode = $geo_data->country_code;
       $geo->country_name = $geo->country->name = $geo_data->country_name;
-      
+
       $geo->city_name = $geo->location->city_name = $geo_data->city;
       $geo->city_geonameid = $geo_data->location->geoname_id;
       $geo->state_name = $geo->location->state_name = $geo_data->region_name;
@@ -83,11 +83,11 @@
       $continent = $geo->continent_code = $geo_data->continent->code;
       $geo->continent_name = $geo_data->continent->name;
       $geo->continent_names = $geo_data->continent->names;
-      
+
       $country = $geo->country_code = $geo->country->isoCode = $geo_data->country->isoCode;
       $geo->country_name = $geo->country->name = $geo_data->country->name;
       $geo->country_names = $geo_data->country->names;
-      
+
       $geo->city_name = $geo->location->city_name = $geo_data->city->name;
       $geo->city_names = $geo_data->city->names;
       $geo->city_geonameid = $geo_data->city->geonameId;
@@ -132,23 +132,27 @@
       return geoip2NotFoundArray($geo); //null;
     }
 
+    $country = $geo['country_code'] = $geo['country']['isoCode'] = $geo_data->country->isoCode;
+    $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
+    $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
+    $geo['timezone'] = $geo_data->location->timeZone;
+    if($optional=='min') {
+      return $geo;
+    }
+
     $geo['continent_code'] = $geo_data->continent->code;
     $geo['continent_name'] = $geo_data->continent->name;
     $geo['continent_names'] = $geo_data->continent->names;
-    
-    $country = $geo['country_code'] = $geo['country']['isoCode'] = $geo_data->country->isoCode;
+
     $geo['country_name'] = $geo['country']['name'] = $geo_data->country->name;
     $geo['country_names'] = $geo_data->country->names;
 
-    $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
     $geo['city_names'] = $geo_data->city->names;
     $geo['city_geonameid'] = $geo_data->city->geonameId;
     $geo['location']['latitude'] = $geo_data->location->latitude ?? null;
     $geo['location']['longitude'] = $geo_data->location->longitude ?? null;
     $geo['state_name'] = $geo['location']['state_name'] = $geo_data->mostSpecificSubdivision->name;
-    $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
 
-    $geo['timezone'] = $geo_data->location->timeZone;
     //$geo->lang = $geo_data->locales[0] ?? null;
 
     if($optional!='city'){
@@ -3292,7 +3296,7 @@
         'lang_code' => 'sn',
       ],
     ];
-    
+
     return $countries[$code];
   }
 
@@ -3306,10 +3310,10 @@
         $row['geoid'] = $data[0];
         $row['name'] = $row['name_en'] = $row['name_es'] = $data[10];
         while(($data_es = fgetcsv($file_es)) !== false) {
-          if($data_es[0]==$data[0] AND !empty($data_es[10])){ 
+          if($data_es[0]==$data[0] AND !empty($data_es[10])){
             $row['name_es'] = $data_es[10];
             $results[$country][] = $row;
-            break; 
+            break;
           };
         }
         //ray('hola');
