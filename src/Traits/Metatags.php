@@ -85,6 +85,7 @@ trait Metatags {
 		<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
 		<link rel="icon" href="'.$url.'/favicon.ico">
 		<link rel="apple-touch-icon" href="'.$url.'/assets/favicon/apple-touch-icon.png">
+  	  	<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.png">
 		<link rel="icon" type="image/png" href="'.$url.'/assets/favicon/favicon.png">
 		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">';
 
