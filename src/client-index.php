@@ -1,12 +1,10 @@
 <?php
-
 use FastRoute\RouteCollector;
 use Windwalker\Edge\Cache\EdgeFileCache;
 use Windwalker\Edge\Edge;
 use Windwalker\Edge\Loader\EdgeFileLoader;
 
 // Edge setup
-$projectDir = realpath(__DIR__ . '/../../../../');
 $paths = array($projectDir. '/views');
 $edge = new Edge(new EdgeFileLoader($paths), null, new EdgeFileCache($projectDir. '/cache'));
 
