@@ -6,7 +6,7 @@ use Windwalker\Edge\Edge;
 use Windwalker\Edge\Loader\EdgeFileLoader;
 
 // Edge setup
-$projectDir = __DIR__ . '/../../..';
+$projectDir = realpath(__DIR__ . '/../../../../');
 $paths = array($projectDir. '/views');
 $edge = new Edge(new EdgeFileLoader($paths), null, new EdgeFileCache($projectDir. '/cache'));
 
