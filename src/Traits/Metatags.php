@@ -3,56 +3,6 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 
-// $meta = [
-//     // --- Required Fields ---
-//     'domain' => 'https://maksuco.com', // Full base URL, no trailing slash
-//     'title' => 'Maksuco - Página de Ejemplo', // Page-specific title
-//     'description' => 'Esta es la descripción para la página de ejemplo en español.', // Page-specific description
-//     'image' => 'https://maksuco.com/assets/img/og-image-es.jpg', // Absolute URL for the OG/Twitter image
-//
-//     // Required: Associative array of ALL language versions for THIS page
-//     // Keys are language codes, values are relative paths (use '/' or '' for root)
-//     'alternates' => [
-//         'en' => '/example-page',   // Path for the English version of this page
-//         'es' => '/pagina-ejemplo', // Path for the Spanish version of this page
-//         // 'fr' => '/page-exemple', // Add other languages if applicable
-//         // 'x-default' => '/example-page' // Optional: Explicitly set x-default path, otherwise $mainLang path is used
-//     ],
-//
-//     // --- Optional Fields ---
-//     'author' => 'Maksuco Development Team', // Optional: Author name
-//     'type' => 'article', // Optional: OG type (website, article, product, etc.). Default: 'website'
-//
-//     // Optional: Keywords (can be string or array)
-//     'keywords' => ['ejemplo', 'página', 'maksuco', 'español'],
-//
-//     // Optional: Local Business Info (for JSON-LD)
-//     'local' => [
-//         'street' => '123 Example St',
-//         'city' => 'Exampleville',
-//         'state' => 'CA',
-//         'zip' => '90210', // Use 'zip' key as per function
-//         'country' => 'US'
-//     ],
-//
-//     // Optional: Geo Coordinates (for JSON-LD, requires 'local' usually)
-//     'geo' => [
-//         'lat' => '34.0522',
-//         'long' => '-118.2437'
-//     ],
-// $meta["jsExtras"] = [
-//	"serviceType" => ["Web Design", "App Development"]
-//   "servesCuisine" => "Restaurant",
-//   "aggregateRating" => [
-//     "@type" => "AggregateRating",
-//     "ratingValue" => "4.4",
-//     "reviewCount" => "102"
-//   ]
-// ];
-//   $meta['jsExtras']['sameAs'] = array_map(fn($social) => $social->name, array_values((array) $general->social));
-//     'phone' => '+1-555-123-4567',
-//
-// ];
 	function metatags($meta, $currentLang, $langs): string
 	{
     	$meta = json_decode(json_encode($meta), true);
