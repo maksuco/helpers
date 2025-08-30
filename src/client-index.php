@@ -6,8 +6,9 @@ use Windwalker\Edge\Edge;
 use Windwalker\Edge\Loader\EdgeFileLoader;
 
 // Edge setup
-$paths = array(__DIR__ . '/views');
-$edge = new Edge(new EdgeFileLoader($paths), null, new EdgeFileCache(__DIR__ . '/cache'));
+$projectDir = __DIR__ . '/../../..';
+$paths = array($projectDir. '/views');
+$edge = new Edge(new EdgeFileLoader($paths), null, new EdgeFileCache($projectDir. '/cache'));
 
 // Helpers
 $edge->addGlobal('helpers', new \Maksuco\Helpers\Helpers());
