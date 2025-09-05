@@ -5975,6 +5975,14 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/src\/client-index.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/src\/client-index.php",
+      "oF" : 0
+    },
     "\/src\/components\/beforeAfter.blade.php" : {
       "cB" : 0,
       "ft" : 8192,
