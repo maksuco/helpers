@@ -137,7 +137,7 @@
     $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
     $geo['timezone'] = $geo_data->location->timeZone;
     if(empty($geo['city_name'])){
-      $data = getIpData($ip);
+      $data = getIpFile($ip);
       $geo['city_name'] = $geo['location']['city_name'] = $data['city_name'];
       $geo['state_code'] = $geo['location']['state_isoCode'] = $data['state_code'];
       $geo['timezone'] = $data['timezone'];
@@ -212,12 +212,12 @@
     return $geo;
   }
 
-  function getIpData($ip) {
+  function getIpFile($ip) {
       // Split by first octet to avoid huge files (e.g., "72" for 72.x.x.x)
       $prefix = explode('.', $ip)[0];
       $filePath = "ip-cache/{$prefix}";
       $cache = \BizHelpers::getFileDB($filePath, 'local') ?? [];
-      if (isset($cache[$ip])) { return $cache[$ip]; }
+      if (isset($cache[$ip]) && ($cache[$ip]['cached_at'] ?? 0) > time() - 2592000) { return $cache[$ip]; }
 
       // Fetch from API
       $ip2location = \Http::get('https://api.ip2location.io/?key=2B2886938EF4F4530B9F8F1DB048CDC4&ip='.$ip)->json();
