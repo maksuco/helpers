@@ -217,7 +217,7 @@
       $prefix = explode('.', $ip)[0];
       $filePath = "ip-cache/{$prefix}";
       $cache = \BizHelpers::getFileDB($filePath, 'local') ?? [];
-      if (isset($cache[$ip]) && ($cache[$ip]['cached_at'] ?? 0) > time() - 2592000) { return $cache[$ip]; }
+      if (isset($cache[$ip])) { return $cache[$ip]; }
 
       // Fetch from API
       $ip2location = \Http::get('https://api.ip2location.io/?key=2B2886938EF4F4530B9F8F1DB048CDC4&ip='.$ip)->json();
@@ -238,9 +238,9 @@
       $cache[$ip] = $data;
 
       // Remove expired entries (optional, run periodically)
-      if (count($cache) > 1000) {
-          $cache = array_filter($cache, fn($item) => ($item['cached_at'] ?? 0) > time() - 2592000);
-      }
+      $cache = array_filter($cache, fn($item) => ($item['cached_at'] ?? 0) > time() - 5092000);
+      // if (count($cache) > 1000) {
+      // }
       \BizHelpers::saveFileDB($filePath, $cache, 'local');
       return $data;
   }
