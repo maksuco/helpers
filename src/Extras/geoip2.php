@@ -136,6 +136,12 @@
     $geo['city_name'] = $geo['location']['city_name'] = $geo_data->city->name;
     $geo['state_code'] = $geo['location']['state_isoCode'] = $geo_data->mostSpecificSubdivision->isoCode;
     $geo['timezone'] = $geo_data->location->timeZone;
+    if(empty($geo['city_name'])){
+      $data = getIpData($ip);
+      $geo['city_name'] = $geo['location']['city_name'] = $data['city_name'];
+      $geo['state_code'] = $geo['location']['state_isoCode'] = $data['state_code'];
+      $geo['timezone'] = $data['timezone'];
+    }
     if($optional == 'min') {
       return $geo;
     }
@@ -204,6 +210,39 @@
     $geo->isp = 'Server';
     $geo->prefix = '+1';
     return $geo;
+  }
+
+  function getIpData($ip) {
+      // Split by first octet to avoid huge files (e.g., "72" for 72.x.x.x)
+      $prefix = explode('.', $ip)[0];
+      $filePath = "ip-cache/{$prefix}";
+      $cache = \BizHelpers::getFileDB($filePath, 'local') ?? [];
+      if (isset($cache[$ip])) { return $cache[$ip]; }
+
+      // Fetch from API
+      $ip2location = \Http::get('https://api.ip2location.io/?key=2B2886938EF4F4530B9F8F1DB048CDC4&ip='.$ip)->json();
+      $data['country_code'] = $ip2location['country_code'];
+      $data['city_name'] = $ip2location['city_name'];
+      $data['state_code'] = $ip2location['region_name'];
+      //update state code
+      $searchName = str(strtolower($data['state_code']))->ascii();
+      foreach (country($data['country_code'])->getDivisions() as $code => $row) {
+          $rowName = str(strtolower($row['name']))->ascii();
+          if ($rowName == $searchName) {
+              $data['state_code'] = $code;
+              break;
+          }
+      }
+      $data['timezone'] = timezone_name_from_abbr('', intval($ip2location['time_zone']) * 3600, true);
+      $data['cached_at'] = time();
+      $cache[$ip] = $data;
+
+      // Remove expired entries (optional, run periodically)
+      if (count($cache) > 1000) {
+          $cache = array_filter($cache, fn($item) => ($item['cached_at'] ?? 0) > time() - 2592000);
+      }
+      \BizHelpers::saveFileDB($filePath, $cache, 'local');
+      return $data;
   }
 
   function geoip2NotFoundArray($geo) {
