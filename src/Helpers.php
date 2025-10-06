@@ -1017,6 +1017,7 @@ function domain_check($domain) {
 
 
 function domainName($link) {
+	$link = $this->link($link);
 	$host = parse_url($link, PHP_URL_HOST);
 	if (!$host) {
 		return null;
