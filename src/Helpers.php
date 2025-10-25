@@ -710,7 +710,7 @@ function country_continents($countryCode) {
 			if (strpos($user->avatar, 'http') === 0) {
 				return $user->avatar;
 			}
-			$server = $s3 ?? $user->server_s3 ?? 's3';
+			$server = $s3 ?? $user->server ?? 's3';
 			//ray('avatar',$server,$s3,config('app.avatar_path'));
 			return \Storage::disk($server)->url(config('bizhelpers.avatar_path').$user->avatar);
 		}

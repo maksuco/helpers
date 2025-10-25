@@ -3422,6 +3422,16 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
+    "\/src\/Assets\/icons\/check-circle-solid.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/check-circle-solid.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
     "\/src\/Assets\/icons\/check-circle.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -5837,6 +5847,16 @@
       "miP" : 0,
       "oA" : 2,
       "oAP" : "\/src\/Assets\/icons\/wifi.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/src\/Assets\/icons\/windows.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/windows.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
