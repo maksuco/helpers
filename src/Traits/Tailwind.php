@@ -124,7 +124,7 @@ trait Tailwind {
       ];
 
       $context = stream_context_create($options);
-      $url = 'https://tailboot.test/api/generate-tailboot';
+      $url = (!empty($config['new']))? 'https://tailboot.test/api/tailwind' : 'https://tailboot.test/api/generate-tailboot';
       $fileContent = file_get_contents($url, false, $context);
       //SAVE
       $filename = (!empty($config['filename']))? $config['filename'] : 'tailboot.css';

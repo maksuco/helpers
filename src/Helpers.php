@@ -18,7 +18,7 @@ class Helpers {
 	    } elseif(preg_match("/(android|webos|avantgo|iphone|ipod|blackberry|iemobile|bolt|boost|cricket|docomo|fone|hiptop|mini|opera mini|kitkat|mobi|palm|phone|pie|up\.browser|up\.link|webos|wos)/i", $agent)) {
 			return $mobile;
 		}
-	  return $desktop;
+		return $desktop;
 	}
 
 	//BROWSER, OS
