@@ -1,0 +1,231 @@
+@layer base {
+	.dark {
+		--color-bg: var(--color-default-950);
+		--color-body: var(--color-default-300);
+		--color-light: color-mix(in oklch, var(--color-brand-100) 12%, var(--color-default-900));
+		--color-label: var(--color-default-300);
+
+		img,
+		video {
+			filter: brightness(0.9);
+		}
+	}
+
+	html {
+		@apply bg-bg scroll-smooth;
+		font-size: var(--font-size);
+	}
+
+	body {
+		@apply text-body font-sans antialiased selection:bg-brand/30;
+	}
+
+	[x-cloak],
+	[v-cloak],
+	.grecaptcha-badge {
+		visibility: hidden !important;
+		overflow: hidden !important;
+		display: none !important;
+	}
+
+	.-z-1 {
+		z-index: -1;
+	}
+
+	.body-fix {
+		overflow: hidden;
+	}
+
+	@media (width < 48rem) {
+		.sm-hidden {
+			display: none !important;
+		}
+	}
+
+	@media (width < 64rem) {
+		.md-hidden {
+			display: none !important;
+		}
+	}
+}
+
+@layer base {
+
+	.section,
+	.section-xs,
+	.section-sm,
+	.section-lg,
+	.section-xl,
+	.section-full {
+		@apply px-1.5 md:px-2 lg:px-2.5 w-full mx-auto;
+	}
+
+	.section-xs {
+		max-width: 48rem;
+	}
+
+	.section-sm {
+		max-width: 64rem;
+	}
+
+	.section {
+		max-width: 80rem;
+	}
+
+	.section-lg {
+		max-width: 96rem;
+	}
+
+	.section-xl {
+		max-width: 110rem;
+	}
+
+	.row {
+		@apply relative flex flex-wrap items-start;
+	}
+
+	.mt-xs {
+		margin-top: calc(var(--mt-md) * var(--spacing) * 0.35);
+
+		@media (width > 48rem) {
+			margin-top: calc(var(--mt-md) * 1.4 * var(--spacing) * 0.35);
+		}
+
+		@media (width > 64rem) {
+			margin-top: calc(var(--mt-md) * 1.8 * var(--spacing) * 0.35);
+		}
+
+		@media (width > 80rem) {
+			margin-top: calc(var(--mt-md) * 2.2 * var(--spacing) * 0.35);
+		}
+	}
+
+	.mt-sm {
+		margin-top: calc(var(--mt-md) * var(--spacing) * 0.6);
+
+		@media (width > 48rem) {
+			margin-top: calc(var(--mt-md) * 1.4 * var(--spacing) * 0.6);
+		}
+
+		@media (width > 64rem) {
+			margin-top: calc(var(--mt-md) * 1.8 * var(--spacing) * 0.6);
+		}
+
+		@media (width > 80rem) {
+			margin-top: calc(var(--mt-md) * 2.2 * var(--spacing) * 0.6);
+		}
+	}
+
+	.mt-md {
+		margin-top: calc(var(--mt-md) * var(--spacing));
+
+		@media (width > 48rem) {
+			margin-top: calc(var(--mt-md) * 1.4 * var(--spacing));
+		}
+
+		@media (width > 64rem) {
+			margin-top: calc(var(--mt-md) * 1.8 * var(--spacing));
+		}
+
+		@media (width > 80rem) {
+			margin-top: calc(var(--mt-md) * 2.2 * var(--spacing));
+		}
+	}
+
+	.mt-lg {
+		margin-top: calc(var(--mt-md) * var(--spacing) * 1.5);
+
+		@media (width > 48rem) {
+			margin-top: calc(var(--mt-md) * 1.4 * var(--spacing) * 1.5);
+		}
+
+		@media (width > 64rem) {
+			margin-top: calc(var(--mt-md) * 1.8 * var(--spacing) * 1.5);
+		}
+
+		@media (width > 80rem) {
+			margin-top: calc(var(--mt-md) * 2.2 * var(--spacing) * 1.5);
+		}
+	}
+
+	.mt-xl {
+		margin-top: calc(var(--mt-md) * var(--spacing) * 1.9);
+
+		@media (width > 48rem) {
+			margin-top: calc(var(--mt-md) * 1.4 * var(--spacing) * 2);
+		}
+
+		@media (width > 64rem) {
+			margin-top: calc(var(--mt-md) * 1.8 * var(--spacing) * 2.1);
+		}
+
+		@media (width > 80rem) {
+			margin-top: calc(var(--mt-md) * 2.2 * var(--spacing) * 2.2);
+		}
+	}
+}
+
+@utility scroll-x {
+	@apply w-full overflow-x-auto overflow-y-visible no-scrollbar py-0.5;
+	white-space: nowrap;
+	flex-wrap: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
+@utility absolute-full {
+	@apply absolute inset-0 w-full h-full;
+}
+
+@utility absolute-tc {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@utility absoluteb-bc {
+	position: absolute;
+	bottom: 0%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@utility absolute-c {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@utility absolute-cl {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+
+@utility absolute-cr {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+@utility disabled {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	opacity: 0.5;
+	transition: all 1s;
+}
+
+@utility no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+		-webkit-appearance: none;
+	}
+}

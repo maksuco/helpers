@@ -1,0 +1,146 @@
+.email-body {
+    @apply w-full !m-0 !py-3 !px-4 !outline-0 !border-0 bg-dark;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    mso-line-height-rule: exactly;
+
+
+    img {
+        outline: none;
+        text-decoration: none;
+        -ms-interpolation-mode: bicubic;
+    }
+
+    a img {
+        border: 0 none;
+    }
+
+    table {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        border-spacing: 0 !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        border: 0 solid white !important;
+        border-width: 0 !important;
+    }
+
+    table,
+    td {
+        position: relative;
+        border-spacing: 0px;
+        border-collapse: collapse;
+    }
+
+    th,
+    td,
+    p {
+        margin: 0;
+    }
+}
+
+.badge {
+    display: inline-block;
+}
+
+.btn {
+    display: inline-block;
+    margin: 4px 2px;
+}
+
+.row-btn .btn+.btn {
+    margin-top: 13.5rem !important;
+}
+
+.row-btn2>* {
+    margin: 0 2px 28px 0;
+}
+
+.email-icon {
+    @apply w-fit p-1.5 border border-default-700 rounded-lg;
+}
+
+.email-icon-img {
+    @apply size-13.5 rounded-lg;
+}
+
+.email-logo {
+    @apply w-fit p-2;
+}
+
+.email-logo-img {
+    @apply block w-auto h-auto !bg-none;
+    max-width: 200px;
+    max-height: 40px;
+    @apply pl-2;
+}
+
+
+.email-img {
+    @apply block object-cover w-full border-0 overflow-hidden;
+    outline: none;
+    -ms-interpolation-mode: bicubic;
+}
+
+.email-body h1,
+.email-body h2,
+.email-body h3,
+.email-body h4,
+.email-body h5,
+.email-body h6 {
+    line-height: 1.1 !important;
+    margin-bottom: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+.email-body h1 {
+    font-size: 2.4rem;
+}
+
+.email-body h2 {
+    font-size: 2rem;
+}
+
+.email-body h3 {
+    font-size: 1.7rem;
+}
+
+.email-body h4 {
+    font-size: 1.4rem;
+}
+
+.email-body h5 {
+    @apply text-xl;
+}
+
+.email-body h6 {
+    @apply text-lg;
+}
+
+.email-body p {
+    @apply opacity-90;
+}
+
+.btn-full {
+    width: 100%;
+    max-width: 500px;
+}
+
+
+.email-footer {
+    @apply text-left w-full text-default-500 pb-20 pt-4.5 px-1.5 mt-20 border-t border-default-800;
+}
+
+.email-small {
+    @apply block text-default-500 text-sm pb-1.5;
+    opacity: 0.9;
+}
+
+.email-powered {
+    @apply text-xs text-default-400 border border-default-400;
+    opacity: 0.9;
+}

@@ -1,0 +1,212 @@
+
+@layer base {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply text-dark dark:text-white;
+		font-weight: calc(var(--heading-weight) - 200);
+	}
+
+	h1 {
+		@apply text-4xl;
+		font-weight: var(--heading-weight);
+	}
+
+	h2 {
+		@apply text-3xl;
+		font-weight: calc(var(--heading-weight) - 100);
+	}
+
+	h3 {
+		@apply text-2xl;
+	}
+
+	h4 {
+		@apply text-xl;
+	}
+
+	h5 {
+		@apply text-lg;
+	}
+
+	h6 {
+		font-size: calc(var(--text-base) + 1px);
+	}
+
+	p {
+		@apply text-default-600 dark:text-default-300;
+	}
+
+	small {
+		@apply text-sm text-default-500 dark:text-default-400;
+	}
+
+	smaller {
+		@apply text-xs text-default-500 dark:text-default-500;
+	}
+
+	.font-muted {
+	  @apply inline-flex items-center uppercase tracking-wider text-label;
+	  line-height: 1;
+	  font-size-adjust: 0.47;
+	}
+
+}
+
+.text-display,
+.text-display-xl,
+.text-display-lg,
+.text-display-sm,
+.text-display-xs,
+.text-display-xxs {
+	@apply font-bold tracking-tight overflow-x-hidden overflow-y-visible no-scrollbar;
+}
+@layer component {
+	.table {
+		@apply w-full text-left text-sm;
+		thead {
+			@apply bg-default-100 dark:bg-white/10 border-b border-default-100 dark:border-white/5 text-default-600 dark:text-default-400;
+			th {
+				@apply px-6 py-3 font-medium;
+			}
+		}
+		tbody {
+			@apply divide-y divide-default-100 dark:divide-white/5;
+			tr {
+				@apply hover:bg-brand-50/15 dark:hover:bg-white/5 transition-colors;
+				td {
+					@apply px-6 py-3;
+				}
+			}
+		}
+	}
+
+	.table-focus:focus-within tbody tr:not(:focus-within) {
+	  @apply saturate-50 disabled transition-all duration-300 ease-in-out;
+	  filter: blur(2px);
+	}
+}
+
+@utility text-display-xxs {
+	font-size: clamp(3rem, calc(50px + 0.6vw), 4rem);
+	@apply pb-3;
+	line-height: 0.85;
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 3.5);
+	}
+}
+
+@utility text-display-xs {
+	font-size: clamp(3.4rem, calc(61.5146px + 0.7767vw), 5rem);
+	@apply pb-3.5;
+	line-height: 0.85;
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 3.8);
+	}
+}
+
+@utility text-display-sm {
+	font-size: clamp(4.5rem, calc(80.2175px + 0.932vw), 5.8rem);
+	padding-bottom: 1.6rem;
+	line-height: 0.85;
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 4.2);
+	}
+}
+
+@utility text-display {
+	font-size: clamp(5rem, calc(92.0233px + 1.2427vw), 6.8rem);
+	line-height: 0.87;
+	padding-bottom: 1.6rem;
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 4.9);
+	}
+}
+
+@utility text-display-lg {
+	font-size: clamp(6rem, calc(104.1553px + 2.9515vw), 8.5rem);
+	line-height: 0.89;
+	padding-bottom: calc(var(--spacing) * 6);
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 8);
+	}
+}
+
+@utility text-display-xl {
+	font-size: clamp(9rem, calc(139.5728px + 3.8835vw), 12rem);
+	line-height: 0.94;
+
+	@media (width >=64rem) {
+		padding-bottom: calc(var(--spacing) * 7.2);
+	}
+}
+
+
+@utility text-light-all {
+	@apply text-light fill-light;
+	h1, h2, h3, h4, h5, h6, ul, ol {
+		@apply text-light fill-light;
+	}
+	p, small, li {
+		@apply text-light/95 fill-light/95;
+	}
+	a:not([class*="btn-"]) {
+		@apply text-light fill-light;
+	}
+}
+@utility text-default-all {
+	@apply text-default-500 dark:text-default-300 fill-default-500;
+	h1, h2, h3, h4, h5, h6, ul, ol, p, small, li {
+		@apply text-default-500 dark:text-default-300 fill-default-500;
+	}
+}
+
+@utility text-dark-all {
+	@apply text-dark fill-dark;
+	h1, h2, h3, h4, h5, h6, ul, ol {
+		@apply text-dark fill-dark;
+	}
+	p, small, li {
+		@apply text-dark/95 fill-dark/95;
+	}
+	a:not([class*="btn-"]) {
+		@apply text-dark fill-dark;
+	}
+}
+@utility text-white-all {
+	@apply text-white fill-white;
+	h1, h2, h3, h4, h5, h6, ul, ol {
+		@apply text-white fill-white;
+	}
+	p, small, li {
+		@apply text-white/95 fill-white/95;
+	}
+	a:not([class*="btn-"]) {
+		@apply text-white fill-white;
+	}
+}
+@utility text-black-all {
+	@apply text-black fill-black;
+	h1, h2, h3, h4, h5, h6, ul, ol {
+		@apply text-black fill-black;
+	}
+	p, small, li {
+		@apply text-black/95 fill-black/95;
+	}
+	a:not([class*="btn-"]) {
+		@apply text-black fill-black;
+	}
+}
+
+@utility text-gradient {
+	@apply inline-block text-transparent bg-clip-text bg-linear-to-br pr-0.5;
+}
