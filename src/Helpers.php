@@ -979,7 +979,7 @@ class Helpers
         $data = pathinfo($filename); // explode('.', $filename);
         $filename = substr($data['filename'], 0, 60);
         $result = $this->slug($filename).$this->slug_random($random).'.'.$data['extension'];
-
+        $result = explode('?', $result)[0];
         return strtolower($result);
     }
 
@@ -1768,6 +1768,30 @@ HTML;
 
         return trim($html ?? '');
     }
+
+    //merges 2 arrays with the option to clean
+    public function arrayMergeDefaults(array $data, array $defaults, bool $clean = false): array {
+        if (empty($defaults)) { return $data; }
+        $result = [];
+        foreach ($defaults as $key => $value) {
+            if (array_key_exists($key, $data)) {
+                $result[$key] = is_array($value) && is_array($data[$key])? $this->arrayMergeDefaults($data[$key], $value, $clean) : $data[$key];
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        // If NOT cleaning, merge extra keys back in
+        if (!$clean) {
+            foreach ($data as $key => $value) {
+                if (!array_key_exists($key, $defaults)) {
+                    $result[$key] = $value;
+                }
+            }
+        }
+        return $result;
+    }
+
+
 
     public function mergeTW($base, $new)
     {
