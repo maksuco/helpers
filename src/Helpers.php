@@ -1363,7 +1363,6 @@ class Helpers
             return $trimUrl;
         }
         $trimUrl = array_reverse(explode('.', $trimUrl));
-        ray('domain_from_url',$trimUrl);
         return $trimUrl[1].'.'.$trimUrl[0];
     }
 
