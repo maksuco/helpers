@@ -205,6 +205,21 @@ class Helpers
         return $text;
     }
 
+    public function htmlToText($text, $preserveLines = true)
+    {
+        // 1. Convert <br>, <p>, <div>, etc. to new lines
+        $text = preg_replace('/<(br|p|div|hr|h[1-6])[^>]*>/i', "\n", $content);
+        // 2. Extract links: <a href="URL">TEXT</a> becomes TEXT (URL)
+        $text = preg_replace('/<a\s+(?:[^>]*?\s+)?href=(["\'])(.*?)\1[^>]*>(.*?)<\/a>/i', '$3 ($2)', $text);
+        // 3. Strip the rest of the HTML tags
+        $text = strip_tags($text);
+        // 4. Decode HTML entities (like &copy;, &amp;)
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // 5. Clean up excessive newlines/spaces
+        $text = preg_replace("/[\r\n]{3,}/", "\n\n", trim($text));
+        return $text;
+    }
+
     public function getTextBetween($text, $start = '', $end = '')
     {
         $matches = [];

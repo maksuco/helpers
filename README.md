@@ -130,6 +130,16 @@ Send the current page name, example 'about' or 'contactenos', it checks if there
 
 ```
 
+# html to text
+
+ Convert html to text (include /n line breaks)
+
+```php
+
+  {{\Helpers::htmlToText($html)}}
+
+```
+
 # Find text between 2 strings or replace
 Returns an array with all results
 
