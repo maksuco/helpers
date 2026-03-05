@@ -205,6 +205,7 @@ class Helpers
         return $text;
     }
 
+    //needs work on $preserveLines = false
     public function htmlToText($text, $preserveLines = true)
     {
         // 1. Convert <br>, <p>, <div>, etc. to new lines
