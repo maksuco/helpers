@@ -625,22 +625,87 @@ class Helpers
         return false;
     }
 
-    public function cities($countryCode = 'US')
-    {
-        // include_once("Extras/geoip2.php");
-        // return storeGeoData();
+   public function cities($countryCode = 'US', $city = false, $persist = false)
+   {
+       return [];
+       static $citiesData = null;
 
-        $data = json_decode(file_get_contents(__DIR__.'/Extras/cities.json'), true);
-        $countryCode = strtoupper($countryCode);
-        foreach ($data[$countryCode] as $city) {
-            $results[] = $city;
-        }
-        usort($results, function ($a, $b) {
-            return $a['name'] <=> $b['name'];
-        });
+       if ($persist) {
+           if ($citiesData === null) {
+               $citiesData = json_decode(file_get_contents(__DIR__.'/Extras/cities.json'), true);
+           }
+       }
 
-        return $results;
-    }
+       $data = $citiesData ?? json_decode(file_get_contents(__DIR__.'/Extras/cities.json'), true);
+
+       $countryCode = strtoupper($countryCode);
+
+       $countryCities = $data[$countryCode] ?? [];
+
+       // -------- CITY SEARCH --------
+       if ($city) {
+
+           $citySlug = strtolower($city);
+
+           foreach ($countryCities as $row) {
+               if (
+                   strtolower($row['slug']) === $citySlug ||
+                   strtolower($row['name']) === $citySlug
+               ) {
+                   return $row;
+               }
+           }
+
+           // city not found locally → try API
+           return $this->fetchCityFromApi($city, $countryCode);
+       }
+
+       // -------- COUNTRY NOT FOUND --------
+       if (empty($countryCities)) {
+           return [];
+       }
+
+       // -------- RETURN ALL CITIES --------
+       $results = $countryCities;
+
+       usort($results, function ($a, $b) {
+           return $a['name'] <=> $b['name'];
+       });
+
+       return $results;
+   }
+
+   private function fetchCityFromApi($city, $countryCode)
+   {
+       $url = "https://nominatim.openstreetmap.org/search?"
+           . http_build_query([
+               'city' => $city,
+               'countrycodes' => strtolower($countryCode),
+               'format' => 'json',
+               'limit' => 1
+           ]);
+
+       $opts = ["http" => ["header" => "User-Agent: ShowPageApp/1.0\r\n"]];
+
+       $context = stream_context_create($opts);
+
+       $response = json_decode(file_get_contents($url, false, $context), true);
+
+       if (empty($response[0])) {
+           return null;
+       }
+
+       $row = $response[0];
+
+       return [
+           "name" => $city,
+           "region" => $row['address']['state'] ?? '',
+           "country" => strtoupper($countryCode),
+           "latitude" => $row['lat'],
+           "longitude" => $row['lon'],
+           "slug" => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $city)))
+       ];
+   }
 
     public function continent($country, $simplify = false)
     {

@@ -172,6 +172,7 @@ Returns an array with all results
 
   {{\Helpers::cities('US')}}
   //RETURNS:"name": "Salta","region": "A","country": "AR","latitude": "-24.78835","longitude": "-65.41266","slug": "salta"
+  //cities($countryCode = 'US', $city = false, $persist = false)
 ```
 
 # Check continent
