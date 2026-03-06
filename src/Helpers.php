@@ -625,7 +625,7 @@ class Helpers
         return false;
     }
 
-   public function cities($countryCode = 'US', $city = false, $persist = false)
+   public function citiesx($countryCode = 'US', $city = false, $persist = false)
    {
        return [];
        static $citiesData = null;
