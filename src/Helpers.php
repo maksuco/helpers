@@ -629,81 +629,59 @@ class Helpers
    {
        $countryCode = strtoupper($countryCode);
 
-       $dir = __DIR__.'/Extras/cities/';
-       $file = $dir.$countryCode.'.json';
+       $file = __DIR__ . "/Extras/cities/{$countryCode}.csv";
 
-       // -------- CREATE COUNTRY FILE IF MISSING --------
        if (!file_exists($file)) {
-
-           $source = __DIR__.'/Extras/cities15000.txt';
-
-           if (!file_exists($source)) {
-               return null;
-           }
-
-           $cities = [];
-           $fh = fopen($source, 'r');
-
-           while (($row = fgetcsv($fh, 0, "\t")) !== false) {
-
-               if ($row[8] !== $countryCode) {
-                   continue;
-               }
-
-               $name = $row[1];
-               $lat = $row[4];
-               $lon = $row[5];
-               $region = $row[10];
-               $population = (int)$row[14];
-
-               $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', $name)));
-
-               $cities[] = [
-                   "name" => $name,
-                   "region" => $region,
-                   "country" => $countryCode,
-                   "latitude" => $lat,
-                   "longitude" => $lon,
-                   "population" => $population,
-                   "slug" => $slug
-               ];
-           }
-
-           fclose($fh);
-
-           if (!is_dir($dir)) {
-               mkdir($dir, 0755, true);
-           }
-
-           file_put_contents($file, json_encode($cities));
+           return [];
        }
 
-       // -------- LOAD COUNTRY FILE --------
-       $data = json_decode(file_get_contents($file), true) ?? [];
+       $cities = [];
 
-       // -------- CITY SEARCH --------
-       if ($city) {
+       if (($handle = fopen($file, 'r')) !== false) {
 
-           $citySlug = strtolower($city);
+           // skip header
+           fgetcsv($handle, 0, ',', '"', '\\');
 
-           foreach ($data as $row) {
-               if (
-                   strtolower($row['slug']) === $citySlug ||
-                   strtolower($row['name']) === $citySlug
-               ) {
-                   return $row;
+           while (($row = fgetcsv($handle, 0, ',', '"', '\\')) !== false) {
+
+               $cityRow = [
+                   'name' => $row[0] ?? '',
+                   'slug' => strtolower($row[1] ?? ''),
+                   'population' => isset($row[2]) ? (int)$row[2] : 0,
+               ];
+
+               // -------- CITY SEARCH --------
+               if ($city) {
+
+                   $citySlug = strtolower($city);
+
+                   if (
+                       strtolower($cityRow['slug']) === $citySlug ||
+                       strtolower($cityRow['name']) === $citySlug
+                   ) {
+                       fclose($handle);
+                       return $cityRow;
+                   }
+
+               } else {
+                   $cities[] = $cityRow;
                }
            }
 
-           return null;
+           fclose($handle);
        }
 
        // -------- RETURN ALL CITIES --------
-       usort($data, function ($a, $b) {
-           return $a['name'] <=> $b['name'];
-       });
+       if (!$city) {
 
-       return $data;
+           usort($cities, function ($a, $b) {
+               return $a['name'] <=> $b['name'];
+           });
+
+           return $cities;
+       }
+
+       return null;
    }
 
     public function continent($country, $simplify = false)
