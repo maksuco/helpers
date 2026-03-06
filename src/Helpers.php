@@ -652,6 +652,7 @@ class Helpers
                fclose($handle);
            }
            usort($cities, fn($a, $b) => $a['name'] <=> $b['name']);
+           @mkdir(dirname($jsonFile), 0755, true);
            file_put_contents($jsonFile, json_encode($cities));
        } else {
            $cities = json_decode(file_get_contents($jsonFile), true);
