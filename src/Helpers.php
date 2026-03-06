@@ -628,60 +628,39 @@ class Helpers
    public function cities($countryCode = 'US', $city = false)
    {
        $countryCode = strtoupper($countryCode);
+       $sourceFile  = __DIR__ . "/Extras/cities15000.txt";
+       $jsonFile    = __DIR__ . "/Extras/cities/{$countryCode}.json";
 
-       $file = __DIR__ . "/Extras/cities/{$countryCode}.csv";
+       if (!file_exists($sourceFile)) return [];
 
-       if (!file_exists($file)) {
-           return [];
-       }
-
-       $cities = [];
-
-       if (($handle = fopen($file, 'r')) !== false) {
-
-           // skip header
-           fgetcsv($handle, 0, ',', '"', '\\');
-
-           while (($row = fgetcsv($handle, 0, ',', '"', '\\')) !== false) {
-
-               $cityRow = [
-                   'name' => $row[0] ?? '',
-                   'slug' => strtolower($row[1] ?? ''),
-                   'population' => isset($row[2]) ? (int)$row[2] : 0,
-               ];
-
-               // -------- CITY SEARCH --------
-               if ($city) {
-
-                   $citySlug = strtolower($city);
-
-                   if (
-                       strtolower($cityRow['slug']) === $citySlug ||
-                       strtolower($cityRow['name']) === $citySlug
-                   ) {
-                       fclose($handle);
-                       return $cityRow;
-                   }
-
-               } else {
-                   $cities[] = $cityRow;
+       if (!file_exists($jsonFile)) {
+           $cities = [];
+           if (($handle = fopen($sourceFile, 'r')) !== false) {
+               while (($line = fgets($handle)) !== false) {
+                   $row = explode("\t", trim($line));
+                   if (($row[8] ?? '') !== $countryCode) continue;
+                   $cities[] = [
+                       'name'       => $row[1]  ?? '',
+                       'slug'       => strtolower($row[2] ?? ''),
+                       'region'     => $row[10] ?? '',
+                       'country'    => $countryCode,
+                       'latitude'   => $row[4]  ?? '',
+                       'longitude'  => $row[5]  ?? '',
+                       'population' => isset($row[14]) ? (int) $row[14] : 0,
+                   ];
                }
+               fclose($handle);
            }
-
-           fclose($handle);
+           usort($cities, fn($a, $b) => $a['name'] <=> $b['name']);
+           file_put_contents($jsonFile, json_encode($cities));
+       } else {
+           $cities = json_decode(file_get_contents($jsonFile), true);
        }
 
-       // -------- RETURN ALL CITIES --------
-       if (!$city) {
+       if (!$city) return $cities;
 
-           usort($cities, function ($a, $b) {
-               return $a['name'] <=> $b['name'];
-           });
-
-           return $cities;
-       }
-
-       return null;
+       $slug = strtolower($city);
+       return collect($cities)->first(fn($c) => $c['slug'] === $slug || strtolower($c['name']) === $slug);
    }
 
     public function continent($country, $simplify = false)
