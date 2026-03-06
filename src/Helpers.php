@@ -625,28 +625,68 @@ class Helpers
         return false;
     }
 
-   public function cities($countryCode = 'US', $city = false, $persist = false)
+   public function cities($countryCode = 'US', $city = false)
    {
-       static $citiesData = null;
-
-       if ($persist) {
-           if ($citiesData === null) {
-               $citiesData = json_decode(file_get_contents(__DIR__.'/Extras/cities.json'), true);
-           }
-       }
-
-       $data = $citiesData ?? json_decode(file_get_contents(__DIR__.'/Extras/cities.json'), true);
-
        $countryCode = strtoupper($countryCode);
 
-       $countryCities = $data[$countryCode] ?? [];
+       $dir = __DIR__.'/Extras/cities/';
+       $file = $dir.$countryCode.'.json';
+
+       // -------- CREATE COUNTRY FILE IF MISSING --------
+       if (!file_exists($file)) {
+
+           $source = __DIR__.'/Extras/cities15000.txt';
+
+           if (!file_exists($source)) {
+               return null;
+           }
+
+           $cities = [];
+           $fh = fopen($source, 'r');
+
+           while (($row = fgetcsv($fh, 0, "\t")) !== false) {
+
+               if ($row[8] !== $countryCode) {
+                   continue;
+               }
+
+               $name = $row[1];
+               $lat = $row[4];
+               $lon = $row[5];
+               $region = $row[10];
+               $population = (int)$row[14];
+
+               $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', $name)));
+
+               $cities[] = [
+                   "name" => $name,
+                   "region" => $region,
+                   "country" => $countryCode,
+                   "latitude" => $lat,
+                   "longitude" => $lon,
+                   "population" => $population,
+                   "slug" => $slug
+               ];
+           }
+
+           fclose($fh);
+
+           if (!is_dir($dir)) {
+               mkdir($dir, 0755, true);
+           }
+
+           file_put_contents($file, json_encode($cities));
+       }
+
+       // -------- LOAD COUNTRY FILE --------
+       $data = json_decode(file_get_contents($file), true) ?? [];
 
        // -------- CITY SEARCH --------
        if ($city) {
 
            $citySlug = strtolower($city);
 
-           foreach ($countryCities as $row) {
+           foreach ($data as $row) {
                if (
                    strtolower($row['slug']) === $citySlug ||
                    strtolower($row['name']) === $citySlug
@@ -655,55 +695,15 @@ class Helpers
                }
            }
 
-           // city not found locally → try API
-           return $this->fetchCityFromApi($city, $countryCode);
-       }
-
-       // -------- COUNTRY NOT FOUND --------
-       if (empty($countryCities)) {
-           return [];
-       }
-
-       // -------- RETURN ALL CITIES --------
-       $results = $countryCities;
-
-       usort($results, function ($a, $b) {
-           return $a['name'] <=> $b['name'];
-       });
-
-       return $results;
-   }
-
-   private function fetchCityFromApi($city, $countryCode)
-   {
-       $url = "https://nominatim.openstreetmap.org/search?"
-           . http_build_query([
-               'city' => $city,
-               'countrycodes' => strtolower($countryCode),
-               'format' => 'json',
-               'limit' => 1
-           ]);
-
-       $opts = ["http" => ["header" => "User-Agent: ShowPageApp/1.0\r\n"]];
-
-       $context = stream_context_create($opts);
-
-       $response = json_decode(file_get_contents($url, false, $context), true);
-
-       if (empty($response[0])) {
            return null;
        }
 
-       $row = $response[0];
+       // -------- RETURN ALL CITIES --------
+       usort($data, function ($a, $b) {
+           return $a['name'] <=> $b['name'];
+       });
 
-       return [
-           "name" => $city,
-           "region" => $row['address']['state'] ?? '',
-           "country" => strtoupper($countryCode),
-           "latitude" => $row['lat'],
-           "longitude" => $row['lon'],
-           "slug" => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $city)))
-       ];
+       return $data;
    }
 
     public function continent($country, $simplify = false)
