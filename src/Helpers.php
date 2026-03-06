@@ -625,38 +625,20 @@ class Helpers
         return false;
     }
 
+   public function processCities() {
+       foreach($this->countries() as $country){
+          $this->cities($country->code);
+       }
+   }
+
    public function cities($countryCode = 'US', $city = false)
    {
        $countryCode = strtoupper($countryCode);
-       $sourceFile  = __DIR__ . "/Extras/cities15000.txt";
-       $jsonFile    = __DIR__ . "/Extras/cities/{$countryCode}.json";
+       $jsonFile = __DIR__ . "/Extras/cities/{$countryCode}.json";
 
-       if (!file_exists($sourceFile)) return [];
+       if (!file_exists($jsonFile)) return [];
 
-       if (!file_exists($jsonFile)) {
-           $cities = [];
-           if (($handle = fopen($sourceFile, 'r')) !== false) {
-               while (($line = fgets($handle)) !== false) {
-                   $row = explode("\t", trim($line));
-                   if (($row[8] ?? '') !== $countryCode) continue;
-                   $cities[] = [
-                       'name'       => $row[1]  ?? '',
-                       'slug'       => strtolower($row[2] ?? ''),
-                       'region'     => $row[10] ?? '',
-                       'country'    => $countryCode,
-                       'latitude'   => $row[4]  ?? '',
-                       'longitude'  => $row[5]  ?? '',
-                       'population' => isset($row[14]) ? (int) $row[14] : 0,
-                   ];
-               }
-               fclose($handle);
-           }
-           usort($cities, fn($a, $b) => $a['name'] <=> $b['name']);
-           @mkdir(dirname($jsonFile), 0755, true);
-           file_put_contents($jsonFile, json_encode($cities));
-       } else {
-           $cities = json_decode(file_get_contents($jsonFile), true);
-       }
+       $cities = json_decode(file_get_contents($jsonFile), true);
 
        if (!$city) return $cities;
 
