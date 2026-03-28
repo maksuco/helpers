@@ -209,7 +209,7 @@ class Helpers
     public function htmlToText($text, $preserveLines = true)
     {
         // 1. Convert <br>, <p>, <div>, etc. to new lines
-        $text = preg_replace('/<(br|p|div|hr|h[1-6])[^>]*>/i', "\n", $content);
+        $text = preg_replace('/<(br|p|div|hr|h[1-6])[^>]*>/i', "\n", $text);
         // 2. Extract links: <a href="URL">TEXT</a> becomes TEXT (URL)
         $text = preg_replace('/<a\s+(?:[^>]*?\s+)?href=(["\'])(.*?)\1[^>]*>(.*?)<\/a>/i', '$3 ($2)', $text);
         // 3. Strip the rest of the HTML tags
