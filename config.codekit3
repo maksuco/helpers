@@ -3302,6 +3302,16 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
+    "\/src\/Assets\/icons\/bluesky.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/bluesky.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
     "\/src\/Assets\/icons\/bookmark-outline.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -4662,6 +4672,16 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
+    "\/src\/Assets\/icons\/mastodon.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/mastodon.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
     "\/src\/Assets\/icons\/megaphone.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -5072,6 +5092,16 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
+    "\/src\/Assets\/icons\/quora-icon.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/quora-icon.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
     "\/src\/Assets\/icons\/quora-outline.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -5462,6 +5492,16 @@
       "plM" : 52780316221407,
       "prP" : 0
     },
+    "\/src\/Assets\/icons\/substack.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/substack.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
     "\/src\/Assets\/icons\/sun.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -5497,6 +5537,16 @@
       "miP" : 0,
       "oA" : 2,
       "oAP" : "\/src\/Assets\/icons\/tencent-qq.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/src\/Assets\/icons\/threads.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/threads.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,
@@ -5577,6 +5627,16 @@
       "miP" : 0,
       "oA" : 2,
       "oAP" : "\/src\/Assets\/icons\/trash.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/src\/Assets\/icons\/truth.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Assets\/icons\/truth.svg",
       "oF" : 0,
       "opt" : 0,
       "plM" : 52780316221407,

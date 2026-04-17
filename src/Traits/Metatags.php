@@ -74,7 +74,7 @@ trait Metatags {
 		$jsonLd = [
 			"@context" => "https://schema.org",
 			"@type" => $type,
-			"name" => ucfirst($meta['name'] ??config('app.name') ?? str_replace("www.", "", parse_url($url, PHP_URL_HOST))),
+			"name" => ucfirst($meta['name'] ?? config('app.name') ?? str_replace("www.", "", parse_url($url, PHP_URL_HOST))),
 			"headline" => $title,
 			"description" => $description,
 			"image" => $image,
