@@ -3,6 +3,36 @@ namespace Maksuco\Helpers\Traits;
 
 trait Metatags {
 
+	function vite($entry) {
+		static $manifest;
+
+		if (!$manifest) {
+			$manifest = json_decode(file_get_contents(__DIR__ . '/assets/build/manifest.json'), true);
+		}
+
+		// allow lookup by "name" (frontend, frontend-css)
+		foreach ($manifest as $item) {
+			if (($item['name'] ?? null) === $entry) {
+				$file = $item['file'];
+
+				return str_ends_with($file, '.css')
+					? '<link rel="stylesheet" href="/assets/build/'.$file.'">'
+					: '<script type="module" src="/assets/build/'.$file.'"></script>';
+			}
+		}
+
+		// fallback: direct key (assets/js/stak.js)
+		if (isset($manifest[$entry])) {
+			$file = $manifest[$entry]['file'];
+
+			return str_ends_with($file, '.css')
+				? '<link rel="stylesheet" href="/assets/build/'.$file.'">'
+				: '<script type="module" src="/assets/build/'.$file.'"></script>';
+		}
+
+		return '';
+	}
+
 	function metatags($meta, $currentLang, $langs): string
 	{
     	$meta = json_decode(json_encode($meta), true);
