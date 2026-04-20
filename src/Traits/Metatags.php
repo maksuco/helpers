@@ -5,9 +5,10 @@ trait Metatags {
 
 	function vite($entry) {
 		static $manifest;
-
+		
 		if (!$manifest) {
-			$manifest = json_decode(file_get_contents(__DIR__ . '/assets/build/manifest.json'), true);
+			$manifestPath = $_SERVER['DOCUMENT_ROOT'].'/assets/build/manifest.json';
+			$manifest = json_decode(file_get_contents($manifestPath), true);
 		}
 
 		// allow lookup by "name" (frontend, frontend-css)
