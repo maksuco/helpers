@@ -1196,7 +1196,11 @@ class Helpers
     {
 
         $domain = str_replace(['https://', 'http://'], '', $domain);
-        $check = dns_get_record($domain);
+        if(str_contains($domain,'@')){
+            $domain = explode('@', $domain);
+            $domain = $domain[1];
+        }
+        $check = dns_get_record($domain, DNS_A + DNS_MX);
 
         return (count($check) > 0) ? true : false;
 
