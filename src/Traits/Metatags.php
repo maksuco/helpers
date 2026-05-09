@@ -5,10 +5,16 @@ trait Metatags {
 
 	function vite($entry) {
 		static $manifest;
+		static $config;
 		
 		if (!$manifest) {
 			$manifestPath = $_SERVER['DOCUMENT_ROOT'].'/assets/build/manifest.json';
 			$manifest = json_decode(file_get_contents($manifestPath), true);
+			// if(isset(config('app.env')) && config('app.env') === 'local') {
+			// 	$path = '/assets/css/';
+			// } else {
+			// 	$path = '/assets/build/';
+			// }
 		}
 
 		// allow lookup by "name" (frontend, frontend-css)
@@ -141,6 +147,29 @@ trait Metatags {
 		}
 		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		$jsonLdScript = '<script type="application/ld+json">'.$jsonLdString.'</script>';
+
+		if (!empty($meta['faqs'])) {
+			$faqLd = [
+				"@context" => "https://schema.org",
+				"@type" => "FAQPage",
+				"mainEntity" => []
+			];
+			foreach ($meta['faqs'] as $faq) {
+				if (!empty($faq['question']) && !empty($faq['answer'])) {
+					$faqLd["mainEntity"][] = [
+						"@type" => "Question",
+						"name" => $faq['question'],
+						"acceptedAnswer" => [
+							"@type" => "Answer",
+							"text" => $faq['answer']
+						]
+					];
+				}
+			}
+			if (!empty($faqLd["mainEntity"])) {
+				$jsonLdScript .= '<script type="application/ld+json">'.json_encode($faqLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT).'</script>';
+			}
+		}
 
 		$metaTags .= $twitterMetaTags . $ogMetaTags . $jsonLdScript;
 		return trim(preg_replace('/\s+/', ' ', $metaTags));
