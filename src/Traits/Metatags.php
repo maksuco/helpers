@@ -6,7 +6,7 @@ trait Metatags {
 	function vite($entry) {
 		static $manifest;
 		static $config;
-		
+
 		if (!$manifest) {
 			$manifestPath = $_SERVER['DOCUMENT_ROOT'].'/assets/build/manifest.json';
 			$manifest = json_decode(file_get_contents($manifestPath), true);
@@ -39,7 +39,10 @@ trait Metatags {
 
 		return '';
 	}
-
+	// $meta['metatags']['title'] or $meta['title']
+	// $meta['metatags']['description'] or ...
+	// $meta['domain']
+	// $meta['image']
 	function metatags($meta, $currentLang, $langs): string
 	{
     	$meta = json_decode(json_encode($meta), true);
@@ -51,7 +54,7 @@ trait Metatags {
 		$description = substr($meta['description'] ?? $meta['metatags']['description'][$currentLang] ?? '', 0, 160);
 		//$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
 		$image = $meta['image'] ?? '';
-		$author = 'Maksuco.com';
+		$author = $meta['author'] ?? 'Maksuco.com';
 		$type = $meta['type'] ?? 'WebPage';
 
 		$domainHost = parse_url($url)['host'] ?? '';
@@ -77,7 +80,7 @@ trait Metatags {
 		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">';
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
-		//\Debugbar::info('Metatags.php debug',$currentLang);
+		//ray('Metatags.php debug',$currentLang);
 		if(!empty($meta['slugs'])) {
 			$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 			if(count($langs) > 1){
