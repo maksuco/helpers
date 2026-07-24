@@ -7,6 +7,7 @@ class Helpers
     use Traits\Colors;
     use Traits\Metatags;
     use Traits\Tailwind;
+    use Traits\MinifyHtml;
 
     // GET DEVICE AGENT
     public function agent($mobile, $tablet, $desktop)
@@ -1761,35 +1762,6 @@ HTML;
         $results['count'] = $data->pluck('count');
 
         return $results;
-    }
-
-    public function minify_html($html)
-    {
-        // 1. Preserve pre, code, textarea, script, svg content
-        $html = preg_replace_callback('/<(pre|code|textarea|script|svg)(.*?)>(.*?)<\/\1>/is', function ($matches) {
-            // Return the content of these tags as-is to avoid breaking them
-            return $matches[0];
-        }, $html);
-
-        // 2. Remove comments (except conditional comments)
-        $html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
-
-        // 3. Collapse whitespace
-        $html = preg_replace('/\s+/', ' ', $html);
-
-        // 4. Remove unnecessary spaces between tags
-        $html = preg_replace('/>\s+</', '><', $html);
-
-        // 5. Remove unnecessary spaces around attributes
-        $html = preg_replace('/\s*([=<>])\s*/', '$1', $html);
-
-        // 6. Clean up spaces in attributes (e.g., class=" something" → class="something")
-        $html = preg_replace('/=\s*"([^"]*?)"/', '="$1"', $html);
-
-        // 7. Remove unnecessary spaces before closing tags
-        $html = preg_replace('/<(\w+)([^>]*)\s+>/', '<$1$2>', $html);
-
-        return trim($html ?? '');
     }
 
     //merges 2 arrays with the option to clean
