@@ -65,24 +65,34 @@ trait Metatags {
 		$metaTags = '
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta name="robots" content="'.$robot.'">
 		<link rel="dns-prefetch" href="//'.$domainHost.'">'.$s3Dns.'
 		<title>'.$title.'</title>
 		<meta name="description" content="'.$description.'">
 		<meta name="author" content="'.$author.'">
-		<meta name="google" content="notranslate">
-		<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
-		<link rel="icon" href="'.$url.'/favicon.ico">
-		<link rel="apple-touch-icon" href="'.$url.'/assets/favicon/apple-touch-icon.png">
-  	  	<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.png">
-		<link rel="icon" type="image/png" href="'.$url.'/assets/favicon/favicon.png">
-		<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">';
+		<meta name="google" content="notranslate">';
+		if(empty($meta['icon'])) {
+			$metaTags .= '
+			<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
+			<link rel="icon" href="'.$url.'/favicon.ico">
+			<link rel="apple-touch-icon" href="'.$url.'/assets/favicon/apple-touch-icon.png">
+  	  	    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.png">
+			<link rel="icon" type="image/png" href="'.$url.'/assets/favicon/favicon.png">
+			<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">
+			';
+		} else {
+			$metaTags .= '
+			<link rel="shortcut icon" href="'.$meta['icon'].'">
+			<link rel="icon" href="'.$meta['icon'].'">
+			<link rel="apple-touch-icon" href="'.$meta['icon'].'">
+			<link rel="icon" type="image/png" href="'.$meta['icon'].'">
+			';
+		}
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
 		//ray('Metatags.php debug',$currentLang);
 		if(!empty($meta['slugs'])) {
-			$canonical = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
+			$meta['canonical'] = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
 			if(count($langs) > 1){
 				$default = $url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang];
 				$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
@@ -92,23 +102,24 @@ trait Metatags {
 				}
 			}
 		} else {
-			$canonical = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$meta['canonical'] ??= "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$meta['canonical'].'"/>';
 		}
-		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
+		$metaTags .= '<link rel="canonical" href="'.$meta['canonical'].'">';
 
 		$twitterMetaTags = '
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="'.$title.'">
 		<meta name="twitter:description" content="'.$description.'">
 		<meta name="twitter:image" content="'.$image.'">
-		<meta property="twitter:url" content="'.$canonical.'">';
+		<meta property="twitter:url" content="'.$meta['canonical'].'">';
 
 		$ogMetaTags = '
-		<meta property="og:type" content="'.$type.'">
+		<meta property="og:type" content="'.strtolower($type).'">
 		<meta property="og:title" content="'.$title.'">
 		<meta property="og:description" content="'.$description.'">
 		<meta property="og:image" content="'.$image.'">
-		<meta property="og:url" content="'.$canonical.'">';
+		<meta property="og:url" content="'.$meta['canonical'].'">';
 
 		// Optional JSON-LD data
 		$jsonLd = [
@@ -118,7 +129,7 @@ trait Metatags {
 			"headline" => $title,
 			"description" => $description,
 			"image" => $image,
-			"url" => $canonical,
+			"url" => $meta['canonical'],
 			"inLanguage" => $currentLang
 		];
 		if(!empty($local)) {

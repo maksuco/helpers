@@ -17,21 +17,35 @@ trait MinifyHtml {
 
     private function collapseWhitespace(\Dom\Node $node): void
     {
-        $preserveTags = ['pre', 'code', 'textarea', 'script', 'style', 'svg'];
+        $preserveTags = ['pre', 'code', 'textarea', 'script', 'svg'];
 
         foreach (iterator_to_array($node->childNodes) as $child) {
             if ($child->nodeType === XML_TEXT_NODE) {
-                $child->data = preg_replace('/\s+/', ' ', $child->data); // collapse whitespace in text nodes only
+                $child->data = preg_replace('/\s+/', ' ', $child->data);
                 continue;
             }
 
             if ($child->nodeType === XML_COMMENT_NODE) {
-                $child->remove(); // drop comments
+                $child->remove();
                 continue;
             }
 
-            if ($child->nodeType === XML_ELEMENT_NODE && !in_array(strtolower($child->nodeName), $preserveTags)) {
-                $this->collapseWhitespace($child); // recurse, skipping preserved tags
+            if ($child->nodeType === XML_ELEMENT_NODE) {
+                $tag = strtolower($child->nodeName);
+
+                if ($child->hasAttribute('style')) {
+                    $style = preg_replace(['/\s+/', '/;\s*$/', '/;\s*/'], [' ', '', '; '], trim($child->getAttribute('style')));
+                    $child->setAttribute('style', $style); // collapse whitespace inside inline style attr
+                }
+
+                if ($tag === 'style') {
+                    $child->textContent = preg_replace(['/\s+/', '/;\s*}/'], [' ', '}'], trim($child->textContent));
+                    continue;
+                }
+
+                if (!in_array($tag, $preserveTags)) {
+                    $this->collapseWhitespace($child);
+                }
             }
         }
     }
