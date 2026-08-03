@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <!-- Gradient across one flute -->
+    <linearGradient id="fluteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25" />
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="90%" stop-color="#000000" stop-opacity="0.30" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25" />
+    </linearGradient>
+
+    <!-- patternUnits="objectBoundingBox" allows percentage width (0.1 = 10%) -->
+    <pattern id="flutedPattern" width="0.1" height="100%" patternUnits="objectBoundingBox">
+      <!-- rect fill width="100%" inside pattern fills the 10% slice -->
+      <rect width="100%" height="100%" fill="url(#fluteGrad)" />
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#flutedPattern)" />
+</svg>

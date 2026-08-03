@@ -23,7 +23,10 @@ class HelpersServiceProvider extends ServiceProvider
     {
         $source = __DIR__ . '/Extras/img';
         $destination = public_path('vendor/maksuco');
-
+        $this->copyDirectory($source, $destination);
+        //effects
+        $source = __DIR__ . '/Assets/effects';
+        $destination = public_path('vendor/maksuco/effects');
         $this->copyDirectory($source, $destination);
     }
 

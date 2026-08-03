@@ -685,9 +685,13 @@ class Helpers
         }
         if ($lang == 'all') {
             return $languages;
-        } else {
-            return $languages[$lang];
         }
+
+        if ($lang === null || $lang === '') {
+            return $lang === null ? '' : __('Unknown');
+        }
+
+        return $languages[$lang] ?? (string) $lang;
     }
 
     // returns alternative langs
