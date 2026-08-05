@@ -422,46 +422,6 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
   //returns myapp.test.co
 ```
 
-# Get html sections from url
-You need the dom extension https://stackoverflow.com/questions/14395239/class-domdocument-not-found
-
-```php
-
-  $domain = \Helpers::url_html($url);
-  //returns the body content of url
-	$domain = \Helpers::url_html($url,'div');
-	//returns a string with first div content
-	$domain = \Helpers::url_html($url,'#home',true);
-	//returns the section with id="home" and true converts all img src and links href to full urls.
-	//using id selects the entire section, using elements only selects the content.
-```
-
-
-# Transform number to telto number
-
-```php
-
-  {{\Helpers::telto($phone)}}
-  //SEND: +1 (305) 890 8989
-  //RETURNS: 13058908989
-
-```
-
-
-# GET video id of youtube or vimeo link, if is already is returns the same
-
-```php
-
-  {{\Helpers::getVideoID($provider,$string)}}
-  //SEND: 'youtube','https://www.youtube.com/watch?v=12345'
-  //RETURNS: 12345
-  //SEND: 'youtube','12345'
-  //RETURNS: 12345
-  //SEND: null,'https://host.com/file.mp4'
-  //RETURNS: https://host.com/file.mp4
-
-```
-
 
 
 # Email and Domain Check
@@ -512,6 +472,47 @@ You need the dom extension https://stackoverflow.com/questions/14395239/class-do
   OR
   \Helpers::domainName('https://l.maksuco.com')
   //returns maksuco.com
+
+```
+
+
+# Get html sections from url
+You need the dom extension https://stackoverflow.com/questions/14395239/class-domdocument-not-found
+
+```php
+
+  $domain = \Helpers::url_html($url);
+  //returns the body content of url
+	$domain = \Helpers::url_html($url,'div');
+	//returns a string with first div content
+	$domain = \Helpers::url_html($url,'#home',true);
+	//returns the section with id="home" and true converts all img src and links href to full urls.
+	//using id selects the entire section, using elements only selects the content.
+```
+
+
+# Transform number to telto number
+
+```php
+
+  {{\Helpers::telto($phone)}}
+  //SEND: +1 (305) 890 8989
+  //RETURNS: 13058908989
+
+```
+
+
+# GET video id of youtube or vimeo link, if is already is returns the same
+
+```php
+
+  {{\Helpers::getVideoID($provider,$string)}}
+  //SEND: 'youtube','https://www.youtube.com/watch?v=12345'
+  //RETURNS: 12345
+  //SEND: 'youtube','12345'
+  //RETURNS: 12345
+  //SEND: null,'https://host.com/file.mp4'
+  //RETURNS: https://host.com/file.mp4
 
 ```
 
