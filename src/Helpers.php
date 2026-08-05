@@ -1380,8 +1380,12 @@ class Helpers
         return $content;
     }
 
-    public function domain_from_url($url, $subdomain = false)
+    //in the future call it getDomain and accept emails
+    public function getDomain($url, $subdomain = false)
     {
+        if(str_contains($url, '@')){
+            return array_last(explode('@', $url));
+        }
         $parseUrl = parse_url(trim($url));
         if (isset($parseUrl['host'])) {
             $trimUrl = $parseUrl['host'];

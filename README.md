@@ -410,14 +410,16 @@ Check if a domain doesn't have the http and adds it, and other links, domains he
 
 ```
 
-# Get Domain from url
+# Get Domain from url or email
 
 ```php
 
-  $domain = \Helpers::domain_from_url($url);
+  $domain = \Helpers::getDomain($url);
   //returns the domain.com from http://www.domain.com/something
-  \Helpers::domain_from_url($url,true); //subdomain true
+  \Helpers::getDomain($url,true); //subdomain true
   //returns the account.domain.com from http://account.domain.com/something
+  \Helpers::getDomain('mm@myapp.test.co');
+  //returns myapp.test.co
 ```
 
 # Get html sections from url
