@@ -54,6 +54,7 @@ trait Metatags {
 		$description = substr($meta['description'] ?? $meta['metatags']['description'][$currentLang] ?? '', 0, 160);
 		//$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
 		$image = $meta['image'] ?? '';
+		$imageOG = $meta['imageOG'] ?? $image;
 		$author = $meta['author'] ?? 'Maksuco.com';
 		$type = $meta['type'] ?? 'WebPage';
 
@@ -111,14 +112,14 @@ trait Metatags {
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="'.$title.'">
 		<meta name="twitter:description" content="'.$description.'">
-		<meta name="twitter:image" content="'.$image.'">
+		<meta name="twitter:image" content="'.$imageOG.'">
 		<meta property="twitter:url" content="'.$meta['canonical'].'">';
 
 		$ogMetaTags = '
 		<meta property="og:type" content="'.strtolower($type).'">
 		<meta property="og:title" content="'.$title.'">
 		<meta property="og:description" content="'.$description.'">
-		<meta property="og:image" content="'.$image.'">
+		<meta property="og:image" content="'.$imageOG.'">
 		<meta property="og:url" content="'.$meta['canonical'].'">';
 
 		// Optional JSON-LD data
