@@ -821,7 +821,6 @@ class Helpers
         if ($class) {
             $file = str_replace('"svg-icon"', '"'.$class.'" '.$extras, $file);
         }
-
         return $file;
     }
 
@@ -1383,20 +1382,36 @@ class Helpers
     //in the future call it getDomain and accept emails
     public function getDomain($url, $subdomain = false)
     {
-        if(str_contains($url, '@')){
-            return array_last(explode('@', $url));
-        }
-        $parseUrl = parse_url(trim($url));
-        if (isset($parseUrl['host'])) {
-            $trimUrl = $parseUrl['host'];
+        $url = trim($url);
+        // Email: has @ and no scheme
+        if (str_contains($url, '@') && !str_contains($url, '://')) {
+            $host = substr(strrchr($url, '@'), 1); // everything after last @
+            $host = explode('/', explode('?', $host)[0])[0]; // strip path/query if any
         } else {
-            $trimUrl = explode('/', $parseUrl['path'])[0];
+            // URL: add scheme if missing so parse_url works
+            if (!preg_match('#^https?://#i', $url)) {
+                $url = 'https://' . $url;
+            }
+
+            $host = parse_url($url, PHP_URL_HOST);
+
+            // fallback for weird cases
+            if (!$host) {
+                $host = explode('/', ltrim($url, '/'))[0];
+            }
         }
+
+        $host = strtolower(rtrim($host, '.'));
+
         if ($subdomain) {
-            return $trimUrl;
+            return $host;
         }
-        $trimUrl = array_reverse(explode('.', $trimUrl));
-        return $trimUrl[1].'.'.$trimUrl[0];
+
+        // return last two parts (example.com)
+        $parts = explode('.', $host);
+        $count = count($parts);
+
+        return ($count >= 2)? $parts[$count - 2].'.'.$parts[$count - 1] : $host;
     }
 
     public function domain_from_email($email)
