@@ -47,19 +47,20 @@ trait Metatags {
 	{
     	$meta = json_decode(json_encode($meta), true);
 		$domain = $meta['domain'] ?? config('app.url') ?? ''; // Full URL https://maksuco.com
-		$url = rtrim($domain, '/');
+		$url = $domain !== '' ? rtrim($this->link($domain), '/') : '';
 		$mainLang = current($langs);
 
 		$title = trim(substr($meta['title'] ?? $meta['metatags']['title'][$currentLang] ?? '', 0, 60));
 		$description = substr($meta['description'] ?? $meta['metatags']['description'][$currentLang] ?? '', 0, 160);
 		//$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
-		$image = $meta['image'] ?? '';
-		$imageOG = $meta['imageOG'] ?? $image;
+		$image = !empty($meta['image']) ? $this->link($meta['image']) : '';
+		$imageOG = !empty($meta['imageOG']) ? $this->link($meta['imageOG']) : $image;
 		$author = $meta['author'] ?? 'Maksuco.com';
 		$type = $meta['type'] ?? 'WebPage';
+		$icon = !empty($meta['icon']) ? $this->link($meta['icon']) : '';
 
-		$domainHost = parse_url($url)['host'] ?? '';
-		$imageHost = !empty($image) ? (parse_url($image)['host'] ?? '') : '';
+		$domainHost = parse_url($url, PHP_URL_HOST) ?: '';
+		$imageHost = !empty($image) ? (parse_url($image, PHP_URL_HOST) ?: '') : '';
 		$s3Dns = ($imageHost && $imageHost !== $domainHost) ? '<link rel="dns-prefetch" href="//'.$imageHost.'">' : "";
 		$robot = empty($meta['noindex'])? 'index, follow' : 'noindex, nofollow';
 
@@ -72,7 +73,7 @@ trait Metatags {
 		<meta name="description" content="'.$description.'">
 		<meta name="author" content="'.$author.'">
 		<meta name="google" content="notranslate">';
-		if(empty($meta['icon'])) {
+		if(empty($icon)) {
 			$metaTags .= '
 			<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
 			<link rel="icon" href="'.$url.'/favicon.ico">
@@ -83,27 +84,28 @@ trait Metatags {
 			';
 		} else {
 			$metaTags .= '
-			<link rel="shortcut icon" href="'.$meta['icon'].'">
-			<link rel="icon" href="'.$meta['icon'].'">
-			<link rel="apple-touch-icon" href="'.$meta['icon'].'">
-			<link rel="icon" type="image/png" href="'.$meta['icon'].'">
+			<link rel="shortcut icon" href="'.$icon.'">
+			<link rel="icon" href="'.$icon.'">
+			<link rel="apple-touch-icon" href="'.$icon.'">
+			<link rel="icon" type="image/png" href="'.$icon.'">
 			';
 		}
 
 		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
 		//ray('Metatags.php debug',$currentLang);
 		if(!empty($meta['slugs'])) {
-			$meta['canonical'] = rtrim($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang])), '/');
-			if(count($langs) > 1){
-				$default = $url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang];
+			$meta['canonical'] = rtrim($this->link($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang]))), '/');
+			if(count($langs) > 1) {
+				$default = rtrim($this->link($url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang]), '/');
 				$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
-				foreach($langs as $langKey){
-					$altUrl = $url.'/'.($prepent[$langKey] ?? '').$meta['slugs'][$langKey];
-					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.rtrim($altUrl, '/').'">';
+				foreach($langs as $langKey) {
+					$altUrl = rtrim($this->link($url.'/'.($prepent[$langKey] ?? '').$meta['slugs'][$langKey]), '/');
+					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.$altUrl.'">';
 				}
 			}
 		} else {
-			$meta['canonical'] ??= "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$meta['canonical'] ??= $this->link(($_SERVER['HTTP_HOST'] ?? '').($_SERVER['REQUEST_URI'] ?? ''));
+			$meta['canonical'] = $this->link($meta['canonical']);
 			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$meta['canonical'].'"/>';
 		}
 		$metaTags .= '<link rel="canonical" href="'.$meta['canonical'].'">';
