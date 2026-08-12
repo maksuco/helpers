@@ -95,9 +95,13 @@ trait Metatags {
 		//ray('Metatags.php debug',$currentLang);
 		if(!empty($meta['slugs'])) {
 			$meta['canonical'] = rtrim($this->link($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang]))), '/');
-			if(count($langs) > 1) {
+            if(!empty($meta['x-default'])){
+                $default = rtrim($this->link($url.'/'.$meta['x-default']), '/');
+            } else {
 				$default = rtrim($this->link($url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang]), '/');
-				$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
+            }
+            $metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
+			if(count($langs) > 1) {
 				foreach($langs as $langKey) {
 					$altUrl = rtrim($this->link($url.'/'.($prepent[$langKey] ?? '').$meta['slugs'][$langKey]), '/');
 					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.$altUrl.'">';
