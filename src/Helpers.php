@@ -1580,9 +1580,16 @@ HTML;
     public function pinterestshare($url, $title, $image = null)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $return = 'https://pinterest.com/pin/create/button/?url='.$url.'&description='.rawurlencode($title).'&media='.$image;
+        // http_build_query encodes media. An unencoded ?v= on the image is read as a
+        // second Pinterest query param, so pin-creation-tool gets no image.
+        $params = array_filter([
+            'url' => $url,
+            'media' => $image,
+            'description' => $title,
+            'title' => $title,
+        ], fn ($v) => $v !== null && $v !== '');
 
-        return $return;
+        return 'https://www.pinterest.com/pin/create/button/?'.http_build_query($params);
     }
 
     public function whatsappshare($url, $text = false)
