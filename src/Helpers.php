@@ -1580,11 +1580,11 @@ HTML;
     public function pinterestshare($url, $title, $image = null)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        // http_build_query encodes media. An unencoded ?v= on the image is read as a
-        // second Pinterest query param, so pin-creation-tool gets no image.
+        // http_build_query encodes media. Drop ?v= — Pinterest's fetcher 404s on
+        // cache-busters even when the bare file exists.
         $params = array_filter([
             'url' => $url,
-            'media' => $image,
+            'media' => $image ? preg_replace('/\?.*$/', '', $image) : $image,
             'description' => $title,
             'title' => $title,
         ], fn ($v) => $v !== null && $v !== '');
