@@ -703,6 +703,12 @@ $image is optional
   {{\Helpers::pinterestshare($url,$title,$image)}}
 ```
 
+### Snapchat Share
+Snapchat only accepts the link (no title/text)
+```php
+  {{\Helpers::snapchatshare($url)}}
+```
+
 ### Whatsapp Share
 ```php
   {{\Helpers::whatsappshare($url,$text)}}
