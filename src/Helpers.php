@@ -1592,6 +1592,13 @@ HTML;
         return 'https://www.pinterest.com/pin/create/button/?'.http_build_query($params);
     }
 
+    public function snapchatshare($url)
+    {
+        $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // Snapchat only takes the link — caption/sticker text is Creative Kit SDK only.
+        return 'https://www.snapchat.com/scan?'.http_build_query(['attachmentUrl' => $url]);
+    }
+
     public function whatsappshare($url, $text = false)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
