@@ -12,7 +12,11 @@ class HelpersServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/Extras/img' => public_path('vendor/maksuco'),
-            ], 'public');
+                __DIR__.'/Assets/icons' => public_path('vendor/maksuco/icons'),
+                __DIR__.'/Assets/flags' => public_path('vendor/maksuco/flags'),
+                __DIR__.'/Assets/icons.json' => public_path('vendor/maksuco/icons.json'),
+            // 'laravel-assets' is the tag the app's post-update-cmd publishes
+            ], ['public', 'laravel-assets']);
 
             // Optionally: auto-publish without user running vendor:publish manually
             $this->autoPublishAssets();
@@ -28,10 +32,43 @@ class HelpersServiceProvider extends ServiceProvider
         $source = __DIR__ . '/Assets/effects';
         $destination = public_path('vendor/maksuco/effects');
         $this->copyDirectory($source, $destination);
+        //icons + flags: referenced in place by the file picker, never re-uploaded
+        $this->publishIcons();
+    }
+
+    /**
+     * Sync icons/flags and the hand-maintained Assets/icons.json that indexes them.
+     * copyDirectory skips unchanged files, so repeat artisan calls are cheap.
+     */
+    protected function publishIcons()
+    {
+        $assets = __DIR__.'/Assets';
+        $public = public_path('vendor/maksuco');
+
+        $this->copyDirectory($assets.'/icons', $public.'/icons');
+        $this->copyDirectory($assets.'/flags', $public.'/flags');
+
+        // Add a new svg to Assets/icons or Assets/flags, then list it in icons.json
+        if (is_file($assets.'/icons.json')) {
+            $source = $assets.'/icons.json';
+            $destination = $public.'/icons.json';
+            if (!is_file($destination)
+                || filesize($destination) !== filesize($source)
+                || filemtime($destination) < filemtime($source)) {
+                if (!is_dir($public)) {
+                    mkdir($public, 0755, true);
+                }
+                copy($source, $destination);
+            }
+        }
     }
 
     protected function copyDirectory($source, $destination)
     {
+        if (! is_dir($source)) {
+            return;
+        }
+
         // Ensure the destination directory exists
         if (!is_dir($destination)) {
             mkdir($destination, 0755, true);
@@ -50,6 +87,12 @@ class HelpersServiceProvider extends ServiceProvider
                 // Recursively copy subdirectories
                 $this->copyDirectory($sourcePath, $destinationPath);
             } else {
+                // Skip files already identical — same size and not older than source
+                if (is_file($destinationPath)
+                    && filesize($destinationPath) === filesize($sourcePath)
+                    && filemtime($destinationPath) >= filemtime($sourcePath)) {
+                    continue;
+                }
                 // Copy files
                 copy($sourcePath, $destinationPath);
             }
