@@ -140,7 +140,11 @@
       $data = getIpFile($ip);
       $geo['city_name'] = $geo['location']['city_name'] = $data['city_name'];
       $geo['state_code'] = $geo['location']['state_isoCode'] = $data['state_code'];
-      $geo['timezone'] = $data['timezone'];
+      if(!empty($data['timezone'])) { $geo['timezone'] = $data['timezone']; } //never trade a good zone for an empty one
+    }
+    //a wrong zone inside the right country still beats false, which the db stores as 0
+    if(empty($geo['timezone'])) {
+      $geo['timezone'] = $geo['location']['timeZone'] = countryTimezone($country) ?? 'America/New_York';
     }
     if($optional == 'min') {
       return $geo;
@@ -177,6 +181,58 @@
     //ray($geo_data->city,$geo_data->location);
     return $geo;
     return json_decode(json_encode($geo));
+  }
+
+  //ip2location sends the offset as "+09:00", never a zone name, so it has to be converted
+  function timezoneOffsetSeconds($offset) {
+    if($offset === null || $offset === '') { return null; }
+    if(!preg_match('/^([+-]?)(\d{1,2})(?:([:.])(\d{1,2}))?$/', trim((string) $offset), $m)) { return null; }
+    $minutes = 0;
+    if(isset($m[4]) && $m[4] !== '') {
+      $minutes = ($m[3] == '.')
+        ? (int) round(('0.'.$m[4]) * 60) //"5.5" means 5h30
+        : (int) $m[4];                   //"05:30" means 5h30
+    }
+    $seconds = ((int) $m[2]) * 3600 + $minutes * 60;
+    return ($m[1] == '-') ? -$seconds : $seconds;
+  }
+
+  //[0] of the country list is alphabetical, so it lands on Adak for US and Ceuta for ES
+  function countryTimezoneDefault($code) {
+    $defaults = [
+      'AQ' => 'Antarctica/McMurdo', 'AU' => 'Australia/Sydney', 'BR' => 'America/Sao_Paulo',
+      'CA' => 'America/Toronto', 'CL' => 'America/Santiago', 'CY' => 'Asia/Nicosia',
+      'ES' => 'Europe/Madrid', 'FM' => 'Pacific/Pohnpei', 'GL' => 'America/Nuuk',
+      'KI' => 'Pacific/Tarawa', 'MH' => 'Pacific/Majuro', 'MN' => 'Asia/Ulaanbaatar',
+      'MX' => 'America/Mexico_City', 'PF' => 'Pacific/Tahiti', 'PG' => 'Pacific/Port_Moresby',
+      'PS' => 'Asia/Hebron', 'PT' => 'Europe/Lisbon', 'RU' => 'Europe/Moscow',
+      'US' => 'America/New_York', 'UZ' => 'Asia/Tashkent',
+    ];
+    return $defaults[$code] ?? null;
+  }
+
+  //last resort when maxmind has no city: any zone inside the right country beats a wrong/empty one
+  function countryTimezone($code, $offset = null) {
+    $code = strtoupper((string) $code);
+    if(strlen($code) != 2) { return null; }
+
+    $zones = \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, $code);
+    if(empty($zones)) { return null; }
+    if(count($zones) == 1) { return $zones[0]; }
+
+    $default = countryTimezoneDefault($code);
+
+    //an offset narrows a multi zone country down to the right side of it
+    $seconds = is_int($offset) ? $offset : timezoneOffsetSeconds($offset);
+    if($seconds !== null) {
+      $now = new \DateTime('now', new \DateTimeZone('UTC'));
+      //the capital is checked first so New York wins over Detroit on a shared offset
+      foreach (array_merge($default ? [$default] : [], $zones) as $zone) {
+        if((new \DateTimeZone($zone))->getOffset($now) == $seconds) { return $zone; }
+      }
+    }
+
+    return $default ?? $zones[0];
   }
 
   function getTimezone_range($code) {
@@ -217,7 +273,14 @@
       $prefix = explode('.', $ip)[0];
       $filePath = "ip-cache/{$prefix}";
       $cache = \BizHelpers::getFileDB($filePath, 'local') ?? [];
-      if (isset($cache[$ip])) { return $cache[$ip]; }
+      if (isset($cache[$ip])) {
+        //entries written before the timezone fix hold false, repair them instead of serving them
+        if (empty($cache[$ip]['timezone'])) {
+          $cache[$ip]['timezone'] = countryTimezone($cache[$ip]['country_code'] ?? null);
+          \BizHelpers::saveFileDB($filePath, $cache, 'local');
+        }
+        return $cache[$ip];
+      }
 
       // Fetch from API
       $ip2location = \Http::get('https://api.ip2location.io/?key=2B2886938EF4F4530B9F8F1DB048CDC4&ip='.$ip)->json();
@@ -233,7 +296,11 @@
               break;
           }
       }
-      $data['timezone'] = timezone_name_from_abbr('', intval($ip2location['time_zone']) * 3600, true);
+      //isDST=true returns false for every country without DST (Japan, India, most of Asia)
+      $offset = timezoneOffsetSeconds($ip2location['time_zone'] ?? null);
+      $data['timezone'] = countryTimezone($data['country_code'], $offset)
+        ?: ($offset === null ? null : timezone_name_from_abbr('', $offset, 0))
+        ?: null;
       $data['cached_at'] = time();
       $cache[$ip] = $data;
 

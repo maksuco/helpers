@@ -390,6 +390,35 @@ class Helpers
         return geoip2Laravel($ip, $optional);
     }
 
+    //forces a usable zone: the real one when known, otherwise any zone inside the same country
+    public function countryTimezone($country, $offset = null)
+    {
+        include_once 'Extras/geoip2.php';
+
+        return countryTimezone($country, $offset);
+    }
+
+    //guards a value on its way to a timezone column, false/'' would be stored as 0
+    //only an unusable value is replaced, a valid zone is kept even when it sits outside the country
+    public function safeTimezone($timezone, $country = null)
+    {
+        if (! empty($timezone) && in_array($timezone, \DateTimeZone::listIdentifiers(), true)) {
+            return $timezone;
+        }
+
+        return $this->countryTimezone($country) ?? 'America/New_York';
+    }
+
+    //true when the zone belongs to the country, for forms where the country field drives the zone
+    public function timezoneInCountry($timezone, $country)
+    {
+        if (empty($timezone) || empty($country)) {
+            return false;
+        }
+
+        return in_array($timezone, \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, strtoupper($country)), true);
+    }
+
     public function timezone($ip, $date)
     {
         $geo = \Helpers::geoip($ip);
