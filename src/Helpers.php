@@ -409,16 +409,6 @@ class Helpers
         return $this->countryTimezone($country) ?? 'America/New_York';
     }
 
-    //true when the zone belongs to the country, for forms where the country field drives the zone
-    public function timezoneInCountry($timezone, $country)
-    {
-        if (empty($timezone) || empty($country)) {
-            return false;
-        }
-
-        return in_array($timezone, \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, strtoupper($country)), true);
-    }
-
     public function timezone($ip, $date)
     {
         $geo = \Helpers::geoip($ip);
@@ -698,8 +688,10 @@ class Helpers
         }
 
         $countries = [];
-        foreach (json_decode(file_get_contents(__DIR__.'/Extras/countries_en.json'), true) as $row) {
-            $countries[$row['code']] = $row['name_en'];
+        if (! $country) { //the names are only needed when the list spans every country
+            foreach (json_decode(file_get_contents(__DIR__.'/Extras/countries_en.json'), true) as $row) {
+                $countries[$row['code']] = $row['name_en'];
+            }
         }
 
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -711,13 +703,15 @@ class Helpers
             $offset = $tz->getOffset($now);
             $location = $tz->getLocation();
             $code = $location ? $location['country_code'] : '??';
-            $label = $countries[$code] ?? $zone;
+            $name = str_replace('_', ' ', $zone);
+            //the country is already picked when it filters the list, repeating it on every row adds nothing
+            $label = $country ? $name : $name.' ('.($countries[$code] ?? $zone).')';
 
             $abs = abs($offset);
             $gmt = sprintf('(GMT%s%d:%02d)', $offset < 0 ? '-' : '+', intdiv($abs, 3600), intdiv($abs % 3600, 60));
 
             $offsets[$zone] = $offset;
-            $timezones[$zone] = $short ? "{$zone} ({$label})" : "{$gmt} {$zone} ({$label})";
+            $timezones[$zone] = $short ? $label : "{$gmt} {$label}";
         }
 
         if ($short) {
