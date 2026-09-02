@@ -686,20 +686,45 @@ class Helpers
         return $code;
     }
 
-    public function timezones($short = false)
+    public function timezones($short = false, $country = null)
     {
-        if (class_exists("Illuminate\Foundation\Application")) {
-            include_once base_path().'/vendor/maksuco/helpers/src/Extras/timezones.php';
-        } else {
-            include_once __DIR__.'/Extras/timezones.php';
-        }
-        if ($short) {
-            foreach ($timezones as $key => $value) {
-                $cleanedValue = preg_replace('/\(GMT[^)]*\) /', '', $value);
-                $cleanedTimezones[$key] = $cleanedValue;
+        if ($country) {
+            $zones = @\DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, strtoupper($country));
+            if (! $zones) {
+                return [];
             }
-            ksort($cleanedTimezones);
-            $timezones = $cleanedTimezones;
+        } else {
+            $zones = \DateTimeZone::listIdentifiers();
+        }
+
+        $countries = [];
+        foreach (json_decode(file_get_contents(__DIR__.'/Extras/countries_en.json'), true) as $row) {
+            $countries[$row['code']] = $row['name_en'];
+        }
+
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $timezones = [];
+        $offsets = [];
+
+        foreach ($zones as $zone) {
+            $tz = new \DateTimeZone($zone);
+            $offset = $tz->getOffset($now);
+            $location = $tz->getLocation();
+            $code = $location ? $location['country_code'] : '??';
+            $label = $countries[$code] ?? $zone;
+
+            $abs = abs($offset);
+            $gmt = sprintf('(GMT%s%d:%02d)', $offset < 0 ? '-' : '+', intdiv($abs, 3600), intdiv($abs % 3600, 60));
+
+            $offsets[$zone] = $offset;
+            $timezones[$zone] = $short ? "{$zone} ({$label})" : "{$gmt} {$zone} ({$label})";
+        }
+
+        if ($short) {
+            ksort($timezones);
+        } else {
+            asort($offsets);
+            $timezones = array_replace($offsets, $timezones);
         }
 
         return $timezones;
