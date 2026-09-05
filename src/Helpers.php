@@ -1604,7 +1604,8 @@ HTML;
     public function facebookshare($url, $title, $app_id = null)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $return = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).'&app_id='.$app_id;
+        $extra = (!empty($app_id))? '&app_id='.$app_id : '';
+        $return = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).$extra;
 
         return $return;
     }
@@ -1612,7 +1613,8 @@ HTML;
     public function twittershare($url, $title, $username = null)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $return = 'https://www.twitter.com/intent/tweet?url='.$url.'&text='.rawurlencode($title).'&via='.$username;
+        $extra = (!empty($username))? '&via='.$username : '';
+        $return = 'https://www.twitter.com/intent/tweet?url='.$url.'&text='.rawurlencode($title).$extra;
 
         return $return;
     }
@@ -1666,7 +1668,6 @@ HTML;
         $phone = str_replace([' ', '-', '(', ')'], '', $phone);
         $url = ($url and ! empty($url)) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $return = 'https://wa.me/'.$phone.'?text='.rawurlencode($text).$url;
-
         return $return;
     }
 
