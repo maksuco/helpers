@@ -680,9 +680,10 @@ Help with pre and code content
 $url can be null to automatically get the current url page
 
 ### Facebook Share
-$app_id is optional
+$app_id is optional. Pass `$app = true` for the native `fb://` share sheet (use a second `lg:hidden` button).
 ```php
   {{\Helpers::facebookshare($url,$title,$app_id)}}
+  {{\Helpers::facebookshare($url,$title,$app_id, true)}}
 ```
 
 ### Twitter Share
@@ -698,9 +699,10 @@ $username is optional
 ```
 
 ### Pinterest Share
-$image is optional
+$image is optional. Pass `$app = true` for the native `pinterest://` pin composer (use a second `lg:hidden` button).
 ```php
   {{\Helpers::pinterestshare($url,$title,$image)}}
+  {{\Helpers::pinterestshare($url,$title,$image, true)}}
 ```
 
 ### Snapchat Share

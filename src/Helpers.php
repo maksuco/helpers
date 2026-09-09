@@ -161,6 +161,22 @@ class Helpers
         return false;
     }
 
+    public function android(): bool
+    {
+        $agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+        return $agent !== '' && stripos($agent, 'android') !== false;
+    }
+
+    /**
+     * Chrome Android intent that opens the app, or the https composer if it is missing.
+     * iOS ignores intent:// — callers should keep pinterest:// / fb:// there.
+     */
+    protected function androidIntent(string $scheme, string $path, string $package, string $fallback): string
+    {
+        return 'intent://'.ltrim($path, '/').'#Intent;scheme='.$scheme.';package='.$package.';S.browser_fallback_url='.rawurlencode($fallback).';end';
+    }
+
     // CHECK IF VISITOR IS BOT
     public function botDetected($user_agent = false)
     {
@@ -1601,13 +1617,22 @@ HTML;
 
     // SOCIAL SHARING
 
-    public function facebookshare($url, $title, $app_id = null)
+    public function facebookshare($url, $title, $app_id = null, $app = false)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $extra = (!empty($app_id))? '&app_id='.$app_id : '';
-        $return = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).$extra;
+        $extra = (! empty($app_id)) ? '&app_id='.$app_id : '';
+        $web = 'https://www.facebook.com/sharer/sharer.php?u='.$url.'&t='.rawurlencode($title).$extra;
+        $path = 'share?link='.rawurlencode($url).'&quote='.rawurlencode((string) $title);
 
-        return $return;
+        if ($app || $this->mobile()) {
+            if ($this->android()) {
+                return $this->androidIntent('fb', $path, 'com.facebook.katana', $web);
+            }
+
+            return 'fb://'.$path;
+        }
+
+        return $web;
     }
 
     public function twittershare($url, $title, $username = null)
@@ -1627,7 +1652,7 @@ HTML;
         return $return;
     }
 
-    public function pinterestshare($url, $title, $image = null)
+    public function pinterestshare($url, $title, $image = null, $app = false)
     {
         $url = ($url) ? $url : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         // http_build_query encodes media. Drop ?v= — Pinterest's fetcher 404s on
@@ -1638,8 +1663,19 @@ HTML;
             'description' => $title,
             'title' => $title,
         ], fn ($v) => $v !== null && $v !== '');
+        $query = http_build_query($params);
+        $web = 'https://www.pinterest.com/pin/create/button/?'.$query;
+        $path = 'pin/create/bookmarklet/?'.$query;
 
-        return 'https://www.pinterest.com/pin/create/button/?'.http_build_query($params);
+        if ($app || $this->mobile()) {
+            if ($this->android()) {
+                return $this->androidIntent('pinterest', $path, 'com.pinterest', $web);
+            }
+
+            return 'pinterest://'.$path;
+        }
+
+        return $web;
     }
 
     public function snapchatshare($url)
