@@ -66,7 +66,7 @@ trait Metatags {
 
 		$metaTags = '
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="robots" content="'.$robot.'">
 		<link rel="dns-prefetch" href="//'.$domainHost.'">'.$s3Dns.'
 		<title>'.$title.'</title>
@@ -83,11 +83,19 @@ trait Metatags {
 			<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">
 			';
 		} else {
+			$iconExt = strtolower(pathinfo(parse_url($icon, PHP_URL_PATH) ?: '', PATHINFO_EXTENSION));
+			$iconType = match($iconExt) {
+				'svg' => 'image/svg+xml',
+				'jpg', 'jpeg' => 'image/jpeg',
+				'ico' => 'image/x-icon',
+				'webp' => 'image/webp',
+				default => 'image/png',
+			};
 			$metaTags .= '
 			<link rel="shortcut icon" href="'.$icon.'">
 			<link rel="icon" href="'.$icon.'">
 			<link rel="apple-touch-icon" href="'.$icon.'">
-			<link rel="icon" type="image/png" href="'.$icon.'">
+			<link rel="icon" type="'.$iconType.'" href="'.$icon.'">
 			';
 		}
 
