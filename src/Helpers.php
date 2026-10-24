@@ -1104,21 +1104,20 @@ class Helpers
     }
 
     // Because str_random doesn't work anymore
-    public function random($characters = 1, $numbers = null)
-    {
-        if ($numbers == null) {
-            $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        } elseif ($numbers) {
+    public function random($characters = 1, $numbers = null) {
+        if ($numbers === true) {
             $chars = '0123456789';
-        } else {
+        } elseif ($numbers === false) {
             $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        } else {
+            $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         }
-        $chars = ($numbers) ? '0123456789' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        $count = strlen($chars);
-        $bytes = random_bytes((int) $characters);
+
+        $charsLength = strlen($chars);
         $random = '';
-        foreach (str_split($bytes) as $byte) {
-            $random .= $chars[ord($byte) % $count];
+
+        for ($i = 0; $i < $characters; $i++) {
+            $random .= $chars[random_int(0, $charsLength - 1)];
         }
 
         return $random;
