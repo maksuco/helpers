@@ -1,0 +1,207 @@
+<?php
+namespace Maksuco\Helpers\Traits;
+
+trait Metatags {
+
+	function vite($entry) {
+		static $manifest;
+		static $config;
+
+		if (!$manifest) {
+			$manifestPath = $_SERVER['DOCUMENT_ROOT'].'/assets/build/manifest.json';
+			$manifest = json_decode(file_get_contents($manifestPath), true);
+			// if(isset(config('app.env')) && config('app.env') === 'local') {
+			// 	$path = '/assets/css/';
+			// } else {
+			// 	$path = '/assets/build/';
+			// }
+		}
+
+		// allow lookup by "name" (frontend, frontend-css)
+		foreach ($manifest as $item) {
+			if (($item['name'] ?? null) === $entry) {
+				$file = $item['file'];
+
+				return str_ends_with($file, '.css')
+					? '<link rel="stylesheet" href="/assets/build/'.$file.'">'
+					: '<script type="module" src="/assets/build/'.$file.'"></script>';
+			}
+		}
+
+		// fallback: direct key (assets/js/stak.js)
+		if (isset($manifest[$entry])) {
+			$file = $manifest[$entry]['file'];
+
+			return str_ends_with($file, '.css')
+				? '<link rel="stylesheet" href="/assets/build/'.$file.'">'
+				: '<script type="module" src="/assets/build/'.$file.'"></script>';
+		}
+
+		return '';
+	}
+	// $meta['metatags']['title'] or $meta['title']
+	// $meta['metatags']['description'] or ...
+	// $meta['domain']
+	// $meta['image']
+	function metatags($meta, $currentLang, $langs): string
+	{
+    	$meta = json_decode(json_encode($meta), true);
+		$domain = $meta['domain'] ?? config('app.url') ?? ''; // Full URL https://maksuco.com
+		$url = $domain !== '' ? rtrim($this->link($domain), '/') : '';
+		$mainLang = current($langs);
+
+		$title = trim(substr($meta['title'] ?? $meta['metatags']['title'][$currentLang] ?? '', 0, 60));
+		$description = substr($meta['description'] ?? $meta['metatags']['description'][$currentLang] ?? '', 0, 160);
+		//$keywords = substr($meta['keywords'] ?? $meta['metatags']['keywords'][$currentLang] ?? '', 0, 160);
+		$image = !empty($meta['image']) ? $this->link($meta['image']) : '';
+		$imageOG = !empty($meta['imageOG']) ? $this->link($meta['imageOG']) : $image;
+		$author = $meta['author'] ?? 'Maksuco.com';
+		$type = $meta['type'] ?? 'WebPage';
+		$icon = !empty($meta['icon']) ? $this->link($meta['icon']) : '';
+
+		$domainHost = parse_url($url, PHP_URL_HOST) ?: '';
+		$imageHost = !empty($image) ? (parse_url($image, PHP_URL_HOST) ?: '') : '';
+		$s3Dns = ($imageHost && $imageHost !== $domainHost) ? '<link rel="dns-prefetch" href="//'.$imageHost.'">' : "";
+		$robot = empty($meta['noindex'])? 'index, follow' : 'noindex, nofollow';
+
+		$metaTags = '
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="'.$robot.'">
+		<link rel="dns-prefetch" href="//'.$domainHost.'">'.$s3Dns.'
+		<title>'.$title.'</title>
+		<meta name="description" content="'.$description.'">
+		<meta name="author" content="'.$author.'">
+		<meta name="google" content="notranslate">';
+		if(empty($icon)) {
+			$metaTags .= '
+			<link rel="shortcut icon" href="'.$url.'/assets/favicon/favicon.png">
+			<link rel="icon" href="'.$url.'/favicon.ico">
+			<link rel="apple-touch-icon" href="'.$url.'/assets/favicon/apple-touch-icon.png">
+  	  	    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.png">
+			<link rel="icon" type="image/png" href="'.$url.'/assets/favicon/favicon.png">
+			<link rel="icon" type="image/svg+xml" href="'.$url.'/assets/favicon/favicon.svg">
+			';
+		} else {
+			$iconExt = strtolower(pathinfo(parse_url($icon, PHP_URL_PATH) ?: '', PATHINFO_EXTENSION));
+			$iconType = match($iconExt) {
+				'svg' => 'image/svg+xml',
+				'jpg', 'jpeg' => 'image/jpeg',
+				'ico' => 'image/x-icon',
+				'webp' => 'image/webp',
+				default => 'image/png',
+			};
+			$metaTags .= '
+			<link rel="shortcut icon" href="'.$icon.'">
+			<link rel="icon" href="'.$icon.'">
+			<link rel="apple-touch-icon" href="'.$icon.'">
+			<link rel="icon" type="'.$iconType.'" href="'.$icon.'">
+			';
+		}
+
+		$prepent = $meta['slugsPrepend'] ?? []; //sample 'en'=>'services/'
+		//ray('Metatags.php debug',$currentLang);
+		if(!empty($meta['slugs'])) {
+			$meta['canonical'] = rtrim($this->link($url.'/'.($meta['canonical'] ?? (($prepent[$currentLang] ?? '').$meta['slugs'][$currentLang]))), '/');
+            if(!empty($meta['x-default'])){
+                $default = rtrim($this->link($url.'/'.$meta['x-default']), '/');
+            } else {
+				$default = rtrim($this->link($url.'/'.($prepent[$mainLang] ?? '').$meta['slugs'][$mainLang]), '/');
+            }
+            $metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$default.'"/>';
+			if(count($langs) > 1) {
+				foreach($langs as $langKey) {
+					$altUrl = rtrim($this->link($url.'/'.($prepent[$langKey] ?? '').$meta['slugs'][$langKey]), '/');
+					$metaTags .= '<link rel="alternate" hreflang="'.$langKey.'" href="'.$altUrl.'">';
+				}
+			}
+		} else {
+			$meta['canonical'] ??= $this->link(($_SERVER['HTTP_HOST'] ?? '').($_SERVER['REQUEST_URI'] ?? ''));
+			$meta['canonical'] = $this->link($meta['canonical']);
+			$metaTags .= '<link rel="alternate" hreflang="x-default" href="'.$meta['canonical'].'"/>';
+		}
+		$metaTags .= '<link rel="canonical" href="'.$meta['canonical'].'">';
+
+		$twitterMetaTags = '
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="'.$title.'">
+		<meta name="twitter:description" content="'.$description.'">
+		<meta name="twitter:image" content="'.$imageOG.'">
+		<meta property="twitter:url" content="'.$meta['canonical'].'">';
+
+		$ogMetaTags = '
+		<meta property="og:type" content="'.strtolower($type).'">
+		<meta property="og:title" content="'.$title.'">
+		<meta property="og:description" content="'.$description.'">
+		<meta property="og:image" content="'.$imageOG.'">
+		<meta property="og:url" content="'.$meta['canonical'].'">';
+
+		// Optional JSON-LD data
+		$jsonLd = [
+			"@context" => "https://schema.org",
+			"@type" => $type,
+			"name" => ucfirst($meta['name'] ?? config('app.name') ?? str_replace("www.", "", parse_url($url, PHP_URL_HOST))),
+			"headline" => $title,
+			"description" => $description,
+			"image" => $image,
+			"url" => $meta['canonical'],
+			"inLanguage" => $currentLang
+		];
+		if(!empty($local)) {
+			$jsonLd["address"] = [
+				"@type" => "PostalAddress",
+				"streetAddress"  => $local["street"],
+				"addressLocality"  => $local["city"],
+				"addressRegion"  => $local["state"]
+			];
+			if(!empty($local["postalCode"])) {
+				$jsonLd["address"]["postalCode"] = $local["zip"];
+			}
+			if($local["country"]) {
+				$jsonLd["address"]["addressCountry"] = $local["country"];
+			}
+			if($geo) {
+				$jsonLd["geo"] = [
+					"@type" => "GeoCoordinates",
+					"latitude" => $geo["lat"],
+					"longitude" => $geo["long"]
+				];
+			}
+		}
+		if(!empty($meta["jsExtras"])) {
+			$jsonLd = array_merge($jsonLd, $meta["jsExtras"]);
+		}
+		if(!empty($meta["phone"])) {
+			$jsonLd["telephone"] = (string) $meta["phone"];
+		}
+		$jsonLdString = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		$jsonLdScript = '<script type="application/ld+json">'.$jsonLdString.'</script>';
+
+		if (!empty($meta['faqs'])) {
+			$faqLd = [
+				"@context" => "https://schema.org",
+				"@type" => "FAQPage",
+				"mainEntity" => []
+			];
+			foreach ($meta['faqs'] as $faq) {
+				if (!empty($faq['question']) && !empty($faq['answer'])) {
+					$faqLd["mainEntity"][] = [
+						"@type" => "Question",
+						"name" => $faq['question'],
+						"acceptedAnswer" => [
+							"@type" => "Answer",
+							"text" => $faq['answer']
+						]
+					];
+				}
+			}
+			if (!empty($faqLd["mainEntity"])) {
+				$jsonLdScript .= '<script type="application/ld+json">'.json_encode($faqLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT).'</script>';
+			}
+		}
+
+		$metaTags .= $twitterMetaTags . $ogMetaTags . $jsonLdScript;
+		return trim(preg_replace('/\s+/', ' ', $metaTags));
+	}
+
+}
