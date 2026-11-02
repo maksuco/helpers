@@ -218,7 +218,7 @@ trait Metatags {
 		}
 
 		// Open Graph
-		$localeMap = array_merge(['en' => 'en_US', 'es' => 'es_ES', 'pt' => 'pt_BR', 'fr' => 'fr_FR', 'de' => 'de_DE', 'it' => 'it_IT'], is_array($meta['locales'] ?? null) ? $meta['locales'] : []);
+		$localeMap = array_merge(['en' => 'en_US', 'es' => 'es_ES', 'pt' => 'pt_BR', 'fr' => 'fr_FR', 'de' => 'de_DE', 'it' => 'it_IT', 'ru' => 'ru_RU', 'ar' => 'ar_AR', 'hi' => 'hi_IN', 'bn' => 'bn_IN', 'ja' => 'ja_JP', 'ko' => 'ko_KR', 'zh' => 'zh_CN'], is_array($meta['locales'] ?? null) ? $meta['locales'] : []);
 		$toLocale = function ($lang) use ($localeMap) {
 			$lang = (string) $lang;
 			if (isset($localeMap[$lang])) {
