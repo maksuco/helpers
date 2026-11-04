@@ -90,6 +90,12 @@ trait Metatags {
 		return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', false);
 	}
 
+	/** Laravel's config(), or null on sites that only use standalone illuminate/view. */
+	function metaConfig(string $key)
+	{
+		return function_exists('config') ? config($key) : null;
+	}
+
 	// $meta['metatags']['title'] or $meta['title']
 	// $meta['metatags']['description'] or ...
 	// $meta['domain']
@@ -100,10 +106,10 @@ trait Metatags {
 	{
     	$meta = json_decode(json_encode($meta), true) ?: [];
 		$langs = is_array($langs) ? array_values($langs) : [];
-		$domain = $meta['domain'] ?? config('app.url') ?? ''; // Full URL https://maksuco.com
+		$domain = $meta['domain'] ?? $this->metaConfig('app.url') ?? ''; // Full URL https://maksuco.com
 		$url = $domain !== '' ? rtrim($this->link($domain), '/') : '';
 		$mainLang = current($langs);
-		$appName = (string) (config('app.name') ?? '');
+		$appName = (string) ($this->metaConfig('app.name') ?? '');
 		$siteName = (string) ($meta['siteName'] ?? $appName); // og:site_name, e.g. a customer's brand on a custom domain
 
 		$titleText = $this->metaText($meta['title'] ?? $meta['metatags']['title'][$currentLang] ?? '', 60);
@@ -202,7 +208,7 @@ trait Metatags {
 		$metaTags .= '<link rel="canonical" href="'.$canonical.'">';
 
 		// Twitter
-		$twitterSite = $meta['twitterSite'] ?? config('app.twitter') ?? '';
+		$twitterSite = $meta['twitterSite'] ?? $this->metaConfig('app.twitter') ?? '';
 		$twitterSite = is_string($twitterSite) ? trim($twitterSite) : '';
 		if ($twitterSite !== '' && !str_starts_with($twitterSite, '@')) {
 			$twitterSite = '@'.ltrim(preg_replace('~^https?://(www\.)?(twitter|x)\.com/~i', '', $twitterSite), '@/');
@@ -311,14 +317,14 @@ trait Metatags {
 		// Site-level schema (Organization + WebSite): opt-in with $meta['siteSchema'],
 		// or automatic on the app's own homepage (canonical is the root of config('app.url')
 		// host, or the page's main-language slug is the root, e.g. "/" + "/inicio").
-		$appHost = strtolower((string) (parse_url($this->link((string) (config('app.url') ?? '')), PHP_URL_HOST) ?: ''));
+		$appHost = strtolower((string) (parse_url($this->link((string) ($this->metaConfig('app.url') ?? '')), PHP_URL_HOST) ?: ''));
 		$canonicalHost = strtolower((string) (parse_url($meta['canonical'], PHP_URL_HOST) ?: ''));
 		$canonicalPath = trim((string) (parse_url($meta['canonical'], PHP_URL_PATH) ?? ''), '/');
 		$isAppHost = $appHost !== '' && $canonicalHost !== '' && preg_replace('/^www\./', '', $canonicalHost) === preg_replace('/^www\./', '', $appHost);
 		$isHome = $isAppHost && ($canonicalPath === '' || (!empty($meta['slugs']) && $mainLang !== false && trim((string) ($meta['slugs'][$mainLang] ?? 'x'), '/') === '' && empty($prepent[$mainLang])));
 		if (!empty($meta['siteSchema']) || ($isHome && !array_key_exists('siteSchema', $meta))) {
 			$siteUrl = $url !== '' ? $url : rtrim($this->link($canonicalHost), '/');
-			$sameAs = $meta['sameAs'] ?? config('app.social');
+			$sameAs = $meta['sameAs'] ?? $this->metaConfig('app.social');
 			$sameAs = is_array($sameAs) ? array_values(array_filter($sameAs, fn ($v) => is_string($v) && $v !== '')) : [];
 			$organization = [
 				"@type" => "Organization",
