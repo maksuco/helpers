@@ -307,6 +307,19 @@ trait Metatags {
 		if(!empty($meta["jsExtras"]) && is_array($meta["jsExtras"])) {
 			$jsonLd = array_merge($jsonLd, $meta["jsExtras"]);
 		}
+		// Google rejects a ProfilePage without a mainEntity. Only the page's own name or
+		// username: the app name fallback above would name the site as the person.
+		if(($jsonLd["@type"] ?? '') === 'ProfilePage' && empty($jsonLd["mainEntity"])) {
+			$username = is_string($meta['username'] ?? null) ? ltrim(trim($meta['username']), '@') : '';
+			$personName = is_string($meta['name'] ?? null) && trim($meta['name']) !== '' ? trim($meta['name']) : $username;
+			if($personName !== '') {
+				$jsonLd["mainEntity"] = array_filter([
+					"@type" => "Person",
+					"name" => $personName,
+					"alternateName" => $username,
+				], fn ($v) => $v !== '');
+			}
+		}
 		if(!empty($meta["phone"])) {
 			$jsonLd["telephone"] = (string) $meta["phone"];
 		}
