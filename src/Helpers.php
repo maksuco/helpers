@@ -373,17 +373,20 @@ class Helpers
     // https://chrisblackwell.me/generate-perfect-initials-using-php/
     public function initials(string $fullname): string
     {
-        $fullname = ltrim($fullname, ' ');
-        $nameParts = explode(' ', $fullname);
-        if (count($nameParts) >= 2) {
-            return strtoupper(substr($nameParts[0], 0, 1).substr(end($nameParts), 0, 1));
+        $parts = preg_split('/\s+/u', trim($fullname), -1, PREG_SPLIT_NO_EMPTY);
+        if (empty($parts)) {
+            return '';
         }
-        preg_match_all('#([A-Z]+)#', $nameParts, $capitals);
-        if (count($capitals[1]) >= 2) {
-            return substr(implode('', $capitals[1]), 0, 2);
+        if (count($parts) >= 2) {
+            return mb_strtoupper(mb_substr($parts[0], 0, 1).mb_substr(end($parts), 0, 1));
+        }
+        // One word: its capitals (McSwain → MS), else its first two letters
+        preg_match_all('/\p{Lu}/u', $parts[0], $capitals);
+        if (count($capitals[0]) >= 2) {
+            return implode('', array_slice($capitals[0], 0, 2));
         }
 
-        return strtoupper(substr($nameParts, 0, 2));
+        return mb_strtoupper(mb_substr($parts[0], 0, 2));
     }
 
     public function geoip($ip, $optional = 'city', $key = null)
@@ -914,58 +917,46 @@ class Helpers
         }
     }
 
-    // GetAvatar
+    // GetAvatar: the stored avatar's url, or an initials svg. Never calls out to the network,
+    // Gravatar is fetched once when the user is created and stored like an upload (BizHelpers FetchAvatar job).
     public function avatar($user, $s3 = null)
     {
-
-        // IF EMPTY
-        if (empty($user) or $user == null) {
-            $imagedata = file_get_contents(__DIR__.'/Extras/img/avatar.png');
-
-            return 'data:image/png;base64,'.base64_encode($imagedata);
+        if (empty($user)) {
+            return $this->avatarInitials('');
         }
         if (is_array($user)) {
             $user = json_decode(json_encode($user), false);
         }
-        // IF USER AVATAR
-        if (! empty($user->avatar) and $user->avatar != null) {
-            // if avatar is facebook or google
+        if (! empty($user->avatar)) {
+            // Absolute urls (old facebook or google links) as they are
             if (strpos($user->avatar, 'http') === 0) {
                 return $user->avatar;
             }
             $server = $s3 ?? $user->server ?? 's3';
 
-            // ray('avatar',$server,$s3,config('app.avatar_path'));
             return \Storage::disk($server)->url(config('bizhelpers.avatar_path').$user->avatar);
         }
-        // IF GRAVATAR
-        if (! empty($user->email) and $user->email != null) {
-            $gravatar = md5(strtolower(trim($user->email)));
-            $gravatar = @file_get_contents("https://s.gravatar.com/avatar/$gravatar?d=404");
-            if (! $gravatar) {
-                $imagedata = file_get_contents(__DIR__.'/Extras/img/avatar.png');
 
-                return 'data:image/png;base64,'.base64_encode($imagedata);
-            } else {
-                return 'data:image/png;base64,'.base64_encode($gravatar);
-                // return "https://s.gravatar.com/avatar/$gravatar";
-            }
-        }
-        // IF SEX
-        if (isset($user->sex)) {
-            if ($user->sex == 'f') {
-                $imagedata = file_get_contents(__DIR__.'/Extras/img/avatar.png');
+        return $this->avatarInitials($user->name ?? '', $user->email ?? '');
+    }
 
-                return 'data:image/png;base64,'.base64_encode($imagedata);
-            } else {
-                $imagedata = file_get_contents(__DIR__.'/Extras/img/avatar.png');
+    // Initials on a color picked from the email (or name), as a small svg data uri
+    public function avatarInitials(?string $name, ?string $seed = null): string
+    {
+        $name = trim((string) $name);
+        $initials = $name !== '' ? $this->initials($name) : '';
+        $initials = $initials !== '' ? $initials : '?';
+        $colors = ['#2563eb', '#7c3aed', '#db2777', '#dc2626', '#ea580c', '#ca8a04', '#16a34a', '#0d9488', '#0891b2', '#4f46e5', '#9333ea', '#475569'];
+        $seed = strtolower(trim((string) ($seed ?: $name)));
+        $color = $colors[hexdec(substr(md5($seed), 0, 6)) % count($colors)];
+        $text = htmlspecialchars($initials, ENT_QUOTES | ENT_XML1, 'UTF-8');
+        $size = mb_strlen($initials) > 1 ? 40 : 46;
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">'
+            .'<rect width="128" height="128" fill="'.$color.'"/>'
+            .'<text x="50%" y="50%" dy=".35em" text-anchor="middle" fill="#fff" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="'.$size.'" font-weight="600">'.$text.'</text>'
+            .'</svg>';
 
-                return 'data:image/png;base64,'.base64_encode($imagedata);
-            }
-        }
-        $imagedata = file_get_contents(__DIR__.'/Extras/img/avatar.png');
-
-        return 'data:image/png;base64,'.base64_encode($imagedata);
+        return 'data:image/svg+xml;base64,'.base64_encode($svg);
     }
 
     public function lettersToNumbers($string, $phone = false)
