@@ -891,6 +891,24 @@ class Helpers
         return $file;
     }
 
+    /**
+     * A brand's own logo, in its colours, from Assets/brands (inline svg), or '' when
+     * there is none. $class / $extras go on the <svg>, as in icon(). Only for files
+     * without a <style> block: two inlined copies would share its class names.
+     */
+    public function brand($name, $class = false, $extras = '')
+    {
+        $file = @file_get_contents(__DIR__.'/Assets/brands/'.basename((string) $name).'.svg');
+        if (! $file) {
+            return '';
+        }
+        if ($class || $extras) {
+            $file = preg_replace('/<svg\b/', '<svg'.($class ? ' class="'.$class.'"' : '').($extras ? ' '.$extras : ''), $file, 1);
+        }
+
+        return $file;
+    }
+
     public function flag($name)
     {
         $file = @file_get_contents(__DIR__.'/Assets/flags/'.strtolower($name).'.svg');
@@ -937,18 +955,16 @@ class Helpers
             return \Storage::disk($server)->url(config('bizhelpers.avatar_path').$user->avatar);
         }
 
-        return $this->avatarInitials($user->name ?? '', $user->email ?? '');
+        return $this->avatarInitials($user->name ?? '');
     }
 
-    // Initials on a color picked from the email (or name), as a small svg data uri
-    public function avatarInitials(?string $name, ?string $seed = null): string
+    // Initials on the app's brand color (config app.color), as a small svg data uri
+    public function avatarInitials(?string $name): string
     {
         $name = trim((string) $name);
         $initials = $name !== '' ? $this->initials($name) : '';
         $initials = $initials !== '' ? $initials : '?';
-        $colors = ['#2563eb', '#7c3aed', '#db2777', '#dc2626', '#ea580c', '#ca8a04', '#16a34a', '#0d9488', '#0891b2', '#4f46e5', '#9333ea', '#475569'];
-        $seed = strtolower(trim((string) ($seed ?: $name)));
-        $color = $colors[hexdec(substr(md5($seed), 0, 6)) % count($colors)];
+        $color = htmlspecialchars(config('app.color') ?: '#2a62a1', ENT_QUOTES | ENT_XML1, 'UTF-8');
         $text = htmlspecialchars($initials, ENT_QUOTES | ENT_XML1, 'UTF-8');
         $size = mb_strlen($initials) > 1 ? 40 : 46;
         $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">'
